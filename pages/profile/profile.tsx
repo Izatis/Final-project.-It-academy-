@@ -12,7 +12,7 @@ import Loading from "../../components/Loading/Loading";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
-import avatar from "../../public/design.png";
+import avatar from "../../public/avatar.jpeg";
 
 const Profile = () => {
   // Данные пользователя
@@ -39,12 +39,13 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    // Достаем токен пользователя
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
 
     // Отправляет get запрос для получения пользователя
     const getUser = async (): Promise<void> => {
-      const BASE_URL = "http://localhost:8080";
+      const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
       try {
         setIsLoading(false);

@@ -4,8 +4,8 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 23322;
-  top: 88.95px;
+  z-index: 20;
+  top: 55px;
   right: 0;
   transform: translateX(-150%);
   transition: all 0.3s;
@@ -29,13 +29,20 @@
 
     .menu__header {
       width: 100%;
-      font-weight: 400;
-      @include adaptive-value("font-size", 30, 15);
-              line-height: 130%;
-      color: #03d665;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #7329c2;
       padding: 10px;
-      border-bottom: 1px solid #03d665;
+      box-sizing: border-box;
+
+      h2 {
+        font-weight: 400;
+        @include adaptive-value("font-size", 30, 15);
+        line-height: 130%;
+        color: #7329c2;
+      }
     }
 
     .menu__list li {
@@ -45,7 +52,8 @@
     .menu__list li a {
       font-weight: 400;
       @include adaptive-value("font-size", 18, 10);
-              line-height: 130%;
+      line-height: 130%;
+      color: #03d665;
     }
   }
 }

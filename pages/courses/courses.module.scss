@@ -1,0 +1,45 @@
+@import "../../styles/varibales.module.scss";
+  
+.courses{
+    @include centering();
+    // background-color: black;
+
+    aside{
+
+    }
+
+    .hero__list{
+        li {
+            h3 {
+              font-weight: 700;
+              @include adaptive-value("font-size", 25, 12);
+              line-height: 130%;
+              color: #1c1d1f;
+            }
+          }
+
+          .courses__desciption {
+            font-weight: 400;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #1c1d1f;
+          }
+
+          .courses__creator {
+            font-weight: 400;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #6a6f73;
+          }
+
+          .courses__duration {
+            font-weight: 400;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #6a6f73;
+          }
+
+    }
+
+}
+
