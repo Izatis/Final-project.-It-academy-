@@ -47,13 +47,11 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
   // Жизненный цикл изменяет цвет и позицию линии
   useEffect(() => {
     const handleScroll = (): void => {
-      if (window.scrollY === 0) {
-        if (!menuActive) {
-          // if( ){
-          setIsHeaderActive(false);
-          // }
+        if (window.scrollY === 0) {
+          if (!menuActive) {
+            setIsHeaderActive(false);
+          }
         }
-      }
 
       if (window.scrollY > 1 && blockRefFirst.current) {
         setIsHeaderActive(true);
@@ -102,9 +100,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
   }, []);
 
   return (
-    <header
-      className={isHeaderActive ? cn(s.header, s.headerActive) : s.header}
-    >
+    <header className={cn(s.header, { [s.active]: isHeaderActive })}>
       <nav className={s.header__nav}>
         {pathname === "/" ? (
           <>

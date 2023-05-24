@@ -4,6 +4,7 @@ import s from "./SideBar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import cn from "classnames";
+import Translate from "../Translate/Translate";
 
 interface IMenuProps {
   menuActive: boolean;
@@ -15,7 +16,7 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
   const { pathname } = useRouter();
   return (
     <div
-      className={menuActive ? cn(s.menu, s.active) : s.menu}
+      className={cn(s.menu, { [s.active]: menuActive })}
       onClick={() => setMenuActive(!menuActive)}
     >
       <div className={s.blur}></div>
@@ -23,6 +24,7 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
         <header className={s.menu__header}>
           <h2>Menu</h2>
+          <Translate />
         </header>
         {pathname === "/" ? (
           <ul className={s.menu__list}>

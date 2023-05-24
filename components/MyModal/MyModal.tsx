@@ -16,6 +16,7 @@ const MyModal: FC<IMyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
 
   // Функции - для смены url
   const handleClick = (locale: string) => {
+    setIsModalOpen(!isModalOpen);
     if (pathname === "/signUp/signUp") {
       push("/signUp/signUp", "/signUp/signUp", { locale });
     } else if (pathname === "/signIn/signIn") {
@@ -38,7 +39,7 @@ const MyModal: FC<IMyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
       title="Выбрать язык"
       open={isModalOpen}
       footer={null}
-      onCancel={() => setIsModalOpen(false)}
+      onCancel={() => setIsModalOpen(!isModalOpen)}
     >
       <Row justify="center" gutter={[20, 30]} style={{ padding: 10 }}>
         <Col xs={24} sm={12} md={8}>

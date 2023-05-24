@@ -4,7 +4,7 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
-  z-index: 23322;
+  z-index: 20;
   top: 55px;
   right: 0;
   transform: translateX(-150%);
@@ -29,6 +29,10 @@
 
     .menu__header {
       width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
       border-bottom: 1px solid #7329c2;
       padding: 10px;
       box-sizing: border-box;
@@ -38,7 +42,6 @@
         @include adaptive-value("font-size", 30, 15);
         line-height: 130%;
         color: #7329c2;
-        text-align: center;
       }
     }
 

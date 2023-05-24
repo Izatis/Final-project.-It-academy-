@@ -3,7 +3,7 @@
 .header {
   width: 100%;
   position: fixed;
-  z-index: 11;
+  z-index: 10;
   top: 5%;
   transition: 0.3s;
 
@@ -23,6 +23,7 @@
     transition: 1s;
 
     .header__logo {
+      @include adaptive-value("width", 50, 30);
       @include adaptive-value("font-size", 50, 30);
       color: #7329c2;
     }
@@ -65,7 +66,7 @@
   }
 }
 
-.headerActive {
+.active {
   top: 0;
   background: #ffffff;
   box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
@@ -97,8 +98,15 @@
     .header__nav {
       height: 55px;
       padding: 0 5%;
+
       .header__list {
         display: none;
+      }
+
+      .header__buttons {
+        & :nth-child(2) {
+          display: none;
+        }
       }
     }
   }

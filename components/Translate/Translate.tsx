@@ -10,14 +10,15 @@ import MyButton from "../MUI/MyButton/MyButton";
 const Translate: FC = () => {
   // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   return (
-    <div className={s.header__languageButton}>
+    <div className={s.translate}>
       <MyModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
       <MyButton
         background="#7329c2"
         hoverBackground="#03d665"
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsModalOpen(!isModalOpen)}
       >
         <FontAwesomeIcon icon={faGlobe} />
       </MyButton>

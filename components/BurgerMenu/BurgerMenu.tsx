@@ -23,7 +23,7 @@ const BurgerMenu: FC<IBurgerMenu> = ({
 
   return (
     <div className={s.container} onClick={handleClick}>
-      <div className={menuActive ? cn(s.burgerMenu, s.active) : s.burgerMenu}>
+      <div className={cn(s.burgerMenu, { [s.active]: menuActive })}>
         <span></span>
       </div>
     </div>
