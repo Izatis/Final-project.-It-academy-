@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, useState } from "react";
 
 import Header from "../Header/Header";
-import Menu from "../Menu/Menu";
+import Menu from "../SideBar/SideBar";
 import Footer from "../Footer/Footer";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {

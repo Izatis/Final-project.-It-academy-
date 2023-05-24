@@ -37,7 +37,7 @@ const SignIn: FC = () => {
   // Отправляем post запрос
   const handleSubmit = async (value: IUserLogin) => {
     setLoading(true);
-    const BASE_URL = "http://localhost:8080";
+    const BASE_URL = "spring-boot-online-platform.herokuapp.com";
 
     try {
       const { data }: AxiosResponse<{ token: string }> = await axios.post(

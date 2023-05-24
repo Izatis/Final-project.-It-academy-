@@ -5,7 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import design from "../../public/design.png";
 
-export const categories = [
+interface ICategories {
+  id: number;
+  name: string;
+  image: any;
+}
+
+export const categories: ICategories[] = [
   {
     id: 1,
     name: "Дизайн",

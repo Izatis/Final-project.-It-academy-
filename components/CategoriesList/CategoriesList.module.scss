@@ -2,7 +2,6 @@
 
 .categories {
   @include centering();
-  margin: 0 auto;
 
   h2 {
     font-weight: 700;
@@ -14,6 +13,7 @@
 
   &__list {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 
     .categories__item {

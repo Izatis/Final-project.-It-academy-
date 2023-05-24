@@ -33,7 +33,7 @@ const PasswordRecovery: FC = () => {
     console.log(value);
 
     setLoading(true);
-    const BASE_URL = "http://localhost:8080";
+    const BASE_URL = "spring-boot-online-platform.herokuapp.com";
     const params = {
       param1: value,
     };

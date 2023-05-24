@@ -12,13 +12,6 @@ import MySelect from "@/components/MUI/MySelect/MySelect";
 import { useRouter } from "next/router";
 import { categories } from "@/components/CategoriesList/CategoriesList";
 
-interface IData {
-  name: string;
-  description: string;
-  price: number;
-  language: string;
-}
-
 export default function () {
   // Состояние - для карточек
   const [cardsData, setCardsData] = useState<ICards[]>(cards);
@@ -36,21 +29,6 @@ export default function () {
       setCategory(category);
     }
   }, []);
-
-  // Функция - при каждом изменении рейтинга
-  const handleChange = (newRating: number) => {
-    setRating(newRating);
-  };
-
-  // Функция - при клике рейтинга
-  const handleClick = (event: any, id: number) => {
-    event.preventDefault();
-    setCardsData(
-      cardsData.map((card) =>
-        card.id === id ? { ...card, rating: rating } : card
-      )
-    );
-  };
 
   // Отправляем get запрос для карточек
   const getCard = async () => {
@@ -105,25 +83,17 @@ export default function () {
                   <li>
                     <h3>{card.name}</h3>
                   </li>
-                  <li>
-                    <p className={s.card__desciption}>{card.description}</p>
-                  </li>
-                  <li>
-                    <p className={s.card__creator}>{card.creator}</p>
-                  </li>
-                  <li>
+                  <li className={s.card__desciption}>{card.description}</li>
+                  <li className={s.card__creator}>{card.creator}</li>
+                  <li onClick={(e) => e.preventDefault()}>
                     <pre>{card.price} </pre>
-                    <span onClick={(event) => handleClick(event, card.price)}>
-                      <Rating value={card.price} onChange={handleChange} />
-                    </span>
+                    <Rating value={2.5} />
                   </li>
-                  <li>
-                    <p className={s.card__size}>{card.price}</p>
-                  </li>
+                  <li className={s.card__duration}>{card.price}</li>
                 </ul>
               </div>
 
-              <span>{card.price} $</span>
+              <span className={s.price}>{card.price} $</span>
             </Link>
           </li>
         ))}

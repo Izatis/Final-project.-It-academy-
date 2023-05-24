@@ -48,3 +48,8 @@ input {
 .ant-form-item {
   margin: 7% 0 0 0;
 }
+
+.ant-rate{
+  display: flex;
+  font-size: 15px;
+}
