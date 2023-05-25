@@ -67,7 +67,6 @@ const Editing: React.FC = () => {
             }}
           />
         </Form.Item>
-
         <Form.Item label="Email" name="email">
           <Input
             defaultValue={userData.email}
@@ -100,7 +99,7 @@ const Editing: React.FC = () => {
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"
-              
+              type="primary"
               loading={loading}
               onClick={editUser}
             >
@@ -109,7 +108,7 @@ const Editing: React.FC = () => {
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"
-              
+              type="primary"
               loading={loading}
               onClick={editUser}
             >

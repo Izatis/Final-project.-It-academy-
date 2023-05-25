@@ -2,13 +2,13 @@ import React, { FC, useEffect, useState } from "react";
 import s from "./passwordRecovery.module.scss";
 
 import { useRouter } from "next/router";
+import axios from "axios";
 import { Form, Input } from "antd";
 import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
-import axios, { AxiosResponse } from "axios";
 
 interface IPasswordRecovery {
   email: string;
@@ -17,7 +17,7 @@ interface IPasswordRecovery {
 const PasswordRecovery: FC = () => {
   // Состояния - для данных пользователя регистрации
   const [passwordRecovery, setPasswordRecovery] = useState<IPasswordRecovery>({
-    email: "arsproger@gmail.com",
+    email: "mekinovizat1@gmail.com",
   });
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
@@ -30,18 +30,17 @@ const PasswordRecovery: FC = () => {
 
   // Отправляем post запрос для восстановления пароля
   const handleSubmit = async (value: IPasswordRecovery): Promise<void> => {
-    console.log(value);
-
     setLoading(true);
-    const BASE_URL = "spring-boot-online-platform.herokuapp.com";
-    const params = {
-      param1: value,
-    };
+    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
+
+    console.log(BASE_URL + `/password/reset?email=${value.email}`);
 
     try {
       const res = await axios.post(
-        BASE_URL + `/password/reset?email=arsproger@gmail.com`
+        BASE_URL + `/password/reset?email=${value.email}`
       );
+      console.log(res);
+
       // Сбрасываем поля объекта
       setPasswordRecovery({
         email: "",
@@ -78,8 +77,9 @@ const PasswordRecovery: FC = () => {
         >
           <Input
             className={s.passwordRecovery__input}
-            prefix={<MailOutlined />}
             placeholder={t.passwordRecovery[1]}
+            size="large"
+            prefix={<MailOutlined />}
           />
         </Form.Item>
 

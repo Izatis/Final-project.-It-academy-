@@ -15,12 +15,12 @@ const Teacher = () => {
           <li>
             <h2>Максим Фролов</h2>
           </li>
-          <li>
-            4,8 <Rating value={5} />
+          <li className={s.rating}>
+            4,8 <Rating value={1} />
           </li>
-          <li>32 788 отзывов</li>
-          <li>69 648 студентов</li>
-          <li>7 курса</li>
+          <li className={s.teacher__item}>32 788 отзывов</li>
+          <li className={s.teacher__item}>69 648 студентов</li>
+          <li className={s.teacher__item}>7 курса</li>
         </ul>
       </div>
       <b>Front-End Development and Consulting</b>

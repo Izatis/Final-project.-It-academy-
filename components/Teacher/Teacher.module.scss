@@ -23,20 +23,22 @@
 
     .teacher__list {
       li {
-        font-weight: 700;
-        @include adaptive-value("font-size", 15, 8);
-        line-height: 130%;
-        color: #191970;
-
         h2 {
-          font-weight: 600;
+          font-weight: 700;
           @include adaptive-value("font-size", 25, 15);
           line-height: 130%;
           color: #191970;
         }
       }
 
-      & :nth-child(2) {
+      .teacher__item {
+        font-weight: 700;
+        @include adaptive-value("font-size", 15, 8);
+        line-height: 130%;
+        color: #191970;
+      }
+
+      .rating {
         display: flex;
         align-items: center;
         gap: 10px;
