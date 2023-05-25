@@ -29,7 +29,7 @@
     }
 
     p {
-      font-weight: 400;
+      font-weight: 700;
       @include adaptive-value("font-size", 18, 10);
       line-height: 130%;
     }

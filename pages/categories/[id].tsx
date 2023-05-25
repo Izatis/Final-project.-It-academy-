@@ -93,7 +93,7 @@ export default function () {
                 </ul>
               </div>
 
-              <span className={s.price}>{card.price} $</span>
+              <span className={s.card__price}>{card.price} $</span>
             </Link>
           </li>
         ))}

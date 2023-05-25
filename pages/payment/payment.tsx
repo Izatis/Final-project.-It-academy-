@@ -68,7 +68,6 @@ const Payment: FC = () => {
           <Button
             className={s.paymentButton}
             type="primary"
-            htmlType="submit"
             loading={loading}
           >
             Pay Now

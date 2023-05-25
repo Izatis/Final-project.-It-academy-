@@ -37,7 +37,7 @@
         }
 
         span {
-          font-weight: 400;
+          font-weight: 700;
           @include adaptive-value("font-size", 18, 10);
           line-height: 130%;
           color: #7329c2;
@@ -90,7 +90,7 @@
               transition: all 0.7s;
 
               span {
-                font-weight: 400;
+                font-weight: 700;
                 @include adaptive-value("font-size", 20, 12);
                 line-height: 130%;
                 color: #ffffff;
@@ -119,21 +119,21 @@
             }
 
             .card__desciption {
-              font-weight: 400;
+              font-weight: 700;
               @include adaptive-value("font-size", 15, 8);
               line-height: 130%;
               color: #1c1d1f;
             }
 
             .card__creator {
-              font-weight: 400;
+              font-weight: 700;
               @include adaptive-value("font-size", 15, 8);
               line-height: 130%;
               color: #6a6f73;
             }
 
             .card__duration {
-              font-weight: 400;
+              font-weight: 700;
               @include adaptive-value("font-size", 15, 8);
               line-height: 130%;
               color: #6a6f73;
@@ -152,7 +152,7 @@
           }
         }
 
-        .price {
+        .card__price {
           font-weight: 700;
           @include adaptive-value("font-size", 22, 12);
           line-height: 130%;
