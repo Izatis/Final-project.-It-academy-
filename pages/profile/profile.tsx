@@ -84,7 +84,7 @@ const Profile = () => {
                 <MyButton
                   background="#03d665"
                   hoverBackground="#7329c2"
-                  
+                  type="primary"
                   icon={<EditOutlined />}
                 >
                   Редактировать
@@ -104,7 +104,7 @@ const Profile = () => {
             <MyButton
               background="#03d665"
               hoverBackground="#7329c2"
-              
+              type="primary"
               icon={<LogoutOutlined />}
               onClick={signOut}
             >

@@ -37,7 +37,7 @@ const SignIn: FC = () => {
   // Отправляем post запрос
   const handleSubmit = async (value: IUserLogin) => {
     setLoading(true);
-    const BASE_URL = "spring-boot-online-platform.herokuapp.com";
+    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
     try {
       const { data }: AxiosResponse<{ token: string }> = await axios.post(
@@ -120,8 +120,7 @@ const SignIn: FC = () => {
 
         <Form.Item>
           <a
-            href="http://localhost:8080/oauth2/authorization/google"
-            target="_blank"
+            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
           >
             {t.signIn[7]}
           </a>
@@ -129,8 +128,7 @@ const SignIn: FC = () => {
 
         <Form.Item>
           <a
-            href="http://localhost:8080/oauth2/authorization/google"
-            target="_blank"
+            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
           >
             {t.signIn[8]}
           </a>

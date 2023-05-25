@@ -2,13 +2,14 @@ import React, { FC, useEffect, useState } from "react";
 import s from "./passwordRecovery.module.scss";
 
 import { useRouter } from "next/router";
+import axios from "axios";
+import qs from "qs";
 import { Form, Input } from "antd";
 import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
-import axios, { AxiosResponse } from "axios";
 
 interface IPasswordRecovery {
   email: string;
@@ -30,18 +31,19 @@ const PasswordRecovery: FC = () => {
 
   // Отправляем post запрос для восстановления пароля
   const handleSubmit = async (value: IPasswordRecovery): Promise<void> => {
-    console.log(value);
-
     setLoading(true);
-    const BASE_URL = "spring-boot-online-platform.herokuapp.com";
+    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
     const params = {
       param1: value,
     };
+    
+    const queryString = qs.stringify(params);
+    console.log(BASE_URL + `/password/reset/${queryString}`);
 
     try {
-      const res = await axios.post(
-        BASE_URL + `/password/reset?email=arsproger@gmail.com`
-      );
+      const res = await axios.post(BASE_URL + `/password/reset?email=arsproger@gmail.com`);
+      console.log(res);
+
       // Сбрасываем поля объекта
       setPasswordRecovery({
         email: "",
