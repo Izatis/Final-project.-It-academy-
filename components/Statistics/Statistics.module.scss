@@ -22,7 +22,7 @@
       margin: 0 auto;
 
       .__num {
-        font-weight: 400;
+        font-weight: 700;
         @include adaptive-value("font-size", 58, 30);
         line-height: 130%;
         animation-fill-mode: forwards;
@@ -44,7 +44,7 @@
       }
 
       p {
-        font-weight: 400;
+        font-weight: 700;
         @include adaptive-value("font-size", 15, 10);
         line-height: 130%;
         color: #7f7f7f;

@@ -19,12 +19,13 @@
       margin: 0 auto;
 
       .footer__logo {
+        @include adaptive-value("width", 40, 18);
         @include adaptive-value("font-size", 40, 18);
         color: #7329c2;
       }
 
       p {
-        font-weight: 400;
+        font-weight: 700;
         @include adaptive-value("font-size", 18, 10);
         line-height: 130%;
         color: #7f7f7f;
@@ -37,6 +38,7 @@
         gap: 15px;
 
         .footer__social {
+          @include adaptive-value("width", 20, 12);
           @include adaptive-value("font-size", 20, 12);
           color: #7329c2;
         }
@@ -46,14 +48,14 @@
     .footer__list {
       li {
         .footer__title {
-          font-weight: 400;
+          font-weight: 700;
           @include adaptive-value("font-size", 20, 12);
           line-height: 300%;
           color: #03d665;
         }
 
         a {
-          font-weight: 400;
+          font-weight: 700;
           @include adaptive-value("font-size", 18, 10);
           line-height: 200%;
           color: #7f7f7f;
@@ -70,11 +72,13 @@
     box-sizing: border-box;
 
     .subFooter__logo {
+      @include adaptive-value("width", 30, 18);
+      @include adaptive-value("font-size", 40, 18);
       color: #7329c2;
     }
 
     p {
-      font-weight: 400;
+      font-weight: 700;
       @include adaptive-value("font-size", 18, 10);
       line-height: 130%;
     }

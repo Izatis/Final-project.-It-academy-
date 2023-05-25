@@ -30,7 +30,7 @@
       max-width: 600px;
       margin: 0 auto;
       p {
-        font-weight: 400;
+        font-weight: 700;
         @include adaptive-value("font-size", 20, 10);
         line-height: 130%;
         color: #7f7f7f;

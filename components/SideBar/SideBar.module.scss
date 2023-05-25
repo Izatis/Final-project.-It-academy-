@@ -38,7 +38,7 @@
       box-sizing: border-box;
 
       h2 {
-        font-weight: 400;
+        font-weight: 700;
         @include adaptive-value("font-size", 30, 15);
         line-height: 130%;
         color: #7329c2;
@@ -50,7 +50,7 @@
     }
 
     .menu__list li a {
-      font-weight: 400;
+      font-weight: 700;
       @include adaptive-value("font-size", 18, 10);
       line-height: 130%;
       color: #03d665;

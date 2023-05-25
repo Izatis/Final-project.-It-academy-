@@ -100,7 +100,7 @@ const Editing: React.FC = () => {
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"
-              type="primary"
+              
               loading={loading}
               onClick={editUser}
             >
@@ -109,7 +109,7 @@ const Editing: React.FC = () => {
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"
-              type="primary"
+              
               loading={loading}
               onClick={editUser}
             >

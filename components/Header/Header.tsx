@@ -47,14 +47,12 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
   // Жизненный цикл изменяет цвет и позицию линии
   useEffect(() => {
     const handleScroll = (): void => {
-        if (window.scrollY === 0) {
-          if (!menuActive) {
-            setIsHeaderActive(false);
-          }
-        }
+      if (window.scrollY === 0) {
+        setIsHeaderActive(true);
+      }
 
       if (window.scrollY > 1 && blockRefFirst.current) {
-        setIsHeaderActive(true);
+        setIsHeaderActive(false);
         setNavColor(1);
         setNavBarPosition({
           width: blockRefFirst.current.offsetWidth,
@@ -86,11 +84,19 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
         });
       }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    if (pathname === "/") {
+      if (!menuActive) {
+        setIsHeaderActive(true);
+        window.addEventListener("scroll", handleScroll);
+      }
+    } else {
+      setIsHeaderActive(false);
+    }
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [menuActive]);
+  }, [menuActive, pathname]);
 
   useEffect(() => {
     // Достаем токен пользователя
@@ -171,52 +177,17 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
             </Link>
             <ul className={s.header__list}>
               <li ref={blockRefFirst}>
-                <Link
-                  href="/"
-                  style={
-                    navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Главная
-                </Link>
+                <Link href="/">Главная</Link>
               </li>
               <li ref={blockRefSecond}>
-                <Link
-                  href="/#categories"
-                  style={
-                    navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Курсы
-                </Link>
+                <Link href="/#categories">Курсы</Link>
               </li>
               <li ref={blockRefThree}>
-                <Link
-                  href="/#recommendations"
-                  style={
-                    navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Рекомендации
-                </Link>
+                <Link href="/#recommendations">Рекомендации</Link>
               </li>
               <li ref={blockRefFour}>
-                <Link
-                  href="/#contacts"
-                  style={
-                    navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
-                  }
-                >
-                  Контакты
-                </Link>
+                <Link href="/#contacts">Контакты</Link>
               </li>
-              <span
-                className={s.animateLine}
-                style={{
-                  left: navBarPosition.left,
-                  width: navBarPosition.width,
-                }}
-              ></span>
             </ul>
           </>
         )}

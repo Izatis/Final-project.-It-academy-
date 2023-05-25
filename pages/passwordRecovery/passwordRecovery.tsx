@@ -39,7 +39,9 @@ const PasswordRecovery: FC = () => {
     };
 
     try {
-      const res = await axios.post(BASE_URL + `/password/reset?email=arsproger@gmail.com`);
+      const res = await axios.post(
+        BASE_URL + `/password/reset?email=arsproger@gmail.com`
+      );
       // Сбрасываем поля объекта
       setPasswordRecovery({
         email: "",
@@ -83,8 +85,8 @@ const PasswordRecovery: FC = () => {
 
         <Form.Item>
           <MyButton
-            type="primary"
             className={s.passwordRecovery__button}
+            type="primary"
             loading={loading}
           >
             <span>{t.passwordRecovery[4]}</span>
