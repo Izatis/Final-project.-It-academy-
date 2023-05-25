@@ -78,6 +78,8 @@ const SignUp: FC = () => {
   }, []);
 
   const googleAuth = async (): Promise<void> => {
+    console.log("googleAuth");
+
     const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
     try {
@@ -183,16 +185,16 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link
-            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
-            onClick={googleAuth}
-          >
+          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
             {t.signUp[13]}
           </Link>
         </Form.Item>
 
         <Form.Item>
-          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github">
+          <Link
+            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
+            onClick={googleAuth}
+          >
             {t.signUp[14]}
           </Link>
         </Form.Item>

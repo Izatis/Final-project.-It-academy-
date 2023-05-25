@@ -3,7 +3,6 @@ import s from "./passwordRecovery.module.scss";
 
 import { useRouter } from "next/router";
 import axios from "axios";
-import qs from "qs";
 import { Form, Input } from "antd";
 import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
@@ -18,7 +17,7 @@ interface IPasswordRecovery {
 const PasswordRecovery: FC = () => {
   // Состояния - для данных пользователя регистрации
   const [passwordRecovery, setPasswordRecovery] = useState<IPasswordRecovery>({
-    email: "arsproger@gmail.com",
+    email: "mekinovizat1@gmail.com",
   });
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState(false);
@@ -33,15 +32,13 @@ const PasswordRecovery: FC = () => {
   const handleSubmit = async (value: IPasswordRecovery): Promise<void> => {
     setLoading(true);
     const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
-    const params = {
-      param1: value,
-    };
-    
-    const queryString = qs.stringify(params);
-    console.log(BASE_URL + `/password/reset/${queryString}`);
+
+    console.log(BASE_URL + `/password/reset?email=${value.email}`);
 
     try {
-      const res = await axios.post(BASE_URL + `/password/reset?email=arsproger@gmail.com`);
+      const res = await axios.post(
+        BASE_URL + `/password/reset?email=${value.email}`
+      );
       console.log(res);
 
       // Сбрасываем поля объекта
@@ -80,8 +77,9 @@ const PasswordRecovery: FC = () => {
         >
           <Input
             className={s.passwordRecovery__input}
-            prefix={<MailOutlined />}
             placeholder={t.passwordRecovery[1]}
+            size="large"
+            prefix={<MailOutlined />}
           />
         </Form.Item>
 
