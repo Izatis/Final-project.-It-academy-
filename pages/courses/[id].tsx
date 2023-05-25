@@ -5,6 +5,7 @@ import { useState } from "react";
 import { cards, ICards } from "../../constants/cardData";
 import MyButton from "@/components/MUI/MyButton/MyButton";
 import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
+import Teacher from "@/components/Teacher/Teacher";
 
 export default function () {
   // Состояние - для карточек
@@ -62,6 +63,8 @@ export default function () {
           <AnimateSelect />
           <AnimateSelect />
         </div>
+
+        <Teacher/>
       </div>
 
       <aside>
