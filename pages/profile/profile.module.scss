@@ -10,7 +10,7 @@
       height: 300px;
     }
 
-    .coverSecond{
+    .coverSecond {
       display: none;
     }
 
@@ -31,11 +31,6 @@
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        .name h2,
-        p {
-          font-family: "Inter", sans-serif;
-          font-style: normal;
-        }
 
         .name {
           h2 {
@@ -57,9 +52,7 @@
         max-width: 600px;
         margin: 5% 0;
         p {
-          font-family: "Inter", sans-serif;
-          font-style: normal;
-          font-weight: 700;
+          font-weight: 400;
           font-size: 16px;
           line-height: 160%;
         }

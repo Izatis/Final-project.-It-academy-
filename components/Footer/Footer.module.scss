@@ -28,7 +28,7 @@
         font-weight: 700;
         @include adaptive-value("font-size", 18, 10);
         line-height: 130%;
-        color: #7f7f7f;
+        color: #6a6f73;
         text-align: center;
       }
 
@@ -55,10 +55,10 @@
         }
 
         a {
-          font-weight: 700;
+          font-weight: 600;
           @include adaptive-value("font-size", 18, 10);
           line-height: 200%;
-          color: #7f7f7f;
+          color: #6a6f73;
         }
       }
     }
@@ -67,7 +67,7 @@
   .subFooter {
     display: flex;
     justify-content: space-between;
-    background-color: #7f7f7f;
+    border-top: 1px solid #d1d7dc;
     padding: 1% 5%;
     box-sizing: border-box;
 
@@ -81,6 +81,7 @@
       font-weight: 700;
       @include adaptive-value("font-size", 18, 10);
       line-height: 130%;
+      color: #a7b0c2;
     }
   }
 }

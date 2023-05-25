@@ -45,14 +45,25 @@ input {
   font-style: normal;
 }
 
+/* MyModal */
 .ant-modal-root {
   z-index: 30;
 }
 
+/* signUp, signIn */
 .ant-form-item {
   margin: 7% 0 0 0;
 }
+.ant-col{
+  width: 200px !important;
+}
 
+/* passwordRecovery */
+.ant-form-item-control-input-content {
+  margin: 0 auto;
+}
+
+/* Rating */
 .ant-rate {
   display: flex;
   font-size: 15px;

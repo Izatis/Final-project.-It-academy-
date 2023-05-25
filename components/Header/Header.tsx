@@ -5,7 +5,10 @@ import cn from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faGraduationCap,
+} from "@fortawesome/free-solid-svg-icons";
 
 import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -193,9 +196,15 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
         )}
 
         <div className={s.header__buttons}>
+          <Link href="/basket/basket">
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              className={s.header__basket}
+            />
+          </Link>
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
           {pathname === "/signUp/signUp" ? (
-            <Link href="/signIn/signIn" className={s.header__signButton}>
+            <Link href="/signIn/signIn">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
@@ -205,7 +214,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
               </MyButton>
             </Link>
           ) : (
-            <Link href="/signUp/signUp" className={s.header__signButton}>
+            <Link href="/signUp/signUp">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"

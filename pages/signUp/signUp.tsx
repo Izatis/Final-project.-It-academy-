@@ -9,6 +9,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "../../components/MUI/MyButton/MyButton";
+import Link from "next/link";
 
 interface IUserRegister {
   fullName: string;
@@ -75,6 +76,32 @@ const SignUp: FC = () => {
   useEffect(() => {
     form.setFieldsValue({ ...userRegister });
   }, []);
+
+  const googleAuth = async (): Promise<void> => {
+    console.log("googleAuth");
+
+    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
+
+    try {
+      const { data }: AxiosResponse<{ token: string }> = await axios.post(
+        BASE_URL + "/auth/redirect"
+      );
+
+      // Достаем токен пользователя
+      const token = localStorage.getItem("token") ?? "";
+      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
+
+      // Если есть токен то перенаправляем пользователя на профиль
+      if (!!parsedToken) {
+        push("/profile/profile");
+      }
+
+      // Сохраняем токен пользователя
+      localStorage.setItem("token", JSON.stringify(data.token));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className={s.signUp}>
@@ -158,21 +185,18 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <a
-            href="http://localhost:8080/oauth2/authorization/google"
-            target="_blank"
-          >
+          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
             {t.signUp[13]}
-          </a>
+          </Link>
         </Form.Item>
 
         <Form.Item>
-          <a
-            href="http://localhost:8080/oauth2/authorization/google"
-            target="_blank"
+          <Link
+            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
+            onClick={googleAuth}
           >
             {t.signUp[14]}
-          </a>
+          </Link>
         </Form.Item>
       </Form>
     </section>
