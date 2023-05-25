@@ -78,12 +78,15 @@ const SignUp: FC = () => {
   }, []);
 
   const googleAuth = async (): Promise<void> => {
+    console.log("googleAuth");
+
     const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
     try {
       const { data }: AxiosResponse<{ token: string }> = await axios.post(
         BASE_URL + "/auth/redirect"
       );
+      console.log(data);
 
       // Достаем токен пользователя
       const token = localStorage.getItem("token") ?? "";
@@ -91,7 +94,7 @@ const SignUp: FC = () => {
 
       // Если есть токен то перенаправляем пользователя на профиль
       if (!!parsedToken) {
-        push("/profile/profile");
+        push("http://localhost:3000/profile/profile");
       }
 
       // Сохраняем токен пользователя
@@ -183,18 +186,22 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link
-            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
-            onClick={googleAuth}
-          >
+        <button onClick={googleAuth}>
+
+          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
             {t.signUp[13]}
           </Link>
+          </button>
+
         </Form.Item>
 
         <Form.Item>
+          <button onClick={googleAuth}>
+
           <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github">
             {t.signUp[14]}
           </Link>
+          </button>
         </Form.Item>
       </Form>
     </section>

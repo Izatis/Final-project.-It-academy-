@@ -76,9 +76,16 @@ const SignIn: FC = () => {
   return (
     <section className={s.signIn}>
       <h2>{t.signIn[0]}</h2>
-      <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
+      <Form
+        labelCol={{ span: 3 }}
+        wrapperCol={{ span: 20, offset: 1 }}
+        form={form}
+        name="sign-in-form"
+        onFinish={handleSubmit}
+      >
         <Form.Item
           name="username"
+          label={t.signIn[1]}
           rules={[
             {
               type: "email",
@@ -96,6 +103,7 @@ const SignIn: FC = () => {
 
         <Form.Item
           name="password"
+          label={t.signIn[2]}
           rules={[
             {
               required: true,
@@ -119,19 +127,15 @@ const SignIn: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <a
-            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
-          >
+          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
             {t.signIn[7]}
-          </a>
+          </Link>
         </Form.Item>
 
         <Form.Item>
-          <a
-            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
-          >
+          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github">
             {t.signIn[8]}
-          </a>
+          </Link>
         </Form.Item>
 
         <Form.Item>

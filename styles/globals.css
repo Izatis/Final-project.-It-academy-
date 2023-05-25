@@ -54,9 +54,13 @@ input {
 .ant-form-item {
   margin: 7% 0 0 0;
 }
+.ant-col{
+  width: 200px !important;
+}
 
 /* passwordRecovery */
-.ant-input-affix-wrapper {
+.ant-form-item-control-input-content {
+  margin: 0 auto;
 }
 
 /* Rating */
