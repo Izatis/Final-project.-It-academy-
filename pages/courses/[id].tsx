@@ -4,6 +4,7 @@ import s from "./courses.module.scss";
 import { useState } from "react";
 import { cards, ICards } from "../../constants/cardData";
 import MyButton from "@/components/MUI/MyButton/MyButton";
+import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
 
 export default function () {
   // Состояние - для карточек
@@ -57,6 +58,9 @@ export default function () {
 
         <div className={s.materials}>
           <h2>Материалы курса</h2>
+          <AnimateSelect />
+          <AnimateSelect />
+          <AnimateSelect />
         </div>
       </div>
 
