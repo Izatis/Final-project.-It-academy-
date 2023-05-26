@@ -4,7 +4,7 @@ import s from "./Translate.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
-import MyModal from "../MyModal/MyModal";
+import MyModal from "../Modals/MyModalLanguage/MyModalLanguage";
 import MyButton from "../MUI/MyButton/MyButton";
 
 const Translate: FC = () => {

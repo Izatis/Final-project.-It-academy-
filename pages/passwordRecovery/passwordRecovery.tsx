@@ -20,7 +20,7 @@ const PasswordRecovery: FC = () => {
     email: "mekinovizat1@gmail.com",
   });
   // Состояния - для загрузки кнопки
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Для - маршутизации
   const { locale } = useRouter();
@@ -89,7 +89,7 @@ const PasswordRecovery: FC = () => {
             type="primary"
             loading={loading}
           >
-            <span>{t.passwordRecovery[4]}</span>
+            {t.passwordRecovery[4]}
             <ArrowRightOutlined />
           </MyButton>
         </Form.Item>

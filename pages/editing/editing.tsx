@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select } from "antd";
+import React, { FC, useState } from "react";
+import { Form, Input, Select } from "antd";
 import s from "./editing.module.scss";
 
 import { useRouter } from "next/router";
@@ -10,7 +10,7 @@ import MyButton from "../../components/MUI/MyButton/MyButton";
 
 const { Option } = Select;
 
-const Editing: React.FC = () => {
+const Editing: FC = () => {
   // Данные пользователя
   const [userData, setUserData] = useState({
     fullName: "",
@@ -20,10 +20,10 @@ const Editing: React.FC = () => {
   console.log(userData);
 
   // Состояния - для загрузки
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Состояния - для загрузки кнопки
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Функция - для загрузки кнопки
   const onFinish = () => {

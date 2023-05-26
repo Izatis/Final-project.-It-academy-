@@ -1,6 +1,7 @@
 @import "../../../styles/varibales.module.scss";
 
 .myButton {
+  @include adaptive-value("height", 32, 20);
   position: relative;
   z-index: 1;
   display: flex;
