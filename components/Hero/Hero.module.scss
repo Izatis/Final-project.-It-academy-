@@ -9,13 +9,12 @@
   overflow: hidden;
 
   .hero__title {
-    width: 100%;
     position: absolute;
     z-index: 1;
 
     .hero__title_container {
       max-width: 600px;
-      margin: 0 auto;
+
       h1 {
         font-weight: 700;
         @include adaptive-value("font-size", 55, 22);
@@ -28,7 +27,7 @@
 
     .hero__subTitle_container {
       max-width: 600px;
-      margin: 0 auto;
+
       p {
         font-weight: 700;
         @include adaptive-value("font-size", 20, 10);
@@ -42,6 +41,7 @@
 
   .sky {
     margin: 100px 0 0 0;
+
     .sun {
       @include adaptive-value("width", 250, 80);
       position: absolute;

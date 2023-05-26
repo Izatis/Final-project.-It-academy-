@@ -5,7 +5,7 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined, CreditCardOutlined } from "@ant-design/icons";
 
 const Payment: FC = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onFinish = () => {
     setLoading(true);

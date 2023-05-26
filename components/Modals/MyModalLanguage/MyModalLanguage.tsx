@@ -1,16 +1,16 @@
 import React, { FC } from "react";
 
-import { Col, Modal, Row } from "antd";
 import { useRouter } from "next/router";
+import { Col, Modal, Row } from "antd";
 
-import MyButton from "../MUI/MyButton/MyButton";
+import MyButton from "../../MUI/MyButton/MyButton";
 
-interface IMyModalProps {
+interface IMyModalLanguageProps {
   isModalOpen: boolean;
   setIsModalOpen: (active: boolean) => void;
 }
 
-const MyModal: FC<IMyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
+const MyModalLanguage: FC<IMyModalLanguageProps> = ({ isModalOpen, setIsModalOpen }) => {
   // Функции - для смены текста
   const { push, pathname } = useRouter();
 
@@ -77,4 +77,4 @@ const MyModal: FC<IMyModalProps> = ({ isModalOpen, setIsModalOpen }) => {
   );
 };
 
-export default MyModal;
+export default MyModalLanguage;

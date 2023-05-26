@@ -11,6 +11,7 @@ const Footer: FC = () => {
       <div className={s.footer__content}>
         <div className={s.footer__contacts}>
           <FontAwesomeIcon icon={faGraduationCap} className={s.footer__logo} />
+
           <p>
             Образовательная онлайн-платформа для развития и тренировки навыков в
             сфере информационных технологий
@@ -24,11 +25,7 @@ const Footer: FC = () => {
         </div>
 
         <ul className={s.footer__list}>
-          <li>
-            <a href="#" className={s.footer__title}>
-              Обучение
-            </a>
-          </li>
+          <li className={s.footer__title}>Обучение</li>
 
           <li>
             <a href="#">Курсы</a>
@@ -48,11 +45,7 @@ const Footer: FC = () => {
         </ul>
 
         <ul className={s.footer__list}>
-          <li>
-            <a href="#" className={s.footer__title}>
-              О нас
-            </a>
-          </li>
+          <li className={s.footer__title}>О нас</li>
 
           <li>
             <a href="#">О платформе</a>
@@ -72,11 +65,7 @@ const Footer: FC = () => {
         </ul>
 
         <ul className={s.footer__list}>
-          <li>
-            <a href="#" className={s.footer__title}>
-              Контакты
-            </a>
-          </li>
+          <li className={s.footer__title}>Контакты</li>
 
           <li>
             <a href="#">Связаться с нами</a>
@@ -96,11 +85,7 @@ const Footer: FC = () => {
         </ul>
 
         <ul className={s.footer__list}>
-          <li>
-            <a href="#" className={s.footer__title}>
-              Возникли вопросы?
-            </a>
-          </li>
+          <li className={s.footer__title}>Возникли вопросы?</li>
 
           <li>
             <a href="#">Напишите нам на почту test@gmail.com</a>

@@ -28,7 +28,7 @@ const SignUp: FC = () => {
   const [errorMessage, setErrorMessage] = useState(false);
 
   // Состояния - для загрузки кнопки
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Для - маршутизации
   const { push, locale } = useRouter();

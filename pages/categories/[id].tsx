@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
 import s from "./categories.module.scss";
+
 import axios from "axios";
+import { useRouter } from "next/router";
+import { cards, ICard } from "../../constants/cardData";
+import { categories } from "@/constants/categories";
 
-import Image from "next/image";
-import Link from "next/link";
-import { cards, ICards } from "../../constants/cardData";
-
-import Rating from "@/components/Rating/Rating";
 import MyButton from "@/components/MUI/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
-import { useRouter } from "next/router";
-import { categories } from "@/components/CategoriesList/CategoriesList";
+import Card from "@/components/Card/Card";
 
 export default function () {
   // Состояние - для карточек
-  const [cardsData, setCardsData] = useState<ICards[]>(cards);
+  const [cardsData, setCardsData] = useState<ICard[]>(cards);
   // Состояние - для объекта из массива categories
   const [category, setCategory] = useState<any>({});
-  // Состояние - для рейтинга
-  const [rating, setRating] = useState<number>(0);
+  
 
   const { query } = useRouter();
 
@@ -61,41 +58,7 @@ export default function () {
 
       <ul className={s.card__list}>
         {cardsData.map((card) => (
-          <li className={s.card__item} key={card.id}>
-            <Link href={`/courses/${card.id}`} className={s.card__link}>
-              <div className={s.card__content}>
-                <div className={s.card__image}>
-                  <Image
-                    src={
-                      "https://img.freepik.com/premium-photo/word-design-written-top-colorful-geometric-3d-shapes_2227-1663.jpg"
-                    }
-                    alt="сard image"
-                    width={300}
-                    height={200}
-                  />
-
-                  <div className={s.blackout}>
-                    <span>Нажмите</span>
-                  </div>
-                </div>
-
-                <ul className={s.content__list}>
-                  <li>
-                    <h3>{card.name}</h3>
-                  </li>
-                  <li className={s.card__desciption}>{card.description}</li>
-                  <li className={s.card__creator}>{card.creator}</li>
-                  <li onClick={(e) => e.preventDefault()}>
-                    <pre>{card.price} </pre>
-                    <Rating value={2.5} />
-                  </li>
-                  <li className={s.card__duration}>{card.price}</li>
-                </ul>
-              </div>
-
-              <span className={s.card__price}>{card.price} $</span>
-            </Link>
-          </li>
+         <Card card={card}/>
         ))}
       </ul>
     </section>
