@@ -8,7 +8,7 @@ import { categories } from "@/constants/categories";
 const CategoriesList: FC = () => {
   return (
     <section className={s.categories} id="categories">
-      <h2>Популярные категории</h2>
+      <h2>Категории</h2>
       <div className={s.categories__list}>
         {categories.map((category) => {
           return (

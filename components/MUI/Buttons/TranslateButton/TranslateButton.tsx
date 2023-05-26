@@ -1,13 +1,13 @@
 import React, { FC, useState } from "react";
-import s from "./Translate.module.scss";
+import s from "./TranslateButton.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
-import MyModal from "../Modals/MyModalLanguage/MyModalLanguage";
-import MyButton from "../MUI/MyButton/MyButton";
+import MyModal from "../../../Modals/MyModalLanguage/MyModalLanguage";
+import MyButton from "../MyButton/MyButton";
 
-const Translate: FC = () => {
+const TranslateButton: FC = () => {
   // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -26,4 +26,4 @@ const Translate: FC = () => {
   );
 };
 
-export default Translate;
+export default TranslateButton;

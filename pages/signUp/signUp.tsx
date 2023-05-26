@@ -8,7 +8,7 @@ import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyButton from "../../components/MUI/MyButton/MyButton";
+import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 import Link from "next/link";
 
 interface IUserRegister {

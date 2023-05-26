@@ -35,7 +35,7 @@ const Card: FC<ICardProps> = ({ card }) => {
           </div>
         </div>
 
-        <div className={s.card__content}>
+        <div className={s.card__info}>
           <ul className={s.content__list}>
             <li className={s.card__title}>{card.name}</li>
             <li className={s.card__desciption}>{card.description}</li>

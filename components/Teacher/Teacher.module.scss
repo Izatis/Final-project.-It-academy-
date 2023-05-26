@@ -5,29 +5,48 @@
   flex-direction: column;
   gap: 20px;
   border: 1px solid #a7b0c2;
-  border-radius: 20px;
+  border-radius: 10px;
   box-sizing: border-box;
-  padding: 20px;
-  margin: 20px;
+  padding: 4%;
+  margin: 5% 0;
 
-  .introduction {
+  .teacher__info {
     display: flex;
     align-items: center;
     gap: 10px;
 
-    .avatar {
+    .teacher__avatar {
       height: 150px;
       width: 150px;
       border-radius: 50%;
     }
 
     .teacher__list {
-      li {
-        h2 {
-          font-weight: 700;
-          @include adaptive-value("font-size", 25, 15);
+      .teacher__name {
+        font-weight: 700;
+        @include adaptive-value("font-size", 25, 15);
+        line-height: 130%;
+        color: #191970;
+      }
+
+      .teacher__rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        pre {
+          font-weight: 500;
+          @include adaptive-value("font-size", 18, 8);
           line-height: 130%;
-          color: #191970;
+          color: #ffd700;
+        }
+
+        ul {
+          display: flex;
+          li {
+            @include adaptive-value("font-size", 18, 8);
+            @include adaptive-value("margin-inline-end", 10, 2);
+          }
         }
       }
 
@@ -37,24 +56,17 @@
         line-height: 130%;
         color: #191970;
       }
-
-      .rating {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #ffd700;
-      }
     }
   }
 
-  b {
+  .teacher__title {
     font-weight: 700;
     @include adaptive-value("font-size", 15, 8);
     line-height: 130%;
     color: #191970;
   }
 
-  p {
+  .teacher__description {
     font-style: normal;
     font-weight: 400;
     line-height: 130%;

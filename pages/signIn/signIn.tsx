@@ -9,7 +9,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyButton from "@/components/MUI/MyButton/MyButton";
+import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 
 interface IUserLogin {
   username: string;

@@ -6,7 +6,6 @@
   position: fixed;
   z-index: 20;
   top: 55px;
-  right: 0;
   transform: translateX(-150%);
   transition: all 0.3s;
 
@@ -31,7 +30,6 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 20px;
       border-bottom: 1px solid #7329c2;
       padding: 10px;
@@ -60,16 +58,4 @@
 
 .active {
   transform: translateX(0);
-}
-
-@media screen and (max-width: 425px) {
-  .menu {
-    .blur {
-      left: 50%;
-    }
-
-    .menu__content {
-      width: 50%;
-    }
-  }
 }

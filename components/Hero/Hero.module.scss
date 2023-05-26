@@ -121,10 +121,10 @@
     /* KEYFRAMES */
     @keyframes sunAnimated {
       0% {
-        transform: translateX(150%);
+        transform: X(150%);
       }
       100% {
-        transform: translateX(0);
+        transform: X(0);
       }
     }
 

@@ -12,11 +12,11 @@ const MySelect = () => {
       className={s.mySelect}
       defaultValue="Select"
       style={{ width: 300 }}
-      onChange={handleChange}
       options={[
         { value: "rating", label: "С наивысшим рейтингом" },
         { value: "price", label: "По цене" },
       ]}
+      onChange={handleChange}
     />
   );
 };

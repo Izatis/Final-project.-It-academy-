@@ -12,9 +12,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../public/avatar.jpeg";
 
-import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import Translate from "../Translate/Translate";
+import MyButton from "../MUI/Buttons/MyButton/MyButton";
+import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
 interface IHeaderProps {
   menuActive: boolean;
@@ -234,7 +234,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
             </Link>
           )}
 
-          <Translate />
+          <TranslateButton />
 
           <BurgerMenu
             isHeaderActive={isHeaderActive}

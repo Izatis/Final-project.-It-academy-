@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { useRouter } from "next/router";
 import { Col, Modal, Row } from "antd";
 
-import MyButton from "../../MUI/MyButton/MyButton";
+import MyButton from "../../MUI/Buttons/MyButton/MyButton";
 
 interface IMyModalLanguageProps {
   isModalOpen: boolean;

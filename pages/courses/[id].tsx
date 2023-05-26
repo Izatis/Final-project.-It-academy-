@@ -2,16 +2,17 @@ import Rating from "@/components/Rating/Rating";
 import s from "./courses.module.scss";
 
 import { useState } from "react";
-import { cards, ICards } from "../../constants/cardData";
-import MyButton from "@/components/MUI/MyButton/MyButton";
+import { courses, ICourses} from "../../constants/courses";
+import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
 import Teacher from "@/components/Teacher/Teacher";
 
 export default function () {
   // Состояние - для карточек
-  const [cardsData, setCardsData] = useState<ICards[]>(cards);
+  const [coursesData, setCoursesData] = useState<ICourses[]>(courses);
+
   return (
-    <section className={s.courses}>
+    <div className={s.courses}>
       <div>
         <ul className={s.hero__list}>
           <li>
@@ -100,6 +101,6 @@ export default function () {
           </ul>
         </div>
       </aside>
-    </section>
+    </div>
   );
 }

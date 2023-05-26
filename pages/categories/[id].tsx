@@ -3,19 +3,18 @@ import s from "./categories.module.scss";
 
 import axios from "axios";
 import { useRouter } from "next/router";
-import { cards, ICard } from "../../constants/cardData";
+import { courses, ICourses } from "../../constants/courses";
 import { categories } from "@/constants/categories";
 
-import MyButton from "@/components/MUI/MyButton/MyButton";
+import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
 import Card from "@/components/Card/Card";
 
 export default function () {
   // Состояние - для карточек
-  const [cardsData, setCardsData] = useState<ICard[]>(cards);
+  const [coursesData, setCoursesData] = useState<ICourses[]>(courses);
   // Состояние - для объекта из массива categories
   const [category, setCategory] = useState<any>({});
-  
 
   const { query } = useRouter();
 
@@ -33,7 +32,7 @@ export default function () {
     try {
       const response = await axios.get(BASE_URL);
 
-      setCardsData(response.data);
+      setCoursesData(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -53,12 +52,12 @@ export default function () {
           <MySelect />
         </div>
 
-        <span className={s.result}>{cardsData.length} результата</span>
+        <span className={s.result}>{coursesData.length} результата</span>
       </header>
 
       <ul className={s.card__list}>
-        {cardsData.map((card) => (
-         <Card card={card}/>
+        {coursesData.map((card) => (
+          <Card card={card} />
         ))}
       </ul>
     </section>

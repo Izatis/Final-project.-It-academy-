@@ -39,7 +39,22 @@
       }
 
       .__num1 {
-        animation: counter-to-20 2s alternate ease-in-out;
+        animation: counter-to-100 2s alternate ease-in-out;
+        animation-fill-mode: forwards;
+      }
+
+      .__num2 {
+        animation: counter-to-150 2s alternate ease-in-out;
+        animation-fill-mode: forwards;
+      }
+
+      .__num3 {
+        animation: counter-to-120 2s alternate ease-in-out;
+        animation-fill-mode: forwards;
+      }
+
+      .__num4 {
+        animation: counter-to-110 2s alternate ease-in-out;
         animation-fill-mode: forwards;
       }
 
@@ -54,11 +69,38 @@
   }
 }
 
-@keyframes counter-to-20 {
+@keyframes counter-to-100 {
   0% {
     --num: 0;
   }
   100% {
     --num: 100;
+  }
+}
+
+@keyframes counter-to-150 {
+  0% {
+    --num: 0;
+  }
+  100% {
+    --num: 150;
+  }
+}
+
+@keyframes counter-to-120 {
+  0% {
+    --num: 0;
+  }
+  100% {
+    --num: 120;
+  }
+}
+
+@keyframes counter-to-110 {
+  0% {
+    --num: 0;
+  }
+  100% {
+    --num: 110;
   }
 }

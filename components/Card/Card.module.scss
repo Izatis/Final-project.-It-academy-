@@ -47,7 +47,7 @@
       }
     }
 
-    .card__content {
+    .card__info {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -76,9 +76,11 @@
 
         .card__rating {
           display: flex;
-          gap: 2px;
+          align-items: center;
+          gap: 10px;
+
           pre {
-            font-weight: 700;
+            font-weight: 500;
             @include adaptive-value("font-size", 18, 8);
             line-height: 130%;
             color: #ffd700;
@@ -115,7 +117,7 @@
 @media screen and (max-width: 425px) {
   .card__item {
     .card__link {
-      .card__content {
+      .card__info {
         flex-direction: column;
       }
     }
