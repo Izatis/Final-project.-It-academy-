@@ -63,8 +63,3 @@ input {
   margin: 0 auto;
 }
 
-/* Rating */
-.ant-rate {
-  display: flex;
-  font-size: 15px;
-}

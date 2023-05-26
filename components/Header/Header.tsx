@@ -3,12 +3,14 @@ import s from "./Header.module.scss";
 
 import cn from "classnames";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faGraduationCap,
 } from "@fortawesome/free-solid-svg-icons";
+import avatar from "../../public/avatar.jpeg";
 
 import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -25,7 +27,7 @@ interface ILine {
 }
 
 const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
-  // Состояние - для header (для цвета)
+  // Состояние - для header (для позиции)
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
   // Состояние - для navbar (для линии)
   const [navBarPosition, setNavBarPosition] = useState<ILine>({
@@ -106,7 +108,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
     !!parsedToken ? setIsToken(true) : null;
-  }, []);
+  }, [pathname]);
 
   return (
     <header className={cn(s.header, { [s.active]: isHeaderActive })}>
@@ -178,6 +180,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
                 className={s.header__logo}
               />
             </Link>
+
             <ul className={s.header__list}>
               <li ref={blockRefFirst}>
                 <Link href="/">Главная</Link>
@@ -202,8 +205,14 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
               className={s.header__basket}
             />
           </Link>
+
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
-          {pathname === "/signUp/signUp" ? (
+
+          {isToken ? (
+            <Link href={"profile/profile"}>
+              <Image src={avatar} alt="avatar" width={20} height={20} />
+            </Link>
+          ) : pathname === "/signUp/signUp" ? (
             <Link href="/signIn/signIn">
               <MyButton
                 background="#7329c2"

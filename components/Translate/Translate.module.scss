@@ -1,14 +1,9 @@
 @import "../../styles/varibales.module.scss";
 
 .translate {
-  button {
-    @include adaptive-value("height", 32, 20);
-    background: #7329c2;
-
-    svg {
-      @include adaptive-value("width", 20, 10);
-      @include adaptive-value("font-size", 20, 10);
-      color: #ffffff;
-    }
+  svg {
+    @include adaptive-value("width", 20, 10);
+    @include adaptive-value("font-size", 20, 10);
+    color: #ffffff;
   }
 }

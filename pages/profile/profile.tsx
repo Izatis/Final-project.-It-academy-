@@ -6,13 +6,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { EditOutlined, LogoutOutlined } from "@ant-design/icons";
-import cover from "../../public/cover.png";
-
-import Loading from "../../components/Loading/Loading";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyButton from "../../components/MUI/MyButton/MyButton";
+import cover from "../../public/cover.png";
 import avatar from "../../public/avatar.jpeg";
+
+import Loading from "../../components/Loading/Loading";
+import MyButton from "../../components/MUI/MyButton/MyButton";
 
 const Profile = () => {
   // Данные пользователя
@@ -23,7 +23,7 @@ const Profile = () => {
   });
 
   // Состояния - для загрузки
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Для - маршутизации
   const { push, locale, pathname } = useRouter();
@@ -38,29 +38,30 @@ const Profile = () => {
     setUserData({});
   };
 
-  useEffect(() => {
+  // Отправляет get запрос для получения пользователя
+  const getUser = async (): Promise<void> => {
+    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
+
     // Достаем токен пользователя
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
 
-    // Отправляет get запрос для получения пользователя
-    const getUser = async (): Promise<void> => {
-      const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
+    try {
+      setIsLoading(false);
+      const { data } = await axios.get(BASE_URL + "/user/current", {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      });
+      console.log(data);
 
-      try {
-        setIsLoading(false);
-        const { data } = await axios.get(BASE_URL + "/user/current", {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        });
-        console.log(data);
+      // Сохраняем данные пользователя
+      setUserData(data);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(true);
+  };
 
-        // Сохраняем данные пользователя
-        setUserData(data);
-      } catch (error) {
-        console.log(error);
-      }
-      setIsLoading(true);
-    };
+  useEffect(() => {
     getUser();
   }, []);
 

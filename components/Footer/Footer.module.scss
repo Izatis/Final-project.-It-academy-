@@ -1,22 +1,18 @@
 @import "../../styles/varibales.module.scss";
 
 .footer {
-  background: #ffffff;
   box-shadow: 0px -8px 40px -5px rgba(9, 31, 67, 0.1);
 
   .footer__content {
     @include centering();
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
     gap: 50px;
     padding: 10% 5%;
     box-sizing: border-box;
 
     .footer__contacts {
-      width: 230px;
+      max-width: 230px;
       text-align: center;
-      margin: 0 auto;
 
       .footer__logo {
         @include adaptive-value("width", 40, 18);
@@ -46,14 +42,13 @@
     }
 
     .footer__list {
+      .footer__title {
+        font-weight: 700;
+        @include adaptive-value("font-size", 20, 12);
+        line-height: 300%;
+        color: #03d665;
+      }
       li {
-        .footer__title {
-          font-weight: 700;
-          @include adaptive-value("font-size", 20, 12);
-          line-height: 300%;
-          color: #03d665;
-        }
-
         a {
           font-weight: 600;
           @include adaptive-value("font-size", 18, 10);

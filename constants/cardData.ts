@@ -1,4 +1,4 @@
-﻿export interface ICards {
+﻿export interface ICard {
   id: number;
   name: string;
   description: string;
@@ -12,7 +12,7 @@
   url: string;
 }
 
-export const cards: ICards[] = [
+export const cards: ICard[] = [
   {
     id: 1,
     name: "Изучите Figma за несколько часов",

@@ -5,7 +5,7 @@ import Menu from "../SideBar/SideBar";
 import Footer from "../Footer/Footer";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
-  // Состояние меню
+  // Состояние - для меню
   const [menuActive, setMenuActive] = useState<boolean>(false);
 
   return (

@@ -16,6 +16,7 @@ const BurgerMenu: FC<IBurgerMenu> = ({
   menuActive,
   setMenuActive,
 }) => {
+  
   const handleClick = () => {
     setIsHeaderActive(!isHeaderActive);
     setMenuActive(!menuActive);

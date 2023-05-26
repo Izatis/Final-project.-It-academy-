@@ -2,7 +2,7 @@
 
 .card {
   @include centering();
-  margin: 15% auto;
+  margin: 25% auto;
 
   h2 {
     font-weight: 700;
@@ -54,111 +54,6 @@
   }
 
   .card__list {
-    .card__item {
-      border-bottom: 1px solid #a7b0c2;
-      padding: 2% 0;
-
-      .card__link {
-        display: flex;
-        justify-content: space-between;
-
-        .card__content {
-          display: flex;
-          gap: 20px;
-
-          .card__image {
-            width: 300px;
-            height: 150px;
-            position: relative;
-
-            img {
-              height: 100%;
-              object-fit: cover;
-            }
-
-            /* Тень анимация */
-            .blackout {
-              width: 100%;
-              height: 100%;
-              position: absolute;
-              top: 0;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background: rgba(0, 0, 0, 0.5);
-              opacity: 0;
-              transition: all 0.7s;
-
-              span {
-                font-weight: 700;
-                @include adaptive-value("font-size", 20, 12);
-                line-height: 130%;
-                color: #ffffff;
-              }
-            }
-            /* Тень анимация */
-
-            &:hover .blackout {
-              opacity: 1;
-              padding: 2px;
-              box-sizing: border-box;
-              transition: all 0.7s;
-            }
-          }
-
-          .content__list {
-            width: 100%;
-
-            li {
-              h3 {
-                font-weight: 700;
-                @include adaptive-value("font-size", 25, 12);
-                line-height: 130%;
-                color: #1c1d1f;
-              }
-            }
-
-            .card__desciption {
-              font-weight: 700;
-              @include adaptive-value("font-size", 15, 8);
-              line-height: 130%;
-              color: #1c1d1f;
-            }
-
-            .card__creator {
-              font-weight: 700;
-              @include adaptive-value("font-size", 15, 8);
-              line-height: 130%;
-              color: #6a6f73;
-            }
-
-            .card__duration {
-              font-weight: 700;
-              @include adaptive-value("font-size", 15, 8);
-              line-height: 130%;
-              color: #6a6f73;
-            }
-
-            & :nth-child(4) {
-              display: flex;
-
-              pre {
-                font-weight: 700;
-                @include adaptive-value("font-size", 18, 8);
-                line-height: 130%;
-                color: #ffd700;
-              }
-            }
-          }
-        }
-
-        .card__price {
-          font-weight: 700;
-          @include adaptive-value("font-size", 22, 12);
-          line-height: 130%;
-          color: #1c1d1f;
-        }
-      }
-    }
+  
   }
 }

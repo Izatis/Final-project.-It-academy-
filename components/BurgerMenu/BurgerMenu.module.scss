@@ -12,45 +12,37 @@
     width: 15px;
     height: 12px;
     position: relative;
-    transition: transform 0.3s ease;
+    transition: all 0.3s;
 
-    &::before {
-      content: "";
-      width: 15px;
-      height: 2px;
-      position: absolute;
-      top: 0;
-      background-color: #ffffff;
-      border-radius: 4px;
-      transition: transform 0.3s ease;
-    }
-
-    & span {
-      width: 15px;
-      height: 2px;
-      position: absolute;
-      top: 4.7px;
-      background-color: #ffffff;
-      border-radius: 4px;
-      transition: opacity 0.3s ease;
-    }
-
+    &::before,
+    & span,
     &::after {
       content: "";
       width: 15px;
       height: 2px;
       position: absolute;
-      bottom: 0;
       background-color: #ffffff;
       border-radius: 4px;
-      transition: transform 0.3s ease;
+      transition: all 0.3s;
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    & span {
+      top: 5px;
+    }
+
+    &::after {
+      bottom: 0;
     }
 
     &.active {
       transform: rotate(90deg);
 
       &::before {
-        transform: rotate(45deg) translate(4px, 4px);
+        transform: rotate(45deg) translate(3.5px, 3.5px);
       }
 
       & span {
@@ -58,7 +50,7 @@
       }
 
       &::after {
-        transform: rotate(-45deg) translate(4px, -4px);
+        transform: rotate(-45deg) translate(3.5px, -3.5px);
       }
     }
   }
@@ -81,7 +73,6 @@
 
       &::before {
         width: 12px;
-        top: 0;
       }
 
       & span {
@@ -91,7 +82,6 @@
 
       &::after {
         width: 12px;
-        bottom: 0;
       }
 
       &.active {
