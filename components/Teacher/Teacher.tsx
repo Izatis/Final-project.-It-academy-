@@ -3,14 +3,22 @@ import s from "./Teacher.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
-import teacher from "../../public/teacher.png";
+import teacherImage from "../../public/teacher.png";
 import Rating from "../Rating/Rating";
 
-const Teacher = () => {
+interface ITeacher {
+  teacher: {
+    id: number;
+    name: string;
+    avatar: string
+  };
+}
+
+const Teacher: FC<ITeacher> = ({ teacher }) => {
   return (
-    <Link className={s.teacher} href="/profileTeacher//profileTeacher">
+    <Link className={s.teacher} href={`/profileTeacher/${teacher.id}`}>
       <div className={s.teacher__info}>
-        <Image className={s.teacher__avatar} src={teacher} alt="avatar" />
+        <Image className={s.teacher__avatar} src={teacherImage} alt="avatar" />
 
         <ul className={s.teacher__list}>
           <li className={s.teacher__name}>Максим Фролов</li>

@@ -199,7 +199,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
         )}
 
         <div className={s.header__buttons}>
-          <Link href="/basket/basket">
+          <Link href="/basketList/basketList">
             <FontAwesomeIcon
               className={s.header__basket}
               icon={faCartShopping}
