@@ -9,7 +9,7 @@ import Rating from "../Rating/Rating";
 interface ICourseProps {
   course: {
     id: number;
-    name: string;
+    title: string;
     description: string;
     creator: string;
     price: number;
@@ -37,10 +37,13 @@ const CourseItem: FC<ICourseProps> = ({ course }) => {
 
         <div className={s.course__info}>
           <ul className={s.content__list}>
-            <li className={s.course__title}>{course.name}</li>
+            <li className={s.course__title}>{course.title}</li>
             <li className={s.course__desciption}>{course.description}</li>
-            <li className={s.course__creator}>{course.creator}</li>
-            <li className={s.course__rating} onClick={(e) => e.preventDefault()}>
+            <li className={s.course__creator}>Автор: {course.creator}</li>
+            <li
+              className={s.course__rating}
+              onClick={(e) => e.preventDefault()}
+            >
               <pre>{course.price}</pre>
               <Rating value={2.5} />
             </li>

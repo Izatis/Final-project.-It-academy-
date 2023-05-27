@@ -7,15 +7,52 @@
   margin: 25% auto;
 
   aside {
-    min-width: 320px;
     height: 100%;
     box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
     border-radius: 4px;
 
-    video {
-      width: 100%;
+    .course__poster {
+      min-width: 320px;
       height: 170px;
-      border-radius: 4px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-direction: column;
+      gap: 40px;
+      cursor: pointer;
+
+      .course__play {
+        @include adaptive-value("width", 40, 18);
+        @include adaptive-value("font-size", 40, 18);
+        color: #ffffff;
+      }
+
+      span {
+        font-weight: 500;
+        @include adaptive-value("font-size", 15, 10);
+        line-height: 130%;
+        color: #ffffff;
+        margin: 0 0 2%;
+      }
+
+      img {
+        position: absolute;
+        z-index: -2;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+      }
+
+      .blackout {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: -1;
+        background: rgba(0, 0, 0, 0.5);
+        transition: all 0.7s;
+      }
     }
 
     .aside__body {
@@ -193,8 +230,10 @@
     gap: 50px;
 
     aside {
-      video {
-        height: 100%;
+      .course__poster {
+        width: 100%;
+        height: 200px;
+        gap: 70px;
       }
     }
   }
@@ -202,7 +241,6 @@
 
 @media screen and (max-width: 425px) {
   .course {
-
     aside {
       display: flex;
       flex-direction: column;

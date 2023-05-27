@@ -2,7 +2,7 @@ import React, { FC, useRef } from "react";
 import s from "./MyButton.module.scss";
 
 import Button, { ButtonProps } from "antd/lib/button";
-import cn from 'classnames'
+import cn from "classnames";
 
 interface IMyButtonProps extends ButtonProps {
   background?: string;
@@ -17,9 +17,7 @@ const MyButton: FC<IMyButtonProps> = ({
   type,
   icon,
   loading,
-  ghost,
   onClick,
-  ...props
 }) => {
   // С помощью useRef получаем элемента
   const spanElement = useRef<HTMLSpanElement>(null);
@@ -52,7 +50,6 @@ const MyButton: FC<IMyButtonProps> = ({
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      {...props}
     >
       {children}
 

@@ -1,0 +1,21 @@
+@import "../../styles/varibales.module.scss";
+
+.search {
+  @include centering();
+  margin: 25% auto;
+
+  h2 {
+    font-weight: 700;
+    @include adaptive-value("font-size", 40, 20);
+    line-height: 130%;
+    color: #03d665;
+  }
+
+  .search__input {
+    @include adaptive-value("height", 50, 20);
+    @include adaptive-value("font-size", 20, 8);
+    border-radius: 20px;
+    box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
+    transition: all 0.4s;
+  }
+}

@@ -10,7 +10,7 @@ const Footer: FC = () => {
     <footer className={s.footer} id="contacts">
       <div className={s.footer__content}>
         <div className={s.footer__contacts}>
-          <FontAwesomeIcon icon={faGraduationCap} className={s.footer__logo} />
+          <FontAwesomeIcon className={s.footer__logo} icon={faGraduationCap} />
 
           <p>
             Образовательная онлайн-платформа для развития и тренировки навыков в
@@ -18,9 +18,9 @@ const Footer: FC = () => {
           </p>
 
           <div className={s.footer__socialMedia}>
-            <FontAwesomeIcon icon={faInstagram} className={s.footer__social} />
-            <FontAwesomeIcon icon={faPhone} className={s.footer__social} />
-            <FontAwesomeIcon icon={faTelegram} className={s.footer__social} />
+            <FontAwesomeIcon className={s.footer__social} icon={faInstagram} />
+            <FontAwesomeIcon className={s.footer__social} icon={faPhone} />
+            <FontAwesomeIcon className={s.footer__social} icon={faTelegram} />
           </div>
         </div>
 
@@ -94,7 +94,7 @@ const Footer: FC = () => {
       </div>
 
       <footer className={s.subFooter}>
-        <FontAwesomeIcon icon={faGraduationCap} className={s.subFooter__logo} />
+        <FontAwesomeIcon className={s.subFooter__logo} icon={faGraduationCap}/>
 
         <p>© 2023 Izatis, Inc.</p>
       </footer>

@@ -4,12 +4,14 @@ import s from "./AnimateSelect.module.scss";
 import cn from "classnames";
 import MyModal from "@/components/Modals/MyModal/MyModal";
 
-const AnimateSelect: FC = () => {
+interface IAnimateSelectProps {
+  isModalOpen: boolean;
+  setIsModalOpen: (active: boolean) => void;
+}
+
+const AnimateSelect: FC<IAnimateSelectProps> = ({isModalOpen, setIsModalOpen}) => {
   // Состояние - для select
   const [reveal, setReveal] = useState<boolean>(false);
-  
-  // Состояние - для модалки
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <div
