@@ -36,15 +36,15 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
             </li>
             <li>
               <a href="#categories" onClick={() => setMenuActive(!menuActive)}>
-                Курсы
+                Категории
               </a>
             </li>
             <li>
               <a
-                href="#recommendations"
+                href="#courses"
                 onClick={() => setMenuActive(!menuActive)}
               >
-                Рекомендации
+                Курсы
               </a>
             </li>
             <li>
@@ -65,15 +65,15 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
                 href="/#categories"
                 onClick={() => setMenuActive(!menuActive)}
               >
-                Курсы
+                Категории{" "}
               </Link>
             </li>
             <li>
               <Link
-                href="/#recommendations"
+                href="/#courses"
                 onClick={() => setMenuActive(!menuActive)}
               >
-                Рекомендации
+                Курсы
               </Link>
             </li>
             <li>

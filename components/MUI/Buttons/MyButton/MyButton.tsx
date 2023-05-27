@@ -1,15 +1,17 @@
-import React, { FC, ReactNode, useRef } from "react";
-import Button, { ButtonProps } from "antd/lib/button";
+import React, { FC, useRef } from "react";
 import s from "./MyButton.module.scss";
 
+import Button, { ButtonProps } from "antd/lib/button";
+import cn from 'classnames'
+
 interface IMyButtonProps extends ButtonProps {
-  children: ReactNode;
   background?: string;
   hoverBackground?: string;
 }
 
 const MyButton: FC<IMyButtonProps> = ({
   children,
+  className,
   background,
   hoverBackground,
   type,
@@ -41,7 +43,7 @@ const MyButton: FC<IMyButtonProps> = ({
 
   return (
     <Button
-      className={s.myButton}
+      className={cn(s.myButton, className)}
       style={{ background }}
       type={type}
       htmlType="submit"

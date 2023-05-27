@@ -1,21 +1,16 @@
-import React from "react";
-import s from "./MySelect.module.scss";
+import React, { FC } from "react";
 
-import { Select } from "antd";
+import { Select, SelectProps } from "antd";
 
-const MySelect = () => {
+const MySelect: FC<SelectProps> = ({ className, defaultValue, options }) => {
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
   return (
     <Select
-      className={s.mySelect}
-      defaultValue="Select"
-      style={{ width: 300 }}
-      options={[
-        { value: "rating", label: "С наивысшим рейтингом" },
-        { value: "price", label: "По цене" },
-      ]}
+      className={className}
+      defaultValue={defaultValue}
+      options={options}
       onChange={handleChange}
     />
   );

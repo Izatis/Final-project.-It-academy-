@@ -8,7 +8,7 @@ import { categories } from "@/constants/categories";
 
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
-import Card from "@/components/Card/Card";
+import Course from "@/components/Course/Course";
 
 export default function () {
   // Состояние - для карточек
@@ -27,7 +27,7 @@ export default function () {
   }, []);
 
   // Отправляем get запрос для карточек
-  const getCard = async () => {
+  const getCourses = async () => {
     const BASE_URL = "http://localhost:8080/course";
     try {
       const response = await axios.get(BASE_URL);
@@ -39,25 +39,32 @@ export default function () {
   };
 
   useEffect(() => {
-    getCard();
+    getCourses();
   }, []);
   return (
-    <section className={s.card}>
+    <section className={s.courses}>
       <h2 className={s.pageTitle}>Все курсы по теме "{category.name}"</h2>
 
-      <header className={s.card__header}>
-        <div className={s.filteredButton}>
-          <MyButton>Фильтировать</MyButton>
+      <header className={s.courses__header}>
+        <div className={s.filtered}>
+          <MyButton className={s.filtered__button}>Фильтировать</MyButton>
 
-          <MySelect />
+          <MySelect
+            className={s.filtered__select}
+            defaultValue="Filtered"
+            options={[
+              { value: "Admin", label: "Admin" },
+              { value: "User", label: "User" },
+            ]}
+          />
         </div>
 
         <span className={s.result}>{coursesData.length} результата</span>
       </header>
 
-      <ul className={s.card__list}>
-        {coursesData.map((card) => (
-          <Card card={card} />
+      <ul className={s.courses__list}>
+        {coursesData.map((course) => (
+          <Course course={course} key={course.id} />
         ))}
       </ul>
     </section>

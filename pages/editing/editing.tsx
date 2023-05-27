@@ -77,10 +77,7 @@ const Editing: FC = () => {
           />
         </Form.Item>
         <Form.Item label="Password" name="password">
-          <Input.Password
-            placeholder="Enter your password"
-         
-          />
+          <Input.Password placeholder="Enter your password" />
         </Form.Item>
         <Form.Item label="Avatar" name="avatar">
           <Input placeholder="Enter your avatar URL" />
@@ -95,8 +92,9 @@ const Editing: FC = () => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <div className={s.buttonGroup}>
+          <div className={s.editing__buttonGroup}>
             <MyButton
+              className={s.editing__button}
               background="#7329c2"
               hoverBackground="#03d665"
               type="primary"
@@ -106,6 +104,7 @@ const Editing: FC = () => {
               Save
             </MyButton>
             <MyButton
+              className={s.editing__button}
               background="#7329c2"
               hoverBackground="#03d665"
               type="primary"

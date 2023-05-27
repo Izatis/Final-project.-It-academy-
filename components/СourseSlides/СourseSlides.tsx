@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import s from "./RecommendedSiders.module.scss";
+import s from "./СourseSlides.module.scss";
 
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,9 +14,9 @@ import slideSecond from "../../public/slideSecond.png";
 import Link from "next/link";
 import { courses } from "@/constants/courses";
 
-const RecommendedSiders: FC = () => {
+const СourseSlides: FC = () => {
   return (
-    <section className={s.recommendations} id="recommendations">
+    <section className={s.сourseSlides}>
       <h2>Курсы</h2>
 
       <Swiper
@@ -35,10 +35,11 @@ const RecommendedSiders: FC = () => {
         grabCursor={true}
         modules={[Navigation, Pagination, Autoplay, Keyboard]}
         className="mySwiper"
+        id="courses"
       >
         {courses.map((course) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={course.id}>
               <div className={s.mySwiper__content}>
                 <div className={s.mySwiper__info}>
                   <b>
@@ -46,7 +47,7 @@ const RecommendedSiders: FC = () => {
                   </b>
                   <p>{course.description}</p>
                   <Link href={`/courses/${course.id}`}>
-                    <MyButton>Перейти</MyButton>
+                    <MyButton className={s.mySwiper__button}>Перейти</MyButton>
                   </Link>
                 </div>
 
@@ -60,4 +61,4 @@ const RecommendedSiders: FC = () => {
   );
 };
 
-export default RecommendedSiders;
+export default СourseSlides;

@@ -1,17 +1,24 @@
 @import "../../styles/varibales.module.scss";
 
-.card__item {
+.course__item {
   border-bottom: 1px solid #a7b0c2;
   padding: 2% 0;
 
-  .card__link {
+  .course__link {
     display: flex;
     @include adaptive-value("gap", 20, 10);
 
-    .card__image {
-      @include adaptive-value("width", 250, 120);
-      @include adaptive-value("height", 150, 70);
+    .course__image {
+      width: 400px;
+      height: 180px;
       position: relative;
+
+      @media screen and (max-width: 1024px) {
+        & {
+          @include adaptive-value("width", 400, 120);
+          @include adaptive-value("height", 180, 70);
+        }
+      }
 
       img {
         width: 100%;
@@ -47,34 +54,34 @@
       }
     }
 
-    .card__info {
+    .course__info {
       width: 100%;
       display: flex;
       justify-content: space-between;
 
       .content__list {
-        .card__title {
+        .course__title {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 10);
           line-height: 130%;
           color: #1c1d1f;
         }
 
-        .card__desciption {
+        .course__desciption {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
           line-height: 130%;
           color: #1c1d1f;
         }
 
-        .card__creator {
+        .course__creator {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
           line-height: 130%;
           color: #6a6f73;
         }
 
-        .card__rating {
+        .course__rating {
           display: flex;
           align-items: center;
           gap: 10px;
@@ -95,7 +102,7 @@
           }
         }
 
-        .card__duration {
+        .course__duration {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
           line-height: 130%;
@@ -103,7 +110,7 @@
         }
       }
 
-      .card__price {
+      .course__price {
         white-space: nowrap;
         font-weight: 700;
         @include adaptive-value("font-size", 22, 10);
@@ -115,9 +122,9 @@
 }
 
 @media screen and (max-width: 425px) {
-  .card__item {
-    .card__link {
-      .card__info {
+  .course__item {
+    .course__link {
+      .course__info {
         flex-direction: column;
       }
     }

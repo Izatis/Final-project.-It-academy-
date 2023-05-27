@@ -1,11 +1,12 @@
-import Rating from "@/components/Rating/Rating";
+import { useState } from "react";
 import s from "./courses.module.scss";
 
-import { useState } from "react";
 import { courses, ICourses} from "../../constants/courses";
-import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
+
+import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
 import Teacher from "@/components/Teacher/Teacher";
+import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 
 export default function () {
   // Состояние - для карточек

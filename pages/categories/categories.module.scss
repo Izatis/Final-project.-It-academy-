@@ -1,45 +1,56 @@
 @import "../../styles/varibales.module.scss";
 
-.card {
+.courses {
   @include centering();
   margin: 25% auto;
 
   h2 {
     font-weight: 700;
-    @include adaptive-value("font-size", 35, 20);
+    @include adaptive-value("font-size", 35, 15);
     line-height: 130%;
     color: #1c1d1f;
   }
 
-  .card__header {
+  .courses__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2% 0;
+    padding: 5% 0;
 
-    .filteredButton {
+    .filtered {
       display: flex;
       gap: 2%;
 
-      button {
+      .filtered__button {
         @include adaptive-value("height", 62, 32);
         border: 1px solid #d9d9d9;
-        transition: all 0.4s;
+        transition: all 0.5s;
+
+        span {
+          font-weight: 700;
+          @include adaptive-value("font-size", 18, 8);
+          line-height: 130%;
+          color: #7329c2;
+        }
 
         &:hover {
           background-color: #7329c2;
           border: 1px solid #7329c2;
+          transition: all 0.5s;
 
           span {
             color: #ffffff;
           }
-          transition: all 0.4s;
         }
+      }
+
+      .filtered__select {
+        @include adaptive-value("width", 300, 110);
 
         span {
-          font-weight: 700;
-          @include adaptive-value("font-size", 18, 10);
-          line-height: 130%;
+          font-weight: 700 !important;
+          @include adaptive-value("font-size", 18, 8);
+          line-height: 130% !important;
           color: #7329c2;
         }
       }
@@ -47,13 +58,9 @@
 
     .result {
       font-weight: 700;
-      @include adaptive-value("font-size", 22, 12);
+      @include adaptive-value("font-size", 22, 10);
       line-height: 130%;
       color: #1c1d1f;
     }
-  }
-
-  .card__list {
-  
   }
 }

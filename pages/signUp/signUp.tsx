@@ -1,15 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import s from "./signUp.module.scss";
 
+import Link from "next/link";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
+
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
-import Link from "next/link";
+import MySelect from "@/components/MUI/MySelect/MySelect";
 
 interface IUserRegister {
   fullName: string;
@@ -70,44 +71,28 @@ const SignUp: FC = () => {
     setLoading(false);
   };
 
-  // Для сохранения значений
+  // Для сохранения значений инпутов
   const [form] = Form.useForm();
 
   useEffect(() => {
     form.setFieldsValue({ ...userRegister });
   }, []);
 
-  const googleAuth = async (): Promise<void> => {
-    console.log("googleAuth");
-
-    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
-
-    try {
-      const { data }: AxiosResponse<{ token: string }> = await axios.post(
-        BASE_URL + "/auth/redirect"
-      );
-      console.log(data);
-
-      // Достаем токен пользователя
-      const token = localStorage.getItem("token") ?? "";
-      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-
-      // Если есть токен то перенаправляем пользователя на профиль
-      if (!!parsedToken) {
-        push("http://localhost:3000/profile/profile");
-      }
-
-      // Сохраняем токен пользователя
-      localStorage.setItem("token", JSON.stringify(data.token));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <section className={s.signUp}>
       <h2>{t.signUp[0]}</h2>
       <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
+        <Form.Item name="role">
+          <MySelect
+            className={s.signUp__select}
+            defaultValue="Role"
+            options={[
+              { value: "Admin", label: "Admin" },
+              { value: "User", label: "User" },
+            ]}
+          />
+        </Form.Item>
+
         <Form.Item
           name="fullName"
           rules={[
@@ -186,22 +171,15 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item>
-        <button onClick={googleAuth}>
-
           <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
             {t.signUp[13]}
           </Link>
-          </button>
-
         </Form.Item>
 
         <Form.Item>
-          <button onClick={googleAuth}>
-
           <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github">
             {t.signUp[14]}
           </Link>
-          </button>
         </Form.Item>
       </Form>
     </section>
