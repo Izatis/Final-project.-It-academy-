@@ -1,0 +1,66 @@
+@import "../../styles/varibales.module.scss";
+
+.courses {
+  @include centering();
+  margin: 25% auto;
+
+  h2 {
+    font-weight: 700;
+    @include adaptive-value("font-size", 35, 15);
+    line-height: 130%;
+    color: #322f55;
+  }
+
+  .courses__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5% 0;
+
+    .filtered {
+      display: flex;
+      gap: 2%;
+
+      .filtered__button {
+        @include adaptive-value("height", 62, 32);
+        border: 1px solid #d9d9d9;
+        transition: all 0.5s;
+
+        span {
+          font-weight: 700;
+          @include adaptive-value("font-size", 18, 8);
+          line-height: 130%;
+          color: #7329c2;
+        }
+
+        &:hover {
+          background-color: #7329c2;
+          border: 1px solid #7329c2;
+          transition: all 0.5s;
+
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .filtered__select {
+        @include adaptive-value("width", 300, 110);
+
+        span {
+          font-weight: 700 !important;
+          @include adaptive-value("font-size", 18, 8);
+          line-height: 130% !important;
+          color: #7329c2;
+        }
+      }
+    }
+
+    .result {
+      font-weight: 700;
+      @include adaptive-value("font-size", 22, 10);
+      line-height: 130%;
+      color: #322f55;
+    }
+  }
+}

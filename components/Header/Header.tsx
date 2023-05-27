@@ -12,9 +12,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../public/avatar.jpeg";
 
-import MyButton from "../MUI/MyButton/MyButton";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import Translate from "../Translate/Translate";
+import MyButton from "../MUI/Buttons/MyButton/MyButton";
+import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
 interface IHeaderProps {
   menuActive: boolean;
@@ -140,17 +140,17 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
                     navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Курсы
+                  Категории
                 </a>
               </li>
               <li ref={blockRefThree}>
                 <a
-                  href="#recommendations"
+                  href="#courses"
                   style={
                     navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Рекомендации
+                  Курсы
                 </a>
               </li>
               <li ref={blockRefFour}>
@@ -186,10 +186,10 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
                 <Link href="/">Главная</Link>
               </li>
               <li ref={blockRefSecond}>
-                <Link href="/#categories">Курсы</Link>
+                <Link href="/#categories">Категории</Link>
               </li>
               <li ref={blockRefThree}>
-                <Link href="/#recommendations">Рекомендации</Link>
+                <Link href="/#courses">Курсы</Link>
               </li>
               <li ref={blockRefFour}>
                 <Link href="/#contacts">Контакты</Link>
@@ -201,16 +201,16 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
         <div className={s.header__buttons}>
           <Link href="/basket/basket">
             <FontAwesomeIcon
-              icon={faCartShopping}
               className={s.header__basket}
+              icon={faCartShopping}
             />
           </Link>
 
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
 
           {isToken ? (
-            <Link href={"profile/profile"}>
-              <Image src={avatar} alt="avatar" width={20} height={20} />
+            <Link href={"/profile/profile"}>
+              <Image className={s.header__avatar} src={avatar} alt="avatar"/>
             </Link>
           ) : pathname === "/signUp/signUp" ? (
             <Link href="/signIn/signIn">
@@ -234,7 +234,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
             </Link>
           )}
 
-          <Translate />
+          <TranslateButton />
 
           <BurgerMenu
             isHeaderActive={isHeaderActive}

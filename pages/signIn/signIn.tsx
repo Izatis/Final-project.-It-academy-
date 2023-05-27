@@ -9,7 +9,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyButton from "@/components/MUI/MyButton/MyButton";
+import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 
 interface IUserLogin {
   username: string;
@@ -66,7 +66,8 @@ const SignIn: FC = () => {
     }
     setLoading(false);
   };
-  // Для сохранения значений
+  
+  // Для сохранения значений инпутов
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -76,16 +77,9 @@ const SignIn: FC = () => {
   return (
     <section className={s.signIn}>
       <h2>{t.signIn[0]}</h2>
-      <Form
-        labelCol={{ span: 3 }}
-        wrapperCol={{ span: 20, offset: 1 }}
-        form={form}
-        name="sign-in-form"
-        onFinish={handleSubmit}
-      >
+      <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
         <Form.Item
           name="username"
-          label={t.signIn[1]}
           rules={[
             {
               type: "email",
@@ -103,7 +97,6 @@ const SignIn: FC = () => {
 
         <Form.Item
           name="password"
-          label={t.signIn[2]}
           rules={[
             {
               required: true,
@@ -127,19 +120,30 @@ const SignIn: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
+          <Link
+            className={s.signIn__link}
+            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
+          >
             {t.signIn[7]}
           </Link>
         </Form.Item>
 
         <Form.Item>
-          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github">
+          <Link
+            className={s.signIn__link}
+            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
+          >
             {t.signIn[8]}
           </Link>
         </Form.Item>
 
         <Form.Item>
-          <Link href="/passwordRecovery/passwordRecovery">{t.signIn[9]}</Link>
+          <Link
+            className={s.signIn__link}
+            href="/passwordRecovery/passwordRecovery"
+          >
+            {t.signIn[9]}
+          </Link>
         </Form.Item>
       </Form>
     </section>

@@ -4,7 +4,8 @@ import s from "./SideBar.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import cn from "classnames";
-import Translate from "../Translate/Translate";
+
+import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
 interface IMenuProps {
   menuActive: boolean;
@@ -24,7 +25,7 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
         <header className={s.menu__header}>
           <h2>Menu</h2>
-          <Translate />
+          <TranslateButton />
         </header>
         {pathname === "/" ? (
           <ul className={s.menu__list}>
@@ -35,15 +36,15 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
             </li>
             <li>
               <a href="#categories" onClick={() => setMenuActive(!menuActive)}>
-                Курсы
+                Категории
               </a>
             </li>
             <li>
               <a
-                href="#recommendations"
+                href="#courses"
                 onClick={() => setMenuActive(!menuActive)}
               >
-                Рекомендации
+                Курсы
               </a>
             </li>
             <li>
@@ -64,15 +65,15 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
                 href="/#categories"
                 onClick={() => setMenuActive(!menuActive)}
               >
-                Курсы
+                Категории{" "}
               </Link>
             </li>
             <li>
               <Link
-                href="/#recommendations"
+                href="/#courses"
                 onClick={() => setMenuActive(!menuActive)}
               >
-                Рекомендации
+                Курсы
               </Link>
             </li>
             <li>

@@ -33,6 +33,7 @@ h3,
 h4,
 h5,
 h6,
+b,
 a,
 p,
 span,
@@ -45,6 +46,12 @@ input {
   font-style: normal;
 }
 
+@media screen and (max-width: 425px) {
+  input {
+    font-size: 12px !important;
+  }
+}
+
 /* MyModal */
 .ant-modal-root {
   z-index: 30;
@@ -54,12 +61,8 @@ input {
 .ant-form-item {
   margin: 7% 0 0 0;
 }
-.ant-col{
-  width: 200px !important;
-}
 
-/* passwordRecovery */
-.ant-form-item-control-input-content {
-  margin: 0 auto;
+.ant-col {
+  width: 200px !important;
 }
 
