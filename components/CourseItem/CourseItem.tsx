@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import s from "./Course.module.scss";
+import s from "./CourseItem.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -16,10 +16,10 @@ interface ICourseProps {
   };
 }
 
-const Course: FC<ICourseProps> = ({ course }) => {
+const CourseItem: FC<ICourseProps> = ({ course }) => {
   return (
     <li className={s.course__item} key={course.id}>
-      <Link className={s.course__link} href={`/courses/${course.id}`}>
+      <Link className={s.course__link} href={`/courseMore/${course.id}`}>
         <div className={s.course__image}>
           <Image
             src={
@@ -54,4 +54,4 @@ const Course: FC<ICourseProps> = ({ course }) => {
   );
 };
 
-export default Course;
+export default CourseItem;

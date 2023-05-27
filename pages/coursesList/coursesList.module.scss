@@ -8,7 +8,7 @@
     font-weight: 700;
     @include adaptive-value("font-size", 35, 15);
     line-height: 130%;
-    color: #1c1d1f;
+    color: #322f55;
   }
 
   .courses__header {
@@ -60,7 +60,7 @@
       font-weight: 700;
       @include adaptive-value("font-size", 22, 10);
       line-height: 130%;
-      color: #1c1d1f;
+      color: #322f55;
     }
   }
 }

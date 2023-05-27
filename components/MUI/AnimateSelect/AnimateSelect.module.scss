@@ -8,9 +8,9 @@
 
   P {
     font-weight: 700;
-    @include adaptive-value("font-size", 18, 10);
+    @include adaptive-value("font-size", 18, 8);
     line-height: 130%;
-    color: #1752aa;
+    color: #322f55;
   }
 
   &::after {
@@ -20,16 +20,16 @@
     right: 2%;
     transform: rotate(-90deg);
     font-weight: 600;
-    @include adaptive-value("font-size", 50, 40);
+    @include adaptive-value("font-size", 40, 15);
     line-height: 130%;
-    color: #7329c2;
+    color: #03d665;
     transition: all 0.4s;
   }
 
   &.reveal::after {
     content: "−";
     transform: rotate(0deg);
-    color: #03d665;
+    color: #7329c2;
     transition: all 0.4s;
   }
 

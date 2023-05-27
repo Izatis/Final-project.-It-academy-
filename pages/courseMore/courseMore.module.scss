@@ -1,0 +1,212 @@
+@import "../../styles/varibales.module.scss";
+
+.course {
+  @include centering();
+  display: flex;
+  @include adaptive-value("gap", 25, 10);
+  margin: 25% auto;
+
+  aside {
+    min-width: 320px;
+    height: 100%;
+    box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
+    border-radius: 4px;
+
+    video {
+      width: 100%;
+      height: 170px;
+      border-radius: 4px;
+    }
+
+    .aside__body {
+      display: flex;
+      flex-direction: column;
+      @include adaptive-value("gap", 15, 5);
+      padding: 5% 5% 20%;
+      box-sizing: border-box;
+
+      .aside_price {
+        font-weight: 700;
+        @include adaptive-value("font-size", 22, 12);
+        line-height: 130%;
+        color: #322f55;
+      }
+
+      .aside__button {
+        @include adaptive-value("width", 280, 200);
+        background-color: #7329c2;
+        color: #ffffff;
+        transition: all 0.5s;
+
+        &:hover {
+          background-color: transparent;
+          border: 1px solid #7329c2;
+          color: #7329c2;
+          transition: all 0.5s;
+        }
+      }
+
+      .aside__subButton {
+        @include adaptive-value("width", 280, 200);
+        background-color: #03d665;
+        color: #ffffff;
+        transition: all 0.5s;
+
+        &:hover {
+          background-color: transparent;
+          border: 1px solid #03d665;
+          color: #03d665;
+          transition: all 0.5s;
+        }
+      }
+
+      b {
+        font-weight: 700;
+        @include adaptive-value("font-size", 20, 15);
+        line-height: 130%;
+        color: #03d665;
+      }
+
+      .aside__list {
+        padding: 0 0 0 5%;
+        box-sizing: border-box;
+
+        li {
+          list-style: initial;
+          font-weight: 500;
+          @include adaptive-value("font-size", 15, 10);
+          line-height: 130%;
+          color: #322f55;
+          padding: 0 0 0 1%;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+
+  .right__block {
+    .course__list {
+      .course__title {
+        font-weight: 700;
+        @include adaptive-value("font-size", 25, 10);
+        line-height: 130%;
+        color: #322f55;
+      }
+
+      .course__desciption {
+        font-weight: 700;
+        @include adaptive-value("font-size", 15, 8);
+        line-height: 130%;
+        color: #322f55;
+      }
+
+      .course__creator {
+        font-weight: 700;
+        @include adaptive-value("font-size", 15, 8);
+        line-height: 130%;
+        color: #6a6f73;
+      }
+
+      .course__duration {
+        font-weight: 700;
+        @include adaptive-value("font-size", 15, 8);
+        line-height: 130%;
+        color: #6a6f73;
+      }
+
+      .course__rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        pre {
+          font-weight: 500;
+          @include adaptive-value("font-size", 18, 8);
+          line-height: 130%;
+          color: #ffd700;
+        }
+
+        ul {
+          display: flex;
+          li {
+            @include adaptive-value("font-size", 18, 8);
+            @include adaptive-value("margin-inline-end", 10, 2);
+          }
+        }
+      }
+      .course__language {
+        font-weight: 700;
+        @include adaptive-value("font-size", 15, 8);
+        line-height: 130%;
+        color: #322f55;
+      }
+    }
+
+    .course__info {
+      border: 1px solid #a7b0c2;
+      border-radius: 4px;
+      padding: 2%;
+      box-sizing: border-box;
+      margin: 5% 0;
+
+      b {
+        font-weight: 700;
+        @include adaptive-value("font-size", 25, 15);
+        line-height: 130%;
+        color: #03d665;
+      }
+
+      .info__list {
+        padding: 0 4%;
+        box-sizing: border-box;
+
+        li {
+          list-style: initial;
+          font-weight: 700;
+          @include adaptive-value("font-size", 15, 8);
+          line-height: 130%;
+          padding: 0 0 0 1%;
+          box-sizing: border-box;
+
+          &::marker {
+            color: #03d665;
+          }
+        }
+      }
+    }
+
+    .course__materials {
+      b {
+        font-weight: 700;
+        @include adaptive-value("font-size", 25, 15);
+        line-height: 130%;
+        color: #03d665;
+        margin: 0 0 1%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .course {
+    flex-direction: column;
+    gap: 50px;
+
+    aside {
+      video {
+        height: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .course {
+
+    aside {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}

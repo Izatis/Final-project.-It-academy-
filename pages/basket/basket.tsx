@@ -3,7 +3,7 @@ import s from "./basket.module.scss";
 
 import { courses } from "@/constants/courses";
 
-import Course from "@/components/Course/Course";
+import Course from "@/components/CourseItem/CourseItem";
 
 const Basket = () => {
   return (

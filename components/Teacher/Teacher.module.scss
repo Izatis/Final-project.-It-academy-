@@ -13,11 +13,11 @@
   .teacher__info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 
     .teacher__avatar {
-      height: 150px;
-      width: 150px;
+      @include adaptive-value("width", 150, 70);
+      @include adaptive-value("height", 150, 70);
       border-radius: 50%;
     }
 
@@ -45,7 +45,6 @@
           display: flex;
           li {
             @include adaptive-value("font-size", 18, 8);
-            @include adaptive-value("margin-inline-end", 10, 2);
           }
         }
       }
@@ -61,14 +60,14 @@
 
   .teacher__title {
     font-weight: 700;
-    @include adaptive-value("font-size", 15, 8);
+    @include adaptive-value("font-size", 15, 12);
     line-height: 130%;
     color: #191970;
   }
 
   .teacher__description {
-    font-style: normal;
     font-weight: 400;
+    @include adaptive-value("font-size", 15, 8);
     line-height: 130%;
     color: #a7b0c2;
   }

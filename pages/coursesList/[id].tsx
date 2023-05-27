@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import s from "./categories.module.scss";
+import s from "./coursesList.module.scss";
 
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ import { categories } from "@/constants/categories";
 
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
-import Course from "@/components/Course/Course";
+import CourseItem from "@/components/CourseItem/CourseItem";
 
 export default function () {
   // Состояние - для карточек
@@ -64,7 +64,7 @@ export default function () {
 
       <ul className={s.courses__list}>
         {coursesData.map((course) => (
-          <Course course={course} key={course.id} />
+          <CourseItem course={course} key={course.id} />
         ))}
       </ul>
     </section>

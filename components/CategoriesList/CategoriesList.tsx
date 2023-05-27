@@ -14,7 +14,7 @@ const CategoriesList: FC = () => {
           return (
             <Link
               className={s.categories__item}
-              href={`/categories/${category.id}`}
+              href={`/coursesList/${category.id}`}
               key={category.id}
             >
               <Image src={category.image} alt="categories image" />
