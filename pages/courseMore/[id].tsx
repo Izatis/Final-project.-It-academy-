@@ -1,28 +1,52 @@
 import { useState } from "react";
 import s from "./courseMore.module.scss";
 
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { courses, ICourses } from "../../constants/courses";
+import poster from "../../public/design.png";
 
 import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
 import Teacher from "@/components/Teacher/Teacher";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 
+interface ITeacher {
+  id: number;
+  name: string;
+  description: string;
+  avatar: string;
+}
+
+const teachers: ITeacher[] = [
+  {
+    id: 1,
+    name: "dsaf",
+    description: "string",
+    avatar: "string",
+  },
+];
+
 export default function () {
   // Состояние - для карточек
   const [courseData, setCourseData] = useState<ICourses[]>(courses);
 
+  // Состояние - для модалки
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <div className={s.course}>
       <aside>
-        <video controls>
-          <source
-            src={
-              "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-            }
-            type="video/mp4"
-          />
-        </video>
+        <div
+          className={s.course__poster}
+          onClick={() => setIsModalOpen(!isModalOpen)}
+        >
+          <FontAwesomeIcon className={s.course__play} icon={faCirclePlay} />
+          <span>Просмотреть этот курс</span>
+          <Image src={poster} alt="poster" />
+
+          <div className={s.blackout}></div>
+        </div>
 
         <div className={s.aside__body}>
           <span className={s.aside_price}>9,99 $</span>
@@ -55,7 +79,7 @@ export default function () {
           </li>
           <li className={s.course__creator}>Авторы: Иван Петриченко</li>
           <li className={s.course__rating}>
-           <pre>400</pre> <Rating value={3.5} />
+            <pre>400</pre> <Rating value={3.5} />
           </li>
           <li className={s.course__duration}>Последнее обновление: 03.2023</li>
           <li className={s.course__language}>Russia</li>
@@ -91,12 +115,22 @@ export default function () {
 
         <div className={s.course__materials}>
           <b>Материалы курса</b>
-          <AnimateSelect />
-          <AnimateSelect />
-          <AnimateSelect />
+          <AnimateSelect
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
+          <AnimateSelect
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
+          <AnimateSelect
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
         </div>
-
-        <Teacher />
+        {teachers.map((teacher) => {
+          return <Teacher teacher={teacher} />;
+        })}
       </div>
     </div>
   );

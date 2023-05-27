@@ -1,6 +1,6 @@
 ﻿export interface ICourses {
   id: number;
-  name: string;
+  title: string;
   description: string;
   creator: string;
   rating: number;
@@ -15,7 +15,7 @@
 export const courses: ICourses[] = [
   {
     id: 1,
-    name: "Изучите Figma за несколько часов",
+    title: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -30,7 +30,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 2,
-    name: "Изучите Figma за несколько часов",
+    title: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -45,7 +45,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 3,
-    name: "Изучите Figma за несколько часов",
+    title: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -60,7 +60,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 4,
-    name: "Изучите Figma за несколько часов",
+    title: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -75,7 +75,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 5,
-    name: "Изучите Figma за несколько часов",
+    title: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
