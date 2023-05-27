@@ -39,5 +39,7 @@
     "Please enter a valid email address",
     "Please enter your email",
     "Recover Password"
-  ]
+  ],
+
+  "search": ["Search", "Course search", "Please enter a field"]
 }
