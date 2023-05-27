@@ -7,6 +7,7 @@ import MyModal from "@/components/Modals/MyModal/MyModal";
 const AnimateSelect: FC = () => {
   // Состояние - для select
   const [reveal, setReveal] = useState<boolean>(false);
+  
   // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

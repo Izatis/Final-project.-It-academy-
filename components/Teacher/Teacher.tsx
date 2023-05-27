@@ -8,23 +8,24 @@ import Rating from "../Rating/Rating";
 
 const Teacher = () => {
   return (
-    <Link className={s.teacher} href="#">
-      <div className={s.introduction}>
-        <Image className={s.avatar} src={teacher} alt="avatar" />
+    <Link className={s.teacher} href="/profileTeacher//profileTeacher">
+      <div className={s.teacher__info}>
+        <Image className={s.teacher__avatar} src={teacher} alt="avatar" />
+
         <ul className={s.teacher__list}>
-          <li>
-            <h2>Максим Фролов</h2>
-          </li>
-          <li className={s.rating}>
-            4,8 <Rating value={1} />
+          <li className={s.teacher__name}>Максим Фролов</li>
+          <li className={s.teacher__rating}>
+            <pre>4,8</pre> <Rating value={1} />
           </li>
           <li className={s.teacher__item}>32 788 отзывов</li>
           <li className={s.teacher__item}>69 648 студентов</li>
           <li className={s.teacher__item}>7 курса</li>
         </ul>
       </div>
-      <b>Front-End Development and Consulting</b>
-      <p>
+
+      <b className={s.teacher__title}>Front-End Development and Consulting</b>
+
+      <p className={s.teacher__description}>
         Добрый день! Меня зовут Петриченко Иван. Уже более 7 лет занимаюсь
         Front-End разработкой. Я создаю сайты и веб-приложения "под ключ",
         обучаю этому взрослых и детей, организовываю и провожу мероприятия,

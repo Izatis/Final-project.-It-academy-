@@ -3,7 +3,7 @@ import React from "react";
 import Hero from "@/components/Hero/Hero";
 import Statistics from "@/components/Statistics/Statistics";
 import CategoriesList from "@/components/CategoriesList/CategoriesList";
-import RecommendedSiders from "@/components/RecommendedSiders/RecommendedSiders";
+import СourseSlides from "@/components/СourseSlides/СourseSlides";
 
 const Main = () => {
   return (
@@ -11,7 +11,7 @@ const Main = () => {
       <Hero />
       <Statistics />
       <CategoriesList />
-      <RecommendedSiders />
+      <СourseSlides />
     </>
   );
 };

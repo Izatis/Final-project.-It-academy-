@@ -23,11 +23,11 @@
   }
 }
 
-.buttonGroup {
+.editing__buttonGroup {
   display: flex;
   justify-content: flex-end;
 
-  button {
+  .editing__button {
     margin: 0 0 0 8px;
   }
 }

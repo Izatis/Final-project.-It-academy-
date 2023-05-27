@@ -1,12 +1,11 @@
 @import "../../styles/varibales.module.scss";
 
 .signUp {
-  max-width: 400px;
-  background-color: #ffffff;
+  max-width: 450px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 200px auto;
-  padding: 20px;
+  padding: 3% 2%;
   box-sizing: border-box;
 
   h2 {
@@ -18,7 +17,25 @@
     margin: 0 0 30px;
   }
 
-  .error{
-    color: red;
+  &__select {
+    span {
+      font-weight: 500 !important;
+      @include adaptive-value("font-size", 15, 12);
+      color: #7329c2;
+      line-height: 130% !important;
+    }
+  }
+
+  a {
+    font-weight: 500;
+    @include adaptive-value("font-size", 14, 10);
+    line-height: 130%;
+  }
+
+  .error {
+    font-weight: 500;
+    @include adaptive-value("font-size", 14, 12);
+    line-height: 130%;
+    color: #ff4d4f;
   }
 }

@@ -12,7 +12,7 @@ import cover from "../../public/cover.png";
 import avatar from "../../public/avatar.jpeg";
 
 import Loading from "../../components/Loading/Loading";
-import MyButton from "../../components/MUI/MyButton/MyButton";
+import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 
 const Profile = () => {
   // Данные пользователя

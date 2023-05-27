@@ -1,4 +1,4 @@
-﻿export interface ICard {
+﻿export interface ICourses {
   id: number;
   name: string;
   description: string;
@@ -12,11 +12,12 @@
   url: string;
 }
 
-export const cards: ICard[] = [
+export const courses: ICourses[] = [
   {
     id: 1,
     name: "Изучите Figma за несколько часов",
-    description: "Научитесь курсу figma",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -30,7 +31,8 @@ export const cards: ICard[] = [
   {
     id: 2,
     name: "Изучите Figma за несколько часов",
-    description: "Научитесь курсу figma",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -44,7 +46,8 @@ export const cards: ICard[] = [
   {
     id: 3,
     name: "Изучите Figma за несколько часов",
-    description: "Научитесь курсу figma",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -58,7 +61,8 @@ export const cards: ICard[] = [
   {
     id: 4,
     name: "Изучите Figma за несколько часов",
-    description: "Научитесь курсу figma",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",
@@ -72,7 +76,8 @@ export const cards: ICard[] = [
   {
     id: 5,
     name: "Изучите Figma за несколько часов",
-    description: "Научитесь курсу figma",
+    description:
+      " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
     rating: 4.6,
     size: "1 hour",

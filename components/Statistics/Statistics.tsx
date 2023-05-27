@@ -34,16 +34,17 @@ const Statistics: FC = () => {
     <section className={s.statistics} ref={ref}>
       {inView && (
         <Swiper
+          speed={1200}
+          autoplay={{
+            delay: 4500,
+          }}
           pagination={{
             clickable: true,
-          }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
           }}
           keyboard={{
             enabled: true,
           }}
+          loop={true}
           grabCursor={true}
           modules={[Pagination]}
           breakpoints={{
@@ -71,21 +72,21 @@ const Statistics: FC = () => {
 
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span className={`${s.__num} ${s.__num1}`}></span>
+              <span className={`${s.__num} ${s.__num2}`}></span>
               <p>теоретических и практических курсов для разного уровня</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span className={`${s.__num} ${s.__num1}`}></span>
+              <span className={`${s.__num} ${s.__num3}`}></span>
               <p>теоретических и практических курсов для разного уровня</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item} id="categories">
-              <span className={`${s.__num} ${s.__num1}`}></span>
+              <span className={`${s.__num} ${s.__num4}`}></span>
               <p>теоретических и практических курсов для разного уровня</p>
             </div>
           </SwiperSlide>
