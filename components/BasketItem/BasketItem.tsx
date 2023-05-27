@@ -47,17 +47,20 @@ const BasketItem: FC<IBaskets> = ({ basket }) => {
         </ul>
 
         <span className={s.basket__price}>{basket.price} $</span>
-        
-        <FontAwesomeIcon
-          className={s.basket__trash}
-          icon={faTrash}
-          onClick={(e) => e.preventDefault()}
-        />
-        <FontAwesomeIcon
-          className={s.basket__heart}
-          icon={faHeart}
-          onClick={(e) => e.preventDefault()}
-        />
+
+        <div className={s.basket__buttons}>
+          <FontAwesomeIcon
+            className={s.basket__heart}
+            icon={faHeart}
+            onClick={(e) => e.preventDefault()}
+          />
+
+          <FontAwesomeIcon
+            className={s.basket__trash}
+            icon={faTrash}
+            onClick={(e) => e.preventDefault()}
+          />
+        </div>
       </div>
     </Link>
   );

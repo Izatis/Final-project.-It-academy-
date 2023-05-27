@@ -109,29 +109,34 @@
       color: #322f55;
     }
 
-    .basket__trash {
-      @include adaptive-value("height", 25, 15);
-      @include adaptive-value("font-size", 25, 15);
-      color: #7329c2;
-      padding: 1%;
-      transition: all 0.3s;
+    .basket__buttons {
+      display: flex;
+      @include adaptive-value("gap", 20, 10);
 
-      &:hover {
-        color: #03d665;
+      .basket__trash {
+        @include adaptive-value("height", 25, 15);
+        @include adaptive-value("font-size", 25, 15);
+        color: #7329c2;
+        padding: 1%;
         transition: all 0.3s;
+
+        &:hover {
+          color: #03d665;
+          transition: all 0.3s;
+        }
       }
-    }
 
-    .basket__heart {
-      @include adaptive-value("height", 25, 15);
-      @include adaptive-value("font-size", 25, 15);
-      color: #7329c2;
-      padding: 1%;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #03d665;
+      .basket__heart {
+        @include adaptive-value("height", 25, 15);
+        @include adaptive-value("font-size", 25, 15);
+        color: #7329c2;
+        padding: 1%;
         transition: all 0.3s;
+
+        &:hover {
+          color: #03d665;
+          transition: all 0.3s;
+        }
       }
     }
   }

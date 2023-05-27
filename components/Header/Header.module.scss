@@ -64,6 +64,18 @@
       align-items: center;
       @include adaptive-value("gap", 25, 10);
 
+      .header__search {
+        @include adaptive-value("height", 22, 15);
+        @include adaptive-value("font-size", 22, 15);
+        color: #7329c2;
+        transition: all 0.3s;
+
+        &:hover {
+          color: #03d665;
+          transition: all 0.3s;
+        }
+      }
+
       .header__basket {
         @include adaptive-value("height", 22, 15);
         @include adaptive-value("font-size", 22, 15);
