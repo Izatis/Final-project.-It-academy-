@@ -4,14 +4,13 @@ import s from "./signUp.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
-import { Form, Input, Select } from "antd";
+import { Form, Input } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
-import MyInput from "@/components/MUI/MyInput/MyInput";
 
 interface IUserRegister {
   fullName: string;
@@ -58,7 +57,7 @@ const SignUp: FC = () => {
 
       // Если есть токен то перенаправляем пользователя на профиль
       if (!!parsedToken) {
-        push("/profile/profile");
+        push("/userProfile/userProfile");
       }
       // Сбрасываем поля объекта
       setUserRegister({
@@ -103,7 +102,7 @@ const SignUp: FC = () => {
             },
           ]}
         >
-          <MyInput prefix={<UserOutlined />} placeholder={t.signUp[1]} />
+          <Input prefix={<UserOutlined />} placeholder={t.signUp[1]} />
         </Form.Item>
 
         <Form.Item
@@ -119,7 +118,7 @@ const SignUp: FC = () => {
             },
           ]}
         >
-          <MyInput prefix={<MailOutlined />} placeholder={t.signUp[2]} />
+          <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
         <span className={s.error}>{errorMessage}</span>
 

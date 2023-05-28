@@ -10,7 +10,6 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
-import MyInput from "@/components/MUI/MyInput/MyInput";
 
 interface IUserLogin {
   username: string;
@@ -55,7 +54,7 @@ const SignIn: FC = () => {
 
       // Если есть токен то перенаправляем пользователя на профиль
       if (!!parsedToken) {
-        push("/profile/profile");
+        push("/userProfile/userProfile");
       }
       // Сбрасываем поля объекта
       setUserLogin({
@@ -92,7 +91,7 @@ const SignIn: FC = () => {
             },
           ]}
         >
-          <MyInput prefix={<UserOutlined />} placeholder={t.signIn[1]} />
+          <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
         </Form.Item>
         <span className={s.error}>{errorMessage}</span>
 
