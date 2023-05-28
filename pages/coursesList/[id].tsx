@@ -16,12 +16,14 @@ export default function () {
   // Состояние - для объекта из массива categories
   const [category, setCategory] = useState<any>({});
 
-  const { query } = useRouter();
+  const { query }: { query: any } = useRouter();
 
   // Получает объект из массива categories
   useEffect(() => {
     if (!!query.id) {
-      const category = categories.find(({ id }) => id === +query.id);
+      const category = categories.find(
+        ({ id }: { id: any }) => id === +query.id
+      );
       setCategory(category);
     }
   }, []);

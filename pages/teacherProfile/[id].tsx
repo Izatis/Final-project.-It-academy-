@@ -15,7 +15,7 @@ export default function () {
   // Состояние - для данных учителя
   const [teacher, setTeacher] = useState<any>({});
 
-  const { query } = useRouter();
+  const { query }: { query: any } = useRouter();
 
   // Получает объект из массива categories
   useEffect(() => {
@@ -28,34 +28,36 @@ export default function () {
     <section className={s.teacher}>
       <div className={s.teacher__info}>
         <div className={s.teacher__introduction}>
-          <Image
-            className={s.teacher__avatar}
-            src={
-              "https://images.squarespace-cdn.com/content/v1/5cd4eaf58d974051df3fe898/1680603773142-CXT03T3ZFXC6QPPNVQ1D/Home+Page+Photo.jpeg?format=2500w"
-            }
-            alt="avatar"
-            width={300}
-            height={200}
-          />
+          <div className={s.teacher__flex}>
+            <Image
+              className={s.teacher__avatar}
+              src={
+                "https://images.squarespace-cdn.com/content/v1/5cd4eaf58d974051df3fe898/1680603773142-CXT03T3ZFXC6QPPNVQ1D/Home+Page+Photo.jpeg?format=2500w"
+              }
+              alt="avatar"
+              width={300}
+              height={200}
+            />
 
-          <ul className={s.teacher__list}>
-            <li className={s.teacher__static}>Преподаватель:</li>
-            <li className={s.teacher__fullName}>Andrew Chudlya</li>
-            <li className={s.teacher__profession}>Front-End Developer</li>
-            <li>
-              <dl>
-                <span>
-                  <dt>5</dt>
-                  <dd>Отзывов</dd>
-                </span>
+            <ul className={s.teacher__list}>
+              <li className={s.teacher__static}>Преподаватель:</li>
+              <li className={s.teacher__fullName}>Andrew Chudlya</li>
+              <li className={s.teacher__profession}>Front-End Developer</li>
+              <li>
+                <dl>
+                  <span>
+                    <dt>5</dt>
+                    <dd>Отзывов</dd>
+                  </span>
 
-                <span>
-                  <dt>900</dt>
-                  <dd>Курсов</dd>
-                </span>
-              </dl>
-            </li>
-          </ul>
+                  <span>
+                    <dt>900</dt>
+                    <dd>Курсов</dd>
+                  </span>
+                </dl>
+              </li>
+            </ul>
+          </div>
 
           <ul className={s.teacher__socialMedia}>
             <li>
