@@ -17,11 +17,29 @@ const Footer: FC = () => {
             сфере информационных технологий
           </p>
 
-          <div className={s.footer__socialMedia}>
-            <FontAwesomeIcon className={s.footer__social} icon={faInstagram} />
-            <FontAwesomeIcon className={s.footer__social} icon={faPhone} />
-            <FontAwesomeIcon className={s.footer__social} icon={faTelegram} />
-          </div>
+          <ul className={s.footer__socialMedia}>
+            <li>
+              <a href="http://" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon
+                  className={s.footer__social}
+                  icon={faInstagram}
+                />
+              </a>
+            </li>
+            <li>
+              <a href="http://" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon className={s.footer__social} icon={faPhone} />
+              </a>
+            </li>
+            <li>
+              <a href="http://" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon
+                  className={s.footer__social}
+                  icon={faTelegram}
+                />
+              </a>
+            </li>
+          </ul>
         </div>
 
         <ul className={s.footer__list}>

@@ -46,7 +46,7 @@ const СourseSlides: FC = () => {
                     <span>Курс</span> Java
                   </b>
                   <p>{course.description}</p>
-                  <Link href={`/courses/${course.id}`}>
+                  <Link href={`/courseMore/${course.id}`}>
                     <MyButton className={s.mySwiper__button}>Перейти</MyButton>
                   </Link>
                 </div>

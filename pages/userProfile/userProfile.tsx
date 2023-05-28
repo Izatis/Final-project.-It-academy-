@@ -14,7 +14,7 @@ import avatar from "../../public/avatar.jpeg";
 import Loading from "../../components/Loading/Loading";
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 
-const Profile = () => {
+const UserProfile = () => {
   // Данные пользователя
   const [userData, setUserData] = useState<any>({
     fullName: "",
@@ -122,4 +122,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;

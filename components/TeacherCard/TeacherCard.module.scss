@@ -10,7 +10,7 @@
   padding: 4%;
   margin: 5% 0;
 
-  .teacher__info {
+  .teacher__introduction {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -19,10 +19,11 @@
       @include adaptive-value("width", 150, 70);
       @include adaptive-value("height", 150, 70);
       border-radius: 50%;
+      object-fit: cover;
     }
 
     .teacher__list {
-      .teacher__name {
+      .teacher__fullName {
         font-weight: 700;
         @include adaptive-value("font-size", 25, 15);
         line-height: 130%;

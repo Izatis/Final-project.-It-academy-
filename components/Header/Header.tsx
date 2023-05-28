@@ -216,7 +216,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
 
           {isToken ? (
-            <Link href={"/profile/profile"}>
+            <Link href={"/userProfile/userProfile"}>
               <Image className={s.header__avatar} src={avatar} alt="avatar" />
             </Link>
           ) : pathname === "/signUp/signUp" ? (
