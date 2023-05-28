@@ -24,7 +24,7 @@ const SignUp: FC = () => {
     email: "arsenov@gmail.com",
     password: "123456",
   });
-  // Состояния - для загрузки ошибок
+  // Состояния - для ошибок
   const [errorMessage, setErrorMessage] = useState(false);
 
   // Состояния - для загрузки кнопки
