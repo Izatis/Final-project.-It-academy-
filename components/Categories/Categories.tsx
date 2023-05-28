@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import s from "./CategoriesList.module.scss";
+import s from "./Categories.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
 import { categories } from "@/constants/categories";
 
-const CategoriesList: FC = () => {
+const Categories: FC = () => {
   return (
     <section className={s.categories} id="categories">
       <h2>Категории</h2>
@@ -27,4 +27,4 @@ const CategoriesList: FC = () => {
   );
 };
 
-export default CategoriesList;
+export default Categories;
