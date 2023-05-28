@@ -9,11 +9,11 @@ const CategoriesList: FC = () => {
   return (
     <section className={s.categories} id="categories">
       <h2>Категории</h2>
-      <div className={s.categories__list}>
+      <div className={s.categories__wrap}>
         {categories.map((category) => {
           return (
             <Link
-              className={s.categories__item}
+              className={s.categories__card}
               href={`/coursesList/${category.id}`}
               key={category.id}
             >

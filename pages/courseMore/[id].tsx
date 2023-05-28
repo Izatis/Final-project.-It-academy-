@@ -10,6 +10,7 @@ import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import TeacherCard from "@/components/TeacherCard/TeacherCard";
+import ReviewCard from "@/components/ReviewCard/ReviewCard";
 
 export default function () {
   // Состояние - для модалки
@@ -110,6 +111,8 @@ export default function () {
         </div>
 
         <TeacherCard/>
+
+        <ReviewCard/>
       </div>
     </div>
   );

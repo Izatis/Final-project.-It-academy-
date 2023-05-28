@@ -22,7 +22,7 @@ export default function () {
   useEffect(() => {
     if (!!query.id) {
       const category = categories.find(
-        ({ id }: { id: any }) => id === +query.id
+        ({ id }: { id: number }) => id === +query.id
       );
       setCategory(category);
     }

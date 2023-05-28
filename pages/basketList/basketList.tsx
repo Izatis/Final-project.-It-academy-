@@ -38,7 +38,7 @@ const BasketList = () => {
         </aside>
         <div className={s.basket__rightBlock}>
           {baskets.map((basket) => {
-            return <BasketItem basket={basket} />;
+            return <BasketItem basket={basket} key={basket.id}/>;
           })}
         </div>
       </div>

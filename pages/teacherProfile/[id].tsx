@@ -20,7 +20,9 @@ export default function () {
   // Получает объект из массива categories
   useEffect(() => {
     if (!!query.id) {
-      const teacher = teachers.find(({ id }) => id === +query.id);
+      const teacher = teachers.find(
+        ({ id }: { id: number }) => id === +query.id
+      );
       setTeacher(teacher);
     }
   }, []);
@@ -96,7 +98,7 @@ export default function () {
       <h2>Мои курсы</h2>
 
       {courses.map((course) => {
-        return <CourseItem course={course} />;
+        return <CourseItem course={course} key={course.id}/>;
       })}
     </section>
   );
