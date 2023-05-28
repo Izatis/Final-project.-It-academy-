@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import s from "./profile.module.scss";
+import s from "./userProfile.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";

@@ -11,12 +11,12 @@
     padding: 2% 0;
   }
 
-  &__list {
+  &__wrap {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 
-    .categories__item {
+    .categories__card {
       max-width: 300px;
       border-radius: 4px;
       box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);

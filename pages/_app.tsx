@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import "@/styles/globals.css";
 import "@/styles/СourseSlides.css";
-import "@/styles/MySelect.css";
+import "@/styles/mySelect.css";
 
 import Layout from "@/components/Layout/Layout";
 

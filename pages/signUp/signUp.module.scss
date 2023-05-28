@@ -17,15 +17,6 @@
     margin: 0 0 30px;
   }
 
-  &__select {
-    span {
-      font-weight: 500 !important;
-      @include adaptive-value("font-size", 15, 12);
-      color: #7329c2;
-      line-height: 130% !important;
-    }
-  }
-
   a {
     font-weight: 500;
     @include adaptive-value("font-size", 14, 10);

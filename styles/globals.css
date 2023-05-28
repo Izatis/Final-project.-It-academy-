@@ -39,7 +39,8 @@ p,
 span,
 li,
 ul,
-input {
+input,
+pre {
   text-decoration: none;
   list-style: none;
   font-family: "Nunito", sans-serif;

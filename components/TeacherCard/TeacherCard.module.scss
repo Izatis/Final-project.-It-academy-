@@ -15,7 +15,7 @@
     align-items: center;
     gap: 20px;
 
-    .teacher__avatar {
+    img {
       @include adaptive-value("width", 150, 70);
       @include adaptive-value("height", 150, 70);
       border-radius: 50%;
