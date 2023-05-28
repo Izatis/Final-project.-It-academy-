@@ -1,26 +1,30 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./signIn.module.scss";
+import s from "./addingCourse.module.scss";
 
-import Link from "next/link";
 import { useRouter } from "next/router";
 import axios, { AxiosResponse } from "axios";
-import { Form, Input } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Upload, UploadFile } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
+import MySelect from "@/components/MUI/MySelect/MySelect";
 
-interface IUserLogin {
-  username: string;
-  password: string;
+interface IFile {
+  title: string;
+  description: string;
+  languge: string;
+  video: any;
 }
 
-const SignIn: FC = () => {
-  // Состояния - для данных пользователя авторизации
-  const [userLogin, setUserLogin] = useState<IUserLogin>({
-    username: "arsenov@gmail.com",
-    password: "123456",
+const AddingCourse: FC = () => {
+  // Состояния - для данных
+  const [file, setFile] = useState<IFile>({
+    title: "",
+    description: "",
+    languge: "",
+    video: "",
   });
   // Состояния - для ошибок
   const [errorMessage, setErrorMessage] = useState(false);
@@ -35,7 +39,7 @@ const SignIn: FC = () => {
   const t = locale === "ru" ? ru : en;
 
   // Отправляем post запрос
-  const handleSubmit = async (value: IUserLogin) => {
+  const handleSubmit = async (value: IFile) => {
     setLoading(true);
     const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
@@ -57,9 +61,11 @@ const SignIn: FC = () => {
         push("/userProfile/userProfile");
       }
       // Сбрасываем поля объекта
-      setUserLogin({
-        username: "",
-        password: "",
+      setFile({
+        title: "",
+        description: "",
+        languge: "",
+        video: "",
       });
     } catch ({ response }: any) {
       setErrorMessage(response.data.message);
@@ -71,41 +77,73 @@ const SignIn: FC = () => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({ ...userLogin });
+    form.setFieldsValue({ ...file });
   }, []);
+
+  const fileList: UploadFile[] = [];
 
   return (
     <section className={s.signIn}>
-      <h2>{t.signIn[0]}</h2>
-      <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
+      <h2>{t.addingCourse[0]}</h2>
+      <Form form={form} name="add-course-form" onFinish={handleSubmit}>
         <Form.Item
-          name="username"
+          name="title"
+          label={t.addingCourse[1]}
           rules={[
             {
-              type: "email",
-              message: t.signIn[3],
-            },
-            {
               required: true,
-              message: t.signIn[4],
+              message: t.addingCourse[6],
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
+          <Input.TextArea placeholder={t.addingCourse[1]} />
         </Form.Item>
-        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item
-          name="password"
+          name="description"
+          label={t.addingCourse[2]}
           rules={[
             {
               required: true,
-              message: t.signIn[5],
+              message: t.addingCourse[6],
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder={t.signIn[2]} />
+          <Input.TextArea placeholder={t.addingCourse[2]} />
         </Form.Item>
+
+        <Form.Item
+          label={t.addingCourse[3]}
+          name="video"
+          rules={[
+            {
+              required: true,
+              message: t.addingCourse[5],
+            },
+          ]}
+        >
+          <Upload
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            listType="picture"
+            defaultFileList={[...fileList]}
+          >
+            <Button icon={<UploadOutlined />}>{t.addingCourse[4]}</Button>
+          </Upload>
+          <br />
+          <br />
+        </Form.Item>
+
+        <Form.Item name="languge" label={t.addingCourse[5]}>
+          <MySelect
+            defaultValue={t.addingCourse[4]}
+            options={[
+              { value: "Русский", label: "Русский" },
+              { value: "English", label: "English" },
+            ]}
+          />
+        </Form.Item>
+
+        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item>
           <MyButton
@@ -115,39 +153,12 @@ const SignIn: FC = () => {
             htmlType="submit"
             loading={loading}
           >
-            {t.signIn[6]}
+            {t.addingCourse[7]}
           </MyButton>
-        </Form.Item>
-
-        <Form.Item>
-          <Link
-            className={s.signIn__link}
-            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
-          >
-            {t.signIn[7]}
-          </Link>
-        </Form.Item>
-
-        <Form.Item>
-          <Link
-            className={s.signIn__link}
-            href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
-          >
-            {t.signIn[8]}
-          </Link>
-        </Form.Item>
-
-        <Form.Item>
-          <Link
-            className={s.signIn__link}
-            href="/passwordRecovery/passwordRecovery"
-          >
-            {t.signIn[9]}
-          </Link>
         </Form.Item>
       </Form>
     </section>
   );
 };
 
-export default SignIn;
+export default AddingCourse;
