@@ -10,7 +10,6 @@ import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
-import MySelect from "@/components/MUI/MySelect/MySelect";
 
 interface IUserRegister {
   fullName: string;
@@ -82,16 +81,6 @@ const SignUp: FC = () => {
     <section className={s.signUp}>
       <h2>{t.signUp[0]}</h2>
       <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
-        <Form.Item name="role">
-          <MySelect
-            className={s.signUp__select}
-            defaultValue="Role"
-            options={[
-              { value: "Admin", label: "Admin" },
-              { value: "User", label: "User" },
-            ]}
-          />
-        </Form.Item>
 
         <Form.Item
           name="fullName"
