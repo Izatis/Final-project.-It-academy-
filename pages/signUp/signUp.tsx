@@ -11,6 +11,7 @@ import ru from "../../locales/RU/translation.json";
 
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
+import MyInput from "@/components/MUI/MyInput/MyInput";
 
 interface IUserRegister {
   fullName: string;
@@ -102,7 +103,7 @@ const SignUp: FC = () => {
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder={t.signUp[1]} />
+          <MyInput prefix={<UserOutlined />} placeholder={t.signUp[1]} />
         </Form.Item>
 
         <Form.Item
@@ -118,7 +119,7 @@ const SignUp: FC = () => {
             },
           ]}
         >
-          <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
+          <MyInput prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
         <span className={s.error}>{errorMessage}</span>
 

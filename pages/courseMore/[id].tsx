@@ -4,34 +4,14 @@ import s from "./courseMore.module.scss";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { courses, ICourses } from "../../constants/courses";
 import poster from "../../public/design.png";
 
 import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
-import Teacher from "@/components/Teacher/Teacher";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
-
-interface ITeacher {
-  id: number;
-  name: string;
-  description: string;
-  avatar: string;
-}
-
-const teachers: ITeacher[] = [
-  {
-    id: 1,
-    name: "dsaf",
-    description: "string",
-    avatar: "string",
-  },
-];
+import TeacherCard from "@/components/TeacherCard/TeacherCard";
 
 export default function () {
-  // Состояние - для карточек
-  const [courseData, setCourseData] = useState<ICourses[]>(courses);
-
   // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
@@ -128,9 +108,8 @@ export default function () {
             setIsModalOpen={setIsModalOpen}
           />
         </div>
-        {teachers.map((teacher) => {
-          return <Teacher teacher={teacher} />;
-        })}
+
+        <TeacherCard/>
       </div>
     </div>
   );

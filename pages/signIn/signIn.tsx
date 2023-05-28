@@ -10,6 +10,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
+import MyInput from "@/components/MUI/MyInput/MyInput";
 
 interface IUserLogin {
   username: string;
@@ -66,7 +67,7 @@ const SignIn: FC = () => {
     }
     setLoading(false);
   };
-  
+
   // Для сохранения значений инпутов
   const [form] = Form.useForm();
 
@@ -91,7 +92,7 @@ const SignIn: FC = () => {
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
+          <MyInput prefix={<UserOutlined />} placeholder={t.signIn[1]} />
         </Form.Item>
         <span className={s.error}>{errorMessage}</span>
 

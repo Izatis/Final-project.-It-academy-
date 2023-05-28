@@ -18,14 +18,20 @@
     @include adaptive-value("gap", 25, 10);
 
     aside {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @include adaptive-value("gap", 20, 5);
       box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
       border-radius: 4px;
+      padding: 5%;
+      box-sizing: border-box;
 
       .aside__total {
         font-weight: 700;
         @include adaptive-value("font-size", 15, 8);
         line-height: 130%;
-        color: #6a6f73;
+        color: #a7b0c2;
       }
 
       .aside__price {
@@ -37,7 +43,7 @@
       }
 
       .aside__subButton {
-        @include adaptive-value("width", 280, 200);
+        @include adaptive-value("width", 280, 100);
         background-color: #03d665;
         color: #ffffff;
         transition: all 0.5s;
@@ -50,8 +56,13 @@
         }
       }
     }
+  }
+}
 
-    .basket__rightBlock {
+@media screen and (max-width: 768px) {
+  .basket {
+    .basket__content {
+      flex-direction: column;
     }
   }
 }

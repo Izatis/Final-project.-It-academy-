@@ -3,11 +3,12 @@ import s from "./passwordRecovery.module.scss";
 
 import { useRouter } from "next/router";
 import axios from "axios";
-import { Form, Input } from "antd";
+import { Form } from "antd";
 import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
+import MyInput from "@/components/MUI/MyInput/MyInput";
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 
 interface IPasswordRecovery {
@@ -51,7 +52,8 @@ const PasswordRecovery: FC = () => {
     setLoading(false);
   };
 
-  // Для сохранения значений
+
+  // Для сохранения значения инпутa
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -75,10 +77,10 @@ const PasswordRecovery: FC = () => {
             },
           ]}
         >
-          <Input
+          <MyInput
             className={s.passwordRecovery__input}
-            placeholder={t.passwordRecovery[1]}
             size="large"
+            placeholder={t.passwordRecovery[1]}
             prefix={<MailOutlined />}
           />
         </Form.Item>

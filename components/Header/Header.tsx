@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faGraduationCap,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../public/avatar.jpeg";
 
@@ -199,6 +200,12 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
         )}
 
         <div className={s.header__buttons}>
+          <Link href="/search/search">
+            <FontAwesomeIcon
+              className={s.header__search}
+              icon={faMagnifyingGlass}
+            />
+          </Link>
           <Link href="/basketList/basketList">
             <FontAwesomeIcon
               className={s.header__basket}
@@ -209,8 +216,8 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
 
           {isToken ? (
-            <Link href={"/profile/profile"}>
-              <Image className={s.header__avatar} src={avatar} alt="avatar"/>
+            <Link href={"/userProfile/userProfile"}>
+              <Image className={s.header__avatar} src={avatar} alt="avatar" />
             </Link>
           ) : pathname === "/signUp/signUp" ? (
             <Link href="/signIn/signIn">

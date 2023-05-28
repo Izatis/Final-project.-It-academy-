@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["img.freepik.com"],
+    domains: ["img.freepik.com", "images.squarespace-cdn.com"],
   },
   i18n: {
     locales: ["en", "ru"],
