@@ -1,21 +1,17 @@
-﻿export interface ICourses {
+﻿export interface ICourse {
   id: number;
-  title: string;
+  name: string;
   description: string;
-  creator: string;
-  rating: number;
-  size: string;
   created: string;
-  modified: string;
   price: number;
-  poster: string;
-  url: string;
+  language: string;
+  image: string;
 }
 
-export const courses: ICourses[] = [
+export const courses: ICourse[] = [
   {
     id: 1,
-    title: "Изучите Figma за несколько часов",
+    name: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -30,7 +26,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 2,
-    title: "Изучите Figma за несколько часов",
+    name: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -45,7 +41,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 3,
-    title: "Изучите Figma за несколько часов",
+    name: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -60,7 +56,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 4,
-    title: "Изучите Figma за несколько часов",
+    name: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",
@@ -75,7 +71,7 @@ export const courses: ICourses[] = [
   },
   {
     id: 5,
-    title: "Изучите Figma за несколько часов",
+    name: "Изучите Figma за несколько часов",
     description:
       " Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam sequi repellendus voluptate ab perferendis fuga sit iste mollitia id. Magnam dignissimos aut, officiis obcaecati voluptas aspernatur impedit ullam voluptates ab.",
     creator: "Arsen Kasymov",

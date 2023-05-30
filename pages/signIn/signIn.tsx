@@ -22,13 +22,11 @@ const SignIn: FC = () => {
   // Состояния - для данных пользователя авторизации
   const [userLogin, setUserLogin] = useState<IUserLogin>({
     username: "arsenov@gmail.com",
-    password: "123456",
+    password: "12345678",
   });
 
   const dispatch = useAppDispatch();
-  const { token, isLoading, isError } = useAppSelector(
-    (state) => state.auth
-  );
+  const { token, isLoading, error } = useAppSelector((state) => state.auth);
 
   // Для - маршутизации
   const { push, locale } = useRouter();
@@ -47,6 +45,11 @@ const SignIn: FC = () => {
   // Отправляем post запрос для регистрации
   const handleSubmit = (value: IUserLogin) => {
     dispatch(userAuthorization(value));
+
+    setUserLogin({
+      username: "",
+      password: "",
+    });
   };
 
   // Для сохранения значений инпутов
@@ -76,7 +79,7 @@ const SignIn: FC = () => {
         >
           <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
         </Form.Item>
-        <span className={s.error}>{isError}</span>
+        <span className={s.error}>{error}</span>
 
         <Form.Item
           name="password"

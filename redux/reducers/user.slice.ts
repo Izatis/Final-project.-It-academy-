@@ -1,14 +1,12 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { IUser } from "@/redux/types/user";
-
-const BASE_URL = "https://jsonplaceholder.typicode.com/todos";
+import { IUser, UserState } from "@/redux/types/user";
 
 export const fetchUsers = createAsyncThunk(
   "user/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const {data} = await axios.get<IUser[]>(BASE_URL);
+      const { data } = await axios.get<IUser[]>(process.env.BASE_URL + "/user");
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.massage);
@@ -16,13 +14,21 @@ export const fetchUsers = createAsyncThunk(
   }
 );
 
-interface UserSlice {
-  users: IUser[];
-  isLoading: boolean;
-  error: string;
-}
+export const fetchUser = createAsyncThunk(
+  "user/fetchUserItem",
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get<IUser[]>(
+        process.env.NEXT_PUBLIC_BASE_URL + "/current"
+      );
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.massage);
+    }
+  }
+);
 
-const initialState: UserSlice = {
+const initialState: UserState = {
   users: [],
   isLoading: false,
   error: "",
@@ -33,20 +39,21 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
 
-  extraReducers: {
-    [fetchUsers.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchUsers.pending, (state: any) => {
+      state.loading = true;
+    });
+
+    builder.addCase(fetchUsers.fulfilled, (state: any, action) => {
+      state.users = action.payload;
       state.isLoading = false;
       state.error = "";
-      state.users = action.payload;
-    },
+    });
 
-    [fetchUsers.rejected.type]: (state, action) => {
+    builder.addCase(fetchUsers.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
-    },
+    });
   },
 });
 

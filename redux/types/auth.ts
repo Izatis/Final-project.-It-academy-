@@ -12,5 +12,5 @@ export interface IUserAuthorization {
 export interface IAuthState {
   token: string;
   isLoading: boolean;
-  isError?: string;
+  error: string;
 }

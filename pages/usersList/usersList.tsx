@@ -7,9 +7,7 @@ import Loading from "@/components/Loading/Loading";
 
 const UsersList = () => {
   const dispatch = useAppDispatch();
-  const { users, isLoading, error } = useAppSelector(
-    (state) => state.user
-  );
+  const { users, isLoading, error } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(fetchUsers());

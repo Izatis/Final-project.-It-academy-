@@ -18,7 +18,7 @@ interface IPasswordRecovery {
 const PasswordRecovery: FC = () => {
   // Состояния - для данных пользователя регистрации
   const [passwordRecovery, setPasswordRecovery] = useState<IPasswordRecovery>({
-    email: "mekinovizat1@gmail.com",
+    email: "arsendsfsdov@gmail.com",
   });
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState<boolean>(false);

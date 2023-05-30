@@ -24,18 +24,18 @@ const SignUp: FC = () => {
   const [userRegister, setUserRegister] = useState<IUserRegister>({
     fullName: "arsenov",
     email: "arsenov@gmail.com",
-    password: "123456",
+    password: "12345678",
   });
 
   const dispatch = useAppDispatch();
-  const { token, isLoading, isError } = useAppSelector((state) => state.auth);
+  const { token, isLoading, error } = useAppSelector((state) => state.auth);
 
   // Для - маршутизации
   const { push, locale } = useRouter();
 
   useEffect(() => {
     // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string)
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     if (!!parsedToken) {
       push("/userProfile/userProfile");
     }
@@ -47,6 +47,12 @@ const SignUp: FC = () => {
   // Отправляем post запрос для регистрации
   const handleSubmit = (value: IUserRegister) => {
     dispatch(userRegistration(value));
+
+    setUserRegister({
+      fullName: "",
+      email: "",
+      password: "",
+    });
   };
 
   // Для сохранения значений инпутов
@@ -88,7 +94,6 @@ const SignUp: FC = () => {
         >
           <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
-        <span className={s.error}>{isError}</span>
 
         <Form.Item
           name="password"
@@ -106,8 +111,10 @@ const SignUp: FC = () => {
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
 
+        <span className={s.error}>{error}</span>
+
         <Form.Item
-          name="password"
+          name="passwords"
           dependencies={["password"]}
           rules={[
             {
