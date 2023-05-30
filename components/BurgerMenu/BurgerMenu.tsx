@@ -6,25 +6,25 @@ import cn from "classnames";
 interface IBurgerMenu {
   isHeaderActive: boolean;
   setIsHeaderActive: (active: boolean) => void;
-  menuActive: boolean;
-  setMenuActive: (active: boolean) => void;
+  sideBarActive: boolean;
+  setSideBarActive: (active: boolean) => void;
 }
 
 const BurgerMenu: FC<IBurgerMenu> = ({
   isHeaderActive,
   setIsHeaderActive,
-  menuActive,
-  setMenuActive,
+  sideBarActive,
+  setSideBarActive,
 }) => {
   
   const handleClick = () => {
     setIsHeaderActive(!isHeaderActive);
-    setMenuActive(!menuActive);
+    setSideBarActive(!sideBarActive);
   };
 
   return (
     <div className={s.container} onClick={handleClick}>
-      <div className={cn(s.burgerMenu, { [s.active]: menuActive })}>
+      <div className={cn(s.burgerMenu, { [s.active]: sideBarActive })}>
         <span></span>
       </div>
     </div>

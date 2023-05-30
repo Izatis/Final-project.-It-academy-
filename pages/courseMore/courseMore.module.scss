@@ -130,13 +130,6 @@
         color: #322f55;
       }
 
-      .course__desciption {
-        font-weight: 700;
-        @include adaptive-value("font-size", 15, 8);
-        line-height: 130%;
-        color: #322f55;
-      }
-
       .course__creator {
         font-weight: 700;
         @include adaptive-value("font-size", 15, 8);

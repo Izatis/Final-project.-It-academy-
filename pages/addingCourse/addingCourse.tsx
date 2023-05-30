@@ -53,8 +53,12 @@ const AddingCourse: FC = () => {
       localStorage.setItem("token", JSON.stringify(data.token));
 
       // Достаем токен пользователя
+<<<<<<< HEAD
       const token = localStorage.getItem("token") ?? "";
       const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
+=======
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+>>>>>>> 3a7ed83844997c33531bfdbc67cb19cb6137148e
 
       // Если есть токен то перенаправляем пользователя на профиль
       if (!!parsedToken) {
@@ -135,7 +139,11 @@ const AddingCourse: FC = () => {
 
         <Form.Item name="languge" label={t.addingCourse[5]}>
           <MySelect
+<<<<<<< HEAD
             defaultValue={t.addingCourse[4]}
+=======
+            defaultValue={t.addingCourse[6]}
+>>>>>>> 3a7ed83844997c33531bfdbc67cb19cb6137148e
             options={[
               { value: "Русский", label: "Русский" },
               { value: "English", label: "English" },
@@ -153,7 +161,11 @@ const AddingCourse: FC = () => {
             htmlType="submit"
             loading={loading}
           >
+<<<<<<< HEAD
             {t.addingCourse[7]}
+=======
+            {t.addingCourse[8]}
+>>>>>>> 3a7ed83844997c33531bfdbc67cb19cb6137148e
           </MyButton>
         </Form.Item>
       </Form>

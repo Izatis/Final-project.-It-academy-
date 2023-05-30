@@ -2,7 +2,10 @@ import React, { FC, useState } from "react";
 import s from "./payment.module.scss";
 
 import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined, CreditCardOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  CreditCardOutlined,
+} from "@ant-design/icons";
 
 const Payment: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,7 +18,7 @@ const Payment: FC = () => {
   return (
     <section className={s.payment}>
       <h2>Payment System</h2>
-      <Form name="payment-form" onFinish={onFinish}>
+      <Form form={form} name="payment-form" onFinish={onFinish}>
         <Form.Item
           name="name"
           rules={[
@@ -65,11 +68,7 @@ const Payment: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button
-            className={s.paymentButton}
-            type="primary"
-            loading={loading}
-          >
+          <Button className={s.paymentButton} type="primary" loading={loading}>
             Pay Now
           </Button>
         </Form.Item>

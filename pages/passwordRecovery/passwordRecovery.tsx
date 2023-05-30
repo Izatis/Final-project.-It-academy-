@@ -18,7 +18,7 @@ interface IPasswordRecovery {
 const PasswordRecovery: FC = () => {
   // Состояния - для данных пользователя регистрации
   const [passwordRecovery, setPasswordRecovery] = useState<IPasswordRecovery>({
-    email: "mekinovizat1@gmail.com",
+    email: "arsendsfsdov@gmail.com",
   });
   // Состояния - для загрузки кнопки
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,13 +34,10 @@ const PasswordRecovery: FC = () => {
     setLoading(true);
     const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
-    console.log(BASE_URL + `/password/reset?email=${value.email}`);
-
     try {
-      const res = await axios.post(
+      const {data} = await axios.post(
         BASE_URL + `/password/reset?email=${value.email}`
       );
-      console.log(res);
 
       // Сбрасываем поля объекта
       setPasswordRecovery({

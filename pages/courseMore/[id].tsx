@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./courseMore.module.scss";
 
 import Image from "next/image";
@@ -11,10 +11,32 @@ import AnimateSelect from "@/components/MUI/AnimateSelect/AnimateSelect";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import TeacherCard from "@/components/TeacherCard/TeacherCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { fetchCourse, fetchDuration } from "@/redux/reducers/course.slice";
 
 export default function () {
   // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  const { course, isLoading, error } = useAppSelector((state) => state.course);
+
+  useEffect(() => {
+    // Отправляем get запрос для получение курсов
+    const getCourse = async () => {
+      // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
+      const id: number = 2;
+      const parsedsToken: string = parsedToken;
+      dispatch(fetchCourse({ id, parsedsToken }));
+
+      // dispatch(fetchDuration({ id, parsedsToken }));
+    };
+
+    getCourse();
+  }, []);
+  
   return (
     <div className={s.course}>
       <aside>
@@ -24,13 +46,13 @@ export default function () {
         >
           <FontAwesomeIcon className={s.course__play} icon={faCirclePlay} />
           <span>Просмотреть этот курс</span>
-          <Image src={poster} alt="poster" />
+          <img src={course.image} alt="poster" />
 
           <div className={s.blackout}></div>
         </div>
 
         <div className={s.aside__body}>
-          <span className={s.aside_price}>9,99 $</span>
+          <span className={s.aside_price}>{course.price} $</span>
           <MyButton className={s.aside__button}>Добавить в корзину</MyButton>
 
           <MyButton className={s.aside__subButton}>Купить сейчас</MyButton>
@@ -51,46 +73,22 @@ export default function () {
 
       <div className={s.right__block}>
         <ul className={s.course__list}>
-          <li className={s.course__title}>
-            Полный курс по JavaScript + React - с нуля до результата
-          </li>
-          <li className={s.course__desciption}>
-            Освойте самый популярный язык программирования - JavaScript,
-            библиотеку React и научись применять на практике!
-          </li>
+          <li className={s.course__title}>{course.name}</li>
           <li className={s.course__creator}>Авторы: Иван Петриченко</li>
           <li className={s.course__rating}>
             <pre>400</pre> <Rating value={3.5} />
           </li>
-          <li className={s.course__duration}>Последнее обновление: 03.2023</li>
-          <li className={s.course__language}>Russia</li>
+          <li className={s.course__duration}>
+            Дата создания: {course.created}
+          </li>
+          <li className={s.course__language}> {course.languge}</li>
         </ul>
 
         <div className={s.course__info}>
           <b>Чему вы научитесь</b>
 
           <ul className={s.info__list}>
-            <li>Узнаете основы программирования и алгоритмов</li>
-            <li>Изучите такие популярные технологии как AJAX, JSON и тд</li>
-            <li>
-              Научитесь работать с npm, Babel, Browserify, Webpack, Heroku,
-              Firebase и тд
-            </li>
-            <li>
-              Изучите библиотеку React и абсолютно все, что с ней связано (в том
-              числе и Redux)
-            </li>
-            <li>Закрепите всё, что узнали на реальных проектах</li>
-            <li>
-              Узнаете основные концепции и принципы JavaScript, от самых простых
-              до самых сложных
-            </li>
-            <li>Научитесь работать с Git и GitHub</li>
-            <li>
-              Узнаете, какой фрэймворк или библиотеку выбрать в дальнейшем.
-              Познакомишься с React, Angular, Vue, Jquery
-            </li>
-            <li>Научитесь создавать полноценные web-приложения</li>
+            <li>{course.description}</li>
           </ul>
         </div>
 
@@ -110,9 +108,9 @@ export default function () {
           />
         </div>
 
-        <TeacherCard/>
+        <TeacherCard />
 
-        <ReviewCard/>
+        <ReviewCard />
       </div>
     </div>
   );

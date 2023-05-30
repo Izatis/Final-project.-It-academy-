@@ -3,12 +3,14 @@ import s from "./signUp.module.scss";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import axios, { AxiosResponse } from "axios";
 import { Form, Input } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { userRegistration } from "@/redux/reducers/auth.slice";
 
+import ParticlesComponent from "@/components/Particles/Particles";
 import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 
 interface IUserRegister {
@@ -22,52 +24,40 @@ const SignUp: FC = () => {
   const [userRegister, setUserRegister] = useState<IUserRegister>({
     fullName: "arsenov",
     email: "arsenov@gmail.com",
-    password: "123456",
+    password: "12345678",
   });
+<<<<<<< HEAD
   // Состояния - для ошибок
   const [errorMessage, setErrorMessage] = useState(false);
+=======
+>>>>>>> 3a7ed83844997c33531bfdbc67cb19cb6137148e
 
-  // Состояния - для загрузки кнопки
-  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { token, isLoading, error } = useAppSelector((state) => state.auth);
 
   // Для - маршутизации
   const { push, locale } = useRouter();
 
+  useEffect(() => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    if (!!parsedToken) {
+      push("/userProfile/userProfile");
+    }
+  }, [token]);
+
   // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
 
-  // Отправляем post запрос
-  const handleSubmit = async (value: IUserRegister) => {
-    setLoading(true);
-    const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
+  // Отправляем post запрос для регистрации
+  const handleSubmit = (value: IUserRegister) => {
+    dispatch(userRegistration(value));
 
-    try {
-      const { data }: AxiosResponse<{ token: string }> = await axios.post(
-        BASE_URL + "/auth/register",
-        value
-      );
-
-      // Сохраняем токен пользователя
-      localStorage.setItem("token", JSON.stringify(data.token));
-
-      // Достаем токен пользователя
-      const token = localStorage.getItem("token") ?? "";
-      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-
-      // Если есть токен то перенаправляем пользователя на профиль
-      if (!!parsedToken) {
-        push("/userProfile/userProfile");
-      }
-      // Сбрасываем поля объекта
-      setUserRegister({
-        fullName: "",
-        email: "",
-        password: "",
-      });
-    } catch ({ response }: any) {
-      setErrorMessage(response.data.message);
-    }
-    setLoading(false);
+    setUserRegister({
+      fullName: "",
+      email: "",
+      password: "",
+    });
   };
 
   // Для сохранения значений инпутов
@@ -79,9 +69,9 @@ const SignUp: FC = () => {
 
   return (
     <section className={s.signUp}>
+      <ParticlesComponent />
       <h2>{t.signUp[0]}</h2>
       <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
-
         <Form.Item
           name="fullName"
           rules={[
@@ -109,7 +99,8 @@ const SignUp: FC = () => {
         >
           <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
-        <span className={s.error}>{errorMessage}</span>
+
+        <span className={s.error}>{error}</span>
 
         <Form.Item
           name="password"
@@ -128,7 +119,7 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item
-          name="password"
+          name="passwords"
           dependencies={["password"]}
           rules={[
             {
@@ -153,7 +144,7 @@ const SignUp: FC = () => {
             background="#7329c2"
             hoverBackground="#03d665"
             type="primary"
-            loading={loading}
+            loading={isLoading}
           >
             {t.signUp[12]}
           </MyButton>

@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from "react";
 import s from "./coursesList.module.scss";
 
-import axios from "axios";
 import { useRouter } from "next/router";
-import { courses, ICourses } from "../../constants/courses";
 import { categories } from "@/constants/categories";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
+import CourseItem from "@/components/CourseItem/CourseItem";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
-import CourseItem from "@/components/CourseItem/CourseItem";
+import { fetchCourses, fetchDuration } from "@/redux/reducers/course.slice";
 
 export default function () {
-  // Состояние - для карточек
-  const [coursesData, setCoursesData] = useState<ICourses[]>(courses);
+  const dispatch = useAppDispatch();
+  const { courses, isLoading, error } = useAppSelector((state) => state.course);
+
+  console.log(courses);
+
+  useEffect(() => {
+    // Отправляем get запрос для получение курсов
+    const getCourses = async () => {
+      // Достаем токен пользователя
+      const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
+      dispatch(fetchCourses(parsedToken));
+
+      const id: number = 2;
+      const parsedsToken: string = parsedToken;
+      dispatch(fetchDuration({ id, parsedsToken }));
+    };
+
+    getCourses();
+  }, []);
+
   // Состояние - для объекта из массива categories
   const [category, setCategory] = useState<any>({});
 
@@ -28,21 +47,6 @@ export default function () {
     }
   }, []);
 
-  // Отправляем get запрос для карточек
-  const getCourses = async () => {
-    const BASE_URL = "http://localhost:8080/course";
-    try {
-      const response = await axios.get(BASE_URL);
-
-      setCoursesData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getCourses();
-  }, []);
   return (
     <section className={s.courses}>
       <h2 className={s.pageTitle}>Все курсы по теме "{category.name}"</h2>
@@ -61,11 +65,11 @@ export default function () {
           />
         </div>
 
-        <span className={s.result}>{coursesData.length} результата</span>
+        <span className={s.result}>{courses.length} результата</span>
       </header>
 
       <ul className={s.courses__list}>
-        {coursesData.map((course) => (
+        {courses.map((course) => (
           <CourseItem course={course} key={course.id} />
         ))}
       </ul>

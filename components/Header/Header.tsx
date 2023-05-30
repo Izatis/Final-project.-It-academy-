@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
 
-import cn from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -12,14 +12,16 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../public/avatar.jpeg";
+import { useAppDispatch } from "@/hooks/redux";
+import { reset } from "@/redux/reducers/auth.slice";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyButton from "../MUI/Buttons/MyButton/MyButton";
 import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
 interface IHeaderProps {
-  menuActive: boolean;
-  setMenuActive: (active: boolean) => void;
+  sideBarActive: boolean;
+  setSideBarActive: (active: boolean) => void;
 }
 
 interface ILine {
@@ -27,7 +29,7 @@ interface ILine {
   left: number;
 }
 
-const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
+const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
   // Состояние - для header (для позиции)
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
   // Состояние - для navbar (для линии)
@@ -92,7 +94,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
     };
 
     if (pathname === "/") {
-      if (!menuActive) {
+      if (!sideBarActive) {
         setIsHeaderActive(true);
         window.addEventListener("scroll", handleScroll);
       }
@@ -102,14 +104,24 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [menuActive, pathname]);
+  }, [sideBarActive, pathname]);
 
   useEffect(() => {
     // Достаем токен пользователя
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-    !!parsedToken ? setIsToken(true) : null;
+    !!parsedToken ? setIsToken(true) : setIsToken(false);
   }, [pathname]);
+
+  const dispatch = useAppDispatch();
+  const resetAuth = () => {
+    dispatch(reset());
+  };
+
+  const handleClick = () => {
+    setIsHeaderActive(!isHeaderActive);
+    setSideBarActive(!sideBarActive);
+  };
 
   return (
     <header className={cn(s.header, { [s.active]: isHeaderActive })}>
@@ -216,15 +228,19 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
 
           {isToken ? (
-            <Link href={"/userProfile/userProfile"}>
-              <Image className={s.header__avatar} src={avatar} alt="avatar" />
-            </Link>
+            <Image
+              className={s.header__avatar}
+              src={avatar}
+              alt="avatar"
+              onClick={handleClick}
+            />
           ) : pathname === "/signUp/signUp" ? (
             <Link href="/signIn/signIn">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
+                onClick={resetAuth}
               >
                 Войти
               </MyButton>
@@ -235,6 +251,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
+                onClick={resetAuth}
               >
                 Регистрация
               </MyButton>
@@ -246,8 +263,8 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
           <BurgerMenu
             isHeaderActive={isHeaderActive}
             setIsHeaderActive={setIsHeaderActive}
-            menuActive={menuActive}
-            setMenuActive={setMenuActive}
+            sideBarActive={sideBarActive}
+            setSideBarActive={setSideBarActive}
           />
         </div>
       </nav>

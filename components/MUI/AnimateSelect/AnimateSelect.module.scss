@@ -44,10 +44,13 @@
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     transition: all 0.4s ease-in-out;
 
-    a {
-      font-weight: 700;
-      line-height: 130%;
-      text-decoration: underline;
+    .select__list {
+      li {
+        text-decoration: underline;
+        font-weight: 400;
+        @include adaptive-value("font-size", 18, 5);
+        line-height: 130%;
+        color: #5624d0;      }
     }
   }
 

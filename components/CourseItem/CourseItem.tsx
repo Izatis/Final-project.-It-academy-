@@ -9,10 +9,12 @@ import Rating from "../Rating/Rating";
 interface ICourseProps {
   course: {
     id: number;
-    title: string;
+    name: string;
     description: string;
-    creator: string;
+    created: string;
     price: number;
+    language: string;
+    image: string;
   };
 }
 
@@ -37,7 +39,7 @@ const CourseItem: FC<ICourseProps> = ({ course }) => {
 
         <div className={s.course__info}>
           <ul className={s.content__list}>
-            <li className={s.course__title}>{course.title}</li>
+            <li className={s.course__title}>{course.name}</li>
             <li className={s.course__desciption}>{course.description}</li>
             <li className={s.course__creator}>Автор: {course.creator}</li>
             <li
