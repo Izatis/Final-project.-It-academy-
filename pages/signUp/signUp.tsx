@@ -95,6 +95,8 @@ const SignUp: FC = () => {
           <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
         </Form.Item>
 
+        <span className={s.error}>{error}</span>
+
         <Form.Item
           name="password"
           rules={[
@@ -110,8 +112,6 @@ const SignUp: FC = () => {
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
-
-        <span className={s.error}>{error}</span>
 
         <Form.Item
           name="passwords"

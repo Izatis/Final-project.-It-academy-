@@ -7,18 +7,18 @@ import cn from "classnames";
 
 import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
-interface IMenuProps {
-  menuActive: boolean;
-  setMenuActive: (active: boolean) => void;
+interface ISideBarProps {
+  sideBarActive: boolean;
+  setSideBarActive: (active: boolean) => void;
 }
 
-const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
+const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
   // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
   return (
     <div
-      className={cn(s.menu, { [s.active]: menuActive })}
-      onClick={() => setMenuActive(!menuActive)}
+      className={cn(s.menu, { [s.active]: sideBarActive })}
+      onClick={() => setSideBarActive(!sideBarActive)}
     >
       <div className={s.blur}></div>
 
@@ -30,25 +30,31 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
         {pathname === "/" ? (
           <ul className={s.menu__list}>
             <li>
-              <a href="#" onClick={() => setMenuActive(!menuActive)}>
+              <a href="#" onClick={() => setSideBarActive(!sideBarActive)}>
                 Главная
               </a>
             </li>
             <li>
-              <a href="#categories" onClick={() => setMenuActive(!menuActive)}>
+              <a
+                href="#categories"
+                onClick={() => setSideBarActive(!sideBarActive)}
+              >
                 Категории
               </a>
             </li>
             <li>
               <a
                 href="#courses"
-                onClick={() => setMenuActive(!menuActive)}
+                onClick={() => setSideBarActive(!sideBarActive)}
               >
                 Курсы
               </a>
             </li>
             <li>
-              <a href="#contacts" onClick={() => setMenuActive(!menuActive)}>
+              <a
+                href="#contacts"
+                onClick={() => setSideBarActive(!sideBarActive)}
+              >
                 Контакты
               </a>
             </li>
@@ -56,14 +62,14 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
         ) : (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/" onClick={() => setMenuActive(!menuActive)}>
+              <Link href="/" onClick={() => setSideBarActive(!sideBarActive)}>
                 Главная
               </Link>
             </li>
             <li>
               <Link
                 href="/#categories"
-                onClick={() => setMenuActive(!menuActive)}
+                onClick={() => setSideBarActive(!sideBarActive)}
               >
                 Категории{" "}
               </Link>
@@ -71,7 +77,7 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
             <li>
               <Link
                 href="/#courses"
-                onClick={() => setMenuActive(!menuActive)}
+                onClick={() => setSideBarActive(!sideBarActive)}
               >
                 Курсы
               </Link>
@@ -79,7 +85,7 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
             <li>
               <Link
                 href="/#contacts"
-                onClick={() => setMenuActive(!menuActive)}
+                onClick={() => setSideBarActive(!sideBarActive)}
               >
                 Контакты
               </Link>
@@ -91,4 +97,4 @@ const Menu: FC<IMenuProps> = ({ menuActive, setMenuActive }) => {
   );
 };
 
-export default Menu;
+export default SideBar;

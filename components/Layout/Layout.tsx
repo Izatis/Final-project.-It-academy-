@@ -1,17 +1,20 @@
 import React, { FC, PropsWithChildren, useState } from "react";
 
 import Header from "../Header/Header";
-import Menu from "../SideBar/SideBar";
+import SideBar from "../SideBar/SideBar";
 import Footer from "../Footer/Footer";
+import SidePanel from "../SidePanel/SidePanel";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   // Состояние - для меню
-  const [menuActive, setMenuActive] = useState<boolean>(false);
+  const [sideBarActive, setSideBarActive] = useState<boolean>(false);
+  const [sidePanelActive, setSidePanelActive] = useState<boolean>(false);
 
   return (
     <>
-      <Header menuActive={menuActive} setMenuActive={setMenuActive}/>
-      <Menu menuActive={menuActive} setMenuActive={setMenuActive}/>
+      <Header sideBarActive={sideBarActive} setSideBarActive={setSideBarActive}/>
+      <SideBar sideBarActive={sideBarActive} setSideBarActive={setSideBarActive}/>
+      <SidePanel sidePanelActive={sidePanelActive} setSidePanelActive={setSidePanelActive}/>
       {children}
       <Footer />
     </>

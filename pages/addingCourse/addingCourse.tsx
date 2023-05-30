@@ -135,7 +135,7 @@ const AddingCourse: FC = () => {
 
         <Form.Item name="languge" label={t.addingCourse[5]}>
           <MySelect
-            defaultValue={t.addingCourse[4]}
+            defaultValue={t.addingCourse[6]}
             options={[
               { value: "Русский", label: "Русский" },
               { value: "English", label: "English" },
@@ -153,7 +153,7 @@ const AddingCourse: FC = () => {
             htmlType="submit"
             loading={loading}
           >
-            {t.addingCourse[7]}
+            {t.addingCourse[8]}
           </MyButton>
         </Form.Item>
       </Form>

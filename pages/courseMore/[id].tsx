@@ -37,7 +37,6 @@ export default function () {
 
     getCourse();
   }, []);
-  console.log(course);
   
   return (
     <div className={s.course}>

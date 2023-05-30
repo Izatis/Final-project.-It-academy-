@@ -20,8 +20,8 @@ import MyButton from "../MUI/Buttons/MyButton/MyButton";
 import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
 interface IHeaderProps {
-  menuActive: boolean;
-  setMenuActive: (active: boolean) => void;
+  sideBarActive: boolean;
+  setSideBarActive: (active: boolean) => void;
 }
 
 interface ILine {
@@ -29,7 +29,7 @@ interface ILine {
   left: number;
 }
 
-const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
+const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
   // Состояние - для header (для позиции)
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
   // Состояние - для navbar (для линии)
@@ -94,7 +94,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
     };
 
     if (pathname === "/") {
-      if (!menuActive) {
+      if (!sideBarActive) {
         setIsHeaderActive(true);
         window.addEventListener("scroll", handleScroll);
       }
@@ -104,7 +104,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [menuActive, pathname]);
+  }, [sideBarActive, pathname]);
 
   useEffect(() => {
     // Достаем токен пользователя
@@ -251,13 +251,15 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
             </Link>
           )}
 
+          
+
           <TranslateButton />
 
           <BurgerMenu
             isHeaderActive={isHeaderActive}
             setIsHeaderActive={setIsHeaderActive}
-            menuActive={menuActive}
-            setMenuActive={setMenuActive}
+            sideBarActive={sideBarActive}
+            setSideBarActive={setSideBarActive}
           />
         </div>
       </nav>
