@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
 
-import cn from "classnames";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../public/avatar.jpeg";
 import { useAppDispatch } from "@/hooks/redux";
-import { reset, userAuthorization, userRegistration } from "@/redux/reducers/auth.slice";
+import { reset } from "@/redux/reducers/auth.slice";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyButton from "../MUI/Buttons/MyButton/MyButton";
@@ -114,9 +114,13 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
   }, [pathname]);
 
   const dispatch = useAppDispatch();
-
   const resetAuth = () => {
     dispatch(reset());
+  };
+
+  const handleClick = () => {
+    setIsHeaderActive(!isHeaderActive);
+    setSideBarActive(!sideBarActive);
   };
 
   return (
@@ -224,9 +228,12 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
 
           {isToken ? (
-            <Link href={"/userProfile/userProfile"}>
-              <Image className={s.header__avatar} src={avatar} alt="avatar" />
-            </Link>
+            <Image
+              className={s.header__avatar}
+              src={avatar}
+              alt="avatar"
+              onClick={handleClick}
+            />
           ) : pathname === "/signUp/signUp" ? (
             <Link href="/signIn/signIn">
               <MyButton
@@ -250,8 +257,6 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               </MyButton>
             </Link>
           )}
-
-          
 
           <TranslateButton />
 

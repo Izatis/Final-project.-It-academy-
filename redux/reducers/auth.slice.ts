@@ -9,9 +9,7 @@ import {
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
   "user/register",
-  async ({ fullName, email, password }, thunkApi) => {
-    console.log({ fullName, email, password });
-    
+  async ({ fullName, email, password }, thunkApi) => {    
     try {
       const { data } = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/auth/register",
@@ -75,7 +73,7 @@ const authSlice = createSlice({
   // SIGNUP USER
   extraReducers: (builder) => {
     builder.addCase(userRegistration.pending, (state: any) => {
-      state.loading = true;
+      state.isLoading = true;
     });
 
     builder.addCase(userRegistration.fulfilled, (state: any, action) => {
@@ -91,13 +89,13 @@ const authSlice = createSlice({
 
     // SIGNIN USER
     builder.addCase(userAuthorization.pending, (state: any) => {
-      state.loading = true;
+      state.isLoading = true;
       state.error = "";
     });
 
     builder.addCase(userAuthorization.fulfilled, (state: any, action: any) => {
       state.token = action.payload;
-      state.loading = false;
+      state.isLoading = false;
       state.error = "";
     });
 

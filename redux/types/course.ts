@@ -10,7 +10,7 @@ export interface ICourse {
 
 export interface ICourseState {
   courses: ICourse[];
-  course:  any;
+  course: {};
   isLoading: boolean;
   error: string;
 }

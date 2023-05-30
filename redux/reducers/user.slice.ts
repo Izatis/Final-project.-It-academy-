@@ -3,7 +3,7 @@ import axios from "axios";
 import { IUser, UserState } from "@/redux/types/user";
 
 export const fetchUsers = createAsyncThunk(
-  "user/fetchAll",
+  "user/fetchusersAll",
   async (_, thunkAPI) => {
     try {
       const { data } = await axios.get<IUser[]>(process.env.BASE_URL + "/user");
@@ -14,22 +14,36 @@ export const fetchUsers = createAsyncThunk(
   }
 );
 
-export const fetchUser = createAsyncThunk(
+export const fetchUser = createAsyncThunk<void, string>(
   "user/fetchUserItem",
-  async (_, thunkAPI) => {
+  async (parsedToken, thunkApi) => {
     try {
-      const { data } = await axios.get<IUser[]>(
-        process.env.NEXT_PUBLIC_BASE_URL + "/current"
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/user/current",
+        {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        }
       );
+
       return data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.massage);
+    } catch ({ response }: any) {
+      return thunkApi.rejectWithValue(response.data.message);
     }
   }
 );
 
 const initialState: UserState = {
   users: [],
+  user: {
+    id: 0,
+    fullName: "",
+    dateOfBirth: "",
+    email: "",
+    password: "",
+    role: "",
+    imageName: "",
+    imageUrl: "",
+  },
   isLoading: false,
   error: "",
 };
@@ -40,8 +54,9 @@ const userSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
+    // USER ALL
     builder.addCase(fetchUsers.pending, (state: any) => {
-      state.loading = true;
+      state.isLoading = true;
     });
 
     builder.addCase(fetchUsers.fulfilled, (state: any, action) => {
@@ -51,6 +66,22 @@ const userSlice = createSlice({
     });
 
     builder.addCase(fetchUsers.rejected, (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    // USER ITEM
+    builder.addCase(fetchUser.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(fetchUser.fulfilled, (state: any, action) => {
+      state.user = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(fetchUser.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

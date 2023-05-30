@@ -20,9 +20,8 @@ export default function () {
     // Отправляем get запрос для получение курсов
     const getCourses = async () => {
       // Достаем токен пользователя
-      const token = localStorage.getItem("token") ?? "";
-      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-      
+      const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
       dispatch(fetchCourses(parsedToken));
 
       const id: number = 2;

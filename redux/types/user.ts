@@ -1,13 +1,17 @@
 export interface IUser {
-  id: number
+  id: 0;
   fullName: string;
+  dateOfBirth: string;
   email: string;
   password: string;
-  dateOfBirth: string
+  role: string;
+  imageName: string;
+  imageUrl: string;
 }
 
 export interface UserState {
   users: IUser[];
+  user: IUser;
   isLoading: boolean;
   error: string;
 }

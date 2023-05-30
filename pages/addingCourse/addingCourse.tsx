@@ -53,8 +53,7 @@ const AddingCourse: FC = () => {
       localStorage.setItem("token", JSON.stringify(data.token));
 
       // Достаем токен пользователя
-      const token = localStorage.getItem("token") ?? "";
-      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
       // Если есть токен то перенаправляем пользователя на профиль
       if (!!parsedToken) {

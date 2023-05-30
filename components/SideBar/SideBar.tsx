@@ -2,8 +2,11 @@ import React, { FC } from "react";
 import s from "./SideBar.module.scss";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import cn from "classnames";
+import avatar from "../../public/avatar.jpeg";
+import { useAppSelector } from "@/hooks/redux";
 
 import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
 
@@ -15,6 +18,9 @@ interface ISideBarProps {
 const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
   // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
+
+  const { user } = useAppSelector((state) => state.user);
+
   return (
     <div
       className={cn(s.menu, { [s.active]: sideBarActive })}
@@ -23,12 +29,27 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
       <div className={s.blur}></div>
 
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
-        <header className={s.menu__header}>
-          <h2>Menu</h2>
-          <TranslateButton />
-        </header>
+        <Link className={s.sidePanel__header} href="/userProfile/userProfile" onClick={() => setSideBarActive(!sideBarActive)}>
+          <Image src={avatar} alt="avatar" />
+          <div className={s.sidePanel__info}>
+            <h4>{user.fullName}</h4>
+            <p>{user.email}</p>
+            <TranslateButton className={s.menu__translateButton}/>
+          </div>                
+        </Link>
+
         {pathname === "/" ? (
           <ul className={s.menu__list}>
+            <li>
+              <Link href="/basketList/basketList">Моя корзина</Link>
+            </li>
+            <li>
+              <Link href="/">Список желаний</Link>
+            </li>
+            <li>
+              <Link href="/userProfile/userProfile">Профиль</Link>
+            </li>
+
             <li>
               <a href="#" onClick={() => setSideBarActive(!sideBarActive)}>
                 Главная
@@ -61,6 +82,15 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
           </ul>
         ) : (
           <ul className={s.menu__list}>
+            <li>
+              <Link href="/basketList/basketList">Моя корзина</Link>
+            </li>
+            <li>
+              <Link href="/">Список желаний</Link>
+            </li>
+            <li>
+              <Link href="/userProfile/userProfile">Профиль</Link>
+            </li>
             <li>
               <Link href="/" onClick={() => setSideBarActive(!sideBarActive)}>
                 Главная

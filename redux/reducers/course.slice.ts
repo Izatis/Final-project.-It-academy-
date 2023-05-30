@@ -6,8 +6,6 @@ import { ICourseState } from "../types/course";
 export const fetchCourses = createAsyncThunk<void, string>(
   "courses/fetchCourses",
   async (parsedToken, thunkApi) => {
-    console.log(parsedToken);
-
     try {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/course",
@@ -15,8 +13,7 @@ export const fetchCourses = createAsyncThunk<void, string>(
           headers: { Authorization: `Bearer ${parsedToken}` },
         }
       );
-      console.log(data);
-
+      
       return data;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
@@ -97,7 +94,7 @@ const courseSlice = createSlice({
   extraReducers: (builder) => {
     // Courses GET ALL
     builder.addCase(fetchCourses.pending, (state: any) => {
-      state.loading = true;
+      state.isLoading = true;
     });
 
     builder.addCase(fetchCourses.fulfilled, (state: any, action) => {
@@ -113,7 +110,7 @@ const courseSlice = createSlice({
 
     // Course GET ITEM
     builder.addCase(fetchCourse.pending, (state: any) => {
-      state.loading = true;
+      state.isLoading = true;
     });
 
     builder.addCase(fetchCourse.fulfilled, (state: any, action) => {
@@ -129,7 +126,7 @@ const courseSlice = createSlice({
 
     // Courses GET DURATION
     // builder.addCase(fetchDuration.pending, (state: any) => {
-    //   state.loading = true;
+    //   state.isLoading = true;
     // });
 
     // builder.addCase(fetchDuration.fulfilled, (state: any, action) => {
