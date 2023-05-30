@@ -24,7 +24,7 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({isModalOpen, setIsModalOpen}) =
         onClick={(e) => e.stopPropagation()}
       ></div>
       <div className={s.select__hide} onClick={(e) => e.stopPropagation()}>
-        <ul>
+        <ul className={s.select__list}>
           <li onClick={() => setIsModalOpen(true)}>Курсы</li>
         </ul>
 

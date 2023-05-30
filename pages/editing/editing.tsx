@@ -17,8 +17,6 @@ const Editing: FC = () => {
     email: "",
   });
 
-  console.log(userData);
-
   // Состояния - для загрузки
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -43,8 +41,6 @@ const Editing: FC = () => {
     try {
       setIsLoading(false);
       const { data } = await axios.put(BASE_URL + `/user/${11}`, userData);
-
-      console.log(data);
 
       // Сохраняем данные пользователя
       setUserData(data);

@@ -12,6 +12,8 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import avatar from "../../public/avatar.jpeg";
+import { useAppDispatch } from "@/hooks/redux";
+import { reset, userAuthorization, userRegistration } from "@/redux/reducers/auth.slice";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyButton from "../MUI/Buttons/MyButton/MyButton";
@@ -108,8 +110,14 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
     // Достаем токен пользователя
     const token = localStorage.getItem("token") ?? "";
     const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-    !!parsedToken ? setIsToken(true) : null;
+    !!parsedToken ? setIsToken(true) : setIsToken(false);
   }, [pathname]);
+
+  const dispatch = useAppDispatch();
+
+  const resetAuth = () => {
+    dispatch(reset());
+  };
 
   return (
     <header className={cn(s.header, { [s.active]: isHeaderActive })}>
@@ -225,6 +233,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
+                onClick={resetAuth}
               >
                 Войти
               </MyButton>
@@ -235,6 +244,7 @@ const Header: FC<IHeaderProps> = ({ menuActive, setMenuActive }) => {
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
+                onClick={resetAuth}
               >
                 Регистрация
               </MyButton>

@@ -2,6 +2,9 @@
 
 .reviewCards {
   h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-weight: 700;
     @include adaptive-value("font-size", 25, 10);
     line-height: 130%;
@@ -9,6 +12,8 @@
     margin: 5% 0;
 
     .reviewCard__icon {
+      @include adaptive-value("width", 50, 20);
+      @include adaptive-value("height", 50, 20);
       color: #fadb14;
     }
   }
@@ -87,9 +92,9 @@
             display: flex;
             align-items: center;
             @include adaptive-value("gap", 20, 10);
-            
-            svg{
-                cursor: pointer;
+
+            svg {
+              cursor: pointer;
             }
           }
         }

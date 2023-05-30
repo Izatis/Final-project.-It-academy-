@@ -26,7 +26,7 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Для - маршутизации
-  const { push, locale, pathname } = useRouter();
+  const { push, locale } = useRouter();
 
   // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
@@ -35,7 +35,6 @@ const UserProfile = () => {
   const signOut = () => {
     push("/");
     localStorage.removeItem("token");
-    setUserData({});
   };
 
   // Отправляет get запрос для получения пользователя
@@ -51,7 +50,6 @@ const UserProfile = () => {
       const { data } = await axios.get(BASE_URL + "/user/current", {
         headers: { Authorization: `Bearer ${parsedToken}` },
       });
-      console.log(data);
 
       // Сохраняем данные пользователя
       setUserData(data);
@@ -67,7 +65,6 @@ const UserProfile = () => {
 
   return (
     <section className={s.profile}>
-      <div className={s.profile__body}>
         <Image className={s.coverFirst} src={cover} alt="cover" />
         <div className={s.coverSecond}></div>
         {isLoading ? (
@@ -75,8 +72,9 @@ const UserProfile = () => {
             <span className={s.avatar}>
               <Image src={avatar} alt="avatar" />
             </span>
+
             <div className={s.container}>
-              <div className={s.name}>
+              <div className={s.fullName}>
                 <h2>{userData.fullName}</h2>
                 <p>{userData.email}</p>
               </div>
@@ -92,15 +90,14 @@ const UserProfile = () => {
                 </MyButton>
               </Link>
             </div>
-            <div className={s.text}>
-              <p>
+
+              <p className={s.text}>
                 Рыбатекст используется дизайнерами, проектировщиками и
                 фронтендерами, когда нужно быстро заполнить макеты или прототипы
                 содержимым. Это тестовый контент, который не должен нести
                 никакого смысла, лишь показать наличие самого текста или
                 продемонстрировать типографику в деле.
               </p>
-            </div>
 
             <MyButton
               background="#03d665"
@@ -117,7 +114,6 @@ const UserProfile = () => {
             <Loading />
           </div>
         )}
-      </div>
     </section>
   );
 };

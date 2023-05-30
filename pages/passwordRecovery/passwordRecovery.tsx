@@ -34,13 +34,10 @@ const PasswordRecovery: FC = () => {
     setLoading(true);
     const BASE_URL = "https://spring-boot-online-platform.herokuapp.com";
 
-    console.log(BASE_URL + `/password/reset?email=${value.email}`);
-
     try {
-      const res = await axios.post(
+      const {data} = await axios.post(
         BASE_URL + `/password/reset?email=${value.email}`
       );
-      console.log(res);
 
       // Сбрасываем поля объекта
       setPasswordRecovery({

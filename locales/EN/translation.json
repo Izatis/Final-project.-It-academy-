@@ -41,5 +41,16 @@
     "Recover Password"
   ],
 
-  "search": ["Search", "Course search", "Please enter a field"]
+  "search": ["Search", "Course search", "Please enter a field"],
+
+  "addingCourse": [
+    "Add a video",
+    "title",
+    "description",
+    "File",
+    "Upload video",
+    "Languge",
+    "Please enter a field",
+    "Add"
+  ]
 }

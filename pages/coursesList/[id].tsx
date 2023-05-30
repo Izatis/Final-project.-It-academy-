@@ -13,6 +13,7 @@ import CourseItem from "@/components/CourseItem/CourseItem";
 export default function () {
   // Состояние - для карточек
   const [coursesData, setCoursesData] = useState<ICourses[]>(courses);
+
   // Состояние - для объекта из массива categories
   const [category, setCategory] = useState<any>({});
 
@@ -28,19 +29,25 @@ export default function () {
     }
   }, []);
 
-  // Отправляем get запрос для карточек
-  const getCourses = async () => {
-    const BASE_URL = "http://localhost:8080/course";
-    try {
-      const response = await axios.get(BASE_URL);
-
-      setCoursesData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    // Отправляем get запрос для карточек
+    const getCourses = async () => {
+      // Достаем токен пользователя
+      const token = localStorage.getItem("token") ?? "";
+      const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
+
+      const BASE_URL =
+        "https://spring-boot-online-platform.herokuapp.com/course";
+      try {
+        const { data } = await axios.get(BASE_URL, {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        });
+
+        setCoursesData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getCourses();
   }, []);
   return (
