@@ -14,6 +14,13 @@ export const fetchCourses = createAsyncThunk<void, string>(
         }
       );
 
+        data.map(async (course: any) => {
+          const response = await axios.get(course.imageUrl, {
+            headers: { Authorization: `Bearer ${parsedToken}` },
+          });
+          return response.data;
+        })
+            
       return data;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
@@ -29,7 +36,7 @@ interface IFetchDurationParams {
 
 // Отправляем get запрос для получение курса
 export const fetchCourse = createAsyncThunk(
-  "course/duration",
+  "course/fetchCourse",
   async ({ id, parsedsToken, thunkApi }: IFetchDurationParams) => {
     try {
       const { data } = await axios.get(
@@ -39,40 +46,23 @@ export const fetchCourse = createAsyncThunk(
         }
       );
 
-      const func = async () => {
-        try {
-          const response = await axios.get(data.image, {
-            headers: { Authorization: `Bearer ${parsedsToken}` },
-          });
-          // .then((response: any) => JSON.parse(response));
+      if (data.imageName !== null) {
+        const func = async () => {
+          try {
+            const response = await axios.get(data.imageUrl, {
+              headers: { Authorization: `Bearer ${parsedsToken}` },
+            });
 
-          data.image = response.data;
-          return data;
-        } catch (error) {
-          console.log(error);
-        }
-      };
+            console.log(response);
 
-      return func();
-    } catch ({ response }: any) {
-      return thunkApi.rejectWithValue(response.data.message);
-    }
-  }
-);
-
-// Отправляем get запрос для получение длительность курсов
-export const fetchDuration = createAsyncThunk(
-  "course/duration",
-  async ({ id, parsedsToken, thunkApi }: IFetchDurationParams) => {
-    try {
-      const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + `/course/duration/${id}`,
-        {
-          headers: { Authorization: `Bearer ${parsedsToken}` },
-        }
-      );
-
-      return data;
+            data.imageUrl = response.data;
+            return data;
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        return func();
+      }
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
     }
@@ -131,22 +121,6 @@ const courseSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
-
-    // Courses GET DURATION
-    // builder.addCase(fetchDuration.pending, (state: any) => {
-    //   state.isLoading = true;
-    // });
-
-    // builder.addCase(fetchDuration.fulfilled, (state: any, action) => {
-    //   // state.courses = state.courses.push(action.payload);
-    //   state.isLoading = false;
-    //   state.error = "";
-    // });
-
-    // builder.addCase(fetchDuration.rejected, (state: any, action: any) => {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // });
   },
 });
 
