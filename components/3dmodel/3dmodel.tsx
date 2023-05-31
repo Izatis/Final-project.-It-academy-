@@ -4,12 +4,12 @@ import s from "./3dmodel.module.scss";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
-import {Model} from "../../models/Scene";
+import { Model } from "@/model/Model";
 
 const ModelComponent = () => {
   return (
     <div className={s.model}>
-      <Canvas camera={{ position: [2, 0, -4], zoom: 1 }}>
+      <Canvas camera={{ position: [0, 2, 5], zoom: 1.5 }}>
         <OrbitControls />
         <color attach="background" />
         <hemisphereLight intensity={0.35} />
@@ -24,6 +24,10 @@ const ModelComponent = () => {
           <Model />
         </Suspense>
       </Canvas>
+
+      <h2>
+        "Учись, развивайся. Работай в свободное время"
+      </h2>
     </div>
   );
 };
