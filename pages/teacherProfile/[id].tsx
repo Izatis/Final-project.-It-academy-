@@ -4,16 +4,18 @@ import s from "./teacherProfile.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { teachers } from "@/components/TeacherCard/TeacherCard";
-import { courses } from "@/constants/courses";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTelegram } from "@fortawesome/free-brands-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "@/hooks/redux";
 
 import CourseItem from "@/components/CourseItem/CourseItem";
 
 export default function () {
   // Состояние - для данных учителя
   const [teacher, setTeacher] = useState<any>({});
+
+  const { courses, isLoading } = useAppSelector((state) => state.course);
 
   const { query }: { query: any } = useRouter();
 
@@ -98,7 +100,7 @@ export default function () {
       <h2>Мои курсы</h2>
 
       {courses.map((course) => {
-        return <CourseItem course={course} key={course.id}/>;
+        return <CourseItem course={course} key={course.id} />;
       })}
     </section>
   );
