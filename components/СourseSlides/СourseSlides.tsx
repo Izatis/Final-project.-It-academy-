@@ -12,9 +12,12 @@ import MyButton from "../MUI/Buttons/MyButton/MyButton";
 import slideFirst from "../../public/slideFirst.jpg";
 import slideSecond from "../../public/slideSecond.png";
 import Link from "next/link";
-import { courses } from "@/constants/courses";
+import { useAppSelector } from "@/hooks/redux";
+// import { courses } from "@/constants/courses";
 
 const СourseSlides: FC = () => {
+  const { courses } = useAppSelector((state) => state.course);
+
   return (
     <section className={s.сourseSlides}>
       <h2>Курсы</h2>
