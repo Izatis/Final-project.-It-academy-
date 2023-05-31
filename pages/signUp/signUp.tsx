@@ -15,8 +15,9 @@ import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
 
 interface IUserRegister {
   fullName: string;
-  password: string;
   email: string;
+  password: string;
+  passwordSecond: string;
 }
 
 const SignUp: FC = () => {
@@ -25,7 +26,10 @@ const SignUp: FC = () => {
     fullName: "arsenov",
     email: "arsenov@gmail.com",
     password: "12345678",
+    passwordSecond: "",
   });
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const dispatch = useAppDispatch();
   const { token, isLoading, error } = useAppSelector((state) => state.auth);
@@ -37,7 +41,7 @@ const SignUp: FC = () => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     if (!!parsedToken) {
-      push("/userProfile/userProfile");
+      push("/setting/setting");
     }
   }, [token]);
 
@@ -46,13 +50,19 @@ const SignUp: FC = () => {
 
   // Отправляем post запрос для регистрации
   const handleSubmit = (value: IUserRegister) => {
-    dispatch(userRegistration(value));
+    const { password, passwordSecond } = value;
+    if (password !== passwordSecond) {
+      setErrorMessage(t.signUp[11]);
+    } else {
+      dispatch(userRegistration(value));
 
-    setUserRegister({
-      fullName: "",
-      email: "",
-      password: "",
-    });
+      setUserRegister({
+        fullName: "",
+        email: "",
+        password: "",
+        passwordSecond: "",
+      });
+    }
   };
 
   // Для сохранения значений инпутов
@@ -114,25 +124,18 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item
-          name="passwords"
-          dependencies={["password"]}
+          name="passwordSecond"
           rules={[
             {
               required: true,
               message: t.signUp[10],
             },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error(t.signUp[11]));
-              },
-            }),
           ]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
         </Form.Item>
+
+        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item>
           <MyButton

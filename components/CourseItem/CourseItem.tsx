@@ -14,7 +14,7 @@ interface ICourseProps {
     created: string;
     price: number;
     language: string;
-    image: string;
+    imageUrl: string;
   };
 }
 
@@ -41,7 +41,7 @@ const CourseItem: FC<ICourseProps> = ({ course }) => {
           <ul className={s.content__list}>
             <li className={s.course__title}>{course.name}</li>
             <li className={s.course__desciption}>{course.description}</li>
-            <li className={s.course__creator}>Автор: {course.creator}</li>
+            <li className={s.course__creator}>Автор: {course.description}</li>
             <li
               className={s.course__rating}
               onClick={(e) => e.preventDefault()}

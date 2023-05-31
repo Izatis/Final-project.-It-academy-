@@ -1,36 +1,121 @@
+@import "../../styles/varibales.module.scss";
+
 .payment {
-  max-width: 500px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 200px auto;
-  padding: 20px;
-  box-sizing: border-box;
-
+  @include centering();
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  gap: 70px;
+  margin: 200px auto;
 
-  h2 {
-    font-size: 24px;
-    margin-bottom: 24px;
+  .payment__form {
+    max-width: 60%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5%;
+    box-sizing: border-box;
+
+    h2 {
+      font-weight: 700;
+      @include adaptive-value("font-size", 35, 20);
+      line-height: 130%;
+      color: #7329c2;
+      text-align: center;
+      margin: 0 0 30px;
+    }
+
+    P {
+      font-weight: 400;
+      @include adaptive-value("font-size", 15, 8);
+      line-height: 130%;
+      color: #a7b0c2;
+    }
+
+    .payment__cards {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      h4 {
+        font-weight: 700;
+        @include adaptive-value("font-size", 30, 20);
+        line-height: 130%;
+        color: #7329c2;
+      }
+
+      span {
+        img {
+          @include adaptive-value("width", 50, 20);
+          margin: 0 10px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .error {
+      font-weight: 500;
+      @include adaptive-value("font-size", 14, 12);
+      line-height: 130%;
+      color: #ff4d4f;
+    }
   }
 
-  form{
-    width: 100%;
-  }
-  
-  .paymentButton {
-    background-color: #03d665;
-    border-color: #03d665;
-    color: #ffffff;
+  .payment__list {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 
-    &:hover,
-    &:focus {
-      background-color: #7329c2;
-      border-color: #7329c2;
+    .payment__title {
+      font-weight: 700;
+      @include adaptive-value("font-size", 25, 10);
+      line-height: 130%;
+      color: #322f55;
+    }
+
+    .payment__total {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #322f55;
+      padding: 0 0 2%;
+
+      p {
+        font-weight: 700;
+        @include adaptive-value("font-size", 20, 14);
+        line-height: 130%;
+        color: #322f55;
+      }
+
+      span {
+        white-space: nowrap;
+        font-weight: 700;
+        @include adaptive-value("font-size", 22, 10);
+        line-height: 130%;
+        color: #03d665;
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      li {
+        white-space: nowrap;
+        font-weight: 400;
+        @include adaptive-value("font-size", 15, 8);
+        line-height: 130%;
+        color: #a7b0c2;
+      }
+
+      & :nth-child(2) {
+        color: #7329c2;
+      }
     }
   }
 }

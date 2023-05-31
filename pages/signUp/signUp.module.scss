@@ -2,12 +2,19 @@
 
 .signUp {
   max-width: 450px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 200px auto;
   padding: 3% 2%;
   box-sizing: border-box;
+
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
 
   h2 {
     font-weight: 700;

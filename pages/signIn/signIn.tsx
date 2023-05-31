@@ -35,7 +35,7 @@ const SignIn: FC = () => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     if (!!parsedToken) {
-      push("/userProfile/userProfile");
+      push("/setting/setting");
     }
   }, [token]);
 
@@ -98,7 +98,6 @@ const SignIn: FC = () => {
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
-            htmlType="submit"
             loading={isLoading}
           >
             {t.signIn[6]}

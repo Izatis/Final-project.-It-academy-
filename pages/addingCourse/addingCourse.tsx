@@ -57,7 +57,7 @@ const AddingCourse: FC = () => {
 
       // Если есть токен то перенаправляем пользователя на профиль
       if (!!parsedToken) {
-        push("/userProfile/userProfile");
+        push("/setting/setting");
       }
       // Сбрасываем поля объекта
       setFile({
@@ -149,7 +149,6 @@ const AddingCourse: FC = () => {
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
-            htmlType="submit"
             loading={loading}
           >
             {t.addingCourse[8]}
