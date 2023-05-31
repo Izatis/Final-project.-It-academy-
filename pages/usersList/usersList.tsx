@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import s from "./UsersList.module.scss";
+import s from "./usersList.module.scss";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchUsers } from "@/redux/reducers/user.slice";
@@ -28,16 +28,16 @@ const UsersList = () => {
         <Loading />
       ) : (
         users.map((user) => {
-          return <li>
-            <div>
-              {/* <Avatar */}
-            </div>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </li>;
+          return (
+            <li>
+              <div>{/* <Avatar */}</div>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </li>
+          );
         })
       )}
     </ul>
