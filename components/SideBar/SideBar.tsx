@@ -29,13 +29,17 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
       <div className={s.blur}></div>
 
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
-        <Link className={s.sidePanel__header} href="/userProfile/userProfile" onClick={() => setSideBarActive(!sideBarActive)}>
+        <Link
+          className={s.sidePanel__header}
+          href="/setting/setting"
+          onClick={() => setSideBarActive(!sideBarActive)}
+        >
           <Image src={avatar} alt="avatar" />
           <div className={s.sidePanel__info}>
             <h4>{user.fullName}</h4>
             <p>{user.email}</p>
-            <TranslateButton className={s.menu__translateButton}/>
-          </div>                
+            <TranslateButton className={s.menu__translateButton} />
+          </div>
         </Link>
 
         {pathname === "/" ? (
@@ -47,9 +51,8 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/userProfile/userProfile">Профиль</Link>
+              <Link href="/setting/setting">Профиль</Link>
             </li>
-
             <li>
               <a href="#" onClick={() => setSideBarActive(!sideBarActive)}>
                 Главная
@@ -89,7 +92,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/userProfile/userProfile">Профиль</Link>
+              <Link href="/setting/setting">Профиль</Link>
             </li>
             <li>
               <Link href="/" onClick={() => setSideBarActive(!sideBarActive)}>

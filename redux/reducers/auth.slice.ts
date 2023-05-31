@@ -8,7 +8,7 @@ import {
 
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
-  "user/register",
+  "user/registration",
   async ({ fullName, email, password }, thunkApi) => {    
     try {
       const { data } = await axios.post(
@@ -32,7 +32,7 @@ export const userRegistration = createAsyncThunk<void, IUserRegistration>(
 
 // Отправляем post запрос для авторизации
 export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
-  "user/login",
+  "user/authorization",
   async ({ username, password }, thunkApi) => {
     console.log({ username, password });
 

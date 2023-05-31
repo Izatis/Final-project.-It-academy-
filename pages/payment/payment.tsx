@@ -4,21 +4,16 @@ import s from "./payment.module.scss";
 import Image from "next/image";
 import { Form, Input, DatePicker, Checkbox } from "antd";
 import { UserOutlined, CreditCardOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { IStripePay } from "@/redux/types/payment";
 
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import ParticlesComponent from "@/components/Particles/Particles";
-
-interface IPayment {
-  courseId: number;
-  cardNumber: string;
-  expMonth: string;
-  expYear: string;
-  cvc: string;
-}
+import paymentSlice from "@/redux/reducers/payment.slice";
 
 const Payment: FC = () => {
   // Состояния - для данных покупки курсов
-  const [payment, setPayment] = useState<IPayment>({
+  const [payment, setPayment] = useState<IStripePay>({
     courseId: 0,
     cardNumber: "",
     expMonth: "",
@@ -26,8 +21,18 @@ const Payment: FC = () => {
     cvc: "",
   });
 
-  const onFinish = (value: IPayment) => {
-    console.log(value);
+  const dispatch = useAppDispatch();
+  const { token, isLoading, error } = useAppSelector((state) => state.auth);
+
+  const onFinish = (value: IStripePay) => {
+    dispatch(paymentSlice(value));
+    setPayment({
+      courseId: 0,
+      cardNumber: "",
+      expMonth: "",
+      expYear: "",
+      cvc: "",
+    });
   };
 
   // Для сохранения значений инпутов

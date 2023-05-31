@@ -41,7 +41,7 @@ const SignUp: FC = () => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     if (!!parsedToken) {
-      push("/userProfile/userProfile");
+      push("/setting/setting");
     }
   }, [token]);
 
