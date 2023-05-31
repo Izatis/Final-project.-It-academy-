@@ -15,7 +15,7 @@ const Main = () => {
       <Statistics />
       <Categories />
       <СourseSlides />
-      {/* <ModelComponent/> */}
+      <ModelComponent/>
     </>
   );
 };
