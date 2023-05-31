@@ -13,10 +13,10 @@ import slideFirst from "../../public/slideFirst.jpg";
 import slideSecond from "../../public/slideSecond.png";
 import Link from "next/link";
 import { useAppSelector } from "@/hooks/redux";
-// import { courses } from "@/constants/courses";
+import { courses } from "@/constants/courses";
 
 const СourseSlides: FC = () => {
-  const { courses } = useAppSelector((state) => state.course);
+  // const { courses } = useAppSelector((state) => state.course);
 
   return (
     <section className={s.сourseSlides}>
