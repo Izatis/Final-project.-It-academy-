@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import CourseItem from "@/components/CourseItem/CourseItem";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
-import { fetchCourses, fetchDuration } from "@/redux/reducers/course.slice";
+import { fetchCourses } from "@/redux/reducers/course.slice";
 import Loading from "@/components/Loading/Loading";
 
 export default function () {
@@ -24,10 +24,6 @@ export default function () {
       const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
       dispatch(fetchCourses(parsedToken));
-
-      const id: number = 2;
-      const parsedsToken: string = parsedToken;
-      dispatch(fetchDuration({ id, parsedsToken }));
     };
 
     getCourses();

@@ -37,11 +37,9 @@
       padding: 10px;
       box-sizing: border-box;
 
-      img {
+      .menu__avatar {
         @include adaptive-value("width", 50, 20);
         @include adaptive-value("height", 50, 20);
-        border-radius: 50%;
-        margin: 4.5px 0 0;
       }
 
       .sidePanel__info {
@@ -84,9 +82,8 @@
   transform: translateX(0);
 }
 
-
 @media screen and (max-width: 768px) {
-  .menu{
+  .menu {
     top: 60px;
   }
 }

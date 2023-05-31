@@ -19,18 +19,13 @@ interface ICourseProps {
 }
 
 const CourseItem: FC<ICourseProps> = ({ course }) => {
+  console.log(course.imageUrl);
+
   return (
     <li className={s.course__item} key={course.id}>
       <Link className={s.course__link} href={`/courseMore/${course.id}`}>
         <div className={s.course__image}>
-          <Image
-            src={
-              "https://img.freepik.com/premium-photo/word-design-written-top-colorful-geometric-3d-shapes_2227-1663.jpg"
-            }
-            alt="poster"
-            width={300}
-            height={200}
-          />
+          <Image src={course.imageUrl} alt="poster" width={300} height={200} />
 
           <div className={s.blackout}>
             <span>Нажмите</span>
@@ -60,3 +55,5 @@ const CourseItem: FC<ICourseProps> = ({ course }) => {
 };
 
 export default CourseItem;
+
+import axios from "axios";

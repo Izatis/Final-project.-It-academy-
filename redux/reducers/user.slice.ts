@@ -2,11 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IUser, UserState } from "@/redux/types/user";
 
-export const fetchUsers = createAsyncThunk(
+export const fetchUsers = createAsyncThunk<void, string>(
   "user/fetchusersAll",
-  async (_, thunkAPI) => {
+  async (parsedToken, thunkAPI) => {
     try {
-      const { data } = await axios.get<IUser[]>(process.env.BASE_URL + "/user");
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/user",
+        {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        }
+      );
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.massage);
@@ -24,7 +29,7 @@ export const fetchUser = createAsyncThunk<void, string>(
           headers: { Authorization: `Bearer ${parsedToken}` },
         }
       );
-
+      
       return data;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);

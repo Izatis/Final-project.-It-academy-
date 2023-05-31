@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import s from "./UsersList.module.scss";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchUsers } from "@/redux/reducers/user.slice";
@@ -7,18 +8,39 @@ import Loading from "@/components/Loading/Loading";
 
 const UsersList = () => {
   const dispatch = useAppDispatch();
-  const { users, isLoading, error } = useAppSelector((state) => state.user);
+  const { users, isLoading } = useAppSelector((state) => state.user);
+
+  // Отправляет get запрос для получения пользователя
+  const getUser = () => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
+    dispatch(fetchUsers(parsedToken));
+  };
 
   useEffect(() => {
-    dispatch(fetchUsers());
+    getUser();
   }, []);
 
   return (
-    <div>
-      {isLoading && <Loading />}
-      {error && <h1>{error}</h1>}
-      {JSON.stringify(users, null, 2)}
-    </div>
+    <ul className={s.users__list}>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        users.map((user) => {
+          return <li>
+            <div>
+              {/* <Avatar */}
+            </div>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </li>;
+        })
+      )}
+    </ul>
   );
 };
 
