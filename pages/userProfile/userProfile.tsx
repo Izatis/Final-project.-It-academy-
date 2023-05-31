@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import s from "./userProfile.module.scss";
 
 import Link from "next/link";
@@ -29,6 +29,21 @@ const UserProfile = () => {
   };
   
   const { user, isLoading } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
+
+  // Отправляет get запрос для получения пользователя
+  const getUser = () => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
+    dispatch(fetchUser(parsedToken));
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [token]);
 
 
   return (

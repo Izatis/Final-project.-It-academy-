@@ -9,10 +9,11 @@ import CourseItem from "@/components/CourseItem/CourseItem";
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
 import MySelect from "@/components/MUI/MySelect/MySelect";
 import { fetchCourses, fetchDuration } from "@/redux/reducers/course.slice";
+import Loading from "@/components/Loading/Loading";
 
 export default function () {
   const dispatch = useAppDispatch();
-  const { courses, isLoading, error } = useAppSelector((state) => state.course);
+  const { courses, isLoading } = useAppSelector((state) => state.course);
 
   console.log(courses);
 
@@ -48,31 +49,37 @@ export default function () {
   }, []);
 
   return (
-    <section className={s.courses}>
-      <h2 className={s.pageTitle}>Все курсы по теме "{category.name}"</h2>
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <section className={s.courses}>
+          <h2 className={s.pageTitle}>Все курсы по теме "{category.name}"</h2>
 
-      <header className={s.courses__header}>
-        <div className={s.filtered}>
-          <MyButton className={s.filtered__button}>Фильтировать</MyButton>
+          <header className={s.courses__header}>
+            <div className={s.filtered}>
+              <MyButton className={s.filtered__button}>Фильтировать</MyButton>
 
-          <MySelect
-            className={s.filtered__select}
-            defaultValue="Filtered"
-            options={[
-              { value: "Admin", label: "Admin" },
-              { value: "User", label: "User" },
-            ]}
-          />
-        </div>
+              <MySelect
+                className={s.filtered__select}
+                defaultValue="Filtered"
+                options={[
+                  { value: "Admin", label: "Admin" },
+                  { value: "User", label: "User" },
+                ]}
+              />
+            </div>
 
-        <span className={s.result}>{courses.length} результата</span>
-      </header>
+            <span className={s.result}>{courses.length} результата</span>
+          </header>
 
-      <ul className={s.courses__list}>
-        {courses.map((course) => (
-          <CourseItem course={course} key={course.id} />
-        ))}
-      </ul>
-    </section>
+          <ul className={s.courses__list}>
+            {courses.map((course) => (
+              <CourseItem course={course} key={course.id} />
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 }

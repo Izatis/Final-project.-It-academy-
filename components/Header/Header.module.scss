@@ -11,6 +11,7 @@
 
   .header__nav {
     max-width: 1440px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -129,7 +130,7 @@
 @media screen and (max-width: 768px) {
   .header {
     .header__nav {
-      height: 55px;
+      height: 60px;
       padding: 0 5%;
 
       .header__list {

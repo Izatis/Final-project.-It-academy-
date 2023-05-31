@@ -24,11 +24,6 @@ const SignIn: FC = () => {
     username: "arsenov@gmail.com",
     password: "12345678",
   });
-<<<<<<< HEAD
-  // Состояния - для ошибок
-  const [errorMessage, setErrorMessage] = useState(false);
-=======
->>>>>>> 3a7ed83844997c33531bfdbc67cb19cb6137148e
 
   const dispatch = useAppDispatch();
   const { token, isLoading, error } = useAppSelector((state) => state.auth);
@@ -103,7 +98,6 @@ const SignIn: FC = () => {
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
-            htmlType="submit"
             loading={isLoading}
           >
             {t.signIn[6]}

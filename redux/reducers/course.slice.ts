@@ -13,7 +13,7 @@ export const fetchCourses = createAsyncThunk<void, string>(
           headers: { Authorization: `Bearer ${parsedToken}` },
         }
       );
-      
+
       return data;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
@@ -27,7 +27,7 @@ interface IFetchDurationParams {
   thunkApi?: any;
 }
 
-// Отправляем get запрос для получение длительность курсов
+// Отправляем get запрос для получение курса
 export const fetchCourse = createAsyncThunk(
   "course/duration",
   async ({ id, parsedsToken, thunkApi }: IFetchDurationParams) => {
@@ -41,11 +41,10 @@ export const fetchCourse = createAsyncThunk(
 
       const func = async () => {
         try {
-          const response = await axios
-            .get(data.image, {
-              headers: { Authorization: `Bearer ${parsedsToken}` },
-            })
-            // .then((response: any) => JSON.parse(response));
+          const response = await axios.get(data.image, {
+            headers: { Authorization: `Bearer ${parsedsToken}` },
+          });
+          // .then((response: any) => JSON.parse(response));
 
           data.image = response.data;
           return data;
@@ -82,7 +81,16 @@ export const fetchDuration = createAsyncThunk(
 
 const initialState: ICourseState = {
   courses: [],
-  course: {},
+  course: {
+    id: 0,
+    name: "",
+    description: "",
+    created: "",
+    price: 0,
+    language: "",
+    imageName: "",
+    imageUrl: "",
+  },
   isLoading: false,
   error: "",
 };
