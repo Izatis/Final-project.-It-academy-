@@ -126,7 +126,7 @@ const ParticlesComponent = () => {
     };
   }, []);
 
-  const particlesInit = async (main: any) => {
+  const particlesInit = async (main) => {
     await loadFull(main);
   };
 

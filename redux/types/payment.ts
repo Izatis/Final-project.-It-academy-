@@ -7,7 +7,6 @@ export interface IStripePay {
 }
 
 export interface IPaymentState {
-  stripePay: any;
   isLoading: boolean;
   error: string;
 }

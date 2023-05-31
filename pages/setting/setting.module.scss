@@ -17,13 +17,12 @@
       border-bottom: 1px solid #e6e6e6;
     }
 
-    .avatar {
-      width: max-content;
+    .setting__avatar {
+      width: 100px;
       height: 100px;
       position: absolute;
       right: 15%;
-      bottom: 0;
-      border-radius: 50%;
+      bottom: -1%;
       cursor: pointer;
     }
 

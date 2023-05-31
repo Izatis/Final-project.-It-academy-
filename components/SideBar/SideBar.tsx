@@ -5,10 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import cn from "classnames";
-import avatar from "../../public/avatar.jpeg";
 import { useAppSelector } from "@/hooks/redux";
 
 import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
+import { Avatar } from "antd";
 
 interface ISideBarProps {
   sideBarActive: boolean;
@@ -34,7 +34,10 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
           href="/setting/setting"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
-          <Image src={avatar} alt="avatar" />
+           <Avatar
+              className={s.menu__avatar}
+              src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+            />
           <div className={s.sidePanel__info}>
             <h4>{user.fullName}</h4>
             <p>{user.email}</p>

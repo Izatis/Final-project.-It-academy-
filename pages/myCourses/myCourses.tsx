@@ -28,12 +28,10 @@ const myCourse = () => {
       </div>
 
       <ul className={s.myCourse__list}>
-      {courses.map((course) => {
-        return (
-            <CourseItem course={course} />
-            );
+        {courses.map((course) => {
+          return <CourseItem course={course} />;
         })}
-        </ul>
+      </ul>
     </section>
   );
 };

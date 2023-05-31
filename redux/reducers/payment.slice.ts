@@ -18,7 +18,6 @@ export const courseFee = createAsyncThunk(
 );
 
 const initialState: IPaymentState = {
-  stripePay: "",
   isLoading: false,
   error: "",
 };
@@ -33,8 +32,7 @@ const paymentSlice = createSlice({
       state.isLoading = true;
     });
 
-    builder.addCase(courseFee.fulfilled, (state: any, action) => {
-      state.stripePay = action.payload;
+    builder.addCase(courseFee.fulfilled, (state: any) => {
       state.isLoading = false;
       state.error = "";
     });

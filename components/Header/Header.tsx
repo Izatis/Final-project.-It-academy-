@@ -2,7 +2,6 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import s from "./Header.module.scss";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,13 +10,13 @@ import {
   faGraduationCap,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
-import avatar from "../../public/avatar.jpeg";
 import { useAppDispatch } from "@/hooks/redux";
 import { reset } from "@/redux/reducers/auth.slice";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyButton from "../MUI/Buttons/MyButton/MyButton";
 import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
+import { Avatar } from "antd";
 
 interface IHeaderProps {
   sideBarActive: boolean;
@@ -228,10 +227,9 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
 
           {isToken ? (
-            <Image
+            <Avatar
               className={s.header__avatar}
-              src={avatar}
-              alt="avatar"
+              src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
               onClick={handleClick}
             />
           ) : pathname === "/signUp/signUp" ? (

@@ -8,8 +8,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IStripePay } from "@/redux/types/payment";
 
 import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
-import ParticlesComponent from "@/components/Particles/Particles";
 import paymentSlice from "@/redux/reducers/payment.slice";
+import ParticlesComponent from "@/components/Particles/Particles";
 
 const Payment: FC = () => {
   // Состояния - для данных покупки курсов
@@ -25,7 +25,9 @@ const Payment: FC = () => {
   const { token, isLoading, error } = useAppSelector((state) => state.auth);
 
   const onFinish = (value: IStripePay) => {
-    dispatch(paymentSlice(value));
+    console.log(value);
+
+    // dispatch(paymentSlice(value:)) ;
     setPayment({
       courseId: 0,
       cardNumber: "",
@@ -119,7 +121,7 @@ const Payment: FC = () => {
                 },
               ]}
             >
-              <DatePicker picker="month" placeholder="ММ/ГГ" />
+              {/* <DatePicker picker="month" placeholder="ММ/ГГ" /> */}
             </Form.Item>
             <Form.Item
               name="cvc"
