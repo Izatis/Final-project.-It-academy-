@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import s from "./userProfile.module.scss";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { EditOutlined, LogoutOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import cover from "../../public/cover.png";
-import avatar from "../../public/avatar.jpeg";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
-import Loading from "../../components/Loading/Loading";
-import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
+import Loading from "../Loading/Loading";
+import MyButton from "../MUI/Buttons/MyButton/MyButton";
 import { fetchUser } from "@/redux/reducers/user.slice";
 
 const UserProfile = () => {
@@ -27,23 +24,33 @@ const UserProfile = () => {
     push("/");
     localStorage.removeItem("token");
   };
-  
+
   const { user, isLoading } = useAppSelector((state) => state.user);
 
+  const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
+
+  // Отправляет get запрос для получения пользователя
+  const getUser = () => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
+    dispatch(fetchUser(parsedToken));
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [token]);
 
   return (
-    <section className={s.profile}>
-      <Image className={s.coverFirst} src={cover} alt="cover" />
-      <div className={s.coverSecond}></div>
+    <div className={s.profile}>
       {isLoading ? (
         <div className={s.loading}>
           <Loading />
         </div>
       ) : (
         <div className={s.profile__content}>
-          <span className={s.avatar}>
-            <Image src={avatar} alt="avatar" />
-          </span>
+          <h2>Профили и настройки</h2>
 
           <div className={s.container}>
             <div className={s.fullName}>
@@ -82,7 +89,7 @@ const UserProfile = () => {
           </MyButton>
         </div>
       )}
-    </section>
+    </div>
   );
 };
 

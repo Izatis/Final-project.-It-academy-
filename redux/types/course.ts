@@ -5,12 +5,13 @@ export interface ICourse {
   created: string;
   price: number;
   language: string;
-  image: string;
+  imageName: string;
+  imageUrl: string;
 }
 
 export interface ICourseState {
   courses: ICourse[];
-  course: {};
+  course: ICourse;
   isLoading: boolean;
   error: string;
 }

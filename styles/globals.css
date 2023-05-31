@@ -58,12 +58,6 @@ pre {
   z-index: 30;
 }
 
-/* signUp, signIn */
-.ant-form-item {
-  margin: 7% 0 0 0;
-}
-
-.ant-col {
-  width: 88px !important;
-}
-
+/* Aside */
+.ant-menu-item{}
+/* Aside */
