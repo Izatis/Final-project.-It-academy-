@@ -1,33 +1,49 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { IPaymentState } from "../types/payment";
+import { IPaymentState, IStripePay } from "../types/payment";
 
-export const courseFee = createAsyncThunk(
-  "course/fee",
-  async (stripePay, thunkApi) => {
-    try {
-      const { data } = await axios.post(
-        process.env.NEXT_PUBLIC_BASE_URL + "/password/reset",
-        stripePay
-      );
-      console.log(data);
-    } catch ({ response }: any) {
-      return thunkApi.rejectWithValue(response.data.message);
-    }
+// Покупка курса
+interface IEditingUserParams {
+  id: number;
+  stripePay: IStripePay;
+  parsedToken: string;
+  thunkApi?: any;
+}
+
+export const courseFee = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IEditingUserParams,
+  { rejectValue: string }
+>("course/fee", async ({ id, stripePay, parsedToken, thunkApi }) => {
+
+  try {
+    console.log(id);
+    const { data } = await axios.post(
+      process.env.NEXT_PUBLIC_BASE_URL +
+        `/stripe/pay?courseId=${id}&cardNumber=${stripePay.cardNumber}&expMonth=${stripePay.expMonth}&expYear=${stripePay.expYear}&cvc=${stripePay.cvc}`,
+      stripePay,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      }
+    );
+    console.log(data);
+
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
   }
-);
+});
 
 const initialState: IPaymentState = {
   isLoading: false,
   error: "",
 };
 
-const paymentSlice = createSlice({
+export const paymentSlice = createSlice({
   name: "payment",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    
     // COURSE FEE
     builder.addCase(courseFee.pending, (state: any) => {
       state.isLoading = true;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Main.module.scss";
 
 import Hero from "@/components/Hero/Hero";
@@ -12,10 +12,10 @@ const Main = () => {
   return (
     <>
       <Hero />
-      <Statistics />
+      <Statistics/>
       <Categories />
       <СourseSlides />
-      <ModelComponent/>
+      <ModelComponent />
     </>
   );
 };

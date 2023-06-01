@@ -1,10 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ICourseState } from "../types/course";
-import { ICourse } from "../types/course";
 
-export const fetchCourses = createAsyncThunk(
-  "courses/fetchCourses",
+import {
+  ICourse,
+  ICourseState,
+  IGettingACourseParams,
+  IReceiveCourseSectionsParams,
+  IToGetLessonsParams,
+  IPriceFilteringParams,
+  ILanguageFilteringParams,
+} from "../types/course";
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запрос - для получение всех курсов
+export const gettingAllCourses = createAsyncThunk(
+  "courses/gettingAllCourses",
   async (parsedToken: string, thunkApi: any) => {
     try {
       const { data } = await axios.get(
@@ -34,20 +44,79 @@ export const fetchCourses = createAsyncThunk(
 );
 
 // ---------------------------------------------------------------------------------------------------------------------------------
-// Для фильтрации по цене
-interface IFilteredPriceParams {
-  option: string;
-  parsedToken: string;
-  thunkApi?: any;
-}
-
-export const filteredPrice = createAsyncThunk<
+// Запрос - для получение курса
+export const gettingACourse = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
-  IFilteredPriceParams,
+  IGettingACourseParams,
   { rejectValue: string }
->("course/filteredPrice", async ({ option, parsedToken, thunkApi }) => {
+>("courses/gettingACourse", async ({ id, parsedToken, thunkApi }) => {
   try {
-    // Для фильтрации по убыванию
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/${id}`,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      }
+    );
+
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
+  }
+});
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запрос - для получение разделов курса
+
+export const receiveCourseSections = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IReceiveCourseSectionsParams,
+  { rejectValue: string }
+>("courses/receiveCourseSections", async ({ id, parsedToken, thunkApi }) => {
+  try {
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_URL + `/section/course/${id}`,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      }
+    );
+
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
+  }
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запрос - для получение разделов курса
+
+export const toGetLessons = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IToGetLessonsParams,
+  { rejectValue: string }
+>("courses/toGetLessons", async ({ id, parsedToken, thunkApi }) => {
+  try {
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_URL + `/section/course/${id}`,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      }
+    );
+
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
+  }
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запрос - для фильтрации по цене
+
+export const priceFiltering = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IPriceFilteringParams,
+  { rejectValue: string }
+>("course/priceFiltering", async ({ option, parsedToken, thunkApi }) => {
+  try {
+    // Запрос - для фильтрации по убыванию
     if (option === "descending") {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
@@ -57,7 +126,7 @@ export const filteredPrice = createAsyncThunk<
       );
       return data;
     }
-    // Для фильтрации по возрастанию
+    // Запрос - для фильтрации по возрастанию
     else {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/course/filter/price?filter=desc",
@@ -72,19 +141,14 @@ export const filteredPrice = createAsyncThunk<
   }
 });
 
-// Для филтрации по языку
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запрос - для филтрации по языку
 
-interface IFilteredLanguageParams {
-  language: string;
-  parsedToken: string;
-  thunkApi?: any;
-}
-
-export const filteredLanguage = createAsyncThunk<
+export const languageFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
-  IFilteredLanguageParams,
+  ILanguageFilteringParams,
   { rejectValue: string }
->("course/filteredLanguage", async ({ language, parsedToken, thunkApi }) => {
+>("course/languageFiltering", async ({ language, parsedToken, thunkApi }) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${language}`,
@@ -100,6 +164,9 @@ export const filteredLanguage = createAsyncThunk<
 
 const initialState: ICourseState = {
   courses: [],
+  course: {},
+  sections: [],
+  lessons: [],
   isLoading: false,
   error: "",
 };
@@ -109,50 +176,101 @@ const courseSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // COURSES GET ALL
-    builder.addCase(fetchCourses.pending, (state: any) => {
+    // GETTING ALL COURSES
+    builder.addCase(gettingAllCourses.pending, (state: any) => {
       state.isLoading = true;
     });
 
-    builder.addCase(fetchCourses.fulfilled, (state: any, action) => {
+    builder.addCase(gettingAllCourses.fulfilled, (state: any, action) => {
       state.courses = action.payload;
       state.isLoading = false;
       state.error = "";
     });
 
-    builder.addCase(fetchCourses.rejected, (state: any, action: any) => {
+    builder.addCase(gettingAllCourses.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });
 
-    // COURSES GET FILTERED MAIN
-    builder.addCase(filteredPrice.pending, (state: any) => {
+    // GETTING A COURSE
+    builder.addCase(gettingACourse.pending, (state: any) => {
       state.isLoading = true;
     });
 
-    builder.addCase(filteredPrice.fulfilled, (state: any, action) => {
-      state.courses = action.payload;
+    builder.addCase(gettingACourse.fulfilled, (state: any, action) => {
+      state.course = action.payload;
       state.isLoading = false;
       state.error = "";
     });
 
-    builder.addCase(filteredPrice.rejected, (state: any, action: any) => {
+    builder.addCase(gettingACourse.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });
 
-    // COURSES GET FILTERED LANGUAGE
-    builder.addCase(filteredLanguage.pending, (state: any) => {
+    // GET A COURSE SECTION
+    builder.addCase(receiveCourseSections.pending, (state: any) => {
       state.isLoading = true;
     });
 
-    builder.addCase(filteredLanguage.fulfilled, (state: any, action) => {
+    builder.addCase(receiveCourseSections.fulfilled, (state: any, action) => {
+      state.sections = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(
+      receiveCourseSections.rejected,
+      (state: any, action: any) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      }
+    );
+
+    // TO GET LESSONS
+    builder.addCase(toGetLessons.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(toGetLessons.fulfilled, (state: any, action) => {
+      state.lessons = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(toGetLessons.rejected, (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    // PRICE FILTERING
+    builder.addCase(priceFiltering.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(priceFiltering.fulfilled, (state: any, action) => {
       state.courses = action.payload;
       state.isLoading = false;
       state.error = "";
     });
 
-    builder.addCase(filteredLanguage.rejected, (state: any, action: any) => {
+    builder.addCase(priceFiltering.rejected, (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    // LANGUAGE FILTERING
+    builder.addCase(languageFiltering.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(languageFiltering.fulfilled, (state: any, action) => {
+      state.courses = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(languageFiltering.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

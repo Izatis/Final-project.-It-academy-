@@ -51,6 +51,8 @@ export const editingUser = createAsyncThunk<
   IEditingUserParams,
   { rejectValue: string }
 >("user/editingUser", async ({ value, id, parsedToken, thunkApi }) => {
+  console.log(parsedToken);
+  
   try {
     const { data } = await axios.put(
       process.env.NEXT_PUBLIC_BASE_URL + `/user/${id}`,

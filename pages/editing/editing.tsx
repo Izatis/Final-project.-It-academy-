@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import s from "./editing.module.scss";
 
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, Form, Input, Upload, UploadProps, message } from "antd";
 import {
@@ -31,7 +32,6 @@ const Editing: FC = () => {
 
   const dispatch = useAppDispatch();
   const { user, isLoading, error } = useAppSelector((state) => state.user);
-  console.log(user);
 
   // Для - маршутизации
   const { locale } = useRouter();
@@ -47,7 +47,7 @@ const Editing: FC = () => {
       // Достаем токен пользователя
       const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-      const id: number = user.id;
+      const id = user.id;
       dispatch(editingUser({ value, id, parsedToken }));
 
       setEditingData({
@@ -69,23 +69,6 @@ const Editing: FC = () => {
     form.setFieldsValue({ ...editingData });
   }, []);
 
-  const props: UploadProps = {
-    name: "file",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    headers: {
-      authorization: "authorization-text",
-    },
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
 
   return (
     <div className={s.editing}>
@@ -170,8 +153,8 @@ const Editing: FC = () => {
             placeholder={t.editing[13]}
           />
         </Form.Item>
-        <Form.Item name="avatar" label={t.editing[16]}>
-          <Upload {...props}>
+        <Form.Item name="imageUrl" label={t.editing[16]}>
+          <Upload>
             <Button icon={<UploadOutlined />}>{t.editing[17]}</Button>
           </Upload>
         </Form.Item>
@@ -180,15 +163,17 @@ const Editing: FC = () => {
         </Form.Item>
         <Form.Item>
           <div className={s.editing__buttonGroup}>
-            <MyButton
-              className={s.editing__button}
-              background="#7329c2"
-              hoverBackground="#03d665"
-              type="primary"
-              loading={isLoading}
-            >
-              {t.editing[21]}
-            </MyButton>
+            {/* <Link href="/setting/setting"> */}
+              <MyButton
+                className={s.editing__button}
+                background="#7329c2"
+                hoverBackground="#03d665"
+                type="primary"
+                loading={isLoading}
+              >
+                {t.editing[21]}
+              </MyButton>
+            {/* </Link> */}
             <MyButton
               className={s.editing__button}
               background="#7329c2"

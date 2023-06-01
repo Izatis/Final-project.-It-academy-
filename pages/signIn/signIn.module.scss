@@ -10,9 +10,9 @@
   box-sizing: border-box;
 
   form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    .signIn__margin {
+      margin: 8% 0 0;
+    }
   }
 
   h2 {

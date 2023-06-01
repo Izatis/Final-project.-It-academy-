@@ -27,33 +27,6 @@ const MyModal: FC<IMyModalLanguageProps> = ({
           }
         />
       </video>
-
-      <video controls className={s.video}>
-        <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
-        />
-      </video>
-
-      <video controls className={s.video}>
-        <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
-        />
-      </video>
-
-      <video controls className={s.video}>
-        <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
-        />
-      </video>
     </Modal>
   );
 };
