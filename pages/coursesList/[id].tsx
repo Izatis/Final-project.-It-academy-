@@ -44,14 +44,11 @@ export default function () {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // Для фильтрации по цене
-  const handleChangeMain = (value: string) => {
-    console.log(value === "1");
+  const handleChangeMain = (option: string) => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    if (value === "1") {
-      dispatch(filteredPrice({ parsedToken }));
-    }
+    dispatch(filteredPrice({ option, parsedToken }));
   };
 
   // Для филтрации по языку
@@ -75,11 +72,11 @@ export default function () {
             <div className={s.filtered}>
               <Select
                 className={s.filtered__select}
-                defaultValue="Филтрация"
+                defaultValue="Филтрация по цене"
                 onChange={handleChangeMain}
                 options={[
-                  { value: "1", label: "По цене" },
-                  { value: "2", label: "По длительности" },
+                  { value: "ascending", label: "По возрастанию" },
+                  { value: "descending", label: "По убыванию" },
                 ]}
               />
 

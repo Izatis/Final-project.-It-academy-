@@ -36,6 +36,7 @@ export const fetchCourses = createAsyncThunk(
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Для фильтрации по цене
 interface IFilteredPriceParams {
+  option: string;
   parsedToken: string;
   thunkApi?: any;
 }
@@ -44,15 +45,28 @@ export const filteredPrice = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IFilteredPriceParams,
   { rejectValue: string }
->("course/filteredPrice", async ({ parsedToken, thunkApi }) => {
+>("course/filteredPrice", async ({ option, parsedToken, thunkApi }) => {
   try {
-    const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
-      {
-        headers: { Authorization: `Bearer ${parsedToken}` },
-      }
-    );
-    return data;
+    // Для фильтрации по убыванию
+    if (option === "descending") {
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
+        {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        }
+      );
+      return data;
+    }
+    // Для фильтрации по возрастанию
+    else {
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/course/filter/price?filter=desc",
+        {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        }
+      );
+      return data;
+    }
   } catch ({ response }: any) {
     return thunkApi.rejectWithValue(response.data.message);
   }

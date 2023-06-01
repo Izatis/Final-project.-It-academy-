@@ -33,15 +33,30 @@
     "Password recovery"
   ],
 
-
   "editing": [
-    "Login",
+    "Editing",
+    "Name",
+    "Enter your name",
+    "Please enter your name",
     "Email",
-    "Password",
-    "Please enter a valid email address",
+    "Enter your email",
     "Please enter your email",
+    "Please enter a valid email address",
+    "Password",
+    "Enter your password",
     "Please enter your password",
-    "Password recovery"
+    "Password must be at least 6 characters long",
+    "Confirm Password",
+    "Enter your confirm password",
+    "Please confirm your password",
+    "Passwords do not match",
+    "Avatar",
+    "Avatar",
+    "Date of Birth",
+    "Enter your date of birth",
+    "Please enter your date of birth",
+    "Save",
+    "Cancel"
   ],
 
   "passwordRecovery": [

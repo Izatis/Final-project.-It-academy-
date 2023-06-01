@@ -26,7 +26,7 @@ const SignUp: FC = () => {
     fullName: "arsenov",
     email: "arsenov@gmail.com",
     password: "12345678",
-    passwordSecond: "",
+    passwordSecond: "12345678",
   });
 
   const [errorMessage, setErrorMessage] = useState<string>("");
