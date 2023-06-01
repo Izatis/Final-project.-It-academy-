@@ -7,7 +7,7 @@ import { SearchOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyInput from "@/components/MUI/MyInput/MyInput";
+import MyInput from "@/components/UI/MyInput/MyInput";
 
 interface ISearch {
   search: string;

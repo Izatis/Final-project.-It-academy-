@@ -11,7 +11,16 @@ export interface IUser {
 
 export interface UserState {
   users: IUser[];
-  user: IUser;
+  user: any;
   isLoading: boolean;
   error: string;
+}
+
+export interface IEditingUser {
+  fullName: string;
+  dateOfBirth: number;
+  email: string;
+  password: string;
+  passwordSecond: string;
+  imageUrl: string;
 }

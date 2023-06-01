@@ -14,13 +14,14 @@ interface ICourseProps {
     created: string;
     price: number;
     language: string;
+    author: string;
     imageUrl: string;
+    imageName: string
+    duration: number;
   };
 }
 
 const CourseItem: FC<ICourseProps> = ({ course }) => {
-  console.log(course.imageUrl);
-
   return (
     <li className={s.course__item} key={course.id}>
       <Link className={s.course__link} href={`/courseMore/${course.id}`}>
@@ -36,15 +37,16 @@ const CourseItem: FC<ICourseProps> = ({ course }) => {
           <ul className={s.content__list}>
             <li className={s.course__title}>{course.name}</li>
             <li className={s.course__desciption}>{course.description}</li>
-            <li className={s.course__creator}>Автор: {course.description}</li>
+            <li className={s.course__creator}>Автор: {course.author}</li>
             <li
               className={s.course__rating}
               onClick={(e) => e.preventDefault()}
             >
               <pre>{course.price}</pre>
-              <Rating value={2.5} />
+              <Rating value={course.price} />
             </li>
-            <li className={s.course__duration}>{course.price}</li>
+            <li className={s.course__duration}>{course.duration}</li>
+            <li className={s.course__language}>{course.language}</li>
           </ul>
 
           <span className={s.course__price}>{course.price} $</span>

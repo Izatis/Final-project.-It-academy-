@@ -4,7 +4,7 @@ import s from "./myCourses.module.scss";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
-import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import CourseItem from "@/components/CourseItem/CourseItem";
 
 const myCourse = () => {

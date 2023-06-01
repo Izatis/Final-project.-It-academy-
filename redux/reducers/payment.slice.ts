@@ -27,6 +27,7 @@ const paymentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    
     // COURSE FEE
     builder.addCase(courseFee.pending, (state: any) => {
       state.isLoading = true;
