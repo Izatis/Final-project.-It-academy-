@@ -8,8 +8,8 @@ import { UploadOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
-import MySelect from "@/components/MUI/MySelect/MySelect";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MySelect from "@/components/UI/MySelect/MySelect";
 
 interface IFile {
   title: string;

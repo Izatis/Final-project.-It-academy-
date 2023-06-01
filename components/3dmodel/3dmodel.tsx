@@ -9,7 +9,7 @@ import { Model } from "@/model/Model";
 const ModelComponent = () => {
   return (
     <div className={s.model}>
-      <Canvas camera={{ position: [0, 2, 5], zoom: 1.5 }}>
+      <Canvas camera={{ position: [0, 2, 5], zoom: 2 }}>
         <OrbitControls />
         <color attach="background" />
         <hemisphereLight intensity={0.35} />

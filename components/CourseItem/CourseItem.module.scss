@@ -60,6 +60,10 @@
       justify-content: space-between;
 
       .content__list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
         .course__title {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 10);
@@ -107,6 +111,13 @@
           @include adaptive-value("font-size", 15, 8);
           line-height: 130%;
           color: #a7b0c2;
+        }
+
+        .course__language {
+          font-weight: 700;
+          @include adaptive-value("font-size", 18, 8);
+          line-height: 130%;
+          color: #322f55;
         }
       }
 

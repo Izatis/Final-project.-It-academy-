@@ -1,91 +1,182 @@
-import React, { FC, useState } from "react";
-import { Form, Input, Select } from "antd";
+import React, { FC, useEffect, useState } from "react";
 import s from "./editing.module.scss";
 
 import { useRouter } from "next/router";
-import axios from "axios";
+import { Button, Form, Input, Upload, UploadProps, message } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  MailOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { editingUser } from "@/redux/reducers/user.slice";
 
-const { Option } = Select;
+import MyButton from "../../components/UI/Buttons/MyButton/MyButton";
+import { IEditingUser } from "@/redux/types/user";
 
 const Editing: FC = () => {
   // Данные пользователя
-  const [userData, setUserData] = useState({
-    fullName: "",
-    email: "",
+  const [editingData, setEditingData] = useState<IEditingUser>({
+    fullName: "arsenov",
+    dateOfBirth: 0,
+    email: "arsenov@gmail.com",
+    password: "12345678",
+    passwordSecond: "12345678",
+    imageUrl: "",
   });
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // Состояния - для загрузки
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  // Состояния - для загрузки кнопки
-  const [loading, setLoading] = useState<boolean>(false);
-
-  // Функция - для загрузки кнопки
-  const onFinish = () => {
-    setLoading(!loading);
-  };
+  const dispatch = useAppDispatch();
+  const { user, isLoading, error } = useAppSelector((state) => state.user);
+  console.log(user);
 
   // Для - маршутизации
-  const { push, locale } = useRouter();
+  const { locale } = useRouter();
 
   // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
 
-  // Отправляем post запрос для редактирования
-  const editUser = async (): Promise<void> => {
-    const BASE_URL = "http://localhost:8080";
+  const onFinish = (value: IEditingUser) => {
+    const { password, passwordSecond } = value;
+    if (password !== passwordSecond) {
+      setErrorMessage(t.editing[15]);
+    } else {
+      // Достаем токен пользователя
+      const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    try {
-      setIsLoading(false);
-      const { data } = await axios.put(BASE_URL + `/user/${11}`, userData);
+      const id: number = user.id;
+      dispatch(editingUser({ value, id, parsedToken }));
 
-      // Сохраняем данные пользователя
-      setUserData(data);
-    } catch (error) {
-      console.log(error);
+      setEditingData({
+        fullName: "",
+        dateOfBirth: 0,
+        email: "",
+        password: "",
+        passwordSecond: "",
+        imageUrl: "",
+      });
     }
-    setIsLoading(true);
+  };
+  // Отправляем post запрос для редактирования
+
+  // Для сохранения значений инпутов
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({ ...editingData });
+  }, []);
+
+  const props: UploadProps = {
+    name: "file",
+    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    headers: {
+      authorization: "authorization-text",
+    },
+    onChange(info) {
+      if (info.file.status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === "done") {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   };
 
   return (
     <div className={s.editing}>
-      <h2>Редактирования</h2>
-      <Form onFinish={onFinish}>
-        <Form.Item label="Name" name="name">
-          <Input
-            defaultValue={userData.fullName}
-            placeholder="Enter your name"
-            onChange={(e) => {
-              setUserData({ ...userData, fullName: e.target.value });
-            }}
+      <h2>{t.editing[0]}</h2>
+      <Form
+        form={form}
+        layout="vertical"
+        name="payment-form"
+        onFinish={onFinish}
+      >
+        <Form.Item
+          name="fullName"
+          label={t.editing[1]}
+          rules={[
+            {
+              required: true,
+              message: t.editing[2],
+            },
+          ]}
+        >
+          <Input prefix={<UserOutlined />} placeholder={t.editing[3]} />
+        </Form.Item>
+
+        <Form.Item
+          name="email"
+          label={t.editing[4]}
+          rules={[
+            {
+              required: true,
+              message: t.editing[6],
+            },
+            {
+              type: "email",
+              message: t.editing[7],
+            },
+          ]}
+        >
+          <Input prefix={<MailOutlined />} placeholder={t.editing[5]} />
+        </Form.Item>
+
+        <span className={s.error}>{error}</span>
+
+        <Form.Item
+          name="password"
+          label={t.editing[8]}
+          rules={[
+            {
+              required: true,
+              message: t.editing[10],
+            },
+            {
+              min: 6,
+              message: t.editing[11],
+            },
+          ]}
+          className={s.test}
+        >
+          <Input.Password
+            prefix={<LockOutlined />}
+            placeholder={t.editing[9]}
           />
         </Form.Item>
-        <Form.Item label="Email" name="email">
-          <Input
-            defaultValue={userData.email}
-            placeholder="Enter your email"
-            onChange={(e) => {
-              setUserData({ ...userData, email: e.target.value });
-            }}
+
+        <span className={s.error}>{errorMessage}</span>
+
+        <Form.Item
+          name="passwordSecond"
+          label={t.editing[12]}
+          rules={[
+            {
+              required: true,
+              message: t.editing[14],
+            },
+
+            {
+              message: errorMessage,
+            },
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined />}
+            placeholder={t.editing[13]}
           />
         </Form.Item>
-        <Form.Item label="Password" name="password">
-          <Input.Password placeholder="Enter your password" />
+        <Form.Item name="avatar" label={t.editing[16]}>
+          <Upload {...props}>
+            <Button icon={<UploadOutlined />}>{t.editing[17]}</Button>
+          </Upload>
         </Form.Item>
-        <Form.Item label="Avatar" name="avatar">
-          <Input placeholder="Enter your avatar URL" />
-        </Form.Item>
-        <Form.Item label="Description" name="description">
-          <Input.TextArea placeholder="Enter your description" rows={4} />
-        </Form.Item>
-        <Form.Item label="Role" name="role">
-          <Select placeholder="Select your role">
-            <Option value="admin">Admin</Option>
-            <Option value="user">User</Option>
-          </Select>
+        <Form.Item name="dateOfBirth" label={t.editing[18]}>
+          <Input placeholder={t.editing[19]} />
         </Form.Item>
         <Form.Item>
           <div className={s.editing__buttonGroup}>
@@ -94,20 +185,17 @@ const Editing: FC = () => {
               background="#7329c2"
               hoverBackground="#03d665"
               type="primary"
-              loading={loading}
-              onClick={editUser}
+              loading={isLoading}
             >
-              Save
+              {t.editing[21]}
             </MyButton>
             <MyButton
               className={s.editing__button}
               background="#7329c2"
               hoverBackground="#03d665"
               type="primary"
-              loading={loading}
-              onClick={editUser}
             >
-              Cancel
+              {t.editing[22]}
             </MyButton>
           </div>
         </Form.Item>

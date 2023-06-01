@@ -30,6 +30,36 @@ const Statistics: FC = () => {
     };
   }, [ref]);
 
+  const animateNumbers = () => {
+    const numElements = document.querySelectorAll(`.${s.__num}`);
+    numElements.forEach((numElement: any) => {
+      const targetValue = parseInt(numElement.dataset.target || "0", 10);
+      const duration = 2000;
+      const startTime = Date.now();
+
+      const animateValue = () => {
+        const currentTime = Date.now();
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const value = Math.round(targetValue * progress);
+
+        numElement.textContent = String(value);
+
+        if (progress < 1) {
+          requestAnimationFrame(animateValue);
+        }
+      };
+
+      requestAnimationFrame(animateValue);
+    });
+  };
+
+  useEffect(() => {
+    if (inView) {
+      animateNumbers();
+    }
+  }, [inView]);
+
   return (
     <section className={s.statistics} ref={ref}>
       {inView && (
@@ -65,29 +95,29 @@ const Statistics: FC = () => {
         >
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span className={`${s.__num} ${s.__num1}`}></span>
-              <p>теоретических и практических курсов для разного уровня</p>
+              <span className={s.__num} data-target="100"></span>
+              <p>Практических курсов</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span className={`${s.__num} ${s.__num2}`}></span>
-              <p>теоретических и практических курсов для разного уровня</p>
+              <span className={s.__num} data-target="150"></span>
+              <p>Пользователей</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span className={`${s.__num} ${s.__num3}`}></span>
-              <p>теоретических и практических курсов для разного уровня</p>
+              <span className={s.__num} data-target="120"></span>
+              <p>Зарегистрированных сегодня</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item} id="categories">
-              <span className={`${s.__num} ${s.__num4}`}></span>
-              <p>теоретических и практических курсов для разного уровня</p>
+              <span className={s.__num} data-target="110"></span>
+              <p>Отзывов</p>
             </div>
           </SwiperSlide>
         </Swiper>

@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import cn from "classnames";
 import { useAppSelector } from "@/hooks/redux";
 
-import TranslateButton from "../MUI/Buttons/TranslateButton/TranslateButton";
+import TranslateButton from "../UI/Buttons/TranslateButton/TranslateButton";
 import { Avatar } from "antd";
 
 interface ISideBarProps {
