@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import MyButton from "../MUI/Buttons/MyButton/MyButton";
+import MyButton from "../UI/Buttons/MyButton/MyButton";
 import slideFirst from "../../public/slideFirst.jpg";
 import slideSecond from "../../public/slideSecond.png";
 import Link from "next/link";

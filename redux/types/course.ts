@@ -7,11 +7,11 @@ export interface ICourse {
   language: string;
   imageName: string;
   imageUrl: string;
+  duration: number;
 }
 
 export interface ICourseState {
   courses: ICourse[];
-  course: ICourse;
   isLoading: boolean;
   error: string;
 }

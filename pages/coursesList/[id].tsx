@@ -6,27 +6,25 @@ import { categories } from "@/constants/categories";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import CourseItem from "@/components/CourseItem/CourseItem";
-import MyButton from "@/components/MUI/Buttons/MyButton/MyButton";
-import MySelect from "@/components/MUI/MySelect/MySelect";
-import { fetchCourses } from "@/redux/reducers/course.slice";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import {
+  fetchCourses,
+  filteredLanguage,
+  filteredPrice,
+} from "@/redux/reducers/course.slice";
 import Loading from "@/components/Loading/Loading";
+import { Select } from "antd";
 
 export default function () {
   const dispatch = useAppDispatch();
   const { courses, isLoading } = useAppSelector((state) => state.course);
 
-  console.log(courses);
-
   useEffect(() => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
     // Отправляем get запрос для получение курсов
-    const getCourses = async () => {
-      // Достаем токен пользователя
-      const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
-      dispatch(fetchCourses(parsedToken));
-    };
-
-    getCourses();
+    dispatch(fetchCourses(parsedToken));
   }, []);
 
   // Состояние - для объекта из массива categories
@@ -44,6 +42,27 @@ export default function () {
     }
   }, []);
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // Для фильтрации по цене
+  const handleChangeMain = (value: string) => {
+    console.log(value === "1");
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+
+    if (value === "1") {
+      dispatch(filteredPrice({ parsedToken }));
+    }
+  };
+
+  // Для филтрации по языку
+  const handleChangeLanguage = (language: string) => {
+    console.log(language);
+
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    dispatch(filteredLanguage({ language, parsedToken }));
+  };
+
   return (
     <>
       {isLoading ? (
@@ -54,16 +73,27 @@ export default function () {
 
           <header className={s.courses__header}>
             <div className={s.filtered}>
-              <MyButton className={s.filtered__button}>Фильтировать</MyButton>
-
-              <MySelect
+              <Select
                 className={s.filtered__select}
-                defaultValue="Filtered"
+                defaultValue="Филтрация"
+                onChange={handleChangeMain}
                 options={[
-                  { value: "Admin", label: "Admin" },
-                  { value: "User", label: "User" },
+                  { value: "1", label: "По цене" },
+                  { value: "2", label: "По длительности" },
                 ]}
               />
+
+              <Select
+                className={s.filtered__select}
+                defaultValue="Филтрация по языку"
+                onChange={handleChangeLanguage}
+                options={[
+                  { value: "ru", label: "Русский" },
+                  { value: "en", label: "English" },
+                ]}
+              />
+
+              <MyButton className={s.filtered__button}>Фильтировать</MyButton>
             </div>
 
             <span className={s.result}>{courses.length} результата</span>

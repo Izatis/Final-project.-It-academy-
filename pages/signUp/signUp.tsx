@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { userRegistration } from "@/redux/reducers/auth.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
-import MyButton from "../../components/MUI/Buttons/MyButton/MyButton";
+import MyButton from "../../components/UI/Buttons/MyButton/MyButton";
 
 interface IUserRegister {
   fullName: string;
@@ -119,9 +119,12 @@ const SignUp: FC = () => {
               message: t.signUp[9],
             },
           ]}
+          className={s.test}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
+
+        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item
           name="passwordSecond"
@@ -130,12 +133,14 @@ const SignUp: FC = () => {
               required: true,
               message: t.signUp[10],
             },
+
+            {
+              message: errorMessage
+            }
           ]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
         </Form.Item>
-
-        <span className={s.error}>{errorMessage}</span>
 
         <Form.Item>
           <MyButton

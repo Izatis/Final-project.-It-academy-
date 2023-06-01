@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ICourseState } from "../types/course";
+import { ICourse } from "../types/course";
 
-// Отправляем get запрос для получение курсов
-export const fetchCourses = createAsyncThunk<void, string>(
+export const fetchCourses = createAsyncThunk(
   "courses/fetchCourses",
-  async (parsedToken, thunkApi) => {
+  async (parsedToken: string, thunkApi: any) => {
     try {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/course",
@@ -14,73 +14,78 @@ export const fetchCourses = createAsyncThunk<void, string>(
         }
       );
 
-        data.map(async (course: any) => {
-          const response = await axios.get(course.imageUrl, {
-            headers: { Authorization: `Bearer ${parsedToken}` },
-          });
-          return response.data;
+      const updatedData = await Promise.all(
+        data.map(async (course: ICourse) => {
+          const response = await axios.get(
+            process.env.NEXT_PUBLIC_BASE_URL + `/course/duration/${course.id}`,
+            {
+              headers: { Authorization: `Bearer ${parsedToken}` },
+            }
+          );
+          return { ...course, duration: response.data };
         })
-            
-      return data;
+      );
+
+      return updatedData;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
     }
   }
 );
 
-interface IFetchDurationParams {
-  id: number;
-  parsedsToken: string;
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Для фильтрации по цене
+interface IFilteredPriceParams {
+  parsedToken: string;
   thunkApi?: any;
 }
 
-// Отправляем get запрос для получение курса
-export const fetchCourse = createAsyncThunk(
-  "course/fetchCourse",
-  async ({ id, parsedsToken, thunkApi }: IFetchDurationParams) => {
-    try {
-      const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + `/course/${id}`,
-        {
-          headers: { Authorization: `Bearer ${parsedsToken}` },
-        }
-      );
-
-      if (data.imageName !== null) {
-        const func = async () => {
-          try {
-            const response = await axios.get(data.imageUrl, {
-              headers: { Authorization: `Bearer ${parsedsToken}` },
-            });
-
-            console.log(response);
-
-            data.imageUrl = response.data;
-            return data;
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        return func();
+export const filteredPrice = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IFilteredPriceParams,
+  { rejectValue: string }
+>("course/filteredPrice", async ({ parsedToken, thunkApi }) => {
+  try {
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
       }
-    } catch ({ response }: any) {
-      return thunkApi.rejectWithValue(response.data.message);
-    }
+    );
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
   }
-);
+});
+
+// Для филтрации по языку
+
+interface IFilteredLanguageParams {
+  language: string;
+  parsedToken: string;
+  thunkApi?: any;
+}
+
+export const filteredLanguage = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IFilteredLanguageParams,
+  { rejectValue: string }
+>("course/filteredLanguage", async ({ language, parsedToken, thunkApi }) => {
+  try {
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${language}`,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      }
+    );
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
+  }
+});
 
 const initialState: ICourseState = {
   courses: [],
-  course: {
-    id: 0,
-    name: "",
-    description: "",
-    created: "",
-    price: 0,
-    language: "",
-    imageName: "",
-    imageUrl: "",
-  },
   isLoading: false,
   error: "",
 };
@@ -90,7 +95,7 @@ const courseSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Courses GET ALL
+    // COURSES GET ALL
     builder.addCase(fetchCourses.pending, (state: any) => {
       state.isLoading = true;
     });
@@ -106,18 +111,34 @@ const courseSlice = createSlice({
       state.error = action.payload;
     });
 
-    // Course GET ITEM
-    builder.addCase(fetchCourse.pending, (state: any) => {
+    // COURSES GET FILTERED MAIN
+    builder.addCase(filteredPrice.pending, (state: any) => {
       state.isLoading = true;
     });
 
-    builder.addCase(fetchCourse.fulfilled, (state: any, action) => {
-      state.course = action.payload;
+    builder.addCase(filteredPrice.fulfilled, (state: any, action) => {
+      state.courses = action.payload;
       state.isLoading = false;
       state.error = "";
     });
 
-    builder.addCase(fetchCourse.rejected, (state: any, action: any) => {
+    builder.addCase(filteredPrice.rejected, (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    // COURSES GET FILTERED LANGUAGE
+    builder.addCase(filteredLanguage.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(filteredLanguage.fulfilled, (state: any, action) => {
+      state.courses = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(filteredLanguage.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

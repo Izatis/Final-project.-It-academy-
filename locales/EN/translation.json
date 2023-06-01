@@ -33,6 +33,17 @@
     "Password recovery"
   ],
 
+
+  "editing": [
+    "Login",
+    "Email",
+    "Password",
+    "Please enter a valid email address",
+    "Please enter your email",
+    "Please enter your password",
+    "Password recovery"
+  ],
+
   "passwordRecovery": [
     "Password Recovery",
     "Email",

@@ -1,23 +1,14 @@
 @import "../../styles/varibales.module.scss";
 
-@property --num {
-  syntax: "<integer>";
-  initial-value: 0;
-  inherits: false;
-}
-
 .statistics {
-  max-width: 1440px;
+  @include centering();
   padding: 10% 5% 5%;
   box-sizing: border-box;
-  margin: 0 auto;
 
   .statisticsSlider {
     @include adaptive-value("height", 220, 150);
 
     .statistics__item {
-      max-width: 300px;
-      width: 100%;
       text-align: center;
       margin: 0 auto;
 
@@ -25,37 +16,13 @@
         font-weight: 700;
         @include adaptive-value("font-size", 58, 30);
         line-height: 130%;
-        animation-fill-mode: forwards;
-        counter-reset: num var(--num);
         color: #03d665;
 
-        &::before {
-          content: counter(num);
-        }
-
         &::after {
-          content: "+";
+          @include adaptive-value("font-size", 34, 20);
+          content: "✓";
+          left: 0 4px 0 0;
         }
-      }
-
-      .__num1 {
-        animation: counter-to-100 2s alternate ease-in-out;
-        animation-fill-mode: forwards;
-      }
-
-      .__num2 {
-        animation: counter-to-150 2s alternate ease-in-out;
-        animation-fill-mode: forwards;
-      }
-
-      .__num3 {
-        animation: counter-to-120 2s alternate ease-in-out;
-        animation-fill-mode: forwards;
-      }
-
-      .__num4 {
-        animation: counter-to-110 2s alternate ease-in-out;
-        animation-fill-mode: forwards;
       }
 
       p {
@@ -66,41 +33,5 @@
         letter-spacing: 1px;
       }
     }
-  }
-}
-
-@keyframes counter-to-100 {
-  0% {
-    --num: 0;
-  }
-  100% {
-    --num: 100;
-  }
-}
-
-@keyframes counter-to-150 {
-  0% {
-    --num: 0;
-  }
-  100% {
-    --num: 150;
-  }
-}
-
-@keyframes counter-to-120 {
-  0% {
-    --num: 0;
-  }
-  100% {
-    --num: 120;
-  }
-}
-
-@keyframes counter-to-110 {
-  0% {
-    --num: 0;
-  }
-  100% {
-    --num: 110;
   }
 }
