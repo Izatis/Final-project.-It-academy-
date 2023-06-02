@@ -22,6 +22,8 @@ interface ICourseProps {
 }
 
 const CourseItem: FC<ICourseProps> = ({ course }) => {
+  console.log(course.imageUrl);
+  
   return (
     <li className={s.course__item} key={course.id}>
       <Link className={s.course__link} href={`/courseMore/${course.id}`}>
@@ -57,5 +59,3 @@ const CourseItem: FC<ICourseProps> = ({ course }) => {
 };
 
 export default CourseItem;
-
-import axios from "axios";

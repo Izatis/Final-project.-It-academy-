@@ -71,7 +71,7 @@
 
   "addingCourse": [
     "Add a video",
-    "title",
+    "Course name",
     "description",
     "File",
     "Upload video",

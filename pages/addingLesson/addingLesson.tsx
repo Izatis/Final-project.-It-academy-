@@ -1,33 +1,31 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./AddingCourse.module.scss";
+import s from "./AddingLesson.module.scss";
 
 import Link from "next/link";
+import { UploadOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
-import { Form, Input, InputNumber, Select, UploadFile } from "antd";
+import { Button, Form, Input, InputNumber, Upload, UploadFile } from "antd";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {  courseCreation } from "@/redux/reducers/course.slice";
-
+UploadOutlined;
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import { addingALesson } from "@/redux/reducers/lesson.slice";
 
 interface IFile {
-  name: string;
+  title: string;
   description: string;
-  price: string;
-  language: string;
+  duration: any;
 }
 
-const AddingCourse: FC = () => {
+const AddingLesson: FC = () => {
   // Состояния - для данных
   const [file, setFile] = useState<IFile>({
-    name: "JavaScript",
+    title: "JavaScript",
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet culpa corrupti, itaque exercitationem temporibus quos iste recusandae quis tempore consequuntur consequatur corporis beatae saepe facere illum perferendis quisquam. Reprehenderit, iusto!",
-    price: "12",
-    language: "Russian",
+    duration: 0,
   });
-  console.log(file);
 
   // Для - маршутизации
   const { locale } = useRouter();
@@ -36,7 +34,9 @@ const AddingCourse: FC = () => {
   const t = locale === "ru" ? ru : en;
 
   const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state) => state.course);
+  const { sectionIdBackend, isLoading, error } = useAppSelector(
+    (state) => state.section
+  );
   // Обработчик изменения значения компонента Upload
   const handleUploadChange = (info: any) => {
     if (info.fileList.length > 0) {
@@ -52,26 +52,21 @@ const AddingCourse: FC = () => {
     }
   };
   const { push } = useRouter();
-
   // Отправляем post запрос
   const handleSubmit = async (value: IFile) => {
-    const newFile = { ...file, name: value.name };
-
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    const categoryId = 1;
+    const sectionId = sectionIdBackend;
 
-    dispatch(courseCreation({ categoryId, value, parsedToken }));
-
-    push("/addingSection/addingSection");
+    dispatch(addingALesson({ sectionId, value, parsedToken }));
+    push("/addAnotherSection/addAnotherSection");
 
     // Сбрасываем поля объекта
     setFile({
-      name: "",
+      title: "",
       description: "",
-      price: "",
-      language: "",
+      duration: "",
     });
   };
 
@@ -86,7 +81,7 @@ const AddingCourse: FC = () => {
 
   return (
     <section className={s.signIn}>
-      <h2>{t.addingCourse[0]}</h2>
+      <h2>Добавление урока</h2>
       <Form
         layout="vertical"
         form={form}
@@ -94,8 +89,8 @@ const AddingCourse: FC = () => {
         onFinish={handleSubmit}
       >
         <Form.Item
-          name="name"
-          label={t.addingCourse[1]}
+          name="title"
+          label={"Название урока"}
           rules={[
             {
               required: true,
@@ -103,7 +98,7 @@ const AddingCourse: FC = () => {
             },
           ]}
         >
-          <Input.TextArea placeholder={t.addingCourse[1]} />
+          <Input.TextArea placeholder={"Название урока"} />
         </Form.Item>
 
         <Form.Item
@@ -120,8 +115,8 @@ const AddingCourse: FC = () => {
         </Form.Item>
 
         <Form.Item
-          name="price"
-          label={"Цена"}
+          name="duration"
+          label={"Длительность урока"}
           rules={[
             {
               required: true,
@@ -132,14 +127,21 @@ const AddingCourse: FC = () => {
           <InputNumber min={1} max={12} />
         </Form.Item>
 
-        <Form.Item name="language" label={t.addingCourse[5]}>
-          <Select
-            defaultValue={t.addingCourse[6]}
-            options={[
-              { value: "Русский", label: "Русский" },
-              { value: "English", label: "English" },
-            ]}
-          />
+        <Form.Item
+          label={t.addingCourse[3]}
+          name="video"
+          //   rules={[
+          //     {
+          //       required: true,
+          //       message: t.addingCourse[5],
+          //     },
+          //   ]}
+        >
+          <Upload listType="picture" defaultFileList={[...fileList]}>
+            <Button icon={<UploadOutlined />}>Загрузить видео</Button>
+          </Upload>
+          <br />
+          <br />
         </Form.Item>
 
         <span className={s.error}>{error}</span>
@@ -159,4 +161,4 @@ const AddingCourse: FC = () => {
   );
 };
 
-export default AddingCourse;
+export default AddingLesson;

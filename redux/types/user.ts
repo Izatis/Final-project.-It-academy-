@@ -1,3 +1,5 @@
+import { ICourse } from "./course";
+
 export interface IUser {
   id: 0;
   fullName: string;
@@ -12,10 +14,13 @@ export interface IUser {
 export interface UserState {
   users: IUser[];
   user: any;
+  userCourses: ICourse[];
   isLoading: boolean;
   error: string;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Params
 export interface IEditingUser {
   fullName: string;
   dateOfBirth: number;
@@ -23,4 +28,15 @@ export interface IEditingUser {
   password: string;
   passwordSecond: string;
   imageUrl: string;
+}
+
+export interface IGetAllUserCoursesParams {
+  userId: number;
+  parsedToken: string;
+}
+
+export interface IEditingUserParams {
+  value: IEditingUser;
+  id: number;
+  parsedToken: string;
 }

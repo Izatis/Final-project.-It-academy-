@@ -2,16 +2,21 @@ import React, { FC } from "react";
 import s from "./MyModal.module.scss";
 
 import { Modal } from "antd";
+import { ILesson } from "@/redux/types/lesson";
 
 interface IMyModalLanguageProps {
+  lesson: ILesson;
   isModalOpen: boolean;
   setIsModalOpen: (active: boolean) => void;
 }
 
 const MyModal: FC<IMyModalLanguageProps> = ({
+  lesson,
   isModalOpen,
   setIsModalOpen,
 }) => {
+  console.log(lesson.videoUrl);
+
   return (
     <Modal
       title="Basic Modal"
@@ -19,41 +24,20 @@ const MyModal: FC<IMyModalLanguageProps> = ({
       onCancel={() => setIsModalOpen(false)}
       onOk={() => setIsModalOpen(false)}
     >
-      <video controls className={s.video}>
+      <video width="450" height="300" controls poster="video/duel.jpg">
         <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
+          src={lesson.videoUrl}
+          type='video/ogg; codecs="theora, vorbis"'
         />
-      </video>
-
-      <video controls className={s.video}>
         <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
+          src={lesson.videoUrl}
+          type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
         />
+        <source src={lesson.videoUrl} type='video/webm; codecs="vp8, vorbis"' />
+        <source type="video/mp4" src={lesson.videoUrl} />
       </video>
-
-      <video controls className={s.video}>
-        <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
-        />
-      </video>
-
-      <video controls className={s.video}>
-        <source
-          type="video/mp4"
-          src={
-            "https://player.vimeo.com/external/564717097.sd.mp4?s=621cfbeb83c4f05b479962875e50127aad0d4775&profile_id=164&oauth2_token_id=57447761"
-          }
-        />
-      </video>
+      {/* <video controls className={s.video}>
+      </video> */}
     </Modal>
   );
 };

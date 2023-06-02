@@ -50,7 +50,9 @@
         font-weight: 400;
         @include adaptive-value("font-size", 18, 5);
         line-height: 130%;
-        color: #5624d0;      }
+        color: #5624d0;
+        margin: 20px 0;
+      }
     }
   }
 

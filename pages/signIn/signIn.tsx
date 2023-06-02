@@ -65,6 +65,7 @@ const SignIn: FC = () => {
       <h2>{t.signIn[0]}</h2>
       <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
         <Form.Item
+          className={s.signIn__margin}
           name="username"
           rules={[
             {
@@ -82,6 +83,7 @@ const SignIn: FC = () => {
         <span className={s.error}>{error}</span>
 
         <Form.Item
+          className={s.signIn__margin}
           name="password"
           rules={[
             {
@@ -95,6 +97,7 @@ const SignIn: FC = () => {
 
         <Form.Item>
           <MyButton
+            className={s.signIn__margin}
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"

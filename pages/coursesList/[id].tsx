@@ -8,9 +8,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import CourseItem from "@/components/CourseItem/CourseItem";
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import {
-  fetchCourses,
-  filteredLanguage,
-  filteredPrice,
+  gettingAllCourses,
+  languageFiltering,
+  priceFiltering,
 } from "@/redux/reducers/course.slice";
 import Loading from "@/components/Loading/Loading";
 import { Select } from "antd";
@@ -23,8 +23,8 @@ export default function () {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    // Отправляем get запрос для получение курсов
-    dispatch(fetchCourses(parsedToken));
+    // Отправляем get запрос для получение разделa курса
+    dispatch(gettingAllCourses(parsedToken));
   }, []);
 
   // Состояние - для объекта из массива categories
@@ -48,7 +48,7 @@ export default function () {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    dispatch(filteredPrice({ option, parsedToken }));
+    dispatch(priceFiltering({ option, parsedToken }));
   };
 
   // Для филтрации по языку
@@ -57,7 +57,7 @@ export default function () {
 
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    dispatch(filteredLanguage({ language, parsedToken }));
+    dispatch(languageFiltering({ language, parsedToken }));
   };
 
   return (
@@ -73,21 +73,21 @@ export default function () {
               <Select
                 className={s.filtered__select}
                 defaultValue="Филтрация по цене"
-                onChange={handleChangeMain}
                 options={[
-                  { value: "ascending", label: "По возрастанию" },
-                  { value: "descending", label: "По убыванию" },
+                  { value: "ascending", label: "По убыванию" },
+                  { value: "descending", label: "По возрастанию" },
                 ]}
+                onChange={handleChangeMain}
               />
 
               <Select
                 className={s.filtered__select}
                 defaultValue="Филтрация по языку"
-                onChange={handleChangeLanguage}
                 options={[
                   { value: "ru", label: "Русский" },
                   { value: "en", label: "English" },
                 ]}
+                onChange={handleChangeLanguage}
               />
 
               <MyButton className={s.filtered__button}>Фильтировать</MyButton>

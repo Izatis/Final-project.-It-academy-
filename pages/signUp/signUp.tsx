@@ -43,7 +43,7 @@ const SignUp: FC = () => {
     if (!!parsedToken) {
       push("/setting/setting");
     }
-  }, [token]);
+  }, [isLoading]);
 
   // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
@@ -78,6 +78,7 @@ const SignUp: FC = () => {
       <h2>{t.signUp[0]}</h2>
       <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
         <Form.Item
+          className={s.signUp__margin}
           name="fullName"
           rules={[
             {
@@ -90,6 +91,7 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item
+          className={s.signUp__margin}
           name="email"
           rules={[
             {
@@ -108,6 +110,7 @@ const SignUp: FC = () => {
         <span className={s.error}>{error}</span>
 
         <Form.Item
+          className={s.signUp__margin}
           name="password"
           rules={[
             {
@@ -119,7 +122,6 @@ const SignUp: FC = () => {
               message: t.signUp[9],
             },
           ]}
-          className={s.test}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
@@ -127,6 +129,7 @@ const SignUp: FC = () => {
         <span className={s.error}>{errorMessage}</span>
 
         <Form.Item
+          className={s.signUp__margin}
           name="passwordSecond"
           rules={[
             {
@@ -135,8 +138,8 @@ const SignUp: FC = () => {
             },
 
             {
-              message: errorMessage
-            }
+              message: errorMessage,
+            },
           ]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
@@ -144,6 +147,7 @@ const SignUp: FC = () => {
 
         <Form.Item>
           <MyButton
+            className={s.signUp__margin}
             background="#7329c2"
             hoverBackground="#03d665"
             type="primary"
