@@ -5,8 +5,8 @@ import {
   IEditingUserParams,
   IGetAllUserCoursesParams,
   IUser,
-  UserState,
-} from "@/redux/types/user";
+  IUserState,
+} from "../types/user";
 
 export const fetchUsers = createAsyncThunk<void, string>(
   "user/fetchusersAll",
@@ -90,7 +90,7 @@ export const editingUser = createAsyncThunk<
   }
 });
 
-const initialState: UserState = {
+const initialState: IUserState = {
   users: [],
   user: {
     id: 0,
