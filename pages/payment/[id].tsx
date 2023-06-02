@@ -89,8 +89,8 @@ const Payment: FC = () => {
           </span>
         </div>
         <Form
-          form={form}
           layout="vertical"
+          form={form}
           name="payment-form"
           onFinish={onFinish}
         >

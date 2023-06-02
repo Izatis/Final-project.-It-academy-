@@ -11,24 +11,11 @@ export interface ICourse {
   duration: number;
 }
 
-export interface ILesson {
-  title: string;
-  description: string;
-  duration: number;
-  videoName: string;
-  videoUrl: string;
-}
-
-interface ISection {
-  name: string;
-  id: number;
-}
-
 export interface ICourseState {
   courses: ICourse[];
   course: any;
-  sections: ISection[];
-  lessons: ILesson[];
+  myCourse: ICourse[];
+  courseIdBackend: any;
   isLoading: boolean;
   error: string;
 }
@@ -42,16 +29,17 @@ export interface IGettingACourseParams {
   thunkApi?: any;
 }
 
-export interface IToGetLessonsParams {
-  id: number;
-  parsedToken: string;
-  thunkApi?: any;
+export interface ICourseCreation {
+  name: string;
+  description: string;
+  price: string;
+  language: string;
 }
 
-export interface IReceiveCourseSectionsParams {
-  id: number;
+export interface ICourseCreationParams {
+  categoryId: number;
+  value: ICourseCreation;
   parsedToken: string;
-  thunkApi?: any;
 }
 
 export interface IPriceFilteringParams {

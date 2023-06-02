@@ -1,0 +1,15 @@
+.successfully {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5%;
+    box-sizing: border-box;
+  }
+  
+  .successfully__button {
+    max-width: 200px;
+    background: #1752aa;
+    margin: 0 auto;
+  }
+  

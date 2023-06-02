@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./myCourses.module.scss";
 
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getAllUserCourses } from "@/redux/reducers/user.slice";
 
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import CourseItem from "@/components/CourseItem/CourseItem";
 
 const myCourse = () => {
   const dispatch = useAppDispatch();
-  const { courses, isLoading } = useAppSelector((state) => state.course);
+  const { userCourses, isLoading } = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getAllUserCourses());
+  }, []);
 
   return (
     <section className={s.myCourse}>
@@ -28,7 +33,7 @@ const myCourse = () => {
       </div>
 
       <ul className={s.myCourse__list}>
-        {courses.map((course) => {
+        {userCourses.map((course) => {
           return <CourseItem course={course} />;
         })}
       </ul>

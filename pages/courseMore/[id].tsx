@@ -7,10 +7,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  gettingACourse,
-  receiveCourseSections,
-} from "@/redux/reducers/course.slice";
+import { gettingACourse } from "@/redux/reducers/course.slice";
 
 import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/components/UI/AnimateSelect/AnimateSelect";
@@ -18,6 +15,7 @@ import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import TeacherCard from "@/components/TeacherCard/TeacherCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
 import Loading from "@/components/Loading/Loading";
+import { gettingPartitions } from "@/redux/reducers/section.slice";
 
 export default function () {
   // Состояние - для модалки
@@ -26,9 +24,7 @@ export default function () {
   const { query }: { query: any } = useRouter();
 
   const dispatch = useAppDispatch();
-  const { course, isLoading } = useAppSelector(
-    (state) => state.course
-  );
+  const { course, isLoading } = useAppSelector((state) => state.course);
 
   useEffect(() => {
     // Достаем токен пользователя
@@ -39,8 +35,10 @@ export default function () {
     dispatch(gettingACourse({ id, parsedToken }));
 
     // Отправляем get запрос для получение курсов
-    dispatch(receiveCourseSections({ id, parsedToken }));
+    dispatch(gettingPartitions({ id, parsedToken }));
   }, []);
+
+  const { sections } = useAppSelector((state) => state.section);
 
   return (
     <>
@@ -115,10 +113,15 @@ export default function () {
             <div className={s.course__materials}>
               <b>Материалы курса</b>
 
-              <AnimateSelect
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-              />
+              {sections.map((section) => {
+                return (
+                  <AnimateSelect
+                    section={section}
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                  />
+                )
+              })}
             </div>
 
             <TeacherCard />

@@ -49,7 +49,7 @@ const Statistics: FC = () => {
     const numElements = document.querySelectorAll(`.${s.__num}`);
     numElements.forEach((numElement: any) => {
       const targetValue = parseInt(numElement.dataset.target || "0", 10);
-      const duration = 3000;
+      const duration = 1000;
       const startTime = Date.now();
 
       const animateValue = () => {

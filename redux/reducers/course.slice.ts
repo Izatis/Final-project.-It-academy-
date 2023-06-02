@@ -5,10 +5,9 @@ import {
   ICourse,
   ICourseState,
   IGettingACourseParams,
-  IReceiveCourseSectionsParams,
-  IToGetLessonsParams,
   IPriceFilteringParams,
   ILanguageFilteringParams,
+  ICourseCreationParams,
 } from "../types/course";
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -63,39 +62,21 @@ export const gettingACourse = createAsyncThunk<
     return thunkApi.rejectWithValue(response.data.message);
   }
 });
-// ---------------------------------------------------------------------------------------------------------------------------------
-// Запрос - для получение разделов курса
-
-export const receiveCourseSections = createAsyncThunk<
-  any, // Измените этот тип на нужный тип возвращаемого значения
-  IReceiveCourseSectionsParams,
-  { rejectValue: string }
->("courses/receiveCourseSections", async ({ id, parsedToken, thunkApi }) => {
-  try {
-    const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/section/course/${id}`,
-      {
-        headers: { Authorization: `Bearer ${parsedToken}` },
-      }
-    );
-
-    return data;
-  } catch ({ response }: any) {
-    return thunkApi.rejectWithValue(response.data.message);
-  }
-});
 
 // ---------------------------------------------------------------------------------------------------------------------------------
-// Запрос - для получение разделов курса
+// Запрос - для создания курса
 
-export const toGetLessons = createAsyncThunk<
+export const courseCreation = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
-  IToGetLessonsParams,
+  ICourseCreationParams,
   { rejectValue: string }
->("courses/toGetLessons", async ({ id, parsedToken, thunkApi }) => {
+>("courses/courseCreation", async ({ categoryId, value, parsedToken }, thunkApi) => {
+  console.log(value);
+
   try {
-    const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/section/course/${id}`,
+    const { data } = await axios.post(
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/${categoryId}`,
+      value,
       {
         headers: { Authorization: `Bearer ${parsedToken}` },
       }
@@ -165,8 +146,8 @@ export const languageFiltering = createAsyncThunk<
 const initialState: ICourseState = {
   courses: [],
   course: {},
-  sections: [],
-  lessons: [],
+  myCourse: [],
+  courseIdBackend: null,
   isLoading: false,
   error: "",
 };
@@ -208,37 +189,18 @@ const courseSlice = createSlice({
       state.error = action.payload;
     });
 
-    // GET A COURSE SECTION
-    builder.addCase(receiveCourseSections.pending, (state: any) => {
+    // COURSE CREATION
+    builder.addCase(courseCreation.pending, (state: any) => {
       state.isLoading = true;
     });
 
-    builder.addCase(receiveCourseSections.fulfilled, (state: any, action) => {
-      state.sections = action.payload;
+    builder.addCase(courseCreation.fulfilled, (state: any, action) => {
+      state.courseIdBackend = action.payload;
       state.isLoading = false;
       state.error = "";
     });
 
-    builder.addCase(
-      receiveCourseSections.rejected,
-      (state: any, action: any) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      }
-    );
-
-    // TO GET LESSONS
-    builder.addCase(toGetLessons.pending, (state: any) => {
-      state.isLoading = true;
-    });
-
-    builder.addCase(toGetLessons.fulfilled, (state: any, action) => {
-      state.lessons = action.payload;
-      state.isLoading = false;
-      state.error = "";
-    });
-
-    builder.addCase(toGetLessons.rejected, (state: any, action: any) => {
+    builder.addCase(courseCreation.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

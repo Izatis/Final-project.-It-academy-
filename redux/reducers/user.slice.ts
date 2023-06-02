@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { IEditingUser, IUser, UserState } from "@/redux/types/user";
+import {
+  IEditingUser,
+  IEditingUserParams,
+  IGetAllUserCoursesParams,
+  IUser,
+  UserState,
+} from "@/redux/types/user";
 
 export const fetchUsers = createAsyncThunk<void, string>(
   "user/fetchusersAll",
@@ -38,21 +44,37 @@ export const fetchUser = createAsyncThunk<void, string>(
 );
 
 // ---------------------------------------------------------------------------------------------------------------------------------
-// Редактирование пользователя
-interface IEditingUserParams {
-  value: IEditingUser;
-  id: number;
-  parsedToken: string;
-  thunkApi?: any;
-}
+// Запроc - для получение всех курсов пользователя
+
+export const getAllUserCourses = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  IGetAllUserCoursesParams,
+  { rejectValue: string }
+>("user/getAllUserCourses", async ({ userId, parsedToken }, thunkApi) => {
+  try {
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_BASE_URL + `/user/${userId}`,
+      {
+        headers: { Authorization: `Bearer ${parsedToken}` },
+      }
+    );
+
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
+  }
+});
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запроc - для редактирование пользователя
 
 export const editingUser = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IEditingUserParams,
   { rejectValue: string }
->("user/editingUser", async ({ value, id, parsedToken, thunkApi }) => {
+>("user/editingUser", async ({ value, id, parsedToken }, thunkApi) => {
   console.log(parsedToken);
-  
+
   try {
     const { data } = await axios.put(
       process.env.NEXT_PUBLIC_BASE_URL + `/user/${id}`,
@@ -71,6 +93,7 @@ export const editingUser = createAsyncThunk<
 const initialState: UserState = {
   users: [],
   user: {},
+  userCourses: [],
   isLoading: false,
   error: "",
 };
@@ -109,6 +132,22 @@ const userSlice = createSlice({
     });
 
     builder.addCase(fetchUser.rejected, (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    // GET ALL USER COURSES
+    builder.addCase(getAllUserCourses.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(getAllUserCourses.fulfilled, (state: any, action) => {
+      state.userCourses = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(getAllUserCourses.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

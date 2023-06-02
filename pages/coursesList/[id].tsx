@@ -73,21 +73,21 @@ export default function () {
               <Select
                 className={s.filtered__select}
                 defaultValue="Филтрация по цене"
-                onChange={handleChangeMain}
                 options={[
                   { value: "ascending", label: "По возрастанию" },
                   { value: "descending", label: "По убыванию" },
                 ]}
+                onChange={handleChangeMain}
               />
 
               <Select
                 className={s.filtered__select}
                 defaultValue="Филтрация по языку"
-                onChange={handleChangeLanguage}
                 options={[
                   { value: "ru", label: "Русский" },
                   { value: "en", label: "English" },
                 ]}
+                onChange={handleChangeLanguage}
               />
 
               <MyButton className={s.filtered__button}>Фильтировать</MyButton>

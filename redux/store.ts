@@ -4,6 +4,8 @@ import registerReducer from "./reducers/auth.slice";
 import courseReducer from "./reducers/course.slice";
 import paymentReducer from "./reducers/payment.slice";
 import staticsReducer from "./reducers/statistics.slice";
+import sectionReducer from "./reducers/section.slice";
+import lessonReducer from "./reducers/lesson.slice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     course: courseReducer,
     payment: paymentReducer,
     statistics: staticsReducer,
+    section: sectionReducer,
+    lesson: lessonReducer,
   },
 });
 

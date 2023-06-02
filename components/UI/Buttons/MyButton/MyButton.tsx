@@ -52,7 +52,6 @@ const MyButton: FC<IMyButtonProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       {children}
-
       <span
         className={s.myButton__hover}
         style={{ background: hoverBackground }}
