@@ -12,7 +12,7 @@ import { Menu } from "antd";
 
 const items: MenuProps["items"] = [
   {
-    label: <Link href="/myCourses/myCourses">Мои Курсы</Link>,
+    label: <Link href="/userCourses/userCourses">Мои Курсы</Link>,
     icon: <DesktopOutlined />,
     key: "1",
   },

@@ -53,7 +53,7 @@ export const getAllUserCourses = createAsyncThunk<
 >("user/getAllUserCourses", async ({ userId, parsedToken }, thunkApi) => {
   try {
     const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/user/${userId}`,
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/author/${userId}`,
       {
         headers: { Authorization: `Bearer ${parsedToken}` },
       }
@@ -92,11 +92,21 @@ export const editingUser = createAsyncThunk<
 
 const initialState: UserState = {
   users: [],
-  user: {},
+  user: {
+    id: 0,
+    fullName: "",
+    dateOfBirth: "",
+    email: "",
+    password: "",
+    role: "",
+    imageName: "",
+    imageUrl: "",
+  },
   userCourses: [],
   isLoading: false,
   error: "",
 };
+console.log(initialState.user);
 
 const userSlice = createSlice({
   name: "user",

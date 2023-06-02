@@ -27,7 +27,6 @@ const AddingCourse: FC = () => {
     price: "12",
     language: "Russian",
   });
-  console.log(file);
 
   // Для - маршутизации
   const { locale } = useRouter();

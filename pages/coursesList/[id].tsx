@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import CourseItem from "@/components/CourseItem/CourseItem";
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import {
-  gettingAllCourses,
+  receiveCoursesByCategory,
   languageFiltering,
   priceFiltering,
 } from "@/redux/reducers/course.slice";
@@ -16,23 +16,19 @@ import Loading from "@/components/Loading/Loading";
 import { Select } from "antd";
 
 export default function () {
+  const [category, setCategory] = useState<any>({});
+  const { query }: { query: any } = useRouter();
+
   const dispatch = useAppDispatch();
   const { courses, isLoading } = useAppSelector((state) => state.course);
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
   useEffect(() => {
-    // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
-    // Отправляем get запрос для получение разделa курса
-    dispatch(gettingAllCourses(parsedToken));
+    const categoryId = query.id;
+    dispatch(receiveCoursesByCategory({ categoryId, parsedToken }));
   }, []);
 
-  // Состояние - для объекта из массива categories
-  const [category, setCategory] = useState<any>({});
-
-  const { query }: { query: any } = useRouter();
-
-  // Получает объект из массива categories
   useEffect(() => {
     if (!!query.id) {
       const category = categories.find(
@@ -43,19 +39,12 @@ export default function () {
   }, []);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
-  // Для фильтрации по цене
   const handleChangeMain = (option: string) => {
-    // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
     dispatch(priceFiltering({ option, parsedToken }));
   };
 
-  // Для филтрации по языку
   const handleChangeLanguage = (language: string) => {
-    console.log(language);
-
-    // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     dispatch(languageFiltering({ language, parsedToken }));
   };
@@ -74,8 +63,8 @@ export default function () {
                 className={s.filtered__select}
                 defaultValue="Филтрация по цене"
                 options={[
-                  { value: "ascending", label: "По возрастанию" },
-                  { value: "descending", label: "По убыванию" },
+                  { value: "ascending", label: "По убыванию" },
+                  { value: "descending", label: "По возрастанию" },
                 ]}
                 onChange={handleChangeMain}
               />

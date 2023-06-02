@@ -37,9 +37,6 @@ export const createPartition = createAsyncThunk<
 >(
   "courses/createPartition",
   async ({ courseId, value, parsedToken }, thunkApi) => {
-    console.log(courseId);
-    console.log(value);
-    console.log(parsedToken);
 
     try {
       const { data } = await axios.post(

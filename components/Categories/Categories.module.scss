@@ -2,6 +2,8 @@
 
 .categories {
   @include centering();
+  padding: 2% 2%;
+  box-sizing: border-box;
 
   h2 {
     font-weight: 700;
@@ -9,6 +11,7 @@
     line-height: 130%;
     color: #322f55;
     padding: 2% 0;
+    box-sizing: border-box;
   }
 
   &__wrap {
@@ -20,7 +23,7 @@
       max-width: 300px;
       border-radius: 4px;
       box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
-      margin: 10px;
+      margin: 20px;
 
       img {
         width: 100%;
