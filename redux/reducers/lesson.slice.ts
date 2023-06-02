@@ -23,6 +23,15 @@ export const toGetLessons = createAsyncThunk<
       }
     );
 
+    // const updatedData = await Promise.all(
+    //   data.map(async (lesson: any) => {
+    //     const response = await axios.get(lesson.videoUrl, {
+    //       headers: { Authorization: `Bearer ${parsedToken}` },
+    //     });
+    //     return { ...lesson, videoUrl: response.data };
+    //   })
+    // );
+
     return data;
   } catch ({ response }: any) {
     return thunkApi.rejectWithValue(response.data.message);

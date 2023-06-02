@@ -23,7 +23,6 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({
 
   const dispatch = useAppDispatch();
   const { lessons } = useAppSelector((state) => state.lesson);
-  console.log(lessons);
 
   useEffect(() => {
     const id = section.id;

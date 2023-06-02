@@ -74,8 +74,8 @@ export default function () {
                 className={s.filtered__select}
                 defaultValue="Филтрация по цене"
                 options={[
-                  { value: "ascending", label: "По возрастанию" },
-                  { value: "descending", label: "По убыванию" },
+                  { value: "ascending", label: "По убыванию" },
+                  { value: "descending", label: "По возрастанию" },
                 ]}
                 onChange={handleChangeMain}
               />
