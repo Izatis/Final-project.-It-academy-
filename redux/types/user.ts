@@ -11,7 +11,7 @@ export interface IUser {
   imageUrl: string;
 }
 
-export interface UserState {
+export interface IUserState {
   users: IUser[];
   user: IUser;
   userCourses: ICourse[];
