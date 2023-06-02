@@ -4,6 +4,8 @@ import axios from "axios";
 import {
   ICourse,
   ICourseState,
+  IGettingAllCoursesParams,
+  IReceiveCoursesByCategoryParams,
   IGettingACourseParams,
   IPriceFilteringParams,
   ILanguageFilteringParams,
@@ -12,12 +14,53 @@ import {
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Запрос - для получение всех курсов
-export const gettingAllCourses = createAsyncThunk(
+export const gettingAllCourses = createAsyncThunk<
+any, // Измените этот тип на нужный тип возвращаемого значения
+IGettingAllCoursesParams,
+{ rejectValue: string }
+>(
   "courses/gettingAllCourses",
-  async (parsedToken: string, thunkApi: any) => {
+  async ({parsedToken}, thunkApi) => {
     try {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/course",
+        {
+          headers: { Authorization: `Bearer ${parsedToken}` },
+        }
+      );
+
+      const updatedData = await Promise.all(
+        data.map(async (course: ICourse) => {
+          const response = await axios.get(
+            process.env.NEXT_PUBLIC_BASE_URL + `/course/duration/${course.id}`,
+            {
+              headers: { Authorization: `Bearer ${parsedToken}` },
+            }
+          );
+          return { ...course, duration: response.data };
+        })
+      );
+
+      return updatedData;
+    } catch ({ response }: any) {
+      return thunkApi.rejectWithValue(response.data.message);
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------------------------------------------------------------
+// Запрос - для получение курсов по категории
+
+export const receiveCoursesByCategory = createAsyncThunk<
+any, // Измените этот тип на нужный тип возвращаемого значения
+IReceiveCoursesByCategoryParams,
+{ rejectValue: string }
+>(
+  "courses/receiveCoursesByCategory",
+  async ({categoryId, parsedToken}, thunkApi) => {
+    try {
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + `/course/category/${categoryId}`,
         {
           headers: { Authorization: `Bearer ${parsedToken}` },
         }
@@ -48,7 +91,7 @@ export const gettingACourse = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IGettingACourseParams,
   { rejectValue: string }
->("courses/gettingACourse", async ({ id, parsedToken, thunkApi }) => {
+>("courses/gettingACourse", async ({ id, parsedToken}, thunkApi) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/course/${id}`,
@@ -95,7 +138,7 @@ export const priceFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IPriceFilteringParams,
   { rejectValue: string }
->("course/priceFiltering", async ({ option, parsedToken, thunkApi }) => {
+>("course/priceFiltering", async ({ option, parsedToken}, thunkApi) => {
   try {
     // Запрос - для фильтрации по убыванию
     if (option === "descending") {
@@ -129,7 +172,7 @@ export const languageFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   ILanguageFilteringParams,
   { rejectValue: string }
->("course/languageFiltering", async ({ language, parsedToken, thunkApi }) => {
+>("course/languageFiltering", async ({ language, parsedToken}, thunkApi) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${language}`,
@@ -169,6 +212,22 @@ const courseSlice = createSlice({
     });
 
     builder.addCase(gettingAllCourses.rejected, (state: any, action: any) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+     // RECEIVE COURSES BY CATEGORY
+     builder.addCase(receiveCoursesByCategory.pending, (state: any) => {
+      state.isLoading = true;
+    });
+
+    builder.addCase(receiveCoursesByCategory.fulfilled, (state: any, action) => {
+      state.courses = action.payload;
+      state.isLoading = false;
+      state.error = "";
+    });
+
+    builder.addCase(receiveCoursesByCategory.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

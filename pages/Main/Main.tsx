@@ -6,13 +6,14 @@ import Statistics from "@/components/Statistics/Statistics";
 import Categories from "@/components/Categories/Categories";
 import СourseSlides from "@/components/СourseSlides/СourseSlides";
 import ModelComponent from "@/components/3dmodel/3dmodel";
-
+import CardSlides from "@/components/CardSlides/CardSlides";
 
 const Main = () => {
   return (
     <>
       <Hero />
-      <Statistics/>
+      <Statistics />
+      <CardSlides />
       <Categories />
       <СourseSlides />
       <ModelComponent />

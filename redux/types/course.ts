@@ -23,10 +23,18 @@ export interface ICourseState {
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Params
 
+export interface IGettingAllCoursesParams {
+  parsedToken: string;
+}
+
+export interface IReceiveCoursesByCategoryParams {
+  categoryId: number;
+  parsedToken: string;
+}
+
 export interface IGettingACourseParams {
   id: number;
   parsedToken: string;
-  thunkApi?: any;
 }
 
 export interface ICourseCreation {
@@ -45,11 +53,9 @@ export interface ICourseCreationParams {
 export interface IPriceFilteringParams {
   option: string;
   parsedToken: string;
-  thunkApi?: any;
 }
 
 export interface ILanguageFilteringParams {
   language: string;
   parsedToken: string;
-  thunkApi?: any;
 }

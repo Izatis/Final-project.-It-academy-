@@ -15,16 +15,15 @@ const MyModal: FC<IMyModalLanguageProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
-  console.log(lesson.videoUrl);
 
   return (
     <Modal
-      title="Basic Modal"
+      title={lesson.title}
       open={isModalOpen}
+      keyboard={true}
       onCancel={() => setIsModalOpen(false)}
-      onOk={() => setIsModalOpen(false)}
     >
-      <video width="450" height="300" controls poster="video/duel.jpg">
+      <video className={s.video} controls>
         <source
           src={lesson.videoUrl}
           type='video/ogg; codecs="theora, vorbis"'
@@ -36,8 +35,8 @@ const MyModal: FC<IMyModalLanguageProps> = ({
         <source src={lesson.videoUrl} type='video/webm; codecs="vp8, vorbis"' />
         <source type="video/mp4" src={lesson.videoUrl} />
       </video>
-      {/* <video controls className={s.video}>
-      </video> */}
+
+      <p className={s.video__description}>{lesson.description}</p>
     </Modal>
   );
 };

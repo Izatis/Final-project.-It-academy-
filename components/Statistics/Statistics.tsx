@@ -76,8 +76,6 @@ const Statistics: FC = () => {
   }, [inView]);
 
   return (
-    <>
-    {isLoading ? <div style={{width: 500}}></div>:
     <section className={s.statistics} ref={ref}>
       {inView && (
         <Swiper
@@ -152,8 +150,6 @@ const Statistics: FC = () => {
         </Swiper>
       )}
     </section>
-  }
-    </>
   );
 };
 

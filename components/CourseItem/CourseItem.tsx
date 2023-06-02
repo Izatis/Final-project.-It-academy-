@@ -22,7 +22,6 @@ interface ICourseProps {
 }
 
 const CourseItem: FC<ICourseProps> = ({ course }) => {
-  console.log(course.imageUrl);
   
   return (
     <li className={s.course__item} key={course.id}>

@@ -37,7 +37,7 @@ const СourseSlides: FC = () => {
         loop={true}
         grabCursor={true}
         modules={[Navigation, Pagination, Autoplay, Keyboard]}
-        className="mySwiper"
+        className="course-slides"
         id="courses"
       >
         {courses.map((course) => {

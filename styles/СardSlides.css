@@ -1,0 +1,15 @@
+.card-slides .swiper-button-prev,
+.card-slides .swiper-button-next {
+  width: 40px !important;
+  height: 40px !important;
+  top: 30%;
+  border-radius: 50%;
+  background: #7329c2;
+  border: 8px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-slides .swiper-button-prev::after,
+.card-slides .swiper-button-next::after {
+  font-size: 14px !important;
+  color: #ffffff;
+}
