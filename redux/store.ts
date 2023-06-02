@@ -6,6 +6,7 @@ import paymentReducer from "./reducers/payment.slice";
 import staticsReducer from "./reducers/statistics.slice";
 import sectionReducer from "./reducers/section.slice";
 import lessonReducer from "./reducers/lesson.slice";
+import categoryReducer from "./reducers/category.slice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     statistics: staticsReducer,
     section: sectionReducer,
     lesson: lessonReducer,
+    category: categoryReducer,
   },
 });
 

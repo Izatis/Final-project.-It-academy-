@@ -1,6 +1,10 @@
 @import "../../styles/varibales.module.scss";
 
-.myCourse {
+.userCourses {
+  @include centering();
+  padding: 5% 2%;
+  box-sizing: border-box;
+
   .addingCourse {
     max-width: 700px;
     display: flex;
@@ -8,7 +12,7 @@
     align-items: center;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 200px auto;
+    margin: 100px auto;
     padding: 5% 2%;
     box-sizing: border-box;
 
@@ -18,9 +22,5 @@
       line-height: 130%;
       color: #322f55;
     }
-  }
-
-  .myCourse__list{
-    
   }
 }

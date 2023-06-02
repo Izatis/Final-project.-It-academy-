@@ -13,7 +13,7 @@ export interface IUser {
 
 export interface UserState {
   users: IUser[];
-  user: any;
+  user: IUser;
   userCourses: ICourse[];
   isLoading: boolean;
   error: string;

@@ -21,10 +21,12 @@ const MyButton: FC<IMyButtonProps> = ({
 }) => {
   // С помощью useRef получаем элемента
   const spanElement = useRef<HTMLSpanElement>(null);
+  const buttonElement = useRef<HTMLButtonElement>(null);
 
   // Функция - при входе курсора
   const handleMouseEnter = () => {
-    if (spanElement.current) {
+    if (spanElement.current && buttonElement.current) {
+      buttonElement.current.style.background = hoverBackground || "";
       spanElement.current.style.height = "100%";
       spanElement.current.style.top = "auto";
       spanElement.current.style.bottom = "0";
@@ -33,7 +35,8 @@ const MyButton: FC<IMyButtonProps> = ({
 
   // Функция - при выходе курсора
   const handleMouseLeave = () => {
-    if (spanElement.current) {
+    if (spanElement.current && buttonElement.current) {
+      buttonElement.current.style.background = background || "";
       spanElement.current.style.height = "0";
       spanElement.current.style.top = "0";
     }
@@ -41,6 +44,7 @@ const MyButton: FC<IMyButtonProps> = ({
 
   return (
     <Button
+      ref={buttonElement}
       className={cn(s.myButton, className)}
       style={{ background }}
       type={type}

@@ -26,21 +26,9 @@ const UserProfile = () => {
   };
 
   const { user, isLoading } = useAppSelector((state) => state.user);
+  
 
-  const dispatch = useAppDispatch();
-  const { token } = useAppSelector((state) => state.auth);
-
-  // Отправляет get запрос для получения пользователя
-  const getUser = () => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
-    dispatch(fetchUser(parsedToken));
-  };
-
-  useEffect(() => {
-    getUser();
-  }, [token]);
+ 
 
   return (
     <div className={s.profile}>

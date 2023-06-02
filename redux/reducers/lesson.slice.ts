@@ -8,7 +8,7 @@ import {
 } from "../types/lesson";
 
 // ---------------------------------------------------------------------------------------------------------------------------------
-// Запрос - для получение уроков
+// Запрос - для получение уроков по 
 
 export const toGetLessons = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
@@ -22,15 +22,6 @@ export const toGetLessons = createAsyncThunk<
         headers: { Authorization: `Bearer ${parsedToken}` },
       }
     );
-
-    // const updatedData = await Promise.all(
-    //   data.map(async (lesson: any) => {
-    //     const response = await axios.get(lesson.videoUrl, {
-    //       headers: { Authorization: `Bearer ${parsedToken}` },
-    //     });
-    //     return { ...lesson, videoUrl: response.data };
-    //   })
-    // );
 
     return data;
   } catch ({ response }: any) {

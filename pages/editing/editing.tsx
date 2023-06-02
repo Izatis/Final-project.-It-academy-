@@ -69,7 +69,6 @@ const Editing: FC = () => {
     form.setFieldsValue({ ...editingData });
   }, []);
 
-
   return (
     <div className={s.editing}>
       <h2>{t.editing[0]}</h2>
@@ -164,15 +163,15 @@ const Editing: FC = () => {
         <Form.Item>
           <div className={s.editing__buttonGroup}>
             {/* <Link href="/setting/setting"> */}
-              <MyButton
-                className={s.editing__button}
-                background="#7329c2"
-                hoverBackground="#03d665"
-                type="primary"
-                loading={isLoading}
-              >
-                {t.editing[21]}
-              </MyButton>
+            <MyButton
+              className={s.editing__button}
+              background="#7329c2"
+              hoverBackground="#03d665"
+              type="primary"
+              loading={isLoading}
+            >
+              {t.editing[21]}
+            </MyButton>
             {/* </Link> */}
             <MyButton
               className={s.editing__button}

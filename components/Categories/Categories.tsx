@@ -1,11 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import s from "./Categories.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
-import { categories } from "@/constants/categories";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { gettingACategory } from "@/redux/reducers/category.slice";
 
 const Categories: FC = () => {
+  const dispatch = useAppDispatch();
+  const { categories } = useAppSelector((state) => state.category);  
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);    
+    dispatch(gettingACategory({parsedToken}));
+  }, []);
+  
   return (
     <section className={s.categories} id="categories">
       <h2>Категории</h2>
@@ -18,7 +28,7 @@ const Categories: FC = () => {
               key={category.id}
             >
               <Image src={category.image} alt="categories image" />
-              <h2>{category.name}</h2>
+              <h2>{category.title}</h2>
             </Link>
           );
         })}

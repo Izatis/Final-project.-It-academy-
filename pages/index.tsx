@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import Main from "./Main/Main";
+import MainLoad from "../components/MainLoad/MainLoad";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <link rel="icon" href="/static/icon.svg" />
         <title>Online Platform</title>
       </Head>
+      <MainLoad />
       <Main />
     </>
   );
