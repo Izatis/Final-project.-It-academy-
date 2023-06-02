@@ -1,8 +1,7 @@
 export interface IStripePay {
-  courseId: number;
   cardNumber: string;
-  expMonth: string;
-  expYear: string;
+  expMonth: number;
+  expYear: number;
   cvc: string;
 }
 

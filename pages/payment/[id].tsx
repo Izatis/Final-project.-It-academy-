@@ -2,37 +2,51 @@ import React, { FC, useEffect, useState } from "react";
 import s from "./payment.module.scss";
 
 import Image from "next/image";
-import { Form, Input, DatePicker, Checkbox } from "antd";
-import { UserOutlined, CreditCardOutlined } from "@ant-design/icons";
+import { Form, Input, DatePicker, Checkbox, InputNumber } from "antd";
+import { CreditCardOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IStripePay } from "@/redux/types/payment";
 
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
-import paymentSlice from "@/redux/reducers/payment.slice";
 import ParticlesComponent from "@/components/Particles/Particles";
+import { courseFee } from "@/redux/reducers/payment.slice";
+import { useRouter } from "next/router";
 
 const Payment: FC = () => {
   // Состояния - для данных покупки курсов
   const [payment, setPayment] = useState<IStripePay>({
-    courseId: 0,
-    cardNumber: "",
-    expMonth: "",
-    expYear: "",
-    cvc: "",
+    cardNumber: "4000002500001001",
+    expMonth: 12,
+    expYear: 2024,
+    cvc: "444",
   });
+  const [course, setCourse] = useState<any>({});
+  console.log(course);
+
+  const { query }: { query: any } = useRouter();
+  const { courses } = useAppSelector((state) => state.course);
+
+  useEffect(() => {
+    if (!!query.id) {
+      const course = courses.find(({ id }: { id: number }) => id === +query.id);
+      console.log(course);
+
+      setCourse(course);
+    }
+  }, []);
 
   const dispatch = useAppDispatch();
-  const { token, isLoading, error } = useAppSelector((state) => state.auth);
 
-  const onFinish = (value: IStripePay) => {
-    console.log(value);
-
-    // dispatch(paymentSlice(value:)) ;
+  const onFinish = (stripePay: IStripePay) => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    
+    const id = course.id;
+    dispatch(courseFee({ id, stripePay, parsedToken }));
     setPayment({
-      courseId: 0,
       cardNumber: "",
-      expMonth: "",
-      expYear: "",
+      expMonth: 0,
+      expYear: 0,
       cvc: "",
     });
   };
@@ -75,24 +89,11 @@ const Payment: FC = () => {
           </span>
         </div>
         <Form
-          form={form}
           layout="vertical"
+          form={form}
           name="payment-form"
           onFinish={onFinish}
         >
-          <Form.Item
-            name="name"
-            label="Имя на карте"
-            rules={[
-              {
-                required: true,
-                message: "Please enter your name",
-              },
-            ]}
-          >
-            <Input prefix={<UserOutlined />} placeholder="Имя на карте" />
-          </Form.Item>
-
           <Form.Item
             name="cardNumber"
             label="Номер карты"
@@ -112,20 +113,33 @@ const Payment: FC = () => {
           <div className={s.container}>
             <Form.Item
               name="expMonth"
-              label="Срок действия"
+              label="Месяц"
               rules={[
                 {
-                  type: "object" as const,
                   required: true,
-                  message: "Please select time!",
+                  message: "Please enter your card number",
                 },
               ]}
             >
-              <DatePicker picker="month" placeholder="ММ/ГГ" />
+              <InputNumber min={1} max={12} />
             </Form.Item>
+
+            <Form.Item
+              name="expYear"
+              label="Год"
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your card number",
+                },
+              ]}
+            >
+              <InputNumber min={1} max={6000} />
+            </Form.Item>
+
             <Form.Item
               name="cvc"
-              label="CVC/CVV"
+              label="CVC"
               rules={[
                 {
                   required: true,
@@ -141,6 +155,8 @@ const Payment: FC = () => {
                     event.preventDefault();
                   }
                 }}
+                min={3}
+                max={3}
               />
             </Form.Item>
           </div>
@@ -156,6 +172,7 @@ const Payment: FC = () => {
               background="#03d665"
               hoverBackground="#7329c2"
               type="primary"
+
               // loading={loading}
             >
               Pay Now

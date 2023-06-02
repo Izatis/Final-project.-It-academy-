@@ -1,19 +1,12 @@
 @import "../../styles/varibales.module.scss";
 
 .signIn {
-  max-width: 450px;
-  background-color: #ffffff;
+  max-width: 1000px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 200px auto;
-  padding: 3% 2%;
+  padding: 5% 2%;
   box-sizing: border-box;
-
-  form {
-    .signIn__margin {
-      margin: 8% 0 0;
-    }
-  }
 
   h2 {
     font-weight: 700;
