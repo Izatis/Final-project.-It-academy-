@@ -16,6 +16,11 @@ import TeacherCard from "@/components/TeacherCard/TeacherCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
 import Loading from "@/components/Loading/Loading";
 import { gettingPartitions } from "@/redux/reducers/section.slice";
+import { Button, Form, Input } from "antd";
+import {
+  useAddReviewMutation,
+  useGetReviwsQuery,
+} from "@/redux/reducers/review";
 
 export default function () {
   // Состояние - для модалки
@@ -26,19 +31,54 @@ export default function () {
   const dispatch = useAppDispatch();
   const { course, isLoading } = useAppSelector((state) => state.course);
 
+  const courseId = query.id;
+
   useEffect(() => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    const id = query.id;
     // Отправляем get запрос для разделa курса
-    dispatch(gettingACourse({ id, parsedToken }));
+    dispatch(gettingACourse({ courseId, parsedToken }));
 
     // Отправляем get запрос для получение курсов
-    dispatch(gettingPartitions({ id, parsedToken }));
+    dispatch(gettingPartitions({ courseId, parsedToken }));
   }, []);
 
   const { sections } = useAppSelector((state) => state.section);
+
+  // Для сохранения значений инпутов
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.setFieldsValue({ ...form.getFieldsValue() });
+  }, []);
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
+  const [token, setToken] = useState("");
+  const { data = [] } = useGetReviwsQuery({ courseId, token });
+  console.log(data);
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+
+  // POST
+  const [addReview] = useAddReviewMutation();
+
+  const onFinish = async (values: any) => {
+    const data = {
+      title: values.review,
+      description: "string",
+    };
+    console.log(values);
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    const courseId = query.id;
+    if (values) {
+      await addReview({ courseId, parsedToken, data }).unwrap();
+    }
+  };
 
   return (
     <>
@@ -120,13 +160,31 @@ export default function () {
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                   />
-                )
+                );
               })}
             </div>
 
             <TeacherCard />
 
             <ReviewCard />
+
+            <Form layout="vertical" name="form" onFinish={onFinish}>
+              <Form.Item
+                label="Оставить отзыв"
+                name="review"
+                rules={[
+                  { required: true, message: "Please input your review!" },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
           </div>
         </div>
       )}

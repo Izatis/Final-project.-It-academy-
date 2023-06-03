@@ -6,19 +6,14 @@ import { Form, Input, UploadFile } from "antd";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {} from "@/redux/reducers/course.slice";
 
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import { createPartition } from "@/redux/reducers/section.slice";
-import Link from "next/link";
-
-interface IFile {
-  name: string;
-}
+import { ICreatePartition } from "@/redux/types/section";
 
 const AddingSection: FC = () => {
   // Состояния - для данных
-  const [file, setFile] = useState<IFile>({
+  const [file, setFile] = useState<ICreatePartition>({
     name: "",
   });
 
@@ -45,16 +40,13 @@ const AddingSection: FC = () => {
 
   const { push } = useRouter();
   const dispatch = useAppDispatch();
-  const { courseIdBackend, error } = useAppSelector(
-    (state) => state.course
-  );
+  const { courseIdBackend, error } = useAppSelector((state) => state.course);
   // Отправляем post запрос
-  const handleSubmit = async (value: IFile) => {
+  const handleSubmit = async (value: ICreatePartition) => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
     const courseId = courseIdBackend;
-
 
     dispatch(createPartition({ courseId, value, parsedToken }));
     push("/addingLesson/addingLesson");

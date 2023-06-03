@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import Loading from "../Loading/Loading";
 import MyButton from "../UI/Buttons/MyButton/MyButton";
-import { fetchUser } from "@/redux/reducers/user.slice";
 
 const UserProfile = () => {
   // Для - маршутизации

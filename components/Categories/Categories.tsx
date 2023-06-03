@@ -1,26 +1,24 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./Categories.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { gettingACategory } from "@/redux/reducers/category.slice";
+import { useGettingACategoryQuery } from "@/redux/reducers/category";
 
 const Categories: FC = () => {
-  const dispatch = useAppDispatch();
-  const { categories } = useAppSelector((state) => state.category);  
+    const [token, setToken] = useState("");
+  const { data = [] } = useGettingACategoryQuery(token);
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
   useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);    
-    dispatch(gettingACategory({parsedToken}));
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
   }, []);
-  
+
   return (
     <section className={s.categories} id="categories">
       <h2>Категории</h2>
       <div className={s.categories__wrap}>
-        {categories.map((category) => {
+        {data.map((category: any) => {
           return (
             <Link
               className={s.categories__card}

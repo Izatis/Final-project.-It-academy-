@@ -28,6 +28,8 @@ export const fetchUsers = createAsyncThunk<void, string>(
 export const fetchUser = createAsyncThunk<void, string>(
   "user/fetchUserItem",
   async (parsedToken, thunkApi) => {
+    console.log(parsedToken);
+
     try {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/user/current",
@@ -106,7 +108,6 @@ const initialState: IUserState = {
   isLoading: false,
   error: "",
 };
-console.log(initialState.user);
 
 const userSlice = createSlice({
   name: "user",

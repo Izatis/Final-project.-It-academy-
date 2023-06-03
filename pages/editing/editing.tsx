@@ -3,7 +3,16 @@ import s from "./editing.module.scss";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, Form, Input, Upload, UploadProps, message } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Upload,
+  UploadFile,
+  UploadProps,
+  message,
+} from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -17,17 +26,9 @@ import MyButton from "../../components/UI/Buttons/MyButton/MyButton";
 import { editingUser } from "../../redux/reducers/user.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEditingUser } from "@/redux/types/user";
+import { RcFile } from "antd/es/upload";
 
 const Editing: FC = () => {
-  // Данные пользователя
-  const [editingData, setEditingData] = useState<IEditingUser>({
-    fullName: "arsenov",
-    dateOfBirth: 0,
-    email: "arsenov@gmail.com",
-    password: "12345678",
-    passwordSecond: "12345678",
-    imageUrl: "",
-  });
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const dispatch = useAppDispatch();
@@ -38,8 +39,9 @@ const Editing: FC = () => {
 
   // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
-
-  const onFinish = (value: IEditingUser) => {
+  
+  // Отправляем post запрос для редактирования
+  const onSubmit = (value: IEditingUser) => {
     const { password, passwordSecond } = value;
     if (password !== passwordSecond) {
       setErrorMessage(t.editing[15]);
@@ -49,34 +51,51 @@ const Editing: FC = () => {
 
       const id = user.id;
       dispatch(editingUser({ value, id, parsedToken }));
-
-      setEditingData({
-        fullName: "",
-        dateOfBirth: 0,
-        email: "",
-        password: "",
-        passwordSecond: "",
-        imageUrl: "",
-      });
     }
   };
-  // Отправляем post запрос для редактирования
 
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as RcFile);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
   // Для сохранения значений инпутов
   const [form] = Form.useForm();
 
+  const [uploadChange, setUploadChange] = useState(null);
+
   useEffect(() => {
-    form.setFieldsValue({ ...editingData });
-  }, []);
+    if (uploadChange !== null) {
+      form.setFieldsValue({ ...form.getFieldsValue(), imageUrl: uploadChange });
+    }
+  }, [uploadChange])
+  
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: "-1",
+      name: "image.png",
+      status: "done",
+      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    },
+  ]);
 
   return (
     <div className={s.editing}>
       <h2>{t.editing[0]}</h2>
       <Form
-        form={form}
         layout="vertical"
+        form={form}
         name="payment-form"
-        onFinish={onFinish}
+        onFinish={onSubmit}
       >
         <Form.Item
           name="fullName"
@@ -152,17 +171,34 @@ const Editing: FC = () => {
             placeholder={t.editing[13]}
           />
         </Form.Item>
-        <Form.Item name="imageUrl" label={t.editing[16]}>
-          <Upload>
-            <Button icon={<UploadOutlined />}>{t.editing[17]}</Button>
+
+        <Form.Item
+          name="dateOfBirth"
+          label={t.editing[18]}
+          rules={[
+            {
+              required: true,
+              message: t.editing[13],
+            },
+          ]}
+        >
+          <InputNumber min={1000} max={2023} />
+        </Form.Item>
+
+        <Form.Item name='imageUrl' label={t.editing[13]}>
+          <Upload
+            listType="picture-circle"
+            accept="picture/*"
+            maxCount={1}
+            onPreview={onPreview}
+            onChange={(value: any) => setUploadChange(value.file.uid)}
+          >
+            {fileList.length < 2 && "+ Upload"}
           </Upload>
         </Form.Item>
-        <Form.Item name="dateOfBirth" label={t.editing[18]}>
-          <Input placeholder={t.editing[19]} />
-        </Form.Item>
+
         <Form.Item>
           <div className={s.editing__buttonGroup}>
-            {/* <Link href="/setting/setting"> */}
             <MyButton
               className={s.editing__button}
               background="#7329c2"
@@ -172,15 +208,16 @@ const Editing: FC = () => {
             >
               {t.editing[21]}
             </MyButton>
-            {/* </Link> */}
-            <MyButton
-              className={s.editing__button}
-              background="#7329c2"
-              hoverBackground="#03d665"
-              type="primary"
-            >
-              {t.editing[22]}
-            </MyButton>
+            <Link href="/setting/setting">
+              <MyButton
+                className={s.editing__button}
+                background="#7329c2"
+                hoverBackground="#03d665"
+                type="primary"
+              >
+                {t.editing[22]}
+              </MyButton>
+            </Link>
           </div>
         </Form.Item>
       </Form>
