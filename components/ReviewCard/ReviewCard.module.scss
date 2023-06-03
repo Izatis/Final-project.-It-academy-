@@ -22,7 +22,7 @@
     flex-wrap: wrap;
 
     .reviewCard {
-      max-width: 400px;
+      width: 400px;
       display: flex;
       flex-direction: column;
       @include adaptive-value("gap", 20, 10);

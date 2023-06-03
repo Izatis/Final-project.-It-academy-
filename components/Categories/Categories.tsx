@@ -3,22 +3,17 @@ import s from "./Categories.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
-import { useGettingACategoryQuery } from "@/redux/reducers/category";
+import { ICategory } from "@/redux/types/category";
 
-const Categories: FC = () => {
-    const [token, setToken] = useState("");
-  const { data = [] } = useGettingACategoryQuery(token);
+interface ICategoriesProps {
+  categories: ICategory[];
+}
 
-  useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    setToken(parsedToken);
-  }, []);
 
+const Categories: FC<ICategoriesProps> = ({ categories }) => {  
   return (
-    <section className={s.categories} id="categories">
-      <h2>Категории</h2>
       <div className={s.categories__wrap}>
-        {data.map((category: any) => {
+        {categories.map((category: ICategory) => {
           return (
             <Link
               className={s.categories__card}
@@ -31,7 +26,6 @@ const Categories: FC = () => {
           );
         })}
       </div>
-    </section>
   );
 };
 

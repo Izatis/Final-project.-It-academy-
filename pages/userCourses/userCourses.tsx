@@ -6,14 +6,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getAllUserCourses } from "@/redux/reducers/user.slice";
 
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
-import CourseItem from "@/components/CourseItem/CourseItem";
 import Loading from "@/components/Loading/Loading";
+import CoursesList from "@/components/CoursesList/CoursesList";
 
 const UserCourse = () => {
   const dispatch = useAppDispatch();
-  const { user, userCourses } = useAppSelector(
-    (state) => state.user
-  );
+  const { user, userCourses } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     // Достаем токен пользователя
@@ -37,12 +35,7 @@ const UserCourse = () => {
           </MyButton>
         </Link>
       </div>
-
-      <ul className={s.userCourses__list}>
-        {userCourses.map((course) => {
-          return <CourseItem course={course} />;
-        })}
-      </ul>
+      <CoursesList courses={userCourses} />{" "}
     </section>
   );
 };

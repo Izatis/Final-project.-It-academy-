@@ -30,14 +30,17 @@ const addingVideo = () => {
     if (event.target.files[0]) {
       const formData = new FormData();
       formData.append("lessonId", lessonId);
-      formData.append("video", event.target.files[0]);
+      formData.append("file", event.target.files[0]);
 
       console.log(formData);
 
-      fetch(process.env.NEXT_PUBLIC_BASE_URL + "/s3/upload/video", {
-        method: "POST",
-        body: formData,
-      })
+      fetch(
+        "https://spring-boot-online-platform.herokuapp.com/s3/upload/video",
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
         .then((response) => {
           // Обработка успешного ответа сервера
         })
@@ -61,8 +64,8 @@ const addingVideo = () => {
         onFinish={handleSubmit}
       >
         <Form.Item name="file" label="Загрузить файл"> */}
-          <input type="file" accept="video/*" onChange={handleSubmit} />
-        {/* </Form.Item>
+      <input type="file" accept="video/*" onChange={handleSubmit} />
+      {/* </Form.Item>
 
         <Form.Item>
           <MyButton

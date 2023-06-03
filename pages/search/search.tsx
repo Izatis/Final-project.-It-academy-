@@ -1,56 +1,86 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import s from "./search.module.scss";
 
 import { useRouter } from "next/router";
-import { Form } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyInput from "@/components/UI/MyInput/MyInput";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  searchByCategory,
+  searchByCourses,
+} from "@/redux/reducers/search.slice";
 
-interface ISearch {
-  search: string;
-}
+import MyInput from "@/components/UI/MyInput/MyInput";
+import Categories from "@/components/Categories/Categories";
+import Loading from "@/components/Loading/Loading";
+import CoursesList from "@/components/CoursesList/CoursesList";
 
 const Search: FC = () => {
-  // Состояния - для данных пользователя регистрации
-  const [search, setSearch] = useState<ISearch>({
-    search: "",
-  });
-
-  // Для - маршутизации
-  const { push, locale } = useRouter();
-
-  // Функции - для смены текста
+  const [state, setState] = useState(false);
+  const { locale } = useRouter();
   const t = locale === "ru" ? ru : en;
+  const dispatch = useAppDispatch();
+  const { resultByCategory, courseResults, isLoading } = useAppSelector(
+    (state) => state.search
+  );
 
-  // Функции - для поиска
-  const handleSearch = async (value: ISearch) => {};
-
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.setFieldsValue({ ...search });
-  }, []);
+  const handleSearch = (value: string) => {
+    setState(true);
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    dispatch(searchByCourses({ value, parsedToken }));
+    dispatch(searchByCategory({ value, parsedToken }));
+    // if (resultByCategory.length === 0 && courseResults.length === 0) {
+    //   setState(false);
+    // }
+    // if (Array.isArray(resultByCategory) && Array.isArray(courseResults)) {
+    //   setState(false);
+    // }
+    // if (resultByCategory.length === 0 && Array.isArray(courseResults)) {
+    //   setState(false);
+    // }
+    // if (Array.isArray(resultByCategory) && courseResults.length === 0) {
+    //   setState(false);
+    // }
+  };
 
   return (
     <section className={s.search}>
       <h2>{t.search[0]}</h2>
+      <MyInput
+        className={s.search__input}
+        prefix={<SearchOutlined />}
+        placeholder={t.search[1]}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleSearch(e.target.value)
+        }
+      />
+      {state === true ? (
+        isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <h2>Результаты по категориям</h2>
+            {Array.isArray(resultByCategory) &&
+            resultByCategory.length !== 0 ? (
+              <Categories categories={resultByCategory} />
+            ) : (
+              <p className={s.search__text}>
+                По вашему запросу нечего не найдено(
+              </p>
+            )}
 
-      <Form form={form} name="sign-in-form" onFinish={handleSearch}>
-        <Form.Item
-          name="search"
-          rules={[
-            {
-              required: true,
-              message: t.search[2],
-            },
-          ]}
-        >
-          <MyInput className={s.search__input} prefix={<SearchOutlined />} placeholder={t.search[1]} />
-        </Form.Item>
-      </Form>
+            <h2>Результаты по курсам</h2>
+            {Array.isArray(courseResults) && courseResults.length !== 0 ? (
+              <CoursesList courses={courseResults} />
+            ) : (
+              <p className={s.search__text}>
+                По вашему запросу нечего не найдено(
+              </p>
+            )}
+          </>
+        )
+      ) : null}
     </section>
   );
 };

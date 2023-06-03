@@ -1,0 +1,16 @@
+@import "../../styles/varibales.module.scss";
+
+.categories {
+    @include centering();
+    padding: 2% 2%;
+    box-sizing: border-box;
+  
+    h2 {
+      font-weight: 700;
+      @include adaptive-value("font-size", 35, 20);
+      line-height: 130%;
+      color: #322f55;
+      padding: 2% 0;
+      box-sizing: border-box;
+    }
+}  

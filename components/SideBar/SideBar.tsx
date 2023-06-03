@@ -19,7 +19,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
   // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
 
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.users);
 
   return (
     <div

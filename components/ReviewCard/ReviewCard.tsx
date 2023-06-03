@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./ReviewCard.module.scss";
 
 import Image from "next/image";
@@ -9,36 +9,30 @@ import {
   faThumbsDown,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { useGetReviwsQuery } from "@/redux/reducers/review";
+import { useRouter } from "next/router";
 
 interface IReview {
   id: number;
-  fullName: string;
+  title: string;
   avatar: string;
-  rating: number;
-  rewiew: string;
+  grade: number;
+  description: string;
 }
 
-const rewiews: IReview[] = [
-  {
-    id: 1,
-    fullName: "Альгасов Александр",
-    avatar:
-      "https://images.squarespace-cdn.com/content/v1/5cd4eaf58d974051df3fe898/1680603773142-CXT03T3ZFXC6QPPNVQ1D/Home+Page+Photo.jpeg?format=2500w",
-    rating: 4.5,
-    rewiew:
-      "Курс отличный. Доступно и понятно изложен материал. И на мой взгляд важно, что он не перегружен избытком информации. Дз разбавляет теоретическую часть. Советую !",
-  },
-  {
-    id: 2,
-    fullName: "Альгасов Александр",
-    avatar:
-      "https://images.squarespace-cdn.com/content/v1/5cd4eaf58d974051df3fe898/1680603773142-CXT03T3ZFXC6QPPNVQ1D/Home+Page+Photo.jpeg?format=2500w",
-    rating: 4.5,
-    rewiew:
-      "Курс отличный. Доступно и понятно изложен материал. И на мой взгляд важно, что он не перегружен избытком информации. Дз разбавляет теоретическую часть. Советую !",
-  },
-];
 const ReviewCard: FC = () => {
+  const [token, setToken] = useState("");
+  const { query }: { query: any } = useRouter();
+  const courseId = query.id;
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+
+  const { data = [] } = useGetReviwsQuery({ token, courseId });
+  console.log(data);
+  
   return (
     <article className={s.reviewCards}>
       <h2>
@@ -47,26 +41,26 @@ const ReviewCard: FC = () => {
       </h2>
 
       <div className={s.reviewCard__wrap}>
-        {rewiews.map((rewiew) => {
+        {data.map((rewiew: IReview) => {
           return (
             <div className={s.reviewCard} key={rewiew.id}>
               <header className={s.reviewCard__avatar}>
-                <Image
+                {/* <Image
                   src={rewiew.avatar}
                   alt="avatar"
                   width={300}
                   height={200}
-                />
+                /> */}
 
                 <ul className={s.reviewCard__list}>
-                  <li className={s.reviewCard__fullName}>{rewiew.fullName}</li>
+                  <li className={s.reviewCard__fullName}>{rewiew.title}</li>
                   <li className={s.reviewCard__rating}>
-                    <pre>{rewiew.rating}</pre>
-                    <Rating value={rewiew.rating} />
+                    <pre>{rewiew.grade}</pre>
+                    <Rating value={rewiew.grade} />
                   </li>
                 </ul>
               </header>
-              <p>{rewiew.rewiew}</p>
+              <p>{rewiew.description}</p>
               <footer>
                 <span>
                   <pre>Это было полезно?</pre>

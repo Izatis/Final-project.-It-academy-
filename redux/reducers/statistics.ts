@@ -6,10 +6,10 @@ export const statistics = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
     gettingStatisticsCourseCount: build.query({
-      query: (parsedToken) => ({
+      query: ({token}) => ({
         url: `/course/count`,
         method: "GET",
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }),
       providesTags: (result) =>
         result
@@ -22,11 +22,13 @@ export const statistics = createApi({
             ]
           : [{ type: "Statistics", id: "LIST" }],
     }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
     gettingStatisticsUserCount: build.query({
-      query: (parsedToken) => ({
+      query: ({token}) => ({
         url: `/user/count`,
         method: "GET",
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }),
       providesTags: (result) =>
         result
@@ -40,11 +42,12 @@ export const statistics = createApi({
           : [{ type: "Statistics", id: "LIST" }],
     }),
 
+    // ---------------------------------------------------------------------------------------------------------------------------------
     gettingStatisticsUserTodayCount: build.query({
-      query: (parsedToken) => ({
+      query: ({token}) => ({
         url: `/user/count/today`,
         method: "GET",
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }),
       providesTags: (result) =>
         result
@@ -58,11 +61,12 @@ export const statistics = createApi({
           : [{ type: "Statistics", id: "LIST" }],
     }),
 
+    // ---------------------------------------------------------------------------------------------------------------------------------
     gettingStatisticsReviewCount: build.query({
-      query: (parsedToken) => ({
+      query: ({token}) => ({
         url: `/review/count`,
         method: "GET",
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }),
       providesTags: (result) =>
         result

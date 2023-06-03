@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
-import s from "./CardSlides.module.scss";
+import s from "./CourseCardSlide.module.scss";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Keyboard } from "swiper";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import Link from "next/link";
-import { gettingAllCourses } from "@/redux/reducers/course.slice";
 import Image from "next/image";
 import Rating from "../Rating/Rating";
-import { useGetingAllCoursesQuery } from "@/redux/reducers/course";
+import { useGetingAllCoursesQuery } from "@/redux/reducers/course/course";
 
-const CardSlides = () => {
+const CourseCardSlide = () => {
   const [token, setToken] = useState("");
+  const { data: courses = [] } = useGetingAllCoursesQuery({token});
 
-  // // ---------------------------------------------------------------------------------------------------------------------------------
-  const { data = [], isLoading } = useGetingAllCoursesQuery(token);
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
-    console.log(data);
   }, []);
 
   return (
@@ -47,7 +43,7 @@ const CardSlides = () => {
         modules={[Navigation, Autoplay, Keyboard]}
         className="card-slides"
       >
-        {data.map((course: any) => {
+        {courses.map((course: any) => {
           return (
             <SwiperSlide key={course.id}>
               <Link className={s.card__link} href={`/courseMore/${course.id}`}>
@@ -84,4 +80,4 @@ const CardSlides = () => {
   );
 };
 
-export default CardSlides;
+export default CourseCardSlide;

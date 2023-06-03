@@ -5,40 +5,34 @@ import { useRouter } from "next/router";
 import { categories } from "@/constants/categories";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
-import CourseItem from "@/components/CourseItem/CourseItem";
+import CourseItem from "@/components/CoursesList/CoursesList";
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import {
-  receiveCoursesByCategory,
   languageFiltering,
   priceFiltering,
-} from "@/redux/reducers/course.slice";
+} from "@/redux/reducers/course/course.slice";
 import Loading from "@/components/Loading/Loading";
 import { Select } from "antd";
+import { useGettingACategoryQuery } from "@/redux/reducers/category";
+import { useReceiveCoursesByCategoryQuery } from "@/redux/reducers/course/course";
 
 export default function () {
-  const [category, setCategory] = useState<any>({});
+  const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
+  const categoryId = query.id;
+  const { data: categories = [] } = useGettingACategoryQuery({ token });
+  const { data: courses = [], isLoading } = useReceiveCoursesByCategoryQuery({
+    token,
+    categoryId,
+  });
 
-  const dispatch = useAppDispatch();
-  const { courses, isLoading } = useAppSelector((state) => state.course);
-
-  // ---------------------------------------------------------------------------------------------------------------------------------
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    const categoryId = query.id;
-    dispatch(receiveCoursesByCategory({ categoryId, parsedToken }));
-  }, []);
-
-  useEffect(() => {
-    if (!!query.id) {
-      const category = categories.find(
-        ({ id }: { id: number }) => id === +query.id
-      );
-      setCategory(category);
-    }
+    setToken(parsedToken);
   }, []);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
+  const dispatch = useAppDispatch();
   const handleChangeMain = (option: string) => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     dispatch(priceFiltering({ option, parsedToken }));
@@ -55,7 +49,14 @@ export default function () {
         <Loading />
       ) : (
         <section className={s.courses}>
-          <h2 className={s.pageTitle}>Все курсы по теме "{category.name}"</h2>
+          <h2 className={s.pageTitle}>
+            Все курсы по теме "
+            {!!query.id
+              ? categories.find((category: any) => category.id === +query.id)
+                  ?.title
+              : null}
+            "
+          </h2>
 
           <header className={s.courses__header}>
             <div className={s.filtered}>
@@ -84,12 +85,7 @@ export default function () {
 
             <span className={s.result}>{courses.length} результата</span>
           </header>
-
-          <ul className={s.courses__list}>
-            {courses.map((course) => (
-              <CourseItem course={course} key={course.id} />
-            ))}
-          </ul>
+          <CourseItem courses={courses} />
         </section>
       )}
     </>

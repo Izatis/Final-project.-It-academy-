@@ -6,7 +6,8 @@ export const review = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
     getReviws: build.query({
-      query: ({courseId, token}) => ({
+      // ---------------------------------------------------------------------------------------------------------------------------------
+      query: ({ token, courseId }) => ({
         url: `/review/course/${courseId}`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -23,28 +24,27 @@ export const review = createApi({
           : [{ type: "Reviews", id: "LIST" }],
     }),
 
+    // ---------------------------------------------------------------------------------------------------------------------------------
+
     addReview: build.mutation({
-      query: ({ courseId, token, values }) => ({
+      query: ({token, courseId, values }) => ({
         url: `/review/${courseId}`,
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
-        values,
+        body: { ...values },
       }),
       invalidatesTags: [{ type: "Reviews", id: "LIST" }],
     }),
-    
-    deleteProduct: build.mutation({
-      query: (id) => ({
-        url: `goods/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: [{ type: "Reviews", id: "LIST" }],
-    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // deleteProduct: build.mutation({
+    //   query: (id) => ({
+    //     url: `goods/${id}`,
+    //     method: "DELETE",
+    //   }),
+    //   invalidatesTags: [{ type: "Reviews", id: "LIST" }],
+    // }),
   }),
 });
 
-export const {
-  useGetReviwsQuery,
-  useAddReviewMutation,
-  useDeleteProductMutation,
-} = review;
+export const { useGetReviwsQuery, useAddReviewMutation } = review;

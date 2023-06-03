@@ -27,16 +27,6 @@ export interface IGettingAllCoursesParams {
   parsedToken: string;
 }
 
-export interface IReceiveCoursesByCategoryParams {
-  categoryId: number;
-  parsedToken: string;
-}
-
-export interface IGettingACourseParams {
-  courseId: number;
-  parsedToken: string;
-}
-
 export interface ICourseCreation {
   name: string;
   description: string;

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import s from "./СourseSlides.module.scss";
+import s from "./SlideCourses.module.scss";
 
+import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, Keyboard } from "swiper";
@@ -10,16 +11,11 @@ import "swiper/css/navigation";
 
 import MyButton from "../UI/Buttons/MyButton/MyButton";
 import slideFirst from "../../public/slideFirst.jpg";
-import slideSecond from "../../public/slideSecond.png";
-import Link from "next/link";
-import { useAppSelector } from "@/hooks/redux";
 import { courses } from "@/constants/courses";
 
-const СourseSlides: FC = () => {
-  // const { courses } = useAppSelector((state) => state.course);
-
+const SlideCourses: FC = () => {
   return (
-    <section className={s.сourseSlides}>
+    <section className={s.slideCourses}>
       <h2>Курсы</h2>
 
       <Swiper
@@ -64,4 +60,4 @@ const СourseSlides: FC = () => {
   );
 };
 
-export default СourseSlides;
+export default SlideCourses;

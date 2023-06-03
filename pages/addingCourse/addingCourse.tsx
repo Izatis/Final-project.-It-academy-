@@ -7,7 +7,7 @@ import { Form, Input, InputNumber, Select, UploadFile } from "antd";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {  courseCreation } from "@/redux/reducers/course.slice";
+import {  courseCreation } from "@/redux/reducers/course/course.slice";
 
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import { ICourseCreation } from "@/redux/types/course";

@@ -7,8 +7,6 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { gettingACourse } from "@/redux/reducers/course.slice";
-
 import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/components/UI/AnimateSelect/AnimateSelect";
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
@@ -16,33 +14,34 @@ import TeacherCard from "@/components/TeacherCard/TeacherCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
 import Loading from "@/components/Loading/Loading";
 import { gettingPartitions } from "@/redux/reducers/section.slice";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, InputNumber } from "antd";
 import {
   useAddReviewMutation,
-  useGetReviwsQuery,
 } from "@/redux/reducers/review";
+import { useGettingACourseQuery } from "@/redux/reducers/course/course";
 
 export default function () {
-  // Состояние - для модалки
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
+  const courseId = query.id;
+
+  const { data: course = [], isLoading } = useGettingACourseQuery({
+    token,
+    courseId,
+  });
 
   const dispatch = useAppDispatch();
-  const { course, isLoading } = useAppSelector((state) => state.course);
-
-  const courseId = query.id;
 
   useEffect(() => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    // Отправляем get запрос для разделa курса
-    dispatch(gettingACourse({ courseId, parsedToken }));
-
-    // Отправляем get запрос для получение курсов
-    dispatch(gettingPartitions({ courseId, parsedToken }));
-  }, []);
+    if (!!query.id) {
+      const courseId = query.id;
+      dispatch(gettingPartitions({ courseId, parsedToken }));
+    }
+  }, [query]);
 
   const { sections } = useAppSelector((state) => state.section);
 
@@ -55,10 +54,6 @@ export default function () {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET
-  const [token, setToken] = useState("");
-  const { data = [] } = useGetReviwsQuery({ courseId, token });
-  console.log(data);
-
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
@@ -68,15 +63,11 @@ export default function () {
   const [addReview] = useAddReviewMutation();
 
   const onFinish = async (values: any) => {
-    const data = {
-      title: values.review,
-      description: "string",
-    };
     console.log(values);
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     const courseId = query.id;
     if (values) {
-      await addReview({ courseId, parsedToken, data }).unwrap();
+      await addReview({ courseId, parsedToken, values }).unwrap();
     }
   };
 
@@ -168,15 +159,35 @@ export default function () {
 
             <ReviewCard />
 
-            <Form layout="vertical" name="form" onFinish={onFinish}>
+            <Form form={form} layout="vertical" name="form" onFinish={onFinish}>
               <Form.Item
                 label="Оставить отзыв"
-                name="review"
+                name="title"
                 rules={[
                   { required: true, message: "Please input your review!" },
                 ]}
               >
                 <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Оставить отзыв"
+                name="description"
+                rules={[
+                  { required: true, message: "Please input your review!" },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Оставить отзыв"
+                name="grade"
+                rules={[
+                  { required: true, message: "Please input your review!" },
+                ]}
+              >
+                <InputNumber />
               </Form.Item>
 
               <Form.Item>

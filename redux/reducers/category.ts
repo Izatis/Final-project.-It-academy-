@@ -5,40 +5,44 @@ export const category = createApi({
   tagTypes: ["Categories"],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
+    // ---------------------------------------------------------------------------------------------------------------------------------
     gettingACategory: build.query({
-      query: (parsedToken) => ({
+      query: ({token}) => ({
         url: `/category`,
         method: "GET",
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }),
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Categories", id })),
+              ...result.map(({ id }: { id: any }) => ({
+                type: "Categories",
+                id,
+              })),
               { type: "Categories", id: "LIST" },
             ]
           : [{ type: "Categories", id: "LIST" }],
     }),
-    addProduct: build.mutation({
-      query: (body) => ({
-        url: "goods",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: [{ type: "Categories", id: "LIST" }],
-    }),
-    deleteProduct: build.mutation({
-      query: (id) => ({
-        url: `goods/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: [{ type: "Categories", id: "LIST" }],
-    }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+
+    // addProduct: build.mutation({
+    //   query: (body) => ({
+    //     url: "goods",
+    //     method: "POST",
+    //     body,
+    //   }),
+    //   invalidatesTags: [{ type: "Categories", id: "LIST" }],
+    // }),
+    // // ---------------------------------------------------------------------------------------------------------------------------------
+
+    // deleteProduct: build.mutation({
+    //   query: (id) => ({
+    //     url: `goods/${id}`,
+    //     method: "DELETE",
+    //   }),
+    //   invalidatesTags: [{ type: "Categories", id: "LIST" }],
+    // }),
   }),
 });
 
-export const {
-  useGettingACategoryQuery,
-  useAddProductMutation,
-  useDeleteProductMutation,
-} = category;
+export const { useGettingACategoryQuery } = category;

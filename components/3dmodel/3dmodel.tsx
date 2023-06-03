@@ -4,7 +4,7 @@ import s from "./3dmodel.module.scss";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
-import { Model } from "/model/Model";
+import { Model } from "../../model/Model";
 
 const ModelComponent = () => {
   return (

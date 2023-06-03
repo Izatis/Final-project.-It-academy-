@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./userProfile.module.scss";
 
 import Link from "next/link";
@@ -12,6 +12,18 @@ import Loading from "../Loading/Loading";
 import MyButton from "../UI/Buttons/MyButton/MyButton";
 
 const UserProfile = () => {
+  useEffect(() => {
+    const fullUrl = window.location.href;
+    const token = fullUrl.split(
+      "http://localhost:3000/setting/setting?token="
+    )[1];    
+
+    if (!!token) {
+      // Сохраняем токен пользователя
+      localStorage.setItem("token", JSON.stringify(token));
+    }
+  }, []);
+  
   // Для - маршутизации
   const { push, locale } = useRouter();
 
@@ -24,10 +36,7 @@ const UserProfile = () => {
     localStorage.removeItem("token");
   };
 
-  const { user, isLoading } = useAppSelector((state) => state.user);
-  
-
- 
+  const { user, isLoading } = useAppSelector((state) => state.users);
 
   return (
     <div className={s.profile}>
