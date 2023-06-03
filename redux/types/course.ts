@@ -33,7 +33,7 @@ export interface IReceiveCoursesByCategoryParams {
 }
 
 export interface IGettingACourseParams {
-  id: number;
+  courseId: number;
   parsedToken: string;
 }
 

@@ -23,7 +23,7 @@ export interface IUserState {
 // Params
 export interface IEditingUser {
   fullName: string;
-  dateOfBirth: number;
+  dateOfBirth: string;
   email: string;
   password: string;
   passwordSecond: string;

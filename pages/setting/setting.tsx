@@ -1,18 +1,19 @@
 import React, { FC, useEffect, useState } from "react";
 import s from "./setting.module.scss";
+import { UserOutlined } from "@ant-design/icons";
 
 import Image from "next/image";
-import { Avatar, Modal, Tooltip } from "antd";
+import {  Avatar, Modal, Tooltip } from "antd";
 import cover from "../../public/cover.png";
 
 import UserProfile from "../../components/userProfile/userProfile";
 import Aside from "@/components/Aside/Aside";
+
 import { fetchUser, getAllUserCourses } from "@/redux/reducers/user.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 const Setting: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -31,6 +32,7 @@ const Setting: FC = () => {
   
     dispatch(fetchUser(parsedToken));
   }, []);
+  const firstName: string = "John"; // Замените на реальное имя пользователя
 
 
 
@@ -50,10 +52,10 @@ const Setting: FC = () => {
 
         <Tooltip title="Изменить фото профиля">
           <Avatar
-            className={s.setting__avatar}
-            src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
-            onClick={() => setIsModalOpen(true)}
+            className={s.setting__avatar} icon={<UserOutlined />}
+             onClick={() => setIsModalOpen(true)}
           />
+          
         </Tooltip>
 
         <Aside />

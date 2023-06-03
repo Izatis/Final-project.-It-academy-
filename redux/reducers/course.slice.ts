@@ -91,10 +91,10 @@ export const gettingACourse = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IGettingACourseParams,
   { rejectValue: string }
->("courses/gettingACourse", async ({ id, parsedToken}, thunkApi) => {
+>("courses/gettingACourse", async ({ courseId, parsedToken}, thunkApi) => {
   try {
     const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/course/${id}`,
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/${courseId}`,
       {
         headers: { Authorization: `Bearer ${parsedToken}` },
       }

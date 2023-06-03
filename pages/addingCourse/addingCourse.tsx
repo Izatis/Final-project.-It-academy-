@@ -10,17 +10,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {  courseCreation } from "@/redux/reducers/course.slice";
 
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import { ICourseCreation } from "@/redux/types/course";
 
-interface IFile {
-  name: string;
-  description: string;
-  price: string;
-  language: string;
-}
 
 const AddingCourse: FC = () => {
   // Состояния - для данных
-  const [file, setFile] = useState<IFile>({
+  const [file, setFile] = useState<ICourseCreation>({
     name: "JavaScript",
     description:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet culpa corrupti, itaque exercitationem temporibus quos iste recusandae quis tempore consequuntur consequatur corporis beatae saepe facere illum perferendis quisquam. Reprehenderit, iusto!",
@@ -53,7 +48,7 @@ const AddingCourse: FC = () => {
   const { push } = useRouter();
 
   // Отправляем post запрос
-  const handleSubmit = async (value: IFile) => {
+  const handleSubmit = async (value: ICourseCreation) => {
     const newFile = { ...file, name: value.name };
 
     // Достаем токен пользователя
