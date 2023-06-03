@@ -1,17 +1,13 @@
-interface ICategory {
-  id: number;
-  title: string;
-  image: string
-}
-
-export interface ICategoryState {
-  categories: ICategory[];
+export interface IVideoState {
+  lessonIdBackend: string;
   isLoading: boolean;
   error: string;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Params
-export interface IGettingACategory {
+export interface IAddingAVideoParams {
+  file: any;
+  lessonId: string;
   parsedToken: string;
 }

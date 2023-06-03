@@ -57,6 +57,7 @@ export const addingALesson = createAsyncThunk<
 
 const initialState: ILessonState = {
   lessons: [],
+  lessonIdBackend: "",
   isLoading: false,
   error: "",
 };
@@ -88,7 +89,7 @@ export const lessonSlice = createSlice({
     });
 
     builder.addCase(addingALesson.fulfilled, (state: any, action) => {
-      state.lessons = action.payload;
+      state.lessonIdBackend = action.payload;
       state.isLoading = false;
       state.error = "";
     });

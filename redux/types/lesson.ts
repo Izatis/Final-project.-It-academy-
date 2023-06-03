@@ -9,6 +9,7 @@ export interface ILesson {
 
 export interface ILessonState {
   lessons: ILesson[];
+  lessonIdBackend: string;
   isLoading: boolean;
   error: string;
 }
@@ -18,6 +19,8 @@ export interface ILessonState {
 export interface IAddingALesson {
   title: string;
   description: string;
+  duration: string;
+  videoUrl: string;
 }
 
 export interface IToGetLessonsParams {

@@ -5,21 +5,26 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { gettingStatistics } from "@/redux/reducers/statistics.slice";
-
-import Loading from "../Loading/Loading";
+import {
+  useGettingStatisticsCourseCountQuery,
+  useGettingStatisticsUserCountQuery,
+  useGettingStatisticsUserTodayCountQuery,
+  useGettingStatisticsReviewCountQuery,
+} from "@/redux/reducers/statistics";
 
 const Statistics: FC = () => {
-  const dispatch = useAppDispatch();
-  const { statistics, isLoading } = useAppSelector((state) => state.statistics);
+  const [token, setToken] = useState("");
+
+  // // ---------------------------------------------------------------------------------------------------------------------------------
+  const { data: courseCount } = useGettingStatisticsCourseCountQuery(token);
+  const { data: userCount } = useGettingStatisticsUserCountQuery(token);
+  const { data: userTodayCount } =
+    useGettingStatisticsUserTodayCountQuery(token);
+  const { data: reviewCount } = useGettingStatisticsReviewCountQuery(token);
 
   useEffect(() => {
- // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
-    // Отправляем get запрос для раздела статистики
-    dispatch(gettingStatistics({ parsedToken }));
+    setToken(parsedToken);
   }, []);
 
   const ref = useRef<HTMLTableSectionElement>(null);
@@ -110,40 +115,28 @@ const Statistics: FC = () => {
         >
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span
-                className={s.__num}
-                data-target={statistics.courseCount}
-              ></span>
+              <span className={s.__num} data-target={courseCount}></span>
               <p>Практических курсов</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span
-                className={s.__num}
-                data-target={statistics.userCount}
-              ></span>
+              <span className={s.__num} data-target={userCount}></span>
               <p>Пользователей</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item}>
-              <span
-                className={s.__num}
-                data-target={statistics.userCountToday}
-              ></span>
+              <span className={s.__num} data-target={userTodayCount}></span>
               <p>Зарегистрированных сегодня</p>
             </div>
           </SwiperSlide>
 
           <SwiperSlide>
             <div className={s.statistics__item} id="categories">
-              <span
-                className={s.__num}
-                data-target={statistics.reviewCount}
-              ></span>
+              <span className={s.__num} data-target={reviewCount}></span>
               <p>Отзывов</p>
             </div>
           </SwiperSlide>

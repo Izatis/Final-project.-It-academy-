@@ -18,7 +18,7 @@ export interface ICreatePartition {
 }
 
 export interface IGettingPartitionsParams {
-  id: number;
+  courseId: number;
   parsedToken: string;
 }
 

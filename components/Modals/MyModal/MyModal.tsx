@@ -15,12 +15,12 @@ const MyModal: FC<IMyModalLanguageProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
-
   return (
     <Modal
       title={lesson.title}
       open={isModalOpen}
       keyboard={true}
+      onOk={() => setIsModalOpen(false)}
       onCancel={() => setIsModalOpen(false)}
     >
       <video className={s.video} controls>
