@@ -11,7 +11,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { userRegistration } from "@/redux/reducers/auth.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
-import MyButton from "../../components/UI/Buttons/MyButton/MyButton";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import axios from "axios";
 
 interface IUserRegister {
   fullName: string;
@@ -158,9 +159,9 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
-            {t.signUp[13]}
-          </Link>
+            <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
+              {t.signUp[13]}
+            </Link>
         </Form.Item>
 
         <Form.Item>

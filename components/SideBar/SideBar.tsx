@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import cn from "classnames";
 import { useAppSelector } from "@/hooks/redux";
 
-import TranslateButton from "../UI/Buttons/TranslateButton/TranslateButton";
+import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
 import { Avatar } from "antd";
 
 interface ISideBarProps {
@@ -19,7 +19,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
   // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
 
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.users);
 
   return (
     <div
@@ -48,7 +48,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         {pathname === "/" ? (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/basketList/basketList">Моя корзина</Link>
+              <Link href="/cartList/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>
@@ -89,7 +89,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         ) : (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/basketList/basketList">Моя корзина</Link>
+              <Link href="/cartList/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>

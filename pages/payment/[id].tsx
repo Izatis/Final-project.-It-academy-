@@ -7,7 +7,7 @@ import { CreditCardOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IStripePay } from "@/redux/types/payment";
 
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import ParticlesComponent from "@/components/Particles/Particles";
 import { courseFee } from "@/redux/reducers/payment.slice";
 import { useRouter } from "next/router";

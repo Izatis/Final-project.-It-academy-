@@ -14,8 +14,8 @@ import { useAppDispatch } from "@/hooks/redux";
 import { reset } from "@/redux/reducers/auth.slice";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import MyButton from "../UI/Buttons/MyButton/MyButton";
-import TranslateButton from "../UI/Buttons/TranslateButton/TranslateButton";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
 import { Avatar } from "antd";
 
 interface IHeaderProps {
@@ -217,9 +217,9 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               icon={faMagnifyingGlass}
             />
           </Link>
-          <Link href="/basketList/basketList">
+          <Link href="/cartList/cartList">
             <FontAwesomeIcon
-              className={s.header__basket}
+              className={s.header__cart}
               icon={faCartShopping}
             />
           </Link>

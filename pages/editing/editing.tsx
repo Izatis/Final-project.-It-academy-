@@ -22,7 +22,7 @@ import {
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 
-import MyButton from "../../components/UI/Buttons/MyButton/MyButton";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
 import { editingUser } from "../../redux/reducers/user.slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { IEditingUser } from "@/redux/types/user";
