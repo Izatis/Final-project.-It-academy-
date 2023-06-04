@@ -217,9 +217,9 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               icon={faMagnifyingGlass}
             />
           </Link>
-          <Link href="/basketList/basketList">
+          <Link href="/cartList/cartList">
             <FontAwesomeIcon
-              className={s.header__basket}
+              className={s.header__cart}
               icon={faCartShopping}
             />
           </Link>

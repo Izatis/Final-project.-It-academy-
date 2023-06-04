@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useMemo, useState } from "react";
 import s from "./search.module.scss";
 
 import { useRouter } from "next/router";
@@ -51,7 +51,7 @@ const Search: FC = () => {
         className={s.search__input}
         prefix={<SearchOutlined />}
         placeholder={t.search[1]}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
           handleSearch(e.target.value)
         }
       />

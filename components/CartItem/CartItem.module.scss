@@ -1,12 +1,12 @@
 @import "../../styles/varibales.module.scss";
 
-.basket__link {
+.cart__link {
   display: flex;
   @include adaptive-value("gap", 20, 10);
   border-bottom: 1px solid #a7b0c2;
   padding: 2% 0;
 
-  .basket__image {
+  .cart__image {
     width: 350px;
     height: 150px;
     position: relative;
@@ -52,27 +52,27 @@
     }
   }
 
-  .basket__info {
+  .cart__info {
     width: 100%;
     display: flex;
     justify-content: space-between;
 
     .content__list {
-      .basket__title {
+      .cart__title {
         font-weight: 700;
         @include adaptive-value("font-size", 25, 10);
         line-height: 130%;
         color: #322f55;
       }
 
-      .basket__creator {
+      .cart__creator {
         font-weight: 700;
         @include adaptive-value("font-size", 15, 8);
         line-height: 130%;
         color: #a7b0c2;
       }
 
-      .basket__rating {
+      .cart__rating {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -93,7 +93,7 @@
         }
       }
 
-      .basket__duration {
+      .cart__duration {
         font-weight: 700;
         @include adaptive-value("font-size", 15, 8);
         line-height: 130%;
@@ -101,7 +101,7 @@
       }
     }
 
-    .basket__price {
+    .cart__price {
       white-space: nowrap;
       font-weight: 700;
       @include adaptive-value("font-size", 22, 10);
@@ -109,11 +109,11 @@
       color: #322f55;
     }
 
-    .basket__buttons {
+    .cart__buttons {
       display: flex;
       @include adaptive-value("gap", 20, 10);
 
-      .basket__trash {
+      .cart__trash {
         @include adaptive-value("height", 25, 15);
         @include adaptive-value("font-size", 25, 15);
         color: #7329c2;
@@ -126,7 +126,7 @@
         }
       }
 
-      .basket__heart {
+      .cart__heart {
         @include adaptive-value("height", 25, 15);
         @include adaptive-value("font-size", 25, 15);
         color: #7329c2;
@@ -143,8 +143,8 @@
 }
 
 @media screen and (max-width: 425px) {
-  .basket__link {
-    .basket__info {
+  .cart__link {
+    .cart__info {
       flex-direction: column;
     }
   }

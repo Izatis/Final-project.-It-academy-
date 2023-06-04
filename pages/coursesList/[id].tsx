@@ -79,8 +79,6 @@ export default function () {
                 ]}
                 onChange={handleChangeLanguage}
               />
-
-              <MyButton className={s.filtered__button}>Фильтировать</MyButton>
             </div>
 
             <span className={s.result}>{courses.length} результата</span>

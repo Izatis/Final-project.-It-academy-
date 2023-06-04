@@ -48,7 +48,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         {pathname === "/" ? (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/basketList/basketList">Моя корзина</Link>
+              <Link href="/cartList/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>
@@ -89,7 +89,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         ) : (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/basketList/basketList">Моя корзина</Link>
+              <Link href="/cartList/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>

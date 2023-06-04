@@ -1,6 +1,6 @@
 @import "./styles/varibales.module.scss";
 
-.basket {
+.cart {
   @include centering();
   margin: 20% auto;
 
@@ -12,12 +12,13 @@
     padding: 2% 0;
   }
 
-  .basket__content {
+  .cart__content {
     display: flex;
     justify-content: space-between;
-    @include adaptive-value("gap", 25, 10);
+    @include adaptive-value("gap", 20, 10);
 
     aside {
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -42,7 +43,7 @@
         color: #322f55;
       }
 
-      .aside__subButton {
+      .aside__Button {
         @include adaptive-value("width", 280, 100);
         background-color: #03d665;
         color: #ffffff;
@@ -60,8 +61,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .basket {
-    .basket__content {
+  .cart {
+    .cart__content {
       flex-direction: column;
     }
   }
