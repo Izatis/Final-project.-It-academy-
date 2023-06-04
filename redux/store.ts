@@ -13,6 +13,8 @@ import { statistics } from "@/redux/reducers/statistics";
 import { user } from "@/redux/reducers/user";
 import { cart } from "@/redux/reducers/cart";
 import { s3 } from "@/redux/reducers/s3";
+import { password } from "@/redux/reducers/password";
+import { lesson } from "@/redux/reducers/lesson";
 import search from "@/redux/reducers/search.slice";
 
 const store = configureStore({
@@ -22,7 +24,7 @@ const store = configureStore({
     course: courseReducer,
     payment: paymentReducer,
     section: sectionReducer,
-    lesson: lessonReducer,
+    lessons: lessonReducer,
     s33: s3Reducer,
     search: search,
     [review.reducerPath]: review.reducer,
@@ -32,6 +34,8 @@ const store = configureStore({
     [user.reducerPath]: user.reducer,
     [cart.reducerPath]: cart.reducer,
     [s3.reducerPath]: s3.reducer,
+    [password.reducerPath]: password.reducer,
+    [lesson.reducerPath]: lesson.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -41,7 +45,9 @@ const store = configureStore({
       .concat(review.middleware)
       .concat(user.middleware)
       .concat(cart.middleware)
-      .concat(s3.middleware),
+      .concat(s3.middleware)
+      .concat(password.middleware)
+      .concat(lesson.middleware),
 });
 
 export default store;

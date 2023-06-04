@@ -41,12 +41,12 @@ export const priceFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IPriceFilteringParams,
   { rejectValue: string }
->("course/priceFiltering", async ({ token,option }, thunkApi) => {
+>("course/priceFiltering", async ({ token, categoryId, option }, thunkApi) => {
   try {
     // Запрос - для фильтрации по убыванию
     if (option === "descending") {
       const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
+        process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price/${categoryId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -56,7 +56,8 @@ export const priceFiltering = createAsyncThunk<
     // Запрос - для фильтрации по возрастанию
     else {
       const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/course/filter/price?filter=desc",
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `/course/filter/price/${categoryId}?filter=desc`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -75,23 +76,26 @@ export const languageFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   ILanguageFilteringParams,
   { rejectValue: string }
->("course/languageFiltering", async ({ token, option }, thunkApi) => {
-  try {
-    const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${option}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    return data;
-  } catch ({ response }: any) {
-    return thunkApi.rejectWithValue(response.data.message);
+>(
+  "course/languageFiltering",
+  async ({ token, categoryId, option }, thunkApi) => {
+    try {
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${option}/${categoryId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return data;
+    } catch ({ response }: any) {
+      return thunkApi.rejectWithValue(response.data.message);
+    }
   }
-});
+);
 
 const initialState: ICourseState = {
   courses: [],
-   myCourse: [],
+  myCourse: [],
   courseIdBackend: null,
   isLoading: false,
   error: "",

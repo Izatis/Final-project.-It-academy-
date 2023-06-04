@@ -65,13 +65,13 @@ const UserProfile: FC<UserProfileProps> = ({
           >
             Вы уверены?
           </Modal>
-          <h2>Профили и настройки</h2>
 
           <div className={s.container}>
-            <div className={s.fullName}>
-              <h2>{user.fullName}</h2>
-              <p>{user.email}</p>
-            </div>
+            <ul className={s.profile__list}>
+              <li className={s.profile__fullName}>{user.fullName}</li>
+              <li className={s.profile__email}>{user.email}</li>
+              <li className={s.profile__dateOfBirth}>{user.dateOfBirth}</li>
+            </ul>
 
             <Link href={"/editing/editing"}>
               <MyButton

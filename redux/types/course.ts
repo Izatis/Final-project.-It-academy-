@@ -41,10 +41,12 @@ export interface ICourseCreationParams {
 
 export interface IPriceFilteringParams {
   token: string;
+  categoryId: number
   option: string;
 }
 
 export interface ILanguageFilteringParams {
   token: string;
+  categoryId: number
   option: string;
 }

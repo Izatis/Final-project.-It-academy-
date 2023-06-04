@@ -31,9 +31,6 @@ const addingVideo = () => {
       const formData = new FormData();
       formData.append("lessonId", lessonId);
       formData.append("file", event.target.files[0]);
-
-      console.log(formData);
-
       fetch(
         "https://spring-boot-online-platform.herokuapp.com/s3/upload/video",
         {

@@ -34,16 +34,17 @@ export default function () {
     token,
     categoryId,
   });
+
   useEffect(() => {
     setMainIsLoading(isLoading);
     setMainCourses(courses);
-  }, []);
+  }, [courses]);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // FILTERING DATA
   const dispatch = useAppDispatch();
   const handleChangePrice = (option: string) => {
-    dispatch(priceFiltering({ option, token }));
+    dispatch(priceFiltering({ token,categoryId, option }));
   };
   const { courses: priceFilteringData, isLoading: priceFilteringIsLoding } =
     useAppSelector((state) => state.course);
@@ -53,7 +54,7 @@ export default function () {
   }, [priceFilteringIsLoding]);
 
   const handleChangeLanguage = (option: string) => {
-    dispatch(languageFiltering({ option, token }));
+    dispatch(languageFiltering({ token,categoryId, option }));
   };
 
   const {
@@ -98,7 +99,7 @@ export default function () {
           />
         </div>
 
-        <span className={s.result}>{courses.length} результата</span>
+        <span className={s.result}>{mainCourses.length} результата</span>
       </header>
 
       {mainIsLoading ? <Loading /> : <CourseItem courses={mainCourses} />}

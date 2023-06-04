@@ -24,8 +24,8 @@ export interface IAddingALesson {
 }
 
 export interface IToGetLessonsParams {
-  id: number;
-  parsedToken: string;
+  token: string;
+  sectionId: number;
 }
 
 export interface IAddingALessonParams {

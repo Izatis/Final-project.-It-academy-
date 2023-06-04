@@ -1,43 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./usersList.module.scss";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { fetchUsers } from "@/redux/reducers/user.slice";
+import { useGetAllUsersQuery } from "@/redux/reducers/user";
+import { IUser } from "@/redux/types/user";
 
+import UserCard from "@/components/UserCard/UserCard";
 import Loading from "@/components/Loading/Loading";
 
 const UsersList = () => {
-  const dispatch = useAppDispatch();
-  const { users, isLoading } = useAppSelector((state) => state.user);
-
-  // Отправляет get запрос для получения пользователя
-  const getUser = () => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
-    dispatch(fetchUsers(parsedToken));
-  };
+  const [token, setToken] = useState("");
 
   useEffect(() => {
-    getUser();
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
   }, []);
+
+  const { data: users = [], isLoading } = useGetAllUsersQuery({ token });
 
   return (
     <ul className={s.users__list}>
       {isLoading ? (
         <Loading />
       ) : (
-        users.map((user) => {
-          return (
-            <li>
-              <div>{/* <Avatar */}</div>
-              <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-            </li>
-          );
+        users.map((user: IUser) => {
+          return <UserCard user={user} />;
         })
       )}
     </ul>

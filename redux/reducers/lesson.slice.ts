@@ -8,18 +8,18 @@ import {
 } from "../types/lesson";
 
 // ---------------------------------------------------------------------------------------------------------------------------------
-// Запрос - для получение уроков по 
+// Запрос - для получение уроков по
 
 export const toGetLessons = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IToGetLessonsParams,
   { rejectValue: string }
->("courses/toGetLessons", async ({ id, parsedToken }, thunkApi) => {
+>("courses/toGetLessons", async ({ token, sectionId }, thunkApi) => {
   try {
     const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/lesson/section/${id}`,
+      process.env.NEXT_PUBLIC_BASE_URL + `/lesson/section/${sectionId}`,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
 

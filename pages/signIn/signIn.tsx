@@ -128,7 +128,7 @@ const SignIn: FC = () => {
         <Form.Item>
           <Link
             className={s.signIn__link}
-            href="/passwordRecovery/passwordRecovery"
+            href="/password/passwordRecovery/passwordRecovery"
           >
             {t.signIn[9]}
           </Link>

@@ -19,11 +19,10 @@ export const s3 = createApi({
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     changeAvatar: build.mutation({
-      query: ({ token, formData }) => ({
+      query: ({ formData }) => ({
         url: "/s3/upload/user/image",
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body:  formData,
+        body: formData,
       }),
       invalidatesTags: [{ type: "Download", id: "LIST" }],
     }),

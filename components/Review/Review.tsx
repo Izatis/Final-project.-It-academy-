@@ -3,14 +3,13 @@ import s from "./Review.module.scss";
 
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { Button, Form, Input, InputNumber } from "antd";
+import { Form, Input, InputNumber } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
   faThumbsDown,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector } from "@/hooks/redux";
 import {
   useAddReviewMutation,
   useGetReviwsQuery,
@@ -21,10 +20,10 @@ import Rating from "../Rating/Rating";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
 
 const Review: FC = () => {
+  const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
   const courseId = query.id;
   
-  const [token, setToken] = useState("");
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
@@ -36,7 +35,7 @@ const Review: FC = () => {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
-  const [addReview] = useAddReviewMutation();
+  const [addReview, {isLoading}] = useAddReviewMutation();
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({ ...form.getFieldsValue() });
@@ -49,10 +48,50 @@ const Review: FC = () => {
 
   return (
     <article className={s.reviewCards}>
-      <h2>
+    <div className={s.reviewCards__leaveFeedback}>
+    <b>Оставьте отзыв</b>
+      <Form layout="vertical" form={form} name="form" onFinish={handleSubmit}>
+        <Form.Item
+          label="Заголовок"
+          name="title"
+          rules={[{ required: true, message: "Please input your review!" }]}
+        >
+          <Input placeholder="Введите заголовок" />
+        </Form.Item>
+
+        <Form.Item
+          label="Описание"
+          name="description"
+          rules={[{ required: true, message: "Please input your review!" }]}
+        >
+          <Input placeholder="Введите описание" />
+        </Form.Item>
+
+        <Form.Item
+          label="Оценка"
+          name="grade"
+          rules={[{ required: true, message: "Please input your review!" }]}
+        >
+          <InputNumber />
+        </Form.Item>
+
+        <Form.Item>
+          <MyButton
+            background="#7329c2"
+            hoverBackground="#03d665"
+            type="primary"
+            loading={isLoading}
+          >
+            Submit
+          </MyButton>
+        </Form.Item>
+      </Form>
+    </div>
+
+      <b className={s.reviewCards__grade}>
         <FontAwesomeIcon className={s.reviewCard__icon} icon={faStar} /> Оценок
         курса: 4,5 2K оценки
-      </h2>
+      </b>
 
       <div className={s.reviewCard__wrap}>
         {data.map((rewiew: IReview) => {
@@ -95,42 +134,6 @@ const Review: FC = () => {
           );
         })}
       </div>
-
-      <Form layout="vertical" form={form} name="form" onFinish={handleSubmit}>
-        <Form.Item
-          label="Заголовок"
-          name="title"
-          rules={[{ required: true, message: "Please input your review!" }]}
-        >
-          <Input placeholder="Введите заголовок" />
-        </Form.Item>
-
-        <Form.Item
-          label="Описание"
-          name="description"
-          rules={[{ required: true, message: "Please input your review!" }]}
-        >
-          <Input placeholder="Введите описание" />
-        </Form.Item>
-
-        <Form.Item
-          label="Оценка"
-          name="grade"
-          rules={[{ required: true, message: "Please input your review!" }]}
-        >
-          <InputNumber />
-        </Form.Item>
-
-        <Form.Item>
-          <MyButton
-            background="#7329c2"
-            hoverBackground="#03d665"
-            type="primary"
-          >
-            Submit
-          </MyButton>
-        </Form.Item>
-      </Form>
     </article>
   );
 };

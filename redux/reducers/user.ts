@@ -6,6 +6,22 @@ export const user = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
     // ---------------------------------------------------------------------------------------------------------------------------------
+    getAllUsers: build.query({
+      query: ({ token }) => ({
+        url: `/user`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { id: result.id, type: "Users" },
+              { type: "Users", id: "LIST" },
+            ]
+          : [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
     getUser: build.query({
       query: ({ token }) => ({
         url: `/user/current`,
@@ -22,7 +38,7 @@ export const user = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    getСreator: build.query({
+    getCreator: build.query({
       query: ({ authorId, token }) => ({
         url: `/user/${authorId}`,
         method: "GET",
@@ -37,15 +53,21 @@ export const user = createApi({
           : [{ type: "Users", id: "LIST" }],
     }),
 
-    // // ---------------------------------------------------------------------------------------------------------------------------------
-    // addProduct: build.mutation({
-    //   query: (body) => ({
-    //     url: "goods",
-    //     method: "POST",
-    //     body,
-    //   }),
-    //   invalidatesTags: [{ type: "Users", id: "LIST" }],
-    // }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // Запроc - для редактирование пользователя
+
+    editingUser: build.mutation({
+      query: ({ token, userId, values }) => (
+        console.log(token, userId, values),
+        {
+          url: `/user/${userId}`,
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${token}` },
+          body: values, // Используется `body` вместо `values` для передачи данных
+        }
+      ),
+      invalidatesTags: [{ type: "Users", id: "LIST" }],
+    }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     deletingAUser: build.mutation({
@@ -59,5 +81,10 @@ export const user = createApi({
   }),
 });
 
-export const { useGetUserQuery, useGetСreatorQuery, useDeletingAUserMutation } =
-  user;
+export const {
+  useGetAllUsersQuery,
+  useGetUserQuery,
+  useGetCreatorQuery,
+  useEditingUserMutation,
+  useDeletingAUserMutation,
+} = user;

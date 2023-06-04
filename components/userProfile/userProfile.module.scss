@@ -68,23 +68,31 @@
         }
       }
     }
+
     .container {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
 
-      .fullName {
-        h2 {
+      .profile__list {
+        .profile__fullName {
           font-weight: 500;
           @include adaptive-value("font-size", 30, 20);
           line-height: 140%;
         }
 
-        p {
+        .profile__email {
           font-weight: 700;
           @include adaptive-value("font-size", 18, 12);
           line-height: 160%;
           color: #838383;
+        }
+
+        .profile__dateOfBirth {
+          font-weight: 700;
+          @include adaptive-value("font-size", 18, 12);
+          line-height: 160%;
+          color: #7329c2;
         }
       }
     }

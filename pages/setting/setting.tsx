@@ -13,16 +13,14 @@ import {
   useGetUserQuery,
 } from "@/redux/reducers/user";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useChangeAvatarMutation } from "@/redux/reducers/s3";
 
 const Setting: FC = () => {
   const [token, setToken] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push } = useRouter();
-  const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
@@ -45,40 +43,21 @@ const Setting: FC = () => {
   const userId = user.id;
 
   const handleClick = async () => {
+    setIsModalOpen(false);
     if (avatar) {
       const formData = new FormData();
       formData.append("userId", userId);
       formData.append("file", avatar);
-      console.log(avatar, userId);
-      fetch(
-        "https://spring-boot-online-platform.herokuapp.com/s3/upload/user/image",
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${token}` },
-          body: formData,
-        }
-      )
-        .then((response) => {
-          // Обработка успешного ответа сервера
-        })
-        .catch((error) => {
-          console.log(error);
-
-          // Обработка ошибки
-        });
-      // await changeAvatar({ token, formData }).unwrap();
+      await changeAvatar({ formData }).unwrap();
     }
   };
 
   // ---------------------------------------------------------------------------------------------------------------------------------
+  // DELETE
   const [deletingAUser, { isLoading: deletingAUserLoading }] =
     useDeletingAUserMutation();
 
-  // DELETE
-
   const handleDeletingAUser = async (userId: number) => {
-    console.log(userId, token);
-
     push("/signUp/signUp");
     await deletingAUser({ userId, token }).unwrap();
     localStorage.removeItem("token");
@@ -92,7 +71,6 @@ const Setting: FC = () => {
       placement,
     });
   };
-
   return (
     <section className={s.setting}>
       {contextHolder}
@@ -114,9 +92,7 @@ const Setting: FC = () => {
         <input
           type="file"
           accept="picture/*"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setAvatar(e.target.value)
-          }
+          onChange={(e: any) => setAvatar(e.target.files[0])}
         />
       </Modal>
       <div className={s.setting__static}>

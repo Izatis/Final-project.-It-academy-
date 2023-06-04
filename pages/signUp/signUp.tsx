@@ -24,17 +24,17 @@ interface IUserRegister {
 const SignUp: FC = () => {
   // Состояния - для данных пользователя регистрации
   const [userRegister, setUserRegister] = useState<IUserRegister>({
-    fullName: "arsenov",
-    email: "arsenov@gmail.com",
-    password: "12345678",
-    passwordSecond: "12345678",
+    fullName: "",
+    email: "",
+    password: "",
+    passwordSecond: "",
   });
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const { token, isLoading, error } = useAppSelector((state) => state.auth);
-
+  const { isLoading, error } = useAppSelector((state) => state.auth);
+   
   // Для - маршутизации
   const { push, locale } = useRouter();
 

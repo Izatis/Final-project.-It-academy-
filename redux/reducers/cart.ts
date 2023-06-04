@@ -22,10 +22,26 @@ export const cart = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
+    basketAmount: build.query({
+      query: ({ token }) => ({
+        url: `/cart/sum`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }: { id: any }) => ({ type: "Carts", id })),
+              { type: "Carts", id: "LIST" },
+            ]
+          : [{ type: "Carts", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
     addingToCart: build.mutation({
       query: ({ token, courseId }) => ({
         url: `/cart/add/${courseId}`,
-        method: "POST",
+        method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       }),
       invalidatesTags: [{ type: "Carts", id: "LIST" }],
@@ -45,6 +61,7 @@ export const cart = createApi({
 
 export const {
   useReceivingABasketQuery,
+  useBasketAmountQuery,
   useAddingToCartMutation,
   useRemoveFromCartMutation,
 } = cart;

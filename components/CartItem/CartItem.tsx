@@ -9,22 +9,13 @@ import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import Rating from "../Rating/Rating";
 import { ICart } from "@/redux/types/cart";
-import { useRemoveFromCartMutation } from "@/redux/reducers/cart";
 
 interface ICartProps {
   cart: ICart;
+  onClick: (e: any, courseId: number) => void;
 }
 
-const CartItem: FC<ICartProps> = ({ cart }) => {
-  const [removeFromCart] = useRemoveFromCartMutation();
-
-  const handleClick = async (event: ChangeEvent<HTMLInputElement>, courseId: number) => {
-    console.log(event);
-    console.log(courseId);
-    
-    event.preventDefault();
-    await removeFromCart(courseId).unwrap();
-  };
+const CartItem: FC<ICartProps> = ({ cart, onClick }) => {
   return (
     <Link className={s.cart__link} href={`/courseMore/${cart.id}`}>
       <div className={s.cart__image}>
@@ -66,7 +57,7 @@ const CartItem: FC<ICartProps> = ({ cart }) => {
           <FontAwesomeIcon
             className={s.cart__trash}
             icon={faTrash}
-            onClick={(e) => handleClick}
+            onClick={(e) => onClick(e, cart.id)}
           />
         </div>
       </div>

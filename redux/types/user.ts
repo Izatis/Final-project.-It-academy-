@@ -11,6 +11,15 @@ export interface IUser {
   imageUrl: string;
 }
 
+export interface IEditingUser {
+  fullName: string;
+  dateOfBirth: string;
+  email: string;
+  password: string;
+  passwordSecond: string;
+  imageUrl: string;
+}
+
 export interface IUserState {
   users: IUser[];
   userCourses: ICourse[];
@@ -23,19 +32,4 @@ export interface IUserState {
 export interface IGetAllUserCoursesParams {
   token: string;
   userId: number;
-}
-
-export interface IEditingUser {
-  fullName: string;
-  dateOfBirth: string;
-  email: string;
-  password: string;
-  passwordSecond: string;
-  imageUrl: string;
-}
-
-export interface IEditingUserParams {
-  value: IEditingUser;
-  id: number;
-  parsedToken: string;
 }

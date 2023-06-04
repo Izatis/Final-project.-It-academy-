@@ -6,25 +6,28 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import MyModal from "@/components/Modals/MyModal/MyModal";
 import { toGetLessons } from "@/redux/reducers/lesson.slice";
+import { useToGetLessonsQuery } from "@/redux/reducers/lesson";
 
 interface IAnimateSelectProps {
   section: any;
 }
 
 const AnimateSelect: FC<IAnimateSelectProps> = ({ section }) => {
+  const [selectedLessonId, setSelectedLessonId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [reveal, setReveal] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const { lessons } = useAppSelector((state) => state.lesson);
+  // const { lessons } = useAppSelector((state) => state.lessons);
 
-  useEffect(() => {
-    const id = section.id;
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    dispatch(toGetLessons({ id, parsedToken }));
-  }, []);
-
+  const sectionId = section.id;
+  const token = JSON.parse(localStorage.getItem("token") as string);
+  const { data: lessons = [] } = useToGetLessonsQuery({
+    token,
+    sectionId,
+  });
   const handleClick = (id: number) => {
+    setSelectedLessonId(id);
     setIsModalOpen(true);
   };
   return (
@@ -38,20 +41,20 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({ section }) => {
         onClick={(e) => e.stopPropagation()}
       ></div>
       <div className={s.select__hide} onClick={(e) => e.stopPropagation()}>
-        {lessons.map((lesson) => {
-          return (
-            <>
-              <ul className={s.select__list}>
+        <ul className={s.select__list}>
+          {lessons.map((lesson: any) => {
+            return (
+              <>
                 <li onClick={() => handleClick(lesson.id)}>{lesson.title}</li>
-              </ul>
-              <MyModal
-                lesson={lesson}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-              />
-            </>
-          );
-        })}
+                <MyModal
+                  lesson={lesson}
+                  isModalOpen={lesson.id === selectedLessonId && isModalOpen}
+                  setIsModalOpen={setIsModalOpen}
+                />
+              </>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
