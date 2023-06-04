@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./addAnotherSection.module.scss";
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import Link from "next/link";
 
 const addAnotherSection = () => {

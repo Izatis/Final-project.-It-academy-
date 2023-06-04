@@ -9,21 +9,21 @@ import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import Loading from "../Loading/Loading";
-import MyButton from "../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
 
 const UserProfile = () => {
   useEffect(() => {
     const fullUrl = window.location.href;
     const token = fullUrl.split(
       "http://localhost:3000/setting/setting?token="
-    )[1];    
+    )[1];
 
     if (!!token) {
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(token));
     }
   }, []);
-  
+
   // Для - маршутизации
   const { push, locale } = useRouter();
 
@@ -75,6 +75,7 @@ const UserProfile = () => {
           </p>
 
           <MyButton
+            width={130}
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"

@@ -23,11 +23,10 @@ export const cart = createApi({
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     addingToCart: build.mutation({
-      query: ({ token, courseId, value }) => ({
+      query: ({ token, courseId }) => ({
         url: `/cart/add/${courseId}`,
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
-        body: { ...value },
       }),
       invalidatesTags: [{ type: "Carts", id: "LIST" }],
     }),

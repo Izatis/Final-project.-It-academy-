@@ -4,7 +4,7 @@ import s from "./basketList.module.scss";
 import Link from "next/link";
 
 import BasketItem from "@/components/BasketItem/BasketItem";
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 
 interface IBaskets {
   id: number;

@@ -11,7 +11,7 @@ import {
   searchByCourses,
 } from "@/redux/reducers/search.slice";
 
-import MyInput from "@/components/UI/MyInput/MyInput";
+import MyInput from "@/UI/MyInput/MyInput";
 import Categories from "@/components/Categories/Categories";
 import Loading from "@/components/Loading/Loading";
 import CoursesList from "@/components/CoursesList/CoursesList";

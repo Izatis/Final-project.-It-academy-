@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import MyButton from "../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
 import slideFirst from "../../public/slideFirst.jpg";
 import { courses } from "@/constants/courses";
 

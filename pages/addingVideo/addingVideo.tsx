@@ -8,7 +8,7 @@ import { Button, Form, Input, InputNumber, Upload } from "antd";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import { addingALesson } from "@/redux/reducers/lesson.slice";
 import { IAddingALesson } from "@/redux/types/lesson";
 import { addingAVideo } from "@/redux/reducers/s3.slice";

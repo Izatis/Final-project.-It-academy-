@@ -27,7 +27,7 @@ export const review = createApi({
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     addReview: build.mutation({
-      query: ({token, courseId, values }) => ({
+      query: ({ token, courseId, values }) => ({
         url: `/review/${courseId}`,
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },

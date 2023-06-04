@@ -14,8 +14,8 @@ import { useAppDispatch } from "@/hooks/redux";
 import { reset } from "@/redux/reducers/auth.slice";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import MyButton from "../UI/Buttons/MyButton/MyButton";
-import TranslateButton from "../UI/Buttons/TranslateButton/TranslateButton";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
 import { Avatar } from "antd";
 
 interface IHeaderProps {

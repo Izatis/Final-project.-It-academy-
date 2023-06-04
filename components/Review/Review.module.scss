@@ -12,8 +12,7 @@
     margin: 5% 0;
 
     .reviewCard__icon {
-      @include adaptive-value("width", 50, 20);
-      @include adaptive-value("height", 50, 20);
+      @include adaptive-value("height", 40, 20);
       color: #fadb14;
     }
   }

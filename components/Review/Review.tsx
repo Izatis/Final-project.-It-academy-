@@ -1,26 +1,25 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./ReviewCard.module.scss";
+import s from "./Review.module.scss";
 
+import { useRouter } from "next/router";
 import Image from "next/image";
-import Rating from "../Rating/Rating";
+import { Button, Form, Input, InputNumber } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar,
   faThumbsDown,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useGetReviwsQuery } from "@/redux/reducers/review";
-import { useRouter } from "next/router";
+import {
+  useAddReviewMutation,
+  useGetReviwsQuery,
+} from "@/redux/reducers/review";
+import { IReview } from "@/redux/types/review";
 
-interface IReview {
-  id: number;
-  title: string;
-  avatar: string;
-  grade: number;
-  description: string;
-}
+import Rating from "../Rating/Rating";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
 
-const ReviewCard: FC = () => {
+const Review: FC = () => {
   const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
   const courseId = query.id;
@@ -30,9 +29,23 @@ const ReviewCard: FC = () => {
     setToken(parsedToken);
   }, []);
 
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
   const { data = [] } = useGetReviwsQuery({ token, courseId });
-  console.log(data);
-  
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // POST
+  const [addReview] = useAddReviewMutation();
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue({ ...form.getFieldsValue() });
+  }, []);
+  const handleSubmit = async (values: any) => {
+    if (values) {
+      await addReview({ courseId, token, values }).unwrap();
+    }
+  };
+
   return (
     <article className={s.reviewCards}>
       <h2>
@@ -45,12 +58,12 @@ const ReviewCard: FC = () => {
           return (
             <div className={s.reviewCard} key={rewiew.id}>
               <header className={s.reviewCard__avatar}>
-                {/* <Image
+                <Image
                   src={rewiew.avatar}
                   alt="avatar"
                   width={300}
                   height={200}
-                /> */}
+                />
 
                 <ul className={s.reviewCard__list}>
                   <li className={s.reviewCard__fullName}>{rewiew.title}</li>
@@ -81,8 +94,44 @@ const ReviewCard: FC = () => {
           );
         })}
       </div>
+
+      <Form layout="vertical" form={form} name="form" onFinish={handleSubmit}>
+        <Form.Item
+          label="Заголовок"
+          name="title"
+          rules={[{ required: true, message: "Please input your review!" }]}
+        >
+          <Input placeholder="Введите заголовок" />
+        </Form.Item>
+
+        <Form.Item
+          label="Описание"
+          name="description"
+          rules={[{ required: true, message: "Please input your review!" }]}
+        >
+          <Input placeholder="Введите описание" />
+        </Form.Item>
+
+        <Form.Item
+          label="Оценка"
+          name="grade"
+          rules={[{ required: true, message: "Please input your review!" }]}
+        >
+          <InputNumber />
+        </Form.Item>
+
+        <Form.Item>
+          <MyButton
+            background="#7329c2"
+            hoverBackground="#03d665"
+            type="primary"
+          >
+            Submit
+          </MyButton>
+        </Form.Item>
+      </Form>
     </article>
   );
 };
 
-export default ReviewCard;
+export default Review;

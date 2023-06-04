@@ -9,7 +9,7 @@ import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {  courseCreation } from "@/redux/reducers/course/course.slice";
 
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import { ICourseCreation } from "@/redux/types/course";
 
 

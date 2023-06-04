@@ -6,7 +6,7 @@ import { categories } from "@/constants/categories";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import CourseItem from "@/components/CoursesList/CoursesList";
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import {
   languageFiltering,
   priceFiltering,

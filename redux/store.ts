@@ -37,7 +37,8 @@ const store = configureStore({
       .concat(category.middleware)
       .concat(statistics.middleware)
       .concat(review.middleware)
-      .concat(user.middleware),
+      .concat(user.middleware)
+      .concat(cart.middleware),
 });
 
 export default store;

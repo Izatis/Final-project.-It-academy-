@@ -9,16 +9,10 @@ import { toGetLessons } from "@/redux/reducers/lesson.slice";
 
 interface IAnimateSelectProps {
   section: any;
-  isModalOpen: boolean;
-  setIsModalOpen: (active: boolean) => void;
 }
 
-const AnimateSelect: FC<IAnimateSelectProps> = ({
-  section,
-  isModalOpen,
-  setIsModalOpen,
-}) => {
-  // Состояние - для select
+const AnimateSelect: FC<IAnimateSelectProps> = ({ section }) => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [reveal, setReveal] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -26,7 +20,6 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({
 
   useEffect(() => {
     const id = section.id;
-    // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     dispatch(toGetLessons({ id, parsedToken }));
   }, []);
