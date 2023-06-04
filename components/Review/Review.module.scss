@@ -1,0 +1,103 @@
+@import "../../styles/varibales.module.scss";
+
+.reviewCards {
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    @include adaptive-value("font-size", 25, 10);
+    line-height: 130%;
+    color: #322f55;
+    margin: 5% 0;
+
+    .reviewCard__icon {
+      @include adaptive-value("height", 40, 20);
+      color: #fadb14;
+    }
+  }
+  .reviewCard__wrap {
+    display: flex;
+    flex-wrap: wrap;
+
+    .reviewCard {
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      @include adaptive-value("gap", 20, 10);
+      border-radius: 10px;
+      box-shadow: 0 8px 40px -5px rgba(9, 31, 67, 0.1);
+      padding: 4% 2%;
+      margin: 10px;
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        img {
+          @include adaptive-value("width", 80, 70);
+          @include adaptive-value("height", 80, 70);
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .reviewCard__list {
+          .reviewCard__fullName {
+            font-weight: 700;
+            @include adaptive-value("font-size", 18, 12);
+            line-height: 130%;
+            color: #191970;
+          }
+
+          .reviewCard__rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            pre {
+              font-weight: 500;
+              @include adaptive-value("font-size", 15, 8);
+              line-height: 130%;
+              color: #ffd700;
+            }
+
+            ul {
+              display: flex;
+              li {
+                @include adaptive-value("font-size", 12, 8);
+                @include adaptive-value("margin-inline-end", 5, 1);
+              }
+            }
+          }
+        }
+      }
+
+      p {
+      }
+
+      footer {
+        span {
+          display: flex;
+          justify-content: space-between;
+          pre {
+            font-weight: 600;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #a7b0c2;
+          }
+
+          span {
+            display: flex;
+            align-items: center;
+            @include adaptive-value("gap", 20, 10);
+
+            svg {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,80 +4,66 @@ import s from "./courseMore.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { notification } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { gettingACourse } from "@/redux/reducers/course.slice";
-
-import Rating from "@/components/Rating/Rating";
-import AnimateSelect from "@/components/UI/AnimateSelect/AnimateSelect";
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
-import TeacherCard from "@/components/TeacherCard/TeacherCard";
-import ReviewCard from "@/components/ReviewCard/ReviewCard";
-import Loading from "@/components/Loading/Loading";
 import { gettingPartitions } from "@/redux/reducers/section.slice";
-import { Button, Form, Input } from "antd";
-import {
-  useAddReviewMutation,
-  useGetReviwsQuery,
-} from "@/redux/reducers/review";
+import { useGettingACourseQuery } from "@/redux/reducers/course/course";
+import { useAddingToCartMutation } from "@/redux/reducers/cart";
+
+import Loading from "@/components/Loading/Loading";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import Rating from "@/components/Rating/Rating";
+import TeacherCard from "@/components/TeacherCard/TeacherCard";
+import AnimateSelect from "@/UI/AnimateSelect/AnimateSelect";
+import Review from "@/components/Review/Review";
 
 export default function () {
-  // Состояние - для модалки
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const { query }: { query: any } = useRouter();
-
-  const dispatch = useAppDispatch();
-  const { course, isLoading } = useAppSelector((state) => state.course);
-
-  const courseId = query.id;
-
-  useEffect(() => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-
-    // Отправляем get запрос для разделa курса
-    dispatch(gettingACourse({ courseId, parsedToken }));
-
-    // Отправляем get запрос для получение курсов
-    dispatch(gettingPartitions({ courseId, parsedToken }));
-  }, []);
-
-  const { sections } = useAppSelector((state) => state.section);
-
-  // Для сохранения значений инпутов
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.setFieldsValue({ ...form.getFieldsValue() });
-  }, []);
-
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  // GET
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [token, setToken] = useState("");
-  const { data = [] } = useGetReviwsQuery({ courseId, token });
-  console.log(data);
+  const { query }: { query: any } = useRouter();
+  const courseId = query.id;
+  const dispatch = useAppDispatch();
+
+  const [addingToCart, { isLoading: isLoadingAddingToCart }] =
+    useAddingToCartMutation();
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
 
-  // POST
-  const [addReview] = useAddReviewMutation();
-
-  const onFinish = async (values: any) => {
-    const data = {
-      title: values.review,
-      description: "string",
-    };
-    console.log(values);
+  useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    const courseId = query.id;
-    if (values) {
-      await addReview({ courseId, parsedToken, data }).unwrap();
+    setToken(parsedToken);
+    if (!!query.id) {
+      dispatch(gettingPartitions({ courseId, parsedToken }));
     }
+  }, []);
+
+  const { data: course = [], isLoading } = useGettingACourseQuery({
+    token,
+    courseId,
+  });
+
+  const { sections } = useAppSelector((state) => state.section);
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  const [changeBtn, setChangeBtn] = useState("Добавить в корзину");
+
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (placement: any) => {
+    api.info({
+      message: `Успешно добавлено в корзину!`,
+      placement,
+    });
+  };
+
+  const handleClick = () => {
+    addingToCart({ token, courseId });
+    openNotification(5);
+    setChangeBtn("Добавлено")
   };
 
   return (
@@ -86,6 +72,7 @@ export default function () {
         <Loading />
       ) : (
         <div className={s.course}>
+          <h1> {contextHolder} </h1>
           <aside>
             <div
               className={s.course__poster}
@@ -105,8 +92,12 @@ export default function () {
 
             <div className={s.aside__body}>
               <span className={s.aside_price}>{course.price} $</span>
-              <MyButton className={s.aside__button}>
-                Добавить в корзину
+              <MyButton
+                className={s.aside__button}
+                onClick={handleClick}
+                loading={isLoadingAddingToCart}
+              >
+                {changeBtn}
               </MyButton>
 
               <Link href={`/payment/${course.id}`}>
@@ -154,37 +145,11 @@ export default function () {
               <b>Материалы курса</b>
 
               {sections.map((section) => {
-                return (
-                  <AnimateSelect
-                    section={section}
-                    isModalOpen={isModalOpen}
-                    setIsModalOpen={setIsModalOpen}
-                  />
-                );
+                return <AnimateSelect section={section} />;
               })}
             </div>
-
             <TeacherCard />
-
-            <ReviewCard />
-
-            <Form layout="vertical" name="form" onFinish={onFinish}>
-              <Form.Item
-                label="Оставить отзыв"
-                name="review"
-                rules={[
-                  { required: true, message: "Please input your review!" },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
+            <Review />
           </div>
         </div>
       )}

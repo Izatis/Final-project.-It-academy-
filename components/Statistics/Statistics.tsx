@@ -14,18 +14,17 @@ import {
 
 const Statistics: FC = () => {
   const [token, setToken] = useState("");
-
-  // // ---------------------------------------------------------------------------------------------------------------------------------
-  const { data: courseCount } = useGettingStatisticsCourseCountQuery(token);
-  const { data: userCount } = useGettingStatisticsUserCountQuery(token);
-  const { data: userTodayCount } =
-    useGettingStatisticsUserTodayCountQuery(token);
-  const { data: reviewCount } = useGettingStatisticsReviewCountQuery(token);
-
+  
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
+  
+  const { data: courseCount } = useGettingStatisticsCourseCountQuery({token});
+  const { data: userCount } = useGettingStatisticsUserCountQuery({token});
+  const { data: userTodayCount } =
+    useGettingStatisticsUserTodayCountQuery({token});
+  const { data: reviewCount } = useGettingStatisticsReviewCountQuery({token});
 
   const ref = useRef<HTMLTableSectionElement>(null);
   const [inView, setInView] = useState<boolean>(false);

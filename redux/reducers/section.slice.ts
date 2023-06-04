@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import {
+  ISectionState,
   ICreatePartitionParams,
   IGettingPartitionsParams,
-  ISectionState,
 } from "../types/section";
 
 // ---------------------------------------------------------------------------------------------------------------------------------

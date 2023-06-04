@@ -9,7 +9,7 @@ import { faInstagram, faTelegram } from "@fortawesome/free-brands-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector } from "@/hooks/redux";
 
-import CourseItem from "@/components/CourseItem/CourseItem";
+import CourseItem from "@/components/CoursesList/CoursesList";
 
 export default function () {
   // Состояние - для данных учителя

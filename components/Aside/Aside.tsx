@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 
 import Link from "next/link";
+import { Menu } from "antd";
+import type { MenuProps } from "antd";
 import {
   DesktopOutlined,
   SettingOutlined,
   TeamOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Menu } from "antd";
 
 const items: MenuProps["items"] = [
   {
@@ -30,7 +30,7 @@ const items: MenuProps["items"] = [
   },
 
   {
-    label: <Link href="/">Мои Курсы</Link>,
+    label: <Link href="/">Добавить курс</Link>,
     icon: <AppstoreOutlined />,
     key: "4",
   },

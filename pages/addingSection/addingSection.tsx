@@ -7,7 +7,7 @@ import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
-import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import { createPartition } from "@/redux/reducers/section.slice";
 import { ICreatePartition } from "@/redux/types/section";
 

@@ -76,7 +76,7 @@
         }
       }
 
-      .header__basket {
+      .header__cart {
         @include adaptive-value("height", 22, 15);
         @include adaptive-value("font-size", 22, 15);
         color: #7329c2;

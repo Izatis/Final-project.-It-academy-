@@ -8,8 +8,8 @@ import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import MyInput from "@/components/UI/MyInput/MyInput";
-import MyButton from "../../components/UI/Buttons/MyButton/MyButton";
+import MyInput from "@/UI/MyInput/MyInput";
+import MyButton from "../../UI/Buttons/MyButton/MyButton";
 
 interface IPasswordRecovery {
   email: string;

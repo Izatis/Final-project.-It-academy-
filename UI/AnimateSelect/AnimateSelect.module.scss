@@ -1,0 +1,67 @@
+@import "../../styles/varibales.module.scss";
+
+.select {
+  position: relative;
+  cursor: pointer;
+  padding: 2% 0;
+  box-sizing: border-box;
+
+  P {
+    font-weight: 700;
+    @include adaptive-value("font-size", 18, 8);
+    line-height: 130%;
+    color: #322f55;
+  }
+
+  &::after {
+    content: "+";
+    position: absolute;
+    top: 0;
+    right: 2%;
+    transform: rotate(-90deg);
+    font-weight: 600;
+    @include adaptive-value("font-size", 40, 15);
+    line-height: 130%;
+    color: #03d665;
+    transition: all 0.4s;
+  }
+
+  &.reveal::after {
+    content: "−";
+    transform: rotate(0deg);
+    color: #7329c2;
+    transition: all 0.4s;
+  }
+
+  .select__line {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.12);
+    margin: 2% 0;
+  }
+
+  .select__hide {
+    height: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: all 0.4s ease-in-out;
+
+    .select__list {
+      li {
+        text-decoration: underline;
+        font-weight: 400;
+        @include adaptive-value("font-size", 18, 5);
+        line-height: 130%;
+        color: #5624d0;
+        margin: 20px 0;
+      }
+    }
+  }
+
+  &.reveal .select__hide {
+    height: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    padding: 2% 0;
+    box-sizing: border-box;
+    transition: all 0.4s ease-in-out;
+  }
+}

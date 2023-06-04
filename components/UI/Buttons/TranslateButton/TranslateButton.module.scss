@@ -1,9 +1,0 @@
-@import "../../../../styles/varibales.module.scss";
-
-.translate {
-  svg {
-    @include adaptive-value("width", 20, 10);
-    @include adaptive-value("font-size", 20, 10);
-    color: #ffffff;
-  }
-}
