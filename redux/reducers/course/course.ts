@@ -21,6 +21,22 @@ export const courses = createApi({
           : [{ type: "Courses", id: "LIST" }],
     }),
 
+      // ---------------------------------------------------------------------------------------------------------------------------------
+    receiveCoursesByCategory: build.query({
+      query: ({ token, categoryId }) => ({
+        url: `/course/category/${categoryId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
+              { type: "Courses", id: "LIST" },
+            ]
+          : [{ type: "Courses", id: "LIST" }],
+    }),
+
     // ---------------------------------------------------------------------------------------------------------------------------------
     gettingACourse: build.query({
       query: ({ token, courseId }) => ({
@@ -32,22 +48,6 @@ export const courses = createApi({
         result
           ? [
               { id: result.id, type: "Courses" },
-              { type: "Courses", id: "LIST" },
-            ]
-          : [{ type: "Courses", id: "LIST" }],
-    }),
-
-    // ---------------------------------------------------------------------------------------------------------------------------------
-    receiveCoursesByCategory: build.query({
-      query: ({ token, categoryId }) => ({
-        url: `/course/category/${categoryId}`,
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
               { type: "Courses", id: "LIST" },
             ]
           : [{ type: "Courses", id: "LIST" }],
@@ -76,6 +76,6 @@ export const courses = createApi({
 
 export const {
   useGetingAllCoursesQuery,
-  useGettingACourseQuery,
   useReceiveCoursesByCategoryQuery,
+  useGettingACourseQuery,
 } = courses;

@@ -6,9 +6,25 @@ export const user = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
     // ---------------------------------------------------------------------------------------------------------------------------------
-    getTeacher: build.query({
-      query: ({ teacherId, token }) => ({
-        url: `/user/${teacherId}`,
+    getUser: build.query({
+      query: ({ token }) => ({
+        url: `/user/current`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { id: result.id, type: "Users" },
+              { type: "Users", id: "LIST" },
+            ]
+          : [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    getСreator: build.query({
+      query: ({ authorId, token }) => ({
+        url: `/user/${authorId}`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }),
@@ -31,15 +47,17 @@ export const user = createApi({
     //   invalidatesTags: [{ type: "Users", id: "LIST" }],
     // }),
 
-    // // ---------------------------------------------------------------------------------------------------------------------------------
-    // deleteProduct: build.mutation({
-    //   query: (id) => ({
-    //     url: `goods/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [{ type: "Users", id: "LIST" }],
-    // }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    deletingAUser: build.mutation({
+      query: ({ userId, token }) => ({
+        url: `user/${userId}`,
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: [{ type: "Users", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useGetTeacherQuery } = user;
+export const { useGetUserQuery, useGetСreatorQuery, useDeletingAUserMutation } =
+  user;

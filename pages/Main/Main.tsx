@@ -8,16 +8,17 @@ import Categories from "@/components/Categories/Categories";
 import SlideCourses from "@/components/SlideCourses/SlideCourses";
 import ModelComponent from "@/components/3dmodel/3dmodel";
 import { useGettingACategoryQuery } from "@/redux/reducers/category";
+import { useAppSelector } from "@/hooks/redux";
 
 const Main = () => {
   const [token, setToken] = useState("");
-  const { data: categories = [] } = useGettingACategoryQuery({ token });
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
 
+  const { data: categories = [] } = useGettingACategoryQuery({ token });
   return (
     <>
       <Hero />

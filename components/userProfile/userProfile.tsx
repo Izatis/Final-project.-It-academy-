@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import s from "./userProfile.module.scss";
 
 import Link from "next/link";
@@ -6,28 +6,27 @@ import { useRouter } from "next/router";
 import { EditOutlined, LogoutOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { IUser } from "@/redux/types/user";
 
 import Loading from "../Loading/Loading";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import { Modal } from "antd";
 
-const UserProfile = () => {
-  useEffect(() => {
-    const fullUrl = window.location.href;
-    const token = fullUrl.split(
-      "http://localhost:3000/setting/setting?token="
-    )[1];
+interface UserProfileProps {
+  user: IUser;
+  isLoading: boolean;
+  onClick: (userId: number) => void;
+  deletingAUserLoading: boolean;
+}
 
-    if (!!token) {
-      // Сохраняем токен пользователя
-      localStorage.setItem("token", JSON.stringify(token));
-    }
-  }, []);
-
-  // Для - маршутизации
+const UserProfile: FC<UserProfileProps> = ({
+  user,
+  isLoading,
+  onClick,
+  deletingAUserLoading,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { push, locale } = useRouter();
-
-  // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
 
   // Выйти из аккаунта
@@ -35,8 +34,6 @@ const UserProfile = () => {
     push("/");
     localStorage.removeItem("token");
   };
-
-  const { user, isLoading } = useAppSelector((state) => state.users);
 
   return (
     <div className={s.profile}>
@@ -46,6 +43,28 @@ const UserProfile = () => {
         </div>
       ) : (
         <div className={s.profile__content}>
+          <Modal
+            title="Изменить аватар"
+            open={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            footer={[
+              <MyButton
+                className={s.profileFirst__button}
+                onClick={() => onClick(user.id)}
+                loading={deletingAUserLoading}
+              >
+                Удалить
+              </MyButton>,
+              <MyButton
+                className={s.profileSecond__button}
+                onClick={() => setIsModalOpen(false)}
+              >
+                Нет
+              </MyButton>,
+            ]}
+          >
+            Вы уверены?
+          </Modal>
           <h2>Профили и настройки</h2>
 
           <div className={s.container}>
@@ -74,16 +93,23 @@ const UserProfile = () => {
             типографику в деле.
           </p>
 
-          <MyButton
-            width={130}
-            background="#03d665"
-            hoverBackground="#7329c2"
-            type="primary"
-            icon={<LogoutOutlined />}
-            onClick={signOut}
-          >
-            Выйти
-          </MyButton>
+          <div className={s.profile__buttons}>
+            <MyButton
+              className={s.profileFirst__button}
+              icon={<LogoutOutlined />}
+              onClick={signOut}
+            >
+              Выйти
+            </MyButton>
+
+            <MyButton
+              className={s.profileSecond__button}
+              icon={<LogoutOutlined />}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Удалить аккаунт
+            </MyButton>
+          </div>
         </div>
       )}
     </div>

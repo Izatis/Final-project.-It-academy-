@@ -1,14 +1,14 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./SideBar.module.scss";
 
-import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import cn from "classnames";
+import { Avatar } from "antd";
 import { useAppSelector } from "@/hooks/redux";
+import { useGetUserQuery } from "@/redux/reducers/user";
 
 import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
-import { Avatar } from "antd";
 
 interface ISideBarProps {
   sideBarActive: boolean;
@@ -16,10 +16,15 @@ interface ISideBarProps {
 }
 
 const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
-  // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
+  const [token, setToken] = useState("");
 
-  const { user } = useAppSelector((state) => state.users);
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+
+  const { data: user = [] } = useGetUserQuery({ token });
 
   return (
     <div
@@ -34,10 +39,10 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
           href="/setting/setting"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
-           <Avatar
-              className={s.menu__avatar}
-              src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
-            />
+          <Avatar
+            className={s.menu__avatar}
+            src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+          />
           <div className={s.sidePanel__info}>
             <h4>{user.fullName}</h4>
             <p>{user.email}</p>

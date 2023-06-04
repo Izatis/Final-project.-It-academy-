@@ -10,6 +10,7 @@ import {
   faThumbsDown,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector } from "@/hooks/redux";
 import {
   useAddReviewMutation,
   useGetReviwsQuery,
@@ -20,14 +21,14 @@ import Rating from "../Rating/Rating";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
 
 const Review: FC = () => {
-  const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
   const courseId = query.id;
-
+  
+  const [token, setToken] = useState("");
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
-  }, []);
+  }, []);  
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET

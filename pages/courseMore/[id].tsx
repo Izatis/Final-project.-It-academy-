@@ -15,30 +15,28 @@ import { useAddingToCartMutation } from "@/redux/reducers/cart";
 import Loading from "@/components/Loading/Loading";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import Rating from "@/components/Rating/Rating";
-import TeacherCard from "@/components/TeacherCard/TeacherCard";
+import TeacherCard from "@/components/CreatorCard/CreatorCard";
 import AnimateSelect from "@/UI/AnimateSelect/AnimateSelect";
 import Review from "@/components/Review/Review";
 
 export default function () {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const courseId = query.id;
   const dispatch = useAppDispatch();
-
-  const [addingToCart, { isLoading: isLoadingAddingToCart }] =
-    useAddingToCartMutation();
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
 
+  const [addingToCart, { isLoading: isLoadingAddingToCart }] =
+    useAddingToCartMutation();
+
   useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    setToken(parsedToken);
     if (!!query.id) {
-      dispatch(gettingPartitions({ courseId, parsedToken }));
+      dispatch(gettingPartitions({ courseId, token }));
     }
   }, []);
 
@@ -63,7 +61,7 @@ export default function () {
   const handleClick = () => {
     addingToCart({ token, courseId });
     openNotification(5);
-    setChangeBtn("Добавлено")
+    setChangeBtn("Добавлено");
   };
 
   return (
@@ -72,7 +70,7 @@ export default function () {
         <Loading />
       ) : (
         <div className={s.course}>
-          <h1> {contextHolder} </h1>
+          {contextHolder}
           <aside>
             <div
               className={s.course__poster}
@@ -82,7 +80,7 @@ export default function () {
               <span>Просмотреть этот курс</span>
               <Image
                 src={course.imageUrl}
-                alt="poster"
+                alt={course.imageName}
                 width={200}
                 height={200}
               />

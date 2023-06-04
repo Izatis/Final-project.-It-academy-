@@ -2,29 +2,26 @@ import React, { useEffect, useState } from "react";
 import s from "./coursesList.module.scss";
 
 import { useRouter } from "next/router";
-import { categories } from "@/constants/categories";
+import { Select } from "antd";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-
-import CourseItem from "@/components/CoursesList/CoursesList";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import {
   languageFiltering,
   priceFiltering,
 } from "@/redux/reducers/course/course.slice";
-import Loading from "@/components/Loading/Loading";
-import { Select } from "antd";
 import { useGettingACategoryQuery } from "@/redux/reducers/category";
 import { useReceiveCoursesByCategoryQuery } from "@/redux/reducers/course/course";
+import { ICourse } from "@/redux/types/course";
+
+import CourseItem from "@/components/CoursesList/CoursesList";
+import Loading from "@/components/Loading/Loading";
 
 export default function () {
   const [token, setToken] = useState("");
+  const [mainCourses, setMainCourses] = useState<ICourse[]>([]);
+  const [mainIsLoading, setMainIsLoading] = useState<boolean>(false);
   const { query }: { query: any } = useRouter();
   const categoryId = query.id;
   const { data: categories = [] } = useGettingACategoryQuery({ token });
-  const { data: courses = [], isLoading } = useReceiveCoursesByCategoryQuery({
-    token,
-    categoryId,
-  });
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
@@ -32,60 +29,79 @@ export default function () {
   }, []);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
+  // DEFAULT DATA
+  const { data: courses = [], isLoading } = useReceiveCoursesByCategoryQuery({
+    token,
+    categoryId,
+  });
+  useEffect(() => {
+    setMainIsLoading(isLoading);
+    setMainCourses(courses);
+  }, []);
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // FILTERING DATA
   const dispatch = useAppDispatch();
-  const handleChangeMain = (option: string) => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    dispatch(priceFiltering({ option, parsedToken }));
+  const handleChangePrice = (option: string) => {
+    dispatch(priceFiltering({ option, token }));
+  };
+  const { courses: priceFilteringData, isLoading: priceFilteringIsLoding } =
+    useAppSelector((state) => state.course);
+  useEffect(() => {
+    setMainIsLoading(priceFilteringIsLoding);
+    setMainCourses(priceFilteringData);
+  }, [priceFilteringIsLoding]);
+
+  const handleChangeLanguage = (option: string) => {
+    dispatch(languageFiltering({ option, token }));
   };
 
-  const handleChangeLanguage = (language: string) => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    dispatch(languageFiltering({ language, parsedToken }));
-  };
+  const {
+    courses: languageFilteringData,
+    isLoading: languageFilteringIsLoding,
+  } = useAppSelector((state) => state.course);
+  useEffect(() => {
+    setMainIsLoading(languageFilteringIsLoding);
+    setMainCourses(languageFilteringData);
+  }, [languageFilteringIsLoding]);
 
   return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <section className={s.courses}>
-          <h2 className={s.pageTitle}>
-            Все курсы по теме "
-            {!!query.id
-              ? categories.find((category: any) => category.id === +query.id)
-                  ?.title
-              : null}
-            "
-          </h2>
+    <section className={s.courses}>
+      <h2 className={s.pageTitle}>
+        Все курсы по теме "
+        {!!query.id
+          ? categories.find((category: any) => category.id === +query.id)?.title
+          : null}
+        "
+      </h2>
 
-          <header className={s.courses__header}>
-            <div className={s.filtered}>
-              <Select
-                className={s.filtered__select}
-                defaultValue="Филтрация по цене"
-                options={[
-                  { value: "ascending", label: "По убыванию" },
-                  { value: "descending", label: "По возрастанию" },
-                ]}
-                onChange={handleChangeMain}
-              />
+      <header className={s.courses__header}>
+        <div className={s.filtered}>
+          <Select
+            className={s.filtered__select}
+            defaultValue="Филтрация по цене"
+            options={[
+              { value: "ascending", label: "По убыванию" },
+              { value: "descending", label: "По возрастанию" },
+            ]}
+            onChange={handleChangePrice}
+          />
 
-              <Select
-                className={s.filtered__select}
-                defaultValue="Филтрация по языку"
-                options={[
-                  { value: "ru", label: "Русский" },
-                  { value: "en", label: "English" },
-                ]}
-                onChange={handleChangeLanguage}
-              />
-            </div>
+          <Select
+            className={s.filtered__select}
+            defaultValue="Филтрация по языку"
+            options={[
+              { value: "ru", label: "Русский" },
+              { value: "en", label: "English" },
+            ]}
+            onChange={handleChangeLanguage}
+          />
+        </div>
 
-            <span className={s.result}>{courses.length} результата</span>
-          </header>
-          <CourseItem courses={courses} />
-        </section>
-      )}
-    </>
+        <span className={s.result}>{courses.length} результата</span>
+      </header>
+
+      {mainIsLoading ? <Loading /> : <CourseItem courses={mainCourses} />}
+    </section>
   );
 }

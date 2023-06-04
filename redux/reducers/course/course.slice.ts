@@ -41,14 +41,14 @@ export const priceFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IPriceFilteringParams,
   { rejectValue: string }
->("course/priceFiltering", async ({ option, parsedToken }, thunkApi) => {
+>("course/priceFiltering", async ({ token,option }, thunkApi) => {
   try {
     // Запрос - для фильтрации по убыванию
     if (option === "descending") {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
         {
-          headers: { Authorization: `Bearer ${parsedToken}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       return data;
@@ -58,7 +58,7 @@ export const priceFiltering = createAsyncThunk<
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/course/filter/price?filter=desc",
         {
-          headers: { Authorization: `Bearer ${parsedToken}` },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       return data;
@@ -75,12 +75,12 @@ export const languageFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   ILanguageFilteringParams,
   { rejectValue: string }
->("course/languageFiltering", async ({ language, parsedToken }, thunkApi) => {
+>("course/languageFiltering", async ({ token, option }, thunkApi) => {
   try {
     const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${language}`,
+      process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${option}`,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     return data;
@@ -91,8 +91,7 @@ export const languageFiltering = createAsyncThunk<
 
 const initialState: ICourseState = {
   courses: [],
-  course: {},
-  myCourse: [],
+   myCourse: [],
   courseIdBackend: null,
   isLoading: false,
   error: "",

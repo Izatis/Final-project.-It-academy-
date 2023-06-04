@@ -13,12 +13,12 @@ export const gettingPartitions = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IGettingPartitionsParams,
   { rejectValue: string }
->("courses/gettingPartitions", async ({ courseId, parsedToken }, thunkApi) => {
+>("courses/gettingPartitions", async ({ token , courseId }, thunkApi) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/section/course/${courseId}`,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
 

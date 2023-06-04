@@ -113,9 +113,6 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
   }, [pathname]);
 
   const dispatch = useAppDispatch();
-  const resetAuth = () => {
-    dispatch(reset());
-  };
 
   const handleClick = () => {
     setIsHeaderActive(!isHeaderActive);
@@ -218,10 +215,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
             />
           </Link>
           <Link href="/cartList/cartList">
-            <FontAwesomeIcon
-              className={s.header__cart}
-              icon={faCartShopping}
-            />
+            <FontAwesomeIcon className={s.header__cart} icon={faCartShopping} />
           </Link>
 
           {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
@@ -238,7 +232,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
-                onClick={resetAuth}
+                onClick={() => dispatch(reset())}
               >
                 Войти
               </MyButton>
@@ -249,7 +243,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
-                onClick={resetAuth}
+                onClick={() => dispatch(reset())}
               >
                 Регистрация
               </MyButton>

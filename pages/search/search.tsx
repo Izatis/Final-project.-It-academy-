@@ -17,31 +17,41 @@ import Loading from "@/components/Loading/Loading";
 import CoursesList from "@/components/CoursesList/CoursesList";
 
 const Search: FC = () => {
-  const [state, setState] = useState(false);
-  const { locale } = useRouter();
-  const t = locale === "ru" ? ru : en;
-  const dispatch = useAppDispatch();
-  const { resultByCategory, courseResults, isLoading } = useAppSelector(
-    (state) => state.search
-  );
+   const [token, setToken] = useState("");
+   const [mainState, setMainState] = useState(true);
+   const [state, setState] = useState(false);
+   const { locale } = useRouter();
+   const t = locale === "ru" ? ru : en;
+   const dispatch = useAppDispatch();
+   
+   useEffect(() => {
+     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+     setToken(parsedToken);
+   }, []); 
+
+   const { resultByCategory, courseResults, isLoading } = useAppSelector(
+     (state) => state.search
+     );
+     console.log(courseResults);
+  
 
   const handleSearch = (value: string) => {
+    setMainState(false);
     setState(true);
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    dispatch(searchByCourses({ value, parsedToken }));
-    dispatch(searchByCategory({ value, parsedToken }));
-    // if (resultByCategory.length === 0 && courseResults.length === 0) {
-    //   setState(false);
-    // }
-    // if (Array.isArray(resultByCategory) && Array.isArray(courseResults)) {
-    //   setState(false);
-    // }
-    // if (resultByCategory.length === 0 && Array.isArray(courseResults)) {
-    //   setState(false);
-    // }
-    // if (Array.isArray(resultByCategory) && courseResults.length === 0) {
-    //   setState(false);
-    // }
+    dispatch(searchByCategory({ value, token }));
+    dispatch(searchByCourses({ value, token }));
+    if (resultByCategory.length === 0 && courseResults.length === 0) {
+      setState(false);
+    }
+    if (Array.isArray(resultByCategory) && Array.isArray(courseResults)) {
+      setState(false);
+    }
+    if (resultByCategory.length === 0 && Array.isArray(courseResults)) {
+      setState(false);
+    }
+    if (Array.isArray(resultByCategory) && courseResults.length === 0) {
+      setState(false);
+    }
   };
 
   return (
@@ -80,6 +90,8 @@ const Search: FC = () => {
             )}
           </>
         )
+      ) : mainState === false ? (
+        <p className={s.search__text}>Нечего не найдено(</p>
       ) : null}
     </section>
   );

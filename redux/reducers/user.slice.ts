@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
-  IEditingUser,
   IEditingUserParams,
   IGetAllUserCoursesParams,
-  IUser,
   IUserState,
 } from "../types/user";
 
@@ -25,26 +23,6 @@ export const fetchUsers = createAsyncThunk<void, string>(
   }
 );
 
-export const fetchUser = createAsyncThunk<void, string>(
-  "user/fetchUserItem",
-  async (parsedToken, thunkApi) => {
-    console.log(parsedToken);
-
-    try {
-      const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/user/current",
-        {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        }
-      );
-
-      return data;
-    } catch ({ response }: any) {
-      return thunkApi.rejectWithValue(response.data.message);
-    }
-  }
-);
-
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Запроc - для получение всех курсов пользователя
 
@@ -52,12 +30,12 @@ export const getAllUserCourses = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IGetAllUserCoursesParams,
   { rejectValue: string }
->("user/getAllUserCourses", async ({ userId, parsedToken }, thunkApi) => {
+>("user/getAllUserCourses", async ({ token, userId }, thunkApi) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/course/author/${userId}`,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
 
@@ -94,16 +72,6 @@ export const editingUser = createAsyncThunk<
 
 const initialState: IUserState = {
   users: [],
-  user: {
-    id: 0,
-    fullName: "",
-    dateOfBirth: "",
-    email: "",
-    password: "",
-    role: "",
-    imageName: "",
-    imageUrl: "",
-  },
   userCourses: [],
   isLoading: false,
   error: "",
@@ -127,22 +95,6 @@ const userSlice = createSlice({
     });
 
     builder.addCase(fetchUsers.rejected, (state: any, action: any) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
-
-    // USER ITEM
-    builder.addCase(fetchUser.pending, (state: any) => {
-      state.isLoading = true;
-    });
-
-    builder.addCase(fetchUser.fulfilled, (state: any, action) => {
-      state.user = action.payload;
-      state.isLoading = false;
-      state.error = "";
-    });
-
-    builder.addCase(fetchUser.rejected, (state: any, action: any) => {
       state.isLoading = false;
       state.error = action.payload;
     });

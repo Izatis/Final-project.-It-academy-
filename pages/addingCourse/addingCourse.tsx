@@ -31,20 +31,7 @@ const AddingCourse: FC = () => {
 
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.course);
-  // Обработчик изменения значения компонента Upload
-  const handleUploadChange = (info: any) => {
-    if (info.fileList.length > 0) {
-      // Получаем информацию о загружаемом файле
-      const uploadedFile = info.fileList[0];
 
-      // Обновляем состояние с данными о файле
-      setFile((prevFile) => ({
-        ...prevFile,
-        name: uploadedFile.name,
-        imageUrl: uploadedFile.thumbUrl || "",
-      }));
-    }
-  };
   const { push } = useRouter();
 
   // Отправляем post запрос

@@ -1,14 +1,73 @@
 @import "./styles/varibales.module.scss";
 
+.profileFirst__button {
+  background-color: #7329c2;
+  border: 1px solid #7329c2;
+  color: #ffffff;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: transparent;
+    border: 1px solid #7329c2 !important;
+    color: #7329c2 !important;
+    transition: all 0.5s;
+  }
+}
+
+.profileSecond__button {
+  background-color: #03d665;
+  border: 1px solid #03d665;
+  color: #ffffff;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: transparent;
+    border: 1px solid #03d665 !important;
+    color: #03d665 !important;
+    transition: all 0.5s;
+  }
+}
+
 .profile {
   max-width: 1440px;
   height: 100vh;
   margin: 0 auto;
 
-
   .profile__content {
     margin: 5% 20%;
 
+    .profile__buttons {
+      display: flex;
+      gap: 20px;
+
+      .profileFirst__buttons {
+        background-color: #7329c2;
+        border: 1px solid #7329c2;
+        color: #ffffff;
+        transition: all 0.5s;
+
+        &:hover {
+          background-color: transparent;
+          border: 1px solid #7329c2;
+          color: #7329c2;
+          transition: all 0.5s;
+        }
+      }
+
+      .profileSecond__button {
+        background-color: #03d665;
+        border: 1px solid #03d665;
+        color: #ffffff;
+        transition: all 0.5s;
+
+        &:hover {
+          background-color: transparent;
+          border: 1px solid #03d665;
+          color: #03d665;
+          transition: all 0.5s;
+        }
+      }
+    }
     .container {
       display: flex;
       align-items: baseline;

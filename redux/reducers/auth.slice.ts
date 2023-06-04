@@ -9,7 +9,7 @@ import {
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
   "user/registration",
-  async ({ fullName, email, password }, thunkApi) => {    
+  async ({ fullName, email, password }, thunkApi) => {
     try {
       const { data } = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/auth/register",

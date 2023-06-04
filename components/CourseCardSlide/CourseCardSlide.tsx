@@ -9,17 +9,18 @@ import "swiper/css/pagination";
 import Link from "next/link";
 import Image from "next/image";
 import Rating from "../Rating/Rating";
+import { useAppSelector } from "@/hooks/redux";
 import { useGetingAllCoursesQuery } from "@/redux/reducers/course/course";
 
 const CourseCardSlide = () => {
   const [token, setToken] = useState("");
-  const { data: courses = [] } = useGetingAllCoursesQuery({token});
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
 
+  const { data: courses = [] } = useGetingAllCoursesQuery({ token });
   return (
     <section className={s.cards}>
       <h2>Курсы</h2>

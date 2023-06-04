@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./userCourses.module.scss";
 
 import Link from "next/link";
@@ -8,17 +8,21 @@ import { getAllUserCourses } from "@/redux/reducers/user.slice";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import Loading from "@/components/Loading/Loading";
 import CoursesList from "@/components/CoursesList/CoursesList";
+import { useGetUserQuery } from "@/redux/reducers/user";
 
 const UserCourse = () => {
+  const [token, setToken] = useState("");
   const dispatch = useAppDispatch();
-  const { user, userCourses } = useAppSelector((state) => state.user);
+  const { data: user = {} } = useGetUserQuery({ token });
+  const userId = user.id;
 
   useEffect(() => {
-    // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    const userId = user.id;
+    setToken(parsedToken);
+  }, []);
 
-    dispatch(getAllUserCourses({ userId, parsedToken }));
+  useEffect(() => {
+    dispatch(getAllUserCourses({ token, userId }));
   }, []);
 
   return (
@@ -35,7 +39,7 @@ const UserCourse = () => {
           </MyButton>
         </Link>
       </div>
-      <CoursesList courses={userCourses} />{" "}
+      {/* <CoursesList courses={userCourses} /> */}
     </section>
   );
 };

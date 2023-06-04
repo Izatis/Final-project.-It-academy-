@@ -13,7 +13,6 @@ export interface IUser {
 
 export interface IUserState {
   users: IUser[];
-  user: IUser;
   userCourses: ICourse[];
   isLoading: boolean;
   error: string;
@@ -21,6 +20,11 @@ export interface IUserState {
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Params
+export interface IGetAllUserCoursesParams {
+  token: string;
+  userId: number;
+}
+
 export interface IEditingUser {
   fullName: string;
   dateOfBirth: string;
@@ -28,11 +32,6 @@ export interface IEditingUser {
   password: string;
   passwordSecond: string;
   imageUrl: string;
-}
-
-export interface IGetAllUserCoursesParams {
-  userId: number;
-  parsedToken: string;
 }
 
 export interface IEditingUserParams {

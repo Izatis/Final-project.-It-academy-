@@ -72,6 +72,7 @@
       .aside__button {
         @include adaptive-value("width", 280, 200);
         background-color: #7329c2;
+        border: 1px solid #7329c2;
         color: #ffffff;
         transition: all 0.5s;
 
@@ -86,6 +87,7 @@
       .aside__subButton {
         @include adaptive-value("width", 280, 200);
         background-color: #03d665;
+        border: 1px solid #03d665;
         color: #ffffff;
         transition: all 0.5s;
 

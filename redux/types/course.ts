@@ -13,7 +13,6 @@ export interface ICourse {
 
 export interface ICourseState {
   courses: ICourse[];
-  course: any;
   myCourse: ICourse[];
   courseIdBackend: any;
   isLoading: boolean;
@@ -41,11 +40,11 @@ export interface ICourseCreationParams {
 }
 
 export interface IPriceFilteringParams {
+  token: string;
   option: string;
-  parsedToken: string;
 }
 
 export interface ILanguageFilteringParams {
-  language: string;
-  parsedToken: string;
+  token: string;
+  option: string;
 }

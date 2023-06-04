@@ -19,12 +19,12 @@ export const searchByCategory = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   ISearchByCategoryParams,
   { rejectValue: string }
->("courses/searchByCategory", async ({ value, parsedToken }, thunkApi) => {
+>("courses/searchByCategory", async ({ token, value }, thunkApi) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/category/title/${value}`,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     return data;
@@ -39,12 +39,12 @@ export const searchByCourses = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   ISearchByCoursesParams,
   { rejectValue: string }
->("courses/searchByCourses", async ({ value, parsedToken }, thunkApi) => {
+>("courses/searchByCourses", async ({ token, value }, thunkApi) => {
   try {
     const { data } = await axios.get(
       process.env.NEXT_PUBLIC_BASE_URL + `/course/name/${value}`,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     return data;

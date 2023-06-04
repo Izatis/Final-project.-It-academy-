@@ -20,9 +20,9 @@ const CoursesList: FC<ICourseProps> = ({ courses }) => {
             <div className={s.course__image}>
               <Image
                 src={course.imageUrl}
-                alt="poster"
-                width={300}
-                height={200}
+                alt={course.imageName}
+                width={200}
+                height={100}
               />
 
               <div className={s.blackout}>

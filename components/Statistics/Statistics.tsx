@@ -11,6 +11,7 @@ import {
   useGettingStatisticsUserTodayCountQuery,
   useGettingStatisticsReviewCountQuery,
 } from "@/redux/reducers/statistics";
+import { useAppSelector } from "@/hooks/redux";
 
 const Statistics: FC = () => {
   const [token, setToken] = useState("");

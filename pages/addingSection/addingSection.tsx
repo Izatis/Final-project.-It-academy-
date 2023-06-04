@@ -2,14 +2,14 @@ import React, { FC, useEffect, useState } from "react";
 import s from "./addingSection.module.scss";
 
 import { useRouter } from "next/router";
-import { Form, Input, UploadFile } from "antd";
+import { Form, Input } from "antd";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import { createPartition } from "@/redux/reducers/section.slice";
 import { ICreatePartition } from "@/redux/types/section";
+
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
 
 const AddingSection: FC = () => {
   // Состояния - для данных
@@ -22,21 +22,6 @@ const AddingSection: FC = () => {
 
   // Функции - для смены текста
   const t = locale === "ru" ? ru : en;
-
-  // Обработчик изменения значения компонента Upload
-  const handleUploadChange = (info: any) => {
-    if (info.fileList.length > 0) {
-      // Получаем информацию о загружаемом файле
-      const uploadedFile = info.fileList[0];
-
-      // Обновляем состояние с данными о файле
-      setFile((prevFile) => ({
-        ...prevFile,
-        name: uploadedFile.name,
-        imageUrl: uploadedFile.thumbUrl || "",
-      }));
-    }
-  };
 
   const { push } = useRouter();
   const dispatch = useAppDispatch();
@@ -63,8 +48,6 @@ const AddingSection: FC = () => {
   useEffect(() => {
     form.setFieldsValue({ ...file });
   }, []);
-
-  const fileList: UploadFile[] = [];
 
   return (
     <section className={s.signIn}>
