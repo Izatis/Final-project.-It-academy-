@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   useReceivingABasketQuery,
   useBasketAmountQuery,
-  useRemoveFromCartMutation,
 } from "@/redux/reducers/cart";
 import { ICart } from "@/redux/types/cart";
 
@@ -23,13 +22,6 @@ const CartList = () => {
     setToken(parsedToken);
   }, []);
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  // DELETE
-  const [removeFromCart] = useRemoveFromCartMutation();
-  const handleClick = async (event: any, courseId: number) => {
-    event.preventDefault();
-    await removeFromCart({ token, courseId }).unwrap();
-  };
   return (
     <>
       {isLoading ? (
@@ -43,20 +35,20 @@ const CartList = () => {
               <span className={s.aside__total}>Итого:</span>
               <span className={s.aside__price}>{basketAmount} $</span>
 
-              <Link href="/payment/payment">
+              <Link href="/paymentPages/payment/payment">
                 <MyButton className={s.aside__Button}>Купить сейчас</MyButton>
               </Link>
             </aside>
 
             <div className={s.cart__rightBlock}>
               {Array.isArray(carts) ? (
-                <b className={s.cart__isEmpty}>Корзина пуста</b>
-              ) : (
                 carts.map((cart: ICart) => {
                   return (
-                    <CartItem cart={cart} key={cart.id} onClick={handleClick} />
+                    <CartItem cart={cart} key={cart.id}/>
                   );
                 })
+              ) : (
+                <b className={s.cart__isEmpty}>Корзина пуста</b>
               )}
             </div>
           </div>

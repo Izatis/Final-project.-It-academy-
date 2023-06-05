@@ -1,10 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import s from "./AddingLesson.module.scss";
 
-import Link from "next/link";
-import { UploadOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
-import { Button, Form, Input, InputNumber, Upload } from "antd";
+import { Form, Input, InputNumber } from "antd";
 import en from "../../../locales/EN/translation.json";
 import ru from "../../../locales/RU/translation.json";
 import de from "../../../locales/DE/translation.json";
@@ -43,9 +41,7 @@ const AddingLesson: FC = () => {
       break;
   }
   const dispatch = useAppDispatch();
-  const { sectionIdBackend, error } = useAppSelector(
-    (state) => state.section
-  );
+  const { sectionIdBackend, error } = useAppSelector((state) => state.section);
 
   // Отправляем post запрос
   const handleSubmit = async (value: IAddingALesson) => {

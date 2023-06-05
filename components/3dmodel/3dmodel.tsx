@@ -47,9 +47,9 @@ const ModelComponent = () => {
         hidden: { opacity: 0, x: 100 },
       }}
     >
-      <Canvas camera={{ position: [0, 2, 5], zoom: 2 }}>
-        <OrbitControls />
+      <Canvas camera={{ position: [0, 2, 5] }}>
         <color attach="background" />
+        <OrbitControls />
         <hemisphereLight intensity={0.35} />
         <spotLight
           position={[10, 10, 10]}
@@ -61,6 +61,8 @@ const ModelComponent = () => {
         <Suspense fallback={null}>
           <Model />
         </Suspense>
+      
+
       </Canvas>
 
       <motion.h2

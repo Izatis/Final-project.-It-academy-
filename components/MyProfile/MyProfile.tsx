@@ -1,8 +1,9 @@
-import React, { FC, useState } from "react";
-import s from "./userProfile.module.scss";
+import React, { FC, useEffect, useState } from "react";
+import s from "./MyProfile.module.scss";
 
-import Link from "next/link";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { Modal, notification } from "antd";
 import { UserOutlined, EditOutlined, LogoutOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
@@ -10,27 +11,28 @@ import de from "../../locales/DE/translation.json";
 import ch from "../../locales/CH/translation.json";
 import fr from "../../locales/FR/translation.json";
 import uk from "../../locales/UK/translation.json";
+import { useDeletingAUserMutation } from "@/redux/reducers/user";
 import { IUser } from "@/redux/types/user";
 
 import Loading from "../Loading/Loading";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
-import { Modal } from "antd";
 
-interface UserProfileProps {
+interface IMyProfileProps {
   user: IUser;
   isLoading: boolean;
-  onClick: (userId: number) => void;
-  deletingAUserLoading: boolean;
 }
 
-const UserProfile: FC<UserProfileProps> = ({
-  user,
-  isLoading,
-  onClick,
-  deletingAUserLoading,
-}) => {
+const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
+  const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push, locale } = useRouter();
+  const userId = user.id;
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+
   let t: any;
   switch (locale) {
     case "en":
@@ -57,29 +59,50 @@ const UserProfile: FC<UserProfileProps> = ({
     push("/");
     localStorage.removeItem("token");
   };
-  
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // DELETE
+  const [deletingAUser, { isLoading: deletingAUserLoading }] =
+    useDeletingAUserMutation();
+
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (placement: any) => {
+    api.info({
+      message: `Ваш аккаунт удалено!`,
+      placement,
+    });
+  };
+
+  const handleDeletingAUser = async () => {
+    push("/auth/signUp/signUp");
+    await deletingAUser({ userId, token }).unwrap();
+    localStorage.removeItem("token");
+    openNotification(5);
+  };
+
   return (
-    <div className={s.profile}>
+    <div className={s.myProfile}>
+      {contextHolder}
       {isLoading ? (
         <div className={s.loading}>
           <Loading />
         </div>
       ) : (
-        <div className={s.profile__content}>
+        <div className={s.myProfile__content}>
           <Modal
             title="Изменить аватар"
             open={isModalOpen}
             onCancel={() => setIsModalOpen(false)}
             footer={[
               <MyButton
-                className={s.profileFirst__button}
-                onClick={() => onClick(user.id)}
+                className={s.myProfile__buttonFirst}
+                onClick={handleDeletingAUser}
                 loading={deletingAUserLoading}
               >
                 Удалить
               </MyButton>,
               <MyButton
-                className={s.profileSecond__button}
+                className={s.myProfile__buttonSecond}
                 onClick={() => setIsModalOpen(false)}
               >
                 Нет
@@ -90,28 +113,28 @@ const UserProfile: FC<UserProfileProps> = ({
           </Modal>
 
           <div className={s.container}>
-            <ul className={s.profile__list}>
-              <li className={s.profile__fullName}>{user.fullName}</li>
-              <li className={s.profile__email}>{user.email}</li>
-              <li className={s.profile__dateOfBirth}>{user.dateOfBirth}</li>
+            <ul className={s.myProfile__list}>
+              <li className={s.myProfile__fullName}>{user.fullName}</li>
+              <li className={s.myProfile__email}>{user.email}</li>
+              <li className={s.myProfile__dateOfBirth}>{user.dateOfBirth}</li>
             </ul>
 
             <div>
-              {/* {user.role === "ROLE_ADMIN" && ( */}
+              {user.role === "ROLE_ADMIN" && (
                 <Link href={"/admin/adminPage/adminPage"}>
                   <MyButton
-                    className={s.profileFirst__button}
+                    className={s.myProfile__buttonFirst}
                     type="primary"
                     icon={<UserOutlined />}
                   >
                     Панель админа
                   </MyButton>
                 </Link>
-              {/* )} */}
+              )}
 
               <Link href={"/editing/editing"}>
                 <MyButton
-                  className={s.profileSecond__button}
+                  className={s.myProfile__buttonSecond}
                   type="primary"
                   icon={<EditOutlined />}
                 >
@@ -129,9 +152,9 @@ const UserProfile: FC<UserProfileProps> = ({
             типографику в деле.
           </p>
 
-          <div className={s.profile__buttons}>
+          <div className={s.myProfile__buttons}>
             <MyButton
-              className={s.profileFirst__button}
+              className={s.myProfile__buttonFirst}
               icon={<LogoutOutlined />}
               onClick={signOut}
             >
@@ -139,7 +162,7 @@ const UserProfile: FC<UserProfileProps> = ({
             </MyButton>
 
             <MyButton
-              className={s.profileSecond__button}
+              className={s.myProfile__buttonSecond}
               icon={<LogoutOutlined />}
               onClick={() => setIsModalOpen(true)}
             >
@@ -152,4 +175,4 @@ const UserProfile: FC<UserProfileProps> = ({
   );
 };
 
-export default UserProfile;
+export default MyProfile;

@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-import s from "./MyModal.module.scss";
+import s from "./MyModalVideo.module.scss";
 
 import { Modal } from "antd";
 import { ILesson } from "@/redux/types/lesson";
+import MyInput from "@/UI/MyInput/MyInput";
 
 interface IMyModalVideoProps {
   lesson: ILesson;
@@ -37,6 +38,8 @@ const MyModalVideo: FC<IMyModalVideoProps> = ({
       </video>
 
       <p className={s.video__description}>{lesson.description}</p>
+
+   
     </Modal>
   );
 };

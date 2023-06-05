@@ -46,6 +46,8 @@ const Review: FC = () => {
     }
   };
 
+  console.log(data);
+  
   return (
     <article className={s.reviewCards}>
     <div className={s.reviewCards__leaveFeedback}>
@@ -99,20 +101,22 @@ const Review: FC = () => {
             <div className={s.reviewCard} key={rewiew.id}>
               <header className={s.reviewCard__avatar}>
                 <Image
-                  src={rewiew.avatar}
+                  src={rewiew.userImageUrl}
                   alt="avatar"
                   width={300}
                   height={200}
                 />
 
                 <ul className={s.reviewCard__list}>
-                  <li className={s.reviewCard__fullName}>{rewiew.title}</li>
+                  <li className={s.reviewCard__fullName}>{rewiew.userFullname}</li>
+                  <li className={s.reviewCard__email}>{rewiew.userEmail}</li>
                   <li className={s.reviewCard__rating}>
                     <pre>{rewiew.grade}</pre>
                     <Rating value={rewiew.grade} />
                   </li>
                 </ul>
               </header>
+              <b>{rewiew.title}</b>
               <p>{rewiew.description}</p>
               <footer>
                 <span>

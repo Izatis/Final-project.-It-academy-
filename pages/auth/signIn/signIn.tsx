@@ -35,7 +35,6 @@ const SignIn: FC = () => {
   // Для - маршутизации
   const { push, locale } = useRouter();
 
-
   // Функции - для смены текста
   let t: any;
   switch (locale) {
@@ -65,7 +64,6 @@ const SignIn: FC = () => {
       push("/setting/setting");
     }
   }, [token]);
-
 
   // Отправляем post запрос для регистрации
   const handleSubmit = (value: IUserLogin) => {

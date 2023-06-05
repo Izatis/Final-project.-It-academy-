@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import s from "./CartItem.module.scss";
 
 import Link from "next/link";
@@ -6,16 +6,30 @@ import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useRemoveFromCartMutation } from "@/redux/reducers/cart";
+import { ICart } from "@/redux/types/cart";
 
 import Rating from "../Rating/Rating";
-import { ICart } from "@/redux/types/cart";
 
 interface ICartProps {
   cart: ICart;
-  onClick: (e: any, courseId: number) => void;
 }
 
-const CartItem: FC<ICartProps> = ({ cart, onClick }) => {
+const CartItem: FC<ICartProps> = ({ cart }) => {
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // DELETE
+  const [removeFromCart] = useRemoveFromCartMutation();
+  const handleClick = async (event: any, courseId: number) => {
+    event.preventDefault();
+    await removeFromCart({ token, courseId }).unwrap();
+  };
   return (
     <Link className={s.cart__link} href={`/courseMore/${cart.id}`}>
       <div className={s.cart__image}>
@@ -57,7 +71,7 @@ const CartItem: FC<ICartProps> = ({ cart, onClick }) => {
           <FontAwesomeIcon
             className={s.cart__trash}
             icon={faTrash}
-            onClick={(e) => onClick(e, cart.id)}
+            onClick={(e) => handleClick(e, cart.id)}
           />
         </div>
       </div>

@@ -130,6 +130,24 @@
       }
     }
   }
+
+  .course__trash {
+    display: flex;
+    justify-content: flex-end;
+    svg {
+      @include adaptive-value("height", 25, 15);
+      @include adaptive-value("font-size", 25, 15);
+      color: #7329c2;
+      padding: 1%;
+      transition: all 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        color: #03d665;
+        transition: all 0.3s;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 425px) {

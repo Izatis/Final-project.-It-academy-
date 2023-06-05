@@ -3,7 +3,7 @@
 .reviewCards {
   .reviewCards__leaveFeedback {
     max-width: 1000px;
-    margin: 5% 0 ;
+    margin: 5% 0;
     box-sizing: border-box;
 
     b {
@@ -61,6 +61,13 @@
             @include adaptive-value("font-size", 18, 12);
             line-height: 130%;
             color: #191970;
+          }
+
+          .reviewCard__email {
+            font-weight: 400;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #a7b0c2;
           }
 
           .reviewCard__rating {

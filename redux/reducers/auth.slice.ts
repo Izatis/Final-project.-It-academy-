@@ -47,7 +47,7 @@ export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
 
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(data.token));
-
+      
       return data.token;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);

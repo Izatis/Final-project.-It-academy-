@@ -37,18 +37,10 @@ const SignUp: FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state) => state.auth);
+  const {isLoading, error } = useAppSelector((state) => state.auth);
    
   // Для - маршутизации
   const { push, locale } = useRouter();
-
-  useEffect(() => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    if (!!parsedToken) {
-      push("/setting/setting");
-    }
-  }, [isLoading]);
 
   // Функции - для смены текста
   let t: any;
@@ -89,6 +81,13 @@ const SignUp: FC = () => {
     }
   };
 
+  useEffect(() => {
+    // Достаем токен пользователя
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    if (parsedToken) {
+      push("/setting/setting");
+    }
+  }, [isLoading]);
   // Для сохранения значений инпутов
   const [form] = Form.useForm();
 

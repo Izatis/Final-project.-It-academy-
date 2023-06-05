@@ -9,8 +9,8 @@ import { IStripePay } from "@/redux/types/payment";
 
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import ParticlesComponent from "@/components/Particles/Particles";
-import { courseFee } from "@/redux/reducers/payment.slice";
 import { useRouter } from "next/router";
+import { courseFee, reset } from "@/redux/reducers/payment.slice";
 
 const Payment: FC = () => {
   // Состояния - для данных покупки курсов
@@ -20,29 +20,20 @@ const Payment: FC = () => {
     expYear: 2024,
     cvc: "444",
   });
-  const [course, setCourse] = useState<any>({});
-  console.log(course);
 
-  const { query }: { query: any } = useRouter();
+  const { push, query }: { push: any; query: any } = useRouter();
   const { courses } = useAppSelector((state) => state.course);
+  const { massage, isLoading } = useAppSelector((state) => state.payment);
 
-  useEffect(() => {
-    if (!!query.id) {
-      const course = courses.find(({ id }: { id: number }) => id === +query.id);
-      console.log(course);
-
-      setCourse(course);
-    }
-  }, []);
+  const courseId = query.id;
 
   const dispatch = useAppDispatch();
-
   const onFinish = (stripePay: IStripePay) => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    
-    const id = course.id;
-    dispatch(courseFee({ id, stripePay, parsedToken }));
+    const token = JSON.parse(localStorage.getItem("token") as string);
+
+    console.log(token, courseId, stripePay);
+    dispatch(courseFee({ token, stripePay, courseId }));
+
     setPayment({
       cardNumber: "",
       expMonth: 0,
@@ -50,6 +41,13 @@ const Payment: FC = () => {
       cvc: "",
     });
   };
+
+  useEffect(() => {
+    if (!!massage) {
+      push("/paymentPages/successfully/successfully");
+    }
+    dispatch(reset());
+  }, [massage]);
 
   // Для сохранения значений инпутов
   const [form] = Form.useForm();
@@ -139,7 +137,7 @@ const Payment: FC = () => {
 
             <Form.Item
               name="cvc"
-              label="CVC"
+              label="CVV"
               rules={[
                 {
                   required: true,
@@ -172,8 +170,7 @@ const Payment: FC = () => {
               background="#03d665"
               hoverBackground="#7329c2"
               type="primary"
-
-              // loading={loading}
+              loading={isLoading}
             >
               Pay Now
             </MyButton>

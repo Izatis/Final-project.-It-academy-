@@ -80,14 +80,19 @@ export const courses = createApi({
     //   invalidatesTags: [{ type: "Courses", id: "LIST" }],
     // }),
 
-    // // ---------------------------------------------------------------------------------------------------------------------------------
-    // deleteProduct: build.mutation({
-    //   query: (id) => ({
-    //     url: `goods/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [{ type: "Courses", id: "LIST" }],
-    // }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    deletingACourse: build.mutation({
+      query: ({ token,courseId }) => (
+        console.log(courseId),
+        console.log(token),
+        {
+          url: `/course/${courseId}`,
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      ),
+      invalidatesTags: [{ type: "Courses", id: "LIST" }],
+    }),
   }),
 });
 
@@ -96,4 +101,5 @@ export const {
   useGetUserCoursesQuery,
   useReceiveCoursesByCategoryQuery,
   useGettingACourseQuery,
+  useDeletingACourseMutation,
 } = courses;

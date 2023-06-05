@@ -16,9 +16,9 @@ import { useGetCreatorQuery } from "@/redux/reducers/user";
 import Loading from "@/components/Loading/Loading";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import Rating from "@/components/Rating/Rating";
-import TeacherCard from "@/components/UserCard/UserCard";
 import AnimateSelect from "@/UI/AnimateSelect/AnimateSelect";
 import Review from "@/components/Review/Review";
+import UserCard from "@/components/UserCard/UserCard";
 
 export default function () {
   const [token, setToken] = useState("");
@@ -111,7 +111,7 @@ export default function () {
                   {changeBtn}
                 </MyButton>
 
-                <Link href={`/payment/${course.id}`}>
+                <Link href={`/paymentPages/payment/${course.id}`}>
                   <MyButton className={s.aside__subButton}>
                     Купить сейчас
                   </MyButton>
@@ -160,7 +160,7 @@ export default function () {
                   ))}
               </div>
               <b className={s.course__creator}>Преподаватель:</b>
-              <TeacherCard user={creator} />
+              <UserCard user={creator} />
             </div>
           </div>
           <Review />

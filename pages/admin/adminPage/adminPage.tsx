@@ -10,7 +10,7 @@ const adminPage = () => {
     <section className={s.adminPage}>
       <div className={s.adminPage__content}>
         <div>
-          <h2>Админская понель</h2>
+          <h2>Админская панель</h2>
           <p>Управляйте приложением</p>
         </div>
         <Link href="/">

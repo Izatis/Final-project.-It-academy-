@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/static/icon.svg" />
         <title>Online Platform</title>
       </Head>
-      {/* <MainLoad /> */}
+      <MainLoad />
       <Main />
     </>
   );

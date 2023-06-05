@@ -1,24 +1,21 @@
-import React, {  FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./setting.module.scss";
 
-import { useRouter } from "next/router";
 import Image from "next/image";
-import { Avatar, Modal, Tooltip, notification } from "antd";
-import cover from "../../public/cover.png";
-
-import UserProfile from "../../components/userProfile/userProfile";
-import Aside from "@/components/Aside/Aside";
+import { Avatar, Modal, Tooltip } from "antd";
 import {
-  useDeletingAUserMutation,
   useGetUserQuery,
 } from "@/redux/reducers/user";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import { useChangeAvatarMutation } from "@/redux/reducers/s3";
+import cover from "../../public/cover.png";
+
+import Aside from "@/components/Aside/Aside";
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyProfile from "@/components/MyProfile/MyProfile";
 
 const Setting: FC = () => {
   const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { push } = useRouter();
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
@@ -37,7 +34,7 @@ const Setting: FC = () => {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
-    const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [changeAvatar] = useChangeAvatarMutation();
   const { data: user = {}, isLoading } = useGetUserQuery({ token });
   const userId = user.id;
@@ -53,28 +50,8 @@ const Setting: FC = () => {
     }
   };
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  // DELETE
-  const [deletingAUser, { isLoading: deletingAUserLoading }] =
-    useDeletingAUserMutation();
-
-  const handleDeletingAUser = async (userId: number) => {
-    push("/auth/signUp/signUp");
-    await deletingAUser({ userId, token }).unwrap();
-    localStorage.removeItem("token");
-    openNotification(5);
-  };
-
-  const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement: any) => {
-    api.info({
-      message: `Ваш аккаунт удалено!`,
-      placement,
-    });
-  };
   return (
     <section className={s.setting}>
-      {contextHolder}
       <Modal
         title="Изменить аватар"
         open={isModalOpen}
@@ -111,11 +88,9 @@ const Setting: FC = () => {
 
         <Aside />
       </div>
-      <UserProfile
+      <MyProfile
         user={user}
         isLoading={isLoading}
-        onClick={handleDeletingAUser}
-        deletingAUserLoading={deletingAUserLoading}
       />
     </section>
   );

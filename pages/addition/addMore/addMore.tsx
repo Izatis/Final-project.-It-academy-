@@ -11,34 +11,33 @@ const AddMore = () => {
       <h2>Хотите ещё урок добавить?</h2>
       <div className={s.addMore__item}>
         <Link href="/addition/addingLesson/addingLesson">
-          <MyButton
-            className={s.addMoreSecond__button}          >
-            Да
-          </MyButton>
+          <MyButton className={s.addMoreSecond__button}>Да</MyButton>
         </Link>
         <Link href="/userCourse/userCourse">
-          <MyButton
-            className={s.addMoreFirst__button}          >
-            Нет
-          </MyButton>
+          <MyButton className={s.addMoreFirst__button}>Нет</MyButton>
         </Link>
       </div>
 
       <h2>Хотите ещё раздел добавить?</h2>
       <div className={s.addMore__item}>
         <Link href="/addition/addingSection/addingSection">
-          <MyButton
-            className={s.addMoreSecond__button}          >
-            Да
-          </MyButton>
+          <MyButton className={s.addMoreSecond__button}>Да</MyButton>
         </Link>
         <Link href="/userCourse/userCourse">
-          <MyButton
-            className={s.addMoreFirst__button}          >
-            Нет
-          </MyButton>
+          <MyButton className={s.addMoreFirst__button}>Нет</MyButton>
         </Link>
       </div>
+
+      <Link href="/userCourses/userCourses">
+        <MyButton
+          className={s.goToProfile}
+          background="#03d665"
+          hoverBackground="#7329c2"
+          type="primary"
+        >
+          Завершить создание курса
+        </MyButton>
+      </Link>
     </section>
   );
 };

@@ -1,47 +1,47 @@
 @import "../../styles/varibales.module.scss";
 
-.teacher {
+.userProfile {
   @include centering();
   margin: 10% auto;
 
-  .teacher__info {
+  .userProfile__info {
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    .teacher__introduction {
+    .userProfile__introduction {
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      .teacher__flex{
+      .userProfile__flex{
          display: flex;
          align-items: center;
          gap: 20px;
 
-        .teacher__avatar {
+        .userProfile__avatar {
           @include adaptive-value("width", 150, 70);
           @include adaptive-value("height", 150, 70);
           border-radius: 50%;
           object-fit: cover;
         }
   
-        .teacher__list {
-          .teacher__static {
+        .userProfile__list {
+          .userProfile__static {
             font-weight: 700;
             @include adaptive-value("font-size", 15, 8);
             line-height: 130%;
             color: #a7b0c2;
           }
   
-          .teacher__fullName {
+          .userProfile__fullName {
             font-weight: 700;
             @include adaptive-value("font-size", 30, 15);
             line-height: 130%;
             color: #03d665;
           }
   
-          .teacher__profession {
+          .userProfile__profession {
             font-weight: 700;
             @include adaptive-value("font-size", 15, 12);
             line-height: 130%;
@@ -74,13 +74,13 @@
         }
       }
 
-      .teacher__socialMedia {
+      .userProfile__socialMedia {
         display: flex;
         @include adaptive-value("gap", 40, 20);
 
         li {
           a {
-            .teacher__social {
+            .userProfile__social {
               @include adaptive-value("width", 20, 12);
               @include adaptive-value("font-size", 20, 12);
               color: #7329c2;
@@ -90,14 +90,14 @@
       }
     }
 
-    .teacher__title {
+    .userProfile__title {
       font-weight: 700;
       @include adaptive-value("font-size", 20, 12);
       line-height: 130%;
       color: #191970;
     }
 
-    .teacher__description {
+    .userProfile__description {
       font-weight: 400;
       @include adaptive-value("font-size", 15, 8);
       line-height: 130%;
@@ -115,7 +115,7 @@
 }
 
 @media screen and (max-width: 425px) {
-  .teacher {
+  .userProfile {
     margin: 25% auto;
   }
 }

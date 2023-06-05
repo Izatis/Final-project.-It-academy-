@@ -8,7 +8,7 @@ const MainLoad = () => {
   useEffect(() => {
     setTimeout(function () {
       setLoad(false);
-    }, 5000);
+    }, 1200);
   }, [load]);
 
   const [show, setShow] = useState(false);

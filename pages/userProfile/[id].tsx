@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import s from "./creatorProfile.module.scss";
+import s from "./userProfile.module.scss";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -11,29 +11,19 @@ import { useAppSelector } from "@/hooks/redux";
 import CourseItem from "@/components/CoursesList/CoursesList";
 
 export default function () {
-  // Состояние - для данных учителя
-  const [teacher, setTeacher] = useState<any>({});
-
   const { courses, isLoading } = useAppSelector((state) => state.course);
 
   const { query }: { query: any } = useRouter();
 
   // Получает объект из массива categories
-  useEffect(() => {
-    if (!!query.id) {
-      const teacher = teachers.find(
-        ({ id }: { id: number }) => id === +query.id
-      );
-      setTeacher(teacher);
-    }
-  }, []);
+
   return (
-    <section className={s.teacher}>
-      <div className={s.teacher__info}>
-        <div className={s.teacher__introduction}>
-          <div className={s.teacher__flex}>
+    <section className={s.userProfile}>
+      <div className={s.userProfile__info}>
+        <div className={s.userProfile__introduction}>
+          <div className={s.userProfile__flex}>
             <Image
-              className={s.teacher__avatar}
+              className={s.userProfile__avatar}
               src={
                 "https://images.squarespace-cdn.com/content/v1/5cd4eaf58d974051df3fe898/1680603773142-CXT03T3ZFXC6QPPNVQ1D/Home+Page+Photo.jpeg?format=2500w"
               }
@@ -42,10 +32,10 @@ export default function () {
               height={200}
             />
 
-            <ul className={s.teacher__list}>
-              <li className={s.teacher__static}>Преподаватель:</li>
-              <li className={s.teacher__fullName}>Andrew Chudlya</li>
-              <li className={s.teacher__profession}>Front-End Developer</li>
+            <ul className={s.userProfile__list}>
+              <li className={s.userProfile__static}>Преподаватель:</li>
+              <li className={s.userProfile__fullName}>Andrew Chudlya</li>
+              <li className={s.userProfile__profession}>Front-End Developer</li>
               <li>
                 <dl>
                   <span>
@@ -62,24 +52,24 @@ export default function () {
             </ul>
           </div>
 
-          <ul className={s.teacher__socialMedia}>
+          <ul className={s.userProfile__socialMedia}>
             <li>
               <a href="http://" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon
-                  className={s.teacher__social}
+                  className={s.userProfile__social}
                   icon={faInstagram}
                 />
               </a>
             </li>
             <li>
               <a href="http://" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon className={s.teacher__social} icon={faPhone} />
+                <FontAwesomeIcon className={s.userProfile__social} icon={faPhone} />
               </a>
             </li>
             <li>
               <a href="http://" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon
-                  className={s.teacher__social}
+                  className={s.userProfile__social}
                   icon={faTelegram}
                 />
               </a>
@@ -87,8 +77,8 @@ export default function () {
           </ul>
         </div>
 
-        <b className={s.teacher__title}>Немного о себе:</b>
-        <p className={s.teacher__description}>
+        <b className={s.userProfile__title}>Немного о себе:</b>
+        <p className={s.userProfile__description}>
           Добрый день! Меня зовут Петриченко Иван. Уже более 7 лет занимаюсь
           Front-End разработкой. Я создаю сайты и веб-приложения под ключ,
           обучаю этому взрослых и детей, организовываю и провожу мероприятия,
@@ -98,9 +88,9 @@ export default function () {
 
       <h2>Мои курсы</h2>
 
-      {courses.map((course) => {
+      {/* {courses.map((course) => {
         return <CourseItem course={course} key={course.id} />;
-      })}
+      })} */}
     </section>
   );
 }

@@ -1,6 +1,6 @@
 @import "./styles/varibales.module.scss";
 
-.profileFirst__button {
+.myProfile__buttonFirst {
   background-color: #7329c2;
   border: 1px solid #7329c2;
   color: #ffffff;
@@ -14,7 +14,7 @@
   }
 }
 
-.profileSecond__button {
+.myProfile__buttonSecond {
   background-color: #03d665;
   border: 1px solid #03d665;
   color: #ffffff;
@@ -28,12 +28,12 @@
   }
 }
 
-.profile {
+.myProfile {
   max-width: 1440px;
   height: 100vh;
   margin: 0 auto;
 
-  .profile__content {
+  .myProfile__content {
     margin: 5% 20%;
 
     .container {
@@ -41,21 +41,21 @@
       align-items: baseline;
       justify-content: space-between;
 
-      .profile__list {
-        .profile__fullName {
+      .myProfile__list {
+        .myProfile__fullName {
           font-weight: 500;
           @include adaptive-value("font-size", 30, 20);
           line-height: 140%;
         }
 
-        .profile__email {
+        .myProfile__email {
           font-weight: 700;
           @include adaptive-value("font-size", 18, 12);
           line-height: 160%;
           color: #838383;
         }
 
-        .profile__dateOfBirth {
+        .myProfile__dateOfBirth {
           font-weight: 700;
           @include adaptive-value("font-size", 18, 12);
           line-height: 160%;
@@ -63,7 +63,7 @@
         }
       }
 
-      .profileFirst__button {
+      .myProfile__buttonFirst {
         background-color: #7329c2;
         border: 1px solid #7329c2;
         color: #ffffff;
@@ -78,7 +78,7 @@
         }
       }
 
-      .profileSecond__button {
+      .myProfile__buttonSecond {
         background-color: #03d665;
         border: 1px solid #03d665;
         color: #ffffff;
@@ -101,11 +101,11 @@
       line-height: 160%;
     }
 
-    .profile__buttons {
+    .myProfile__buttons {
       display: flex;
       gap: 20px;
 
-      .profileFirst__buttons {
+      .myProfile__buttonFirsts {
         background-color: #7329c2;
         border: 1px solid #7329c2;
         color: #ffffff;
@@ -119,7 +119,7 @@
         }
       }
 
-      .profileSecond__button {
+      .myProfile__buttonSecond {
         background-color: #03d665;
         border: 1px solid #03d665;
         color: #ffffff;
@@ -141,8 +141,8 @@
 }
 
 @media (max-width: 768px) {
-  .profile {
-    .profile__content {
+  .myProfile {
+    .myProfile__content {
       position: relative;
       margin: 5%;
     }
