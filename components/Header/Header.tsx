@@ -10,6 +10,12 @@ import {
   faGraduationCap,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
+import de from "../../locales/DE/translation.json";
+import ch from "../../locales/CH/translation.json";
+import fr from "../../locales/FR/translation.json";
+import uk from "../../locales/UK/translation.json";
 import { useAppDispatch } from "@/hooks/redux";
 import { reset } from "@/redux/reducers/auth.slice";
 
@@ -118,7 +124,30 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
     setIsHeaderActive(!isHeaderActive);
     setSideBarActive(!sideBarActive);
   };
+  const { locale } = useRouter();
 
+  // Функции - для смены текста
+  let t: any;
+  switch (locale) {
+    case "en":
+      t = en;
+      break;
+    case "de":
+      t = de;
+      break;
+    case "ch":
+      t = ch;
+      break;
+    case "fr":
+      t = fr;
+      break;
+    case "uk":
+      t = uk;
+      break;
+    default:
+      t = ru;
+      break;
+  }
   return (
     <header className={cn(s.header, { [s.active]: isHeaderActive })}>
       <nav className={s.header__nav}>
@@ -139,7 +168,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Главная
+                  {t.header[0]}
                 </a>
               </li>
               <li ref={blockRefSecond}>
@@ -149,7 +178,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Категории
+                  {t.header[1]}
                 </a>
               </li>
               <li ref={blockRefThree}>
@@ -159,7 +188,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Курсы
+                  {t.header[2]}
                 </a>
               </li>
               <li ref={blockRefFour}>
@@ -169,7 +198,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Контакты
+                  {t.header[3]}
                 </a>
               </li>
               <span
@@ -192,16 +221,16 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
 
             <ul className={s.header__list}>
               <li ref={blockRefFirst}>
-                <Link href="/">Главная</Link>
+                <Link href="/"> {t.header[0]}</Link>
               </li>
               <li ref={blockRefSecond}>
-                <Link href="/#categories">Категории</Link>
+                <Link href="/#categories"> {t.header[1]}</Link>
               </li>
               <li ref={blockRefThree}>
-                <Link href="/#courses">Курсы</Link>
+                <Link href="/#courses"> {t.header[2]}</Link>
               </li>
               <li ref={blockRefFour}>
-                <Link href="/#contacts">Контакты</Link>
+                <Link href="/#contacts"> {t.header[3]}</Link>
               </li>
             </ul>
           </>
@@ -226,8 +255,8 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
               onClick={handleClick}
             />
-          ) : pathname === "/signUp/signUp" ? (
-            <Link href="/signIn/signIn">
+          ) : pathname === "/auth/signUp/signUp" ? (
+            <Link href="/auth/signIn/signIn">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
@@ -238,7 +267,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               </MyButton>
             </Link>
           ) : (
-            <Link href="/signUp/signUp">
+            <Link href="/auth/signUp/signUp">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"

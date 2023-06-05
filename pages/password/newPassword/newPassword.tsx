@@ -16,15 +16,29 @@ interface INewPassword {
 }
 
 const NewPassword: FC = () => {
-  const [token, setToken] = useState("");
   const [passwordСonfirmation, setPasswordСonfirmation] = useState("");
   const { push, locale } = useRouter();
-  const t = locale === "ru" ? ru : en;
-  useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    setToken(parsedToken);
-  }, []);
-
+  let t: any;
+  switch (locale) {
+    case "en":
+      t = en;
+      break;
+    case "de":
+      t = de;
+      break;
+    case "ch":
+      t = ch;
+      break;
+    case "fr":
+      t = fr;
+      break;
+    case "uk":
+      t = uk;
+      break;
+    default:
+      t = ru;
+      break;
+  }
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
   const [newPassword, { isLoading }] = useNewPasswordMutation();
@@ -38,7 +52,7 @@ const NewPassword: FC = () => {
       setPasswordСonfirmation("Пароли не совпадают");
     } else {
       push("/password/newPassword/newPassword");
-      await newPassword({ token, value }).unwrap();
+      await newPassword({ resetToken, value }).unwrap();
     }
   };
 

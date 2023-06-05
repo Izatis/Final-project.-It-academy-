@@ -4,6 +4,7 @@ import "@/styles/СourseSlides.css";
 import "@/styles/СardSlides.css";
 import "@/styles/mySelect.css";
 import "@/styles/courseMore.css";
+import "@/styles/404.css";
 
 import { Provider } from "react-redux";
 import store from "@/redux/store";

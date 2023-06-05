@@ -19,17 +19,3 @@ export interface IEditingUser {
   passwordSecond: string;
   imageUrl: string;
 }
-
-export interface IUserState {
-  users: IUser[];
-  userCourses: ICourse[];
-  isLoading: boolean;
-  error: string;
-}
-
-// ---------------------------------------------------------------------------------------------------------------------------------
-// Params
-export interface IGetAllUserCoursesParams {
-  token: string;
-  userId: number;
-}

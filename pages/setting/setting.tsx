@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, {  FC, useEffect, useState } from "react";
 import s from "./setting.module.scss";
 
 import { useRouter } from "next/router";
@@ -17,7 +17,6 @@ import { useChangeAvatarMutation } from "@/redux/reducers/s3";
 
 const Setting: FC = () => {
   const [token, setToken] = useState("");
-  const [avatar, setAvatar] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push } = useRouter();
 
@@ -38,12 +37,14 @@ const Setting: FC = () => {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
+    const [avatar, setAvatar] = useState(null);
   const [changeAvatar] = useChangeAvatarMutation();
   const { data: user = {}, isLoading } = useGetUserQuery({ token });
   const userId = user.id;
 
   const handleClick = async () => {
     setIsModalOpen(false);
+    window.location.reload();
     if (avatar) {
       const formData = new FormData();
       formData.append("userId", userId);
@@ -58,7 +59,7 @@ const Setting: FC = () => {
     useDeletingAUserMutation();
 
   const handleDeletingAUser = async (userId: number) => {
-    push("/signUp/signUp");
+    push("/auth/signUp/signUp");
     await deletingAUser({ userId, token }).unwrap();
     localStorage.removeItem("token");
     openNotification(5);

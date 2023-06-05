@@ -21,7 +21,24 @@ export const courses = createApi({
           : [{ type: "Courses", id: "LIST" }],
     }),
 
-      // ---------------------------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // Запроc - для получение всех курсов пользователя
+
+    getUserCourses: build.query({
+      query: ({ token, userId }) => ({
+        url: `/course/author/${userId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
+              { type: "Courses", id: "LIST" },
+            ]
+          : [{ type: "Courses", id: "LIST" }],
+    }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
     receiveCoursesByCategory: build.query({
       query: ({ token, categoryId }) => ({
         url: `/course/category/${categoryId}`,
@@ -76,6 +93,7 @@ export const courses = createApi({
 
 export const {
   useGetingAllCoursesQuery,
+  useGetUserCoursesQuery,
   useReceiveCoursesByCategoryQuery,
   useGettingACourseQuery,
 } = courses;

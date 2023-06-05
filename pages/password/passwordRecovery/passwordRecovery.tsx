@@ -12,8 +12,27 @@ import MyButton from "../../../UI/Buttons/MyButton/MyButton";
 
 const PasswordRecovery: FC = () => {
   const { locale } = useRouter();
-  const t = locale === "ru" ? ru : en;
-
+  let t: any;
+  switch (locale) {
+    case "en":
+      t = en;
+      break;
+    case "de":
+      t = de;
+      break;
+    case "ch":
+      t = ch;
+      break;
+    case "fr":
+      t = fr;
+      break;
+    case "uk":
+      t = uk;
+      break;
+    default:
+      t = ru;
+      break;
+  }
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
   const [passwordRecovery, { isLoading, isError }] =

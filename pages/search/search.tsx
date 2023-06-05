@@ -5,6 +5,10 @@ import { useRouter } from "next/router";
 import { SearchOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
+import de from "../../locales/DE/translation.json";
+import ch from "../../locales/CH/translation.json";
+import fr from "../../locales/FR/translation.json";
+import uk from "../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   searchByCategory,
@@ -21,8 +25,27 @@ const Search: FC = () => {
   const [mainState, setMainState] = useState(true);
   const [state, setState] = useState(false);
   const { locale } = useRouter();
-  const t = locale === "ru" ? ru : en;
-  const dispatch = useAppDispatch();
+  let t: any;
+  switch (locale) {
+    case "en":
+      t = en;
+      break;
+    case "de":
+      t = de;
+      break;
+    case "ch":
+      t = ch;
+      break;
+    case "fr":
+      t = fr;
+      break;
+    case "uk":
+      t = uk;
+      break;
+    default:
+      t = ru;
+      break;
+  }  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);

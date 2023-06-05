@@ -18,6 +18,10 @@ export const courseCreation = createAsyncThunk<
 >(
   "courses/courseCreation",
   async ({ categoryId, value, parsedToken }, thunkApi) => {
+    console.log(categoryId);
+    console.log(value);
+    console.log(parsedToken);
+    
     try {
       const { data } = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + `/course/${categoryId}`,

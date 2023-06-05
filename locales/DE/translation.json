@@ -1,0 +1,102 @@
+{
+  "header": ["Startseite", "Kategorien", "Kurse", "Kontakte"],
+  "main": [
+  "Online-Bildungsplattform",
+  "Kurse und Video-Vorlesungen zu Design, Copywriting, SMM, Targeting und vielen anderen Bereichen",
+  "Kurse",
+  "Kategorien",
+  "Lernen, sich weiterentwickeln. Arbeiten Sie in Ihrer Freizeit",
+  "Kurse"
+  ],
+  "footer": {
+  "title": "Online-Bildungsplattform zur Entwicklung und Schulung von Fähigkeiten im Bereich der Informationstechnologie",
+  "ulFirst": ["Lernen", "Kurse", "Webinare", "Simulatoren", "Workshops"],
+  "ulSecond": ["Über uns", "Über die Plattform", "Dozenten", "Tarife", "Bewertungen"],
+  "ulThird": [
+  "Kontakte",
+  "Kontaktieren Sie uns",
+  "Beratung",
+  "Bankverbindung",
+  "Support"
+  ],
+  "ulFour": ["Haben Sie Fragen?", "Schreiben Sie uns eine E-Mail", "test@gmail.com"]
+  },
+  "signUp": [
+  "Registrierung",
+  "Name",
+  "E-Mail",
+  "Passwort",
+  "Passwort bestätigen",
+  "Bitte geben Sie Ihren Namen ein",
+  "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+  "Bitte geben Sie Ihre E-Mail-Adresse ein",
+  "Bitte geben Sie Ihr Passwort ein",
+  "Das Passwort muss mindestens 6 Zeichen enthalten",
+  "Bitte bestätigen Sie Ihr Passwort",
+  "Passwörter stimmen nicht überein",
+  "Registrieren",
+  "Mit Google anmelden",
+  "Mit GitHub anmelden"
+  ],
+  
+  "signIn": [
+  "Anmeldung",
+  "E-Mail",
+  "Passwort",
+  "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+  "Bitte geben Sie Ihre E-Mail-Adresse ein",
+  "Bitte geben Sie Ihr Passwort ein",
+  "Anmelden",
+  "Mit Google anmelden",
+  "Mit GitHub anmelden",
+  "Passwortwiederherstellung"
+  ],
+  
+  "editing": [
+  "Bearbeiten",
+  "Name",
+  "Geben Sie Ihren Namen ein",
+  "Bitte geben Sie Ihren Namen ein",
+  "E-Mail",
+  "Geben Sie Ihre E-Mail-Adresse ein",
+  "Bitte geben Sie Ihre E-Mail-Adresse ein",
+  "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+  "Passwort",
+  "Geben Sie Ihr Passwort ein",
+  "Bitte geben Sie Ihr Passwort ein",
+  "Das Passwort muss mindestens 6 Zeichen enthalten",
+  "Passwort bestätigen",
+  "Geben Sie das Bestätigungspasswort ein",
+  "Bitte bestätigen Sie Ihr Passwort",
+  "Passwörter stimmen nicht überein",
+  "Avatar",
+  "Avatar",
+  "Geburtsdatum",
+  "Geben Sie Ihr Geburtsdatum ein",
+  "Bitte geben Sie Ihr Geburtsdatum ein",
+  "Speichern",
+  "Abbrechen"
+  ],
+  
+  "passwordRecovery": [
+  "Passwortwiederherstellung",
+  "E-Mail",
+  "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+  "Bitte geben Sie Ihre E-Mail-Adresse ein",
+  "Passwort wiederherstellen"
+  ],
+  
+  "search": ["Suche", "Suchen", "Bitte geben Sie einen Suchbegriff ein"],
+  
+  "addingCourse": [
+  "Kurs hinzufügen",
+  "Kursname",
+  "Beschreibung",
+  "Datei",
+  "Datei hochladen",
+  "Sprache",
+  "Sprache auswählen",
+  "Bitte geben Sie ein Feld ein",
+  "Hinzufügen"
+  ]
+  }

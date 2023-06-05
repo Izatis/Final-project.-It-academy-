@@ -1,11 +1,10 @@
-import { useState, FC, useEffect } from "react";
+import { useState, FC } from "react";
 import s from "./AnimateSelect.module.scss";
 
 import cn from "classnames";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 
-import MyModal from "@/components/Modals/MyModal/MyModal";
-import { toGetLessons } from "@/redux/reducers/lesson.slice";
+import MyModalVideo from "@/components/Modals/MyModalVideo/MyModalVideo";
 import { useToGetLessonsQuery } from "@/redux/reducers/lesson";
 
 interface IAnimateSelectProps {
@@ -46,7 +45,7 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({ section }) => {
             return (
               <>
                 <li onClick={() => handleClick(lesson.id)}>{lesson.title}</li>
-                <MyModal
+                <MyModalVideo
                   lesson={lesson}
                   isModalOpen={lesson.id === selectedLessonId && isModalOpen}
                   setIsModalOpen={setIsModalOpen}

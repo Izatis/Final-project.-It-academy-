@@ -17,11 +17,9 @@ export const password = createApi({
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     newPassword: build.mutation({
-      query: ({ token, resetToken, value }) => ({
-        url: `/password/reset${resetToken}`,
+      query: ({ resetToken, value }) => ({
+        url: `/password/reset/${resetToken}?newPassword=${value}`,
         method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        value,
       }),
       invalidatesTags: [{ type: "Password", id: "LIST" }],
     }),

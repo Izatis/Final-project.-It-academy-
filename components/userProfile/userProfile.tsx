@@ -3,9 +3,13 @@ import s from "./userProfile.module.scss";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { EditOutlined, LogoutOutlined } from "@ant-design/icons";
+import { UserOutlined, EditOutlined, LogoutOutlined } from "@ant-design/icons";
 import en from "../../locales/EN/translation.json";
 import ru from "../../locales/RU/translation.json";
+import de from "../../locales/DE/translation.json";
+import ch from "../../locales/CH/translation.json";
+import fr from "../../locales/FR/translation.json";
+import uk from "../../locales/UK/translation.json";
 import { IUser } from "@/redux/types/user";
 
 import Loading from "../Loading/Loading";
@@ -27,14 +31,33 @@ const UserProfile: FC<UserProfileProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { push, locale } = useRouter();
-  const t = locale === "ru" ? ru : en;
-
+  let t: any;
+  switch (locale) {
+    case "en":
+      t = en;
+      break;
+    case "de":
+      t = de;
+      break;
+    case "ch":
+      t = ch;
+      break;
+    case "fr":
+      t = fr;
+      break;
+    case "uk":
+      t = uk;
+      break;
+    default:
+      t = ru;
+      break;
+  }
   // Выйти из аккаунта
   const signOut = () => {
     push("/");
     localStorage.removeItem("token");
   };
-
+  
   return (
     <div className={s.profile}>
       {isLoading ? (
@@ -73,16 +96,29 @@ const UserProfile: FC<UserProfileProps> = ({
               <li className={s.profile__dateOfBirth}>{user.dateOfBirth}</li>
             </ul>
 
-            <Link href={"/editing/editing"}>
-              <MyButton
-                background="#03d665"
-                hoverBackground="#7329c2"
-                type="primary"
-                icon={<EditOutlined />}
-              >
-                Редактировать
-              </MyButton>
-            </Link>
+            <div>
+              {/* {user.role === "ROLE_ADMIN" && ( */}
+                <Link href={"/admin/adminPage/adminPage"}>
+                  <MyButton
+                    className={s.profileFirst__button}
+                    type="primary"
+                    icon={<UserOutlined />}
+                  >
+                    Панель админа
+                  </MyButton>
+                </Link>
+              {/* )} */}
+
+              <Link href={"/editing/editing"}>
+                <MyButton
+                  className={s.profileSecond__button}
+                  type="primary"
+                  icon={<EditOutlined />}
+                >
+                  Редактировать
+                </MyButton>
+              </Link>
+            </div>
           </div>
 
           <p className={s.text}>

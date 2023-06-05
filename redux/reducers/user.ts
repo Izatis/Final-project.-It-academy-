@@ -57,13 +57,13 @@ export const user = createApi({
     // Запроc - для редактирование пользователя
 
     editingUser: build.mutation({
-      query: ({ token, userId, values }) => (
-        console.log(token, userId, values),
+      query: ({ token, values }) => (
+        console.log(values),
         {
-          url: `/user/${userId}`,
-          method: "PATCH",
+          url: `/user`,
+          method: "PUT",
           headers: { Authorization: `Bearer ${token}` },
-          body: values, // Используется `body` вместо `values` для передачи данных
+          body: values,
         }
       ),
       invalidatesTags: [{ type: "Users", id: "LIST" }],

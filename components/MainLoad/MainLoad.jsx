@@ -36,7 +36,7 @@ const MainLoad = () => {
   useEffect(() => {
     setTimeout(function () {
       setStyle({ opacity: 0 });
-    }, 3500);
+    }, 1200);
   }, [style]);
 
   return (

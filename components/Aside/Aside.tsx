@@ -6,7 +6,7 @@ import type { MenuProps } from "antd";
 import {
   DesktopOutlined,
   SettingOutlined,
-  TeamOutlined,
+  ShoppingCartOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
 
@@ -24,13 +24,13 @@ const items: MenuProps["items"] = [
   },
 
   {
-    label: <Link href="/usersList/usersList">Все пользователи</Link>,
-    icon: <TeamOutlined />,
+    label: <Link href="/cartList/cartList">Корзина</Link>,
+    icon: <ShoppingCartOutlined />,
     key: "3",
   },
 
   {
-    label: <Link href="/">Добавить курс</Link>,
+    label: <Link href="/addition/addingCourse/addingCourse">Добавить курс</Link>,
     icon: <AppstoreOutlined />,
     key: "4",
   },

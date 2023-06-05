@@ -41,12 +41,11 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         >
           <Avatar
             className={s.menu__avatar}
-            src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+            src={user.imageUrl}
           />
           <div className={s.sidePanel__info}>
             <h4>{user.fullName}</h4>
             <p>{user.email}</p>
-            <TranslateButton className={s.menu__translateButton} />
           </div>
         </Link>
 

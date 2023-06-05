@@ -80,7 +80,6 @@ export default function () {
       ) : (
         <div className={s.course}>
           {contextHolder}
-
           <div className={s.course__content}>
             <aside>
               <div
