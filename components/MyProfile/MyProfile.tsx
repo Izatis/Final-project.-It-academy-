@@ -74,7 +74,7 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
   };
 
   const handleDeletingAUser = async () => {
-    push("/auth/signUp/signUp");
+    push("/auth/signUp");
     await deletingAUser({ userId, token }).unwrap();
     localStorage.removeItem("token");
     openNotification(5);
@@ -121,7 +121,7 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
 
             <div>
               {user.role === "ROLE_ADMIN" && (
-                <Link href={"/admin/adminPage/adminPage"}>
+                <Link href={"/admin/adminPage"}>
                   <MyButton
                     className={s.myProfile__buttonFirst}
                     type="primary"
@@ -132,7 +132,7 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
                 </Link>
               )}
 
-              <Link href={"/editing/editing"}>
+              <Link href={"/editing"}>
                 <MyButton
                   className={s.myProfile__buttonSecond}
                   type="primary"

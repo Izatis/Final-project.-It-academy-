@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import Main from "./Main/Main";
+import Main from "./Main";
 import MainLoad from "../components/MainLoad/MainLoad";
 
 export default function Home() {

@@ -10,25 +10,25 @@ const AddMore = () => {
     <section className={s.addMore__list}>
       <h2>Хотите ещё урок добавить?</h2>
       <div className={s.addMore__item}>
-        <Link href="/addition/addingLesson/addingLesson">
+        <Link href="/addition/addingLesson">
           <MyButton className={s.addMoreSecond__button}>Да</MyButton>
         </Link>
-        <Link href="/userCourse/userCourse">
+        <Link href="/userCourse">
           <MyButton className={s.addMoreFirst__button}>Нет</MyButton>
         </Link>
       </div>
 
       <h2>Хотите ещё раздел добавить?</h2>
       <div className={s.addMore__item}>
-        <Link href="/addition/addingSection/addingSection">
+        <Link href="/addition/addingSection">
           <MyButton className={s.addMoreSecond__button}>Да</MyButton>
         </Link>
-        <Link href="/userCourse/userCourse">
+        <Link href="/userCourse">
           <MyButton className={s.addMoreFirst__button}>Нет</MyButton>
         </Link>
       </div>
 
-      <Link href="/userCourses/userCourses">
+      <Link href="/userCourses">
         <MyButton
           className={s.goToProfile}
           background="#03d665"

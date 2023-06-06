@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./payment.module.scss";
+import s from "./paymentPage.module.scss";
 
 import Image from "next/image";
 import { Form, Input, Checkbox, InputNumber } from "antd";
@@ -44,7 +44,7 @@ const Payment: FC = () => {
 
   useEffect(() => {
     if (!!massage) {
-      push("/paymentPages/successfully/successfully");
+      push("/payment/paymentSuccessfully");
     }
     dispatch(reset());
   }, [massage]);

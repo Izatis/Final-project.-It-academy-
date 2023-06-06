@@ -32,7 +32,7 @@ const UserCourse = () => {
           ) : (
             <div className={s.addingCourse}>
               <p>У вас нет курсов</p>
-              <Link href="/addition/addingCourse/addingCourse">
+              <Link href="/addition/addingCourse">
                 <MyButton
                   background="#7329c2"
                   hoverBackground="#03d665"

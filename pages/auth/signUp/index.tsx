@@ -16,7 +16,6 @@ import { userRegistration } from "@/redux/reducers/auth.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
 import MyButton from "../../../UI/Buttons/MyButton/MyButton";
-import axios from "axios";
 
 interface IUserRegister {
   fullName: string;
@@ -26,23 +25,18 @@ interface IUserRegister {
 }
 
 const SignUp: FC = () => {
-  // Состояния - для данных пользователя регистрации
-  const [userRegister, setUserRegister] = useState<IUserRegister>({
-    fullName: "",
-    email: "",
-    password: "",
-    passwordSecond: "",
-  });
-
   const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const dispatch = useAppDispatch();
-  const {isLoading, error } = useAppSelector((state) => state.auth);
-   
-  // Для - маршутизации
   const { push, locale } = useRouter();
+  const { isLoading, error } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
-  // Функции - для смены текста
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    if (parsedToken) {
+      push("/setting");
+    }
+  }, [isLoading]);
+
   let t: any;
   switch (locale) {
     case "en":
@@ -64,36 +58,22 @@ const SignUp: FC = () => {
       t = ru;
       break;
   }
-  // Отправляем post запрос для регистрации
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // POST
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue({ ...form.getFieldsValue() });
+  }, []);
+
   const handleSubmit = (value: IUserRegister) => {
     const { password, passwordSecond } = value;
     if (password !== passwordSecond) {
       setErrorMessage(t.signUp[11]);
     } else {
       dispatch(userRegistration(value));
-
-      setUserRegister({
-        fullName: "",
-        email: "",
-        password: "",
-        passwordSecond: "",
-      });
     }
   };
-
-  useEffect(() => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    if (parsedToken) {
-      push("/setting/setting");
-    }
-  }, [isLoading]);
-  // Для сохранения значений инпутов
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.setFieldsValue({ ...userRegister });
-  }, []);
 
   return (
     <section className={s.signUp}>
@@ -101,7 +81,7 @@ const SignUp: FC = () => {
       <h2>{t.signUp[0]}</h2>
       <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
         <Form.Item
-          className={s.signUp__margin}
+          className={s.signUp__deIndenting}
           name="fullName"
           rules={[
             {
@@ -114,7 +94,7 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item
-          className={s.signUp__margin}
+          className={s.signUp__deIndenting}
           name="email"
           rules={[
             {
@@ -133,7 +113,7 @@ const SignUp: FC = () => {
         <span className={s.error}>{error}</span>
 
         <Form.Item
-          className={s.signUp__margin}
+          className={s.signUp__deIndenting}
           name="password"
           rules={[
             {
@@ -152,7 +132,7 @@ const SignUp: FC = () => {
         <span className={s.error}>{errorMessage}</span>
 
         <Form.Item
-          className={s.signUp__margin}
+          className={s.signUp__deIndenting}
           name="passwordSecond"
           rules={[
             {
@@ -170,7 +150,7 @@ const SignUp: FC = () => {
 
         <Form.Item>
           <MyButton
-            className={s.signUp__margin}
+            className={s.signUp__deIndenting}
             background="#7329c2"
             hoverBackground="#03d665"
             type="primary"
@@ -181,9 +161,9 @@ const SignUp: FC = () => {
         </Form.Item>
 
         <Form.Item>
-            <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
-              {t.signUp[13]}
-            </Link>
+          <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
+            {t.signUp[13]}
+          </Link>
         </Form.Item>
 
         <Form.Item>

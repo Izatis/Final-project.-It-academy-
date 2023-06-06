@@ -111,7 +111,7 @@ export default function () {
                   {changeBtn}
                 </MyButton>
 
-                <Link href={`/paymentPages/payment/${course.id}`}>
+                <Link href={`/payment/paymentPage/${course.id}`}>
                   <MyButton className={s.aside__subButton}>
                     Купить сейчас
                   </MyButton>

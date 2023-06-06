@@ -36,7 +36,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
         <Link
           className={s.sidePanel__header}
-          href="/setting/setting"
+          href="/setting"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
           <Avatar
@@ -52,13 +52,13 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         {pathname === "/" ? (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/cartList/cartList">Моя корзина</Link>
+              <Link href="/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/setting/setting">Профиль</Link>
+              <Link href="/setting">Профиль</Link>
             </li>
             <li>
               <a href="#" onClick={() => setSideBarActive(!sideBarActive)}>
@@ -93,13 +93,13 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         ) : (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/cartList/cartList">Моя корзина</Link>
+              <Link href="/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/setting/setting">Профиль</Link>
+              <Link href="/setting">Профиль</Link>
             </li>
             <li>
               <Link href="/" onClick={() => setSideBarActive(!sideBarActive)}>

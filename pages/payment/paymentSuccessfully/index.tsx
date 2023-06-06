@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./successfully.module.scss";
+import s from "./paymentSuccessfully.module.scss";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -31,7 +31,7 @@ const Successfully = () => {
               На главную
             </MyButton>
           </Link>
-          <Link href="/userCourses/userCourses">
+          <Link href="/userCourses">
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"
@@ -40,7 +40,7 @@ const Successfully = () => {
               Мои курсы
             </MyButton>
           </Link>
-          <Link href="/setting/setting">
+          <Link href="/setting">
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"

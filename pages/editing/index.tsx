@@ -61,7 +61,7 @@ const Editing: FC = () => {
   const handleSubmit = async (values: any) => {
     await editingUser({ token, values }).unwrap();
     openNotification(5);
-    push("/setting/setting");
+    push("/setting");
   };
 
   return (
@@ -110,7 +110,7 @@ const Editing: FC = () => {
             >
               {t.editing[21]}
             </MyButton>
-            <Link href="/setting/setting">
+            <Link href="/setting">
               <MyButton
                 className={s.editing__button}
                 background="#7329c2"

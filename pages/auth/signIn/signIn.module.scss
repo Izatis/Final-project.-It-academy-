@@ -9,31 +9,30 @@
   padding: 3% 2%;
   box-sizing: border-box;
 
-  form {
-    .signIn__margin {
-      margin: 8% 0 0;
-    }
-  }
-
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 40, 20);
     line-height: 130%;
     color: #03d665;
     text-align: center;
-    margin: 0 0 30px;
   }
 
-  a {
-    font-weight: 500;
-    @include adaptive-value("font-size", 14, 10);
-    line-height: 130%;
-  }
+  form {
+    .signIn__deIndenting {
+      margin: 8% 0 0;
+    }
 
-  .error {
-    font-weight: 500;
-    @include adaptive-value("font-size", 14, 12);
-    line-height: 130%;
-    color: #ff4d4f;
+    .error {
+      font-weight: 500;
+      @include adaptive-value("font-size", 14, 12);
+      line-height: 130%;
+      color: #ff4d4f;
+    }
+  
+    a {
+      font-weight: 500;
+      @include adaptive-value("font-size", 14, 10);
+      line-height: 130%;
+    }
   }
 }

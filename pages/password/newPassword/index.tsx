@@ -6,18 +6,35 @@ import { Form, Input } from "antd";
 import { LockOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import en from "../../../locales/EN/translation.json";
 import ru from "../../../locales/RU/translation.json";
+import de from "../../../locales/DE/translation.json";
+import ch from "../../../locales/CH/translation.json";
+import fr from "../../../locales/FR/translation.json";
+import uk from "../../../locales/UK/translation.json";
 import { useNewPasswordMutation } from "@/redux/reducers/password";
 
 import MyButton from "../../../UI/Buttons/MyButton/MyButton";
 
 interface INewPassword {
-  password: number;
-  passwordСonfirmation: number;
+  newPassword: number;
+  newPasswordСonfirmation: number;
 }
 
 const NewPassword: FC = () => {
+  const [token, setToken] = useState("");
   const [passwordСonfirmation, setPasswordСonfirmation] = useState("");
   const { push, locale } = useRouter();
+
+  useEffect(() => {
+    const fullUrl = window.location.href;
+    const token = fullUrl.split(
+      "http://localhost:3000/password/newPassword/newPassword?token="
+    )[1];
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token));
+      setToken(token);
+    }
+  }, []);
+
   let t: any;
   switch (locale) {
     case "en":
@@ -47,13 +64,13 @@ const NewPassword: FC = () => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
   const onFinish = async (value: INewPassword) => {
-    const { password, passwordСonfirmation } = value;
-    if (password !== passwordСonfirmation) {
-      setPasswordСonfirmation("Пароли не совпадают");
-    } else {
-      push("/password/newPassword/newPassword");
-      await newPassword({ resetToken, value }).unwrap();
-    }
+    const { newPassword, newPasswordСonfirmation } = value;
+    // if (newPassword !== passwordСonfirmation) {
+    // setPasswordСonfirmation("Пароли не совпадают");
+    // } else {
+    push("/password/newPassword");
+    await newPassword({ token, newPassword }).unwrap();
+    // }
   };
 
   return (
@@ -62,7 +79,7 @@ const NewPassword: FC = () => {
       <Form form={form} name="new-password-form" onFinish={onFinish}>
         <Form.Item
           className={s.signUp__margin}
-          name="password"
+          name="newPassword"
           rules={[
             {
               required: true,
@@ -81,7 +98,7 @@ const NewPassword: FC = () => {
 
         <Form.Item
           className={s.signUp__margin}
-          name="passwordСonfirmation"
+          name="newPasswordСonfirmation"
           rules={[
             {
               required: true,

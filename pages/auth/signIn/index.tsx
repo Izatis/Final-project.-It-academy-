@@ -23,19 +23,17 @@ interface IUserLogin {
 }
 
 const SignIn: FC = () => {
-  // Состояния - для данных пользователя авторизации
-  const [userLogin, setUserLogin] = useState<IUserLogin>({
-    username: "arsenov@gmail.com",
-    password: "12345678",
-  });
-
-  const dispatch = useAppDispatch();
   const { token, isLoading, error } = useAppSelector((state) => state.auth);
-
-  // Для - маршутизации
   const { push, locale } = useRouter();
+  const dispatch = useAppDispatch();
 
-  // Функции - для смены текста
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    if (!!parsedToken) {
+      push("/setting");
+    }
+  }, [token]);
+
   let t: any;
   switch (locale) {
     case "en":
@@ -57,30 +55,17 @@ const SignIn: FC = () => {
       t = ru;
       break;
   }
-  useEffect(() => {
-    // Достаем токен пользователя
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    if (!!parsedToken) {
-      push("/setting/setting");
-    }
-  }, [token]);
 
-  // Отправляем post запрос для регистрации
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // POST
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue({ ...form.getFieldsValue() });
+  }, []);
+
   const handleSubmit = (value: IUserLogin) => {
     dispatch(userAuthorization(value));
-
-    setUserLogin({
-      username: "",
-      password: "",
-    });
   };
-
-  // Для сохранения значений инпутов
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.setFieldsValue({ ...userLogin });
-  }, []);
 
   return (
     <section className={s.signIn}>
@@ -88,7 +73,7 @@ const SignIn: FC = () => {
       <h2>{t.signIn[0]}</h2>
       <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
         <Form.Item
-          className={s.signIn__margin}
+          className={s.signIn__deIndenting}
           name="username"
           rules={[
             {
@@ -106,7 +91,7 @@ const SignIn: FC = () => {
         <span className={s.error}>{error}</span>
 
         <Form.Item
-          className={s.signIn__margin}
+          className={s.signIn__deIndenting}
           name="password"
           rules={[
             {
@@ -120,7 +105,7 @@ const SignIn: FC = () => {
 
         <Form.Item>
           <MyButton
-            className={s.signIn__margin}
+            className={s.signIn__deIndenting}
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
@@ -151,7 +136,7 @@ const SignIn: FC = () => {
         <Form.Item>
           <Link
             className={s.signIn__link}
-            href="/password/passwordRecovery/passwordRecovery"
+            href="/password/passwordRecovery"
           >
             {t.signIn[9]}
           </Link>

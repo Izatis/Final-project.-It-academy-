@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import s from "./UserCard.module.scss";
 
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { notification } from "antd";
@@ -19,15 +18,14 @@ interface IUserCardProps {
 
 const UserCard: FC<IUserCardProps> = ({ user }) => {
   const [token, setToken] = useState("");
-  const { push } = useRouter();
+  const userId = user.id;
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
 
-  const userId = user.id;
-
+  
   // ---------------------------------------------------------------------------------------------------------------------------------
   // DELETE
   const [deletingAUser, { isLoading }] = useDeletingAUserMutation();

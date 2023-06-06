@@ -8,7 +8,7 @@ export const password = createApi({
     // ---------------------------------------------------------------------------------------------------------------------------------
     passwordRecovery: build.mutation({
       query: ({ email }) => ({
-        url: "/password/reset/?email=" + email,
+        url: "/password/reset?email=" + email,
         method: "POST",
       }),
       invalidatesTags: [{ type: "Password", id: "LIST" }],
@@ -17,8 +17,8 @@ export const password = createApi({
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     newPassword: build.mutation({
-      query: ({ resetToken, value }) => ({
-        url: `/password/reset/${resetToken}?newPassword=${value}`,
+      query: ({ token, password }) => ({
+        url: `/password/reset/${token}?newPassword=${password}`,
         method: "POST",
       }),
       invalidatesTags: [{ type: "Password", id: "LIST" }],

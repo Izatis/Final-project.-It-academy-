@@ -26,7 +26,7 @@ const addingVideo: FC = () => {
         }
       )
         .then(() => {
-          push("/addition/addMore/addMore");
+          push("/addition/addMore");
         })
         .catch((error) => {
           // Обработка ошибки

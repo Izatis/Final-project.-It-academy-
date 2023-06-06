@@ -237,13 +237,13 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
         )}
 
         <div className={s.header__buttons}>
-          <Link href="/search/search">
+          <Link href="/search">
             <FontAwesomeIcon
               className={s.header__search}
               icon={faMagnifyingGlass}
             />
           </Link>
-          <Link href="/cartList/cartList">
+          <Link href="/cartList">
             <FontAwesomeIcon className={s.header__cart} icon={faCartShopping} />
           </Link>
 
@@ -255,8 +255,8 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
               onClick={handleClick}
             />
-          ) : pathname === "/auth/signUp/signUp" ? (
-            <Link href="/auth/signIn/signIn">
+          ) : pathname === "/auth/signUp" ? (
+            <Link href="/auth/signIn">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
@@ -267,7 +267,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
               </MyButton>
             </Link>
           ) : (
-            <Link href="/auth/signUp/signUp">
+            <Link href="/auth/signUp">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"

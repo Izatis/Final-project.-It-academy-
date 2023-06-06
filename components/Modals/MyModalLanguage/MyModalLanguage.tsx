@@ -20,18 +20,18 @@ const MyModalLanguage: FC<IMyModalLanguageProps> = ({
   // Функции - для смены url
   const handleClick = (locale: string) => {
     setIsModalOpen(!isModalOpen);
-    if (pathname === "/auth/signUp/signUp") {
-      push("/auth/signUp/signUp", "/auth/signUp/signUp", { locale });
-    } else if (pathname === "/auth/signIn/signIn") {
-      push("/auth/signIn/signIn", "/auth/signIn/signIn", { locale });
-    } else if (pathname === "/passwordRecovery/passwordRecovery") {
+    if (pathname === "/auth/signUp") {
+      push("/auth/signUp", "/auth/signUp", { locale });
+    } else if (pathname === "/auth/signIn") {
+      push("/auth/signIn", "/auth/signIn", { locale });
+    } else if (pathname === "/passwordRecovery") {
       push(
-        "/passwordRecovery/passwordRecovery",
-        "/passwordRecovery/passwordRecovery",
+        "/passwordRecovery",
+        "/passwordRecovery",
         { locale }
       );
-    } else if (pathname === "/setting/setting") {
-      push("/setting/setting", "/setting/setting", { locale });
+    } else if (pathname === "/setting") {
+      push("/setting", "/setting", { locale });
     } else {
       push("/", "/", { locale });
     }

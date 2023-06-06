@@ -18,12 +18,12 @@ const adminPage = () => {
             На главную
           </MyButton>
         </Link>
-        <Link href="/admin/allCourses/allCourses">
+        <Link href="/admin/allCourses">
           <MyButton className={s.adminPage__button} type="primary">
             Все курсы
           </MyButton>
         </Link>
-        <Link href="/admin/allUsers/allUsers">
+        <Link href="/admin/allUsers">
           <MyButton className={s.adminPage__button} type="primary">
             Вcе пользователи
           </MyButton>
