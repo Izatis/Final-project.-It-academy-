@@ -3,14 +3,14 @@ import s from "./UserCard.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
+import cn from "classnames";
 import { notification } from "antd";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IUser } from "@/redux/types/user";
 import {
-  useDeletingAUserMutation,
   useGetCurrentUserQuery,
+  useBlockingAUserMutation,
+  useUserUnlockMutation,
 } from "@/redux/reducers/user";
+import { IUser } from "@/redux/types/user";
 
 import Rating from "../Rating/Rating";
 import Loading from "../Loading/Loading";
@@ -21,6 +21,7 @@ interface IUserCardProps {
 
 const UserCard: FC<IUserCardProps> = ({ user }) => {
   const [token, setToken] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const userId = user.id;
   const { data: currentUser = {} } = useGetCurrentUserQuery({ token });
 
@@ -29,25 +30,54 @@ const UserCard: FC<IUserCardProps> = ({ user }) => {
     setToken(parsedToken);
   }, []);
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  // DELETE
-  const [deletingAUser, { isLoading }] = useDeletingAUserMutation();
+  const [changeMessage, setChangeMessage] = useState("");
 
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: any) => {
     api.info({
-      message: `Аккаунт успешно удалён!`,
+      message: `Аккаунт успешно ${changeMessage}`,
       placement,
     });
   };
 
-  const handleDeletingAUser = async () => {
-    await deletingAUser({ userId, token }).unwrap();
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // POST UNLOCKING
+  const [userUnlock, { isLoading: isLoadingUserUnlock }] =
+    useUserUnlockMutation();
+
+  useEffect(() => {
+    setIsLoading(isLoadingUserUnlock);
+  }, [isLoadingUserUnlock]);
+
+  const handleUserUnlock = async (e: any) => {
+    e.preventDefault();
+    await userUnlock({ userId, token }).unwrap();
+    setChangeMessage("разблокирован!");
+    openNotification(5);
+  };
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // POST BLOCKING
+  const [blockingAUser, { isLoading: isLoadingBockingAUser }] =
+    useBlockingAUserMutation();
+
+  useEffect(() => {
+    setIsLoading(isLoadingBockingAUser);
+  }, [isLoadingBockingAUser]);
+
+  const handlebBockingAUser = async (e: any) => {
+    e.preventDefault();
+    await blockingAUser({ userId, token }).unwrap();
+    setChangeMessage("заблокирован!");
     openNotification(5);
   };
 
   return (
-    <Link className={s.user} href={`/userProfile/${user.id}`} key={user.id}>
+    <Link
+      className={cn(s.user, user.isActive ? null : s.userDisabled)}
+      href={`/userProfile/${user.id}`}
+      key={user.id}
+    >
       {contextHolder}
       {isLoading ? (
         <Loading />
@@ -72,14 +102,16 @@ const UserCard: FC<IUserCardProps> = ({ user }) => {
           <li className={s.user__item}>{user.numberOfCourses} курса</li> */}
               </ul>
             </div>
-            {currentUser.role === "ROLE_ADMIN" && (
-              <div
-                className={s.user__trash}
-                onClick={(e) => e.preventDefault()}
-              >
-                <FontAwesomeIcon icon={faTrash} onClick={handleDeletingAUser} />
-              </div>
-            )}
+            {currentUser.role === "ROLE_ADMIN" &&
+              (user.isActive ? (
+                <span className={s.error} onClick={handlebBockingAUser}>
+                  Заблокировать
+                </span>
+              ) : (
+                <span className={s.successfully} onClick={handleUserUnlock}>
+                  Разблокировать
+                </span>
+              ))}
           </div>
           <b className={s.user__title}>Немного о себе:</b>
         </>

@@ -58,20 +58,31 @@ export const user = createApi({
 
     editingUser: build.mutation<any, any>({
       query: ({ token, values }) => ({
-          url: `/user`,
-          method: "PUT",
-          headers: { Authorization: `Bearer ${token}` },
-          body: values,
-        }
-      ),
+        url: `/user`,
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}` },
+        body: values,
+      }),
       invalidatesTags: [{ type: "Users", id: "LIST" }],
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    deletingAUser: build.mutation<any, any>({
+    // POST UNLOCKING
+    userUnlock: build.mutation<any, any>({
       query: ({ userId, token }) => ({
-        url: `user/${userId}`,
-        method: "DELETE",
+        url: `user/unlock/${userId}`,
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // POST BLOCKING
+    blockingAUser: build.mutation<any, any>({
+      query: ({ userId, token }) => ({
+        url: `user/block/${userId}`,
+        method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
       }),
       invalidatesTags: [{ type: "Users", id: "LIST" }],
@@ -84,5 +95,6 @@ export const {
   useGetUserQuery,
   useGetCurrentUserQuery,
   useEditingUserMutation,
-  useDeletingAUserMutation,
+  useUserUnlockMutation,
+  useBlockingAUserMutation,
 } = user;

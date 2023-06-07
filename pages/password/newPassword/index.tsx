@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./NewPassword.module.scss";
+import s from "./newPassword.module.scss";
 
 import { useRouter } from "next/router";
 import { Form, Input } from "antd";
@@ -22,7 +22,7 @@ interface INewPassword {
 const NewPassword: FC = () => {
   const [recoveryToken, setRecoveryToken] = useState("");
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
+  const [message, setMessage] = useState("");
   const { push, locale } = useRouter();
 
   useEffect(() => {
@@ -30,10 +30,7 @@ const NewPassword: FC = () => {
     const token = fullUrl.split(
       "http://localhost:3000/password/newPassword?token="
     )[1];
-    if (token) {
-      localStorage.setItem("token", JSON.stringify(token));
-      setRecoveryToken(token);
-    }
+    setRecoveryToken(token);
   }, []);
 
   let t: any;
@@ -59,8 +56,10 @@ const NewPassword: FC = () => {
   }
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
-  const [newPasswordRequest, { isLoading }] = useNewPasswordRequestMutation();
+  const [newPasswordRequest, { error, isLoading }] =
+    useNewPasswordRequestMutation();
   const [form] = Form.useForm();
+
   useEffect(() => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
@@ -68,19 +67,24 @@ const NewPassword: FC = () => {
     setIsButtonClicked(true);
     const { newPassword, passwordСonfirmation } = value;
     if (newPassword !== passwordСonfirmation) {
-      setPasswordMismatchMessage("Пароли не совпадают!");
+      setMessage("Пароли не совпадают!");
     } else {
+      setMessage("");
       push("/auth/signIn");
       await newPasswordRequest({ recoveryToken, newPassword }).unwrap();
     }
   };
+
+  useEffect(() => {
+    if (error) setMessage(error.data.message);
+  }, [isLoading, error]);
 
   return (
     <section className={s.passwordRecovery}>
       <h2>Новый пароль</h2>
       <Form form={form} name="new-password-form" onFinish={onFinish}>
         <Form.Item
-          className={s.signUp__margin}
+          className={s.passwordRecovery__deIndenting}
           name="newPassword"
           rules={[
             {
@@ -96,10 +100,10 @@ const NewPassword: FC = () => {
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
 
-        <span className={s.error}>{passwordMismatchMessage}</span>
+        <span className={s.error}>{message}</span>
 
         <Form.Item
-          className={s.signUp__margin}
+          className={s.passwordRecovery__deIndenting}
           name="passwordСonfirmation"
           rules={[
             {
@@ -107,14 +111,14 @@ const NewPassword: FC = () => {
               message: t.signUp[10],
             },
             {
-              message: passwordMismatchMessage,
+              message: message,
             },
           ]}
         >
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item className={s.passwordRecovery__deIndenting}>
           <MyButton
             className={s.passwordRecovery__button}
             type="primary"

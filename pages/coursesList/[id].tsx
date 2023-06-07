@@ -19,9 +19,8 @@ export default function () {
   const [mainIsLoading, setMainIsLoading] = useState(false);
   const [mainCourses, setMainCourses] = useState<any>([]);
   const [mainAmountPage, setMainAmountPage] = useState(0);
-  console.log(mainAmountPage);
-
   const [pageNumber, setPageNumber] = useState(1);
+
   const { query }: { query: any } = useRouter();
   const categoryId = query.id;
   const { data: categories = [] } = useGettingACategoryQuery({ token });
@@ -30,6 +29,7 @@ export default function () {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
+
   const onChange: PaginationProps["onChange"] = async (pageNumber) => {
     setPageNumber(pageNumber);    
     await receiveCoursesAmountPageByCategory({
@@ -42,8 +42,6 @@ export default function () {
   // DEFAULT DATA
   const [receiveCoursesAmountPageByCategory, { data, isLoading }] =
     useReceiveCoursesAmountPageByCategoryMutation();
-
-
     
     useEffect(() => {
         receiveCoursesAmountPageByCategory({ token, categoryId, pageNumber });
@@ -65,10 +63,10 @@ export default function () {
     coursesAmountPage: priceFilteringData,
     isLoading: priceFilteringIsLoding,
   } = useAppSelector((state) => state.course);
-
   useEffect(() => {
     setMainIsLoading(priceFilteringIsLoding);
     setMainCourses(priceFilteringData.courses);
+    setMainAmountPage(priceFilteringData.amountPage)
   }, [priceFilteringIsLoding]);
 
   const handleChangeLanguage = (option: string) => {
@@ -82,6 +80,7 @@ export default function () {
   useEffect(() => {
     setMainIsLoading(languageFilteringIsLoding);
     setMainCourses(languageFilteringData.courses);
+    setMainAmountPage(priceFilteringData.amountPage)
   }, [languageFilteringIsLoding]);
 
   // ---------------------------------------------------------------------------------------------------------------------------------

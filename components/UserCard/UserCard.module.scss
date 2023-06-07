@@ -70,22 +70,22 @@
       }
     }
 
-    .user__trash {
-      display: flex;
-      justify-content: flex-end;
-      svg {
-        @include adaptive-value("height", 25, 15);
-        @include adaptive-value("font-size", 25, 15);
-        color: #7329c2;
-        padding: 1%;
-        transition: all 0.3s;
-        cursor: pointer;
+    .successfully {
+      font-weight: 500;
+      @include adaptive-value("font-size", 15, 12);
+      line-height: 130%;
+      color: #03d665;
+      padding: 10px;
+      box-sizing: border-box;
+    }
 
-        &:hover {
-          color: #03d665;
-          transition: all 0.3s;
-        }
-      }
+    .error {
+      font-weight: 500;
+      @include adaptive-value("font-size", 15, 12);
+      line-height: 130%;
+      color: #ff4d4f;
+      padding: 10px;
+      box-sizing: border-box;
     }
   }
 
@@ -102,4 +102,8 @@
     line-height: 130%;
     color: #a7b0c2;
   }
+}
+
+.userDisabled {
+  background-color: gray;
 }

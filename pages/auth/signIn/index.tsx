@@ -23,17 +23,16 @@ interface IUserLogin {
 }
 
 const SignIn: FC = () => {
+  const [token, setToken] = useState("");
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { push, locale } = useRouter();
   const dispatch = useAppDispatch();
-  const { token, isLoading, error } = useAppSelector((state) => state.auth);
+  const { isToken, isLoading, error } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    if (!!parsedToken) {
-      push("/setting");
-    }
-  }, [token]);
+    setToken(parsedToken);
+  }, [isToken]);
 
   let t: any;
   switch (locale) {
@@ -67,6 +66,10 @@ const SignIn: FC = () => {
   const handleSubmit = (value: IUserLogin) => {
     setIsButtonClicked(true);
     dispatch(userAuthorization(value));
+
+    if (token) {
+      push("/settings/userSettings");
+    }
   };
 
   return (
