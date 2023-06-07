@@ -37,7 +37,7 @@ const UserCourse = () => {
           ) : (
             <div className={s.addingCourse}>
               <p>У вас нету курсов</p>
-              <Link href="/addition/addingCourse">
+              <Link href="/setting/addition/addingCourse">
                 <MyButton
                   background="#7329c2"
                   hoverBackground="#03d665"
