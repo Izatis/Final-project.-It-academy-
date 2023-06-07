@@ -1,4 +1,4 @@
-import React, {  FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import s from "./CartItem.module.scss";
 
 import Link from "next/link";
@@ -38,7 +38,7 @@ const CartItem: FC<ICartProps> = ({ cartBackend }) => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
-  
+
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET
   const courseId = cartBackend.id;
@@ -46,9 +46,8 @@ const CartItem: FC<ICartProps> = ({ cartBackend }) => {
     useGetReviwsAvgGradeQuery({ token, courseId });
 
   useEffect(() => {
-      setCart({ ...cartBackend, grade: grade });
+    setCart({ ...cartBackend, grade: grade });
   }, [cartBackend, isLoadingGrade]);
-
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // DELETE
@@ -60,14 +59,7 @@ const CartItem: FC<ICartProps> = ({ cartBackend }) => {
   return (
     <Link className={s.cart__link} href={`/courseMore/${cart.id}`}>
       <div className={s.cart__image}>
-        <Image
-          src={
-            "https://img.freepik.com/premium-photo/word-design-written-top-colorful-geometric-3d-shapes_2227-1663.jpg"
-          }
-          alt="poster"
-          width={300}
-          height={200}
-        />
+        <Image src={cart.imageUrl} alt="poster" width={300} height={200} />
 
         <div className={s.blackout}>
           <span>Нажмите</span>

@@ -54,6 +54,22 @@ export const user = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
+    getPurchaseVerification: build.query({
+      query: ({ token, courseId }) => ({
+        url: `/user/course/isPurchase/${courseId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { id: result.id, type: "Users" },
+              { type: "Users", id: "LIST" },
+            ]
+          : [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
     // Запроc - для редактирование пользователя
 
     editingUser: build.mutation<any, any>({
@@ -94,6 +110,7 @@ export const {
   useGetAllUsersQuery,
   useGetUserQuery,
   useGetCurrentUserQuery,
+  useGetPurchaseVerificationQuery,
   useEditingUserMutation,
   useUserUnlockMutation,
   useBlockingAUserMutation,

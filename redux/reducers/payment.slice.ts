@@ -1,24 +1,31 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 import { IPaymentState, IStripePay } from "../types/payment";
 
+const initialState: IPaymentState = {
+  message: "",
+  isLoading: false,
+  error: "",
+};
+
 // Покупка курса
-interface IEditingUserParams {
+interface ICourseFeeParams {
+  token: string;
   courseId: number;
   values: IStripePay;
-  token: string;
 }
 
 export const courseFee = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
-  IEditingUserParams,
+  ICourseFeeParams,
   { rejectValue: string }
->("course/fee", async ({ courseId, values, token }, thunkApi) => {
+>("course/fee", async ({ token, courseId, values }, thunkApi) => {
   try {
     const { data } = await axios.post(
       process.env.NEXT_PUBLIC_BASE_URL +
         `/stripe/pay?courseId=${courseId}&cardNumber=${values.cardNumber}&expMonth=${values.expMonth}&expYear=${values.expYear}&cvc=${values.cvc}`,
-        values,
+      values,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -30,18 +37,39 @@ export const courseFee = createAsyncThunk<
   }
 });
 
-const initialState: IPaymentState = {
-  massage: "",
-  isLoading: false,
-  error: "",
-};
+interface ICourseFeeCartParams {
+  token: string;
+  courseId: number;
+  values: IStripePay;
+}
+
+export const courseFeeCart = createAsyncThunk<
+  any, // Измените этот тип на нужный тип возвращаемого значения
+  ICourseFeeCartParams,
+  { rejectValue: string }
+>("course/fee", async ({ token, values }, thunkApi) => {
+  try {
+    const { data } = await axios.post(
+      process.env.NEXT_PUBLIC_BASE_URL +
+        `/stripe/pay?&cardNumber=${values.cardNumber}&expMonth=${values.expMonth}&expYear=${values.expYear}&cvc=${values.cvc}`,
+      values,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    return data;
+  } catch ({ response }: any) {
+    return thunkApi.rejectWithValue(response.data.message);
+  }
+});
 
 export const paymentSlice = createSlice({
   name: "payment",
   initialState,
   reducers: {
     reset: (state) => {
-      state.massage = "";
+      state.message = "";
     },
   },
   extraReducers: (builder) => {
@@ -51,7 +79,7 @@ export const paymentSlice = createSlice({
     });
 
     builder.addCase(courseFee.fulfilled, (state: any, action: any) => {
-      state.massage = action.payload;
+      state.message = action.payload;
       state.isLoading = false;
       state.error = "";
     });

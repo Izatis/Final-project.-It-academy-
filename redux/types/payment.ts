@@ -6,7 +6,7 @@ export interface IStripePay {
 }
 
 export interface IPaymentState {
-  massage: string;
+  message: string;
   isLoading: boolean;
   error: string;
 }

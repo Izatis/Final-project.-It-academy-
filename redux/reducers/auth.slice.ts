@@ -34,8 +34,6 @@ export const userRegistration = createAsyncThunk<void, IUserRegistration>(
 export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
   "user/authorization",
   async ({ username, password }, thunkApi) => {
-    console.log({ username, password });
-
     try {
       const { data } = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/auth/login",

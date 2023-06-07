@@ -8,12 +8,16 @@ import { CreditCardOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { courseFee, reset } from "@/redux/reducers/payment.slice";
 import { useGettingACourseQuery } from "@/redux/reducers/course/course";
+import { useCourseFeeCartMutation } from "@/redux/reducers/payment";
+import { useBasketAmountQuery } from "@/redux/reducers/cart";
 import { IStripePay } from "@/redux/types/payment";
 
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import ParticlesComponent from "@/components/Particles/Particles";
 
 const Payment: FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [basketAmount, setBasketAmount] = useState(0);
   const [token, setToken] = useState("");
   const { push, query }: { push: any; query: any } = useRouter();
   const dispatch = useAppDispatch();
@@ -31,23 +35,45 @@ const Payment: FC = () => {
     courseId,
   });
 
+  const { data: basketAmountBackend = 0 } = useBasketAmountQuery({ token });
+
+  useEffect(() => {
+    if (courseId === "1000") {
+      setBasketAmount(basketAmountBackend);
+    } else {
+      setBasketAmount(course.price);
+    }
+  }, [course, basketAmountBackend]);
+
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
+  const [courseFeeCart, { data, isLoading: isLoadingCourseFeeCart }] =
+    useCourseFeeCartMutation();
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
-  const onFinish = (values: IStripePay) => {
+  const onFinish = async (values: IStripePay) => {
     const token = JSON.parse(localStorage.getItem("token") as string);
-    dispatch(courseFee({ token, values, courseId }));
+
+    if (courseId === "1000") {
+      push("/payment/paymentSuccessfully");
+      await courseFeeCart({ token, values }).unwrap();
+    } else {
+      dispatch(courseFee({ token, courseId, values }));
+    }
   };
-  const { massage, isLoading } = useAppSelector((state) => state.payment);
+  const { message, isLoading: isLoadingMessage } = useAppSelector(
+    (state) => state.payments
+  );
+
   useEffect(() => {
-    if (!!massage) {
+    setIsLoading(isLoadingMessage);
+    if (!!message) {
       push("/payment/paymentSuccessfully");
     }
     dispatch(reset());
-  }, [massage]);
+  }, [message, isLoadingMessage]);
 
   return (
     <section className={s.payment}>
@@ -175,7 +201,7 @@ const Payment: FC = () => {
         <ul className={s.payment__list}>
           <li className={s.payment__title}>Краткое описание</li>
           <li className={s.payment__total}>
-            <p>Итого:</p> <span>{course.price} $</span>
+            <p>Итого:</p> <span>{basketAmount} $</span>
           </li>
           <li className={s.payment__item}>
             <ul>

@@ -15,7 +15,7 @@ export const category = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({
+              ...result.map(({ id }: { id: number}) => ({
                 type: "Categories",
                 id,
               })),

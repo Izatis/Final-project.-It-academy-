@@ -35,7 +35,7 @@ const CartList = () => {
               <span className={s.aside__total}>Итого:</span>
               <span className={s.aside__price}>{basketAmount} $</span>
 
-              <Link href="/paymentPages/payment">
+              <Link href={`/payment/paymentPage/${1000}`}>
                 <MyButton className={s.aside__Button}>Купить сейчас</MyButton>
               </Link>
             </aside>

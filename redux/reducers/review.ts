@@ -15,7 +15,7 @@ export const review = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({
+              ...result.map(({ id }: { id: number }) => ({
                 type: "Reviews",
                 id,
               })),
@@ -26,21 +26,19 @@ export const review = createApi({
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     getReviwsAvgGrade: build.query({
-      query: ({ token, courseId }) => (
-        console.log(token,courseId),
-        {
+      query: ({ token, courseId }) => ({
         url: `/review/course/avg-grade/${courseId}`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }),
       providesTags: (result) =>
-      result
-        ? [
-            { id: result.id, type: "Reviews" },
-            { type: "Reviews", id: "LIST" },
-          ]
-        : [{ type: "Reviews", id: "LIST" }],
-  }),
+        result
+          ? [
+              { id: result.id, type: "Reviews" },
+              { type: "Reviews", id: "LIST" },
+            ]
+          : [{ type: "Reviews", id: "LIST" }],
+    }),
     // ---------------------------------------------------------------------------------------------------------------------------------
 
     addReview: build.mutation<any, any>({
@@ -64,4 +62,8 @@ export const review = createApi({
   }),
 });
 
-export const { useGetReviwsQuery, useGetReviwsAvgGradeQuery, useAddReviewMutation } = review;
+export const {
+  useGetReviwsQuery,
+  useGetReviwsAvgGradeQuery,
+  useAddReviewMutation,
+} = review;

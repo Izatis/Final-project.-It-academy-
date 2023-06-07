@@ -20,8 +20,8 @@ const addingVideo: FC = () => {
       const formData = new FormData();
       formData.append("lessonId", lessonIdBackend);
       formData.append("file", file);
-      await addAVideo({ formData }).unwrap();
       push("/setting/addition/addMore");
+      await addAVideo({ formData }).unwrap();
     }
   };
 
