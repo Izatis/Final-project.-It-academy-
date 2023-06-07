@@ -17,8 +17,7 @@ import MyButton from "../../../UI/Buttons/MyButton/MyButton";
 
 const PasswordRecovery: FC = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState("");
   const { locale } = useRouter();
   let t: any;
   switch (locale) {
@@ -57,9 +56,9 @@ const PasswordRecovery: FC = () => {
   };
 
   useEffect(() => {
-    if (data) setSuccessMessage(data.message);
-    if (error) setErrorMessage(error.data.message);
-  }, [data, error]);
+    if (error) setMessage("Пользователь с такой почтой не найден!");
+    if (data) setMessage(data.message);
+  }, [isLoading,data, error]);
 
   return (
     <section className={s.passwordRecovery}>
@@ -86,13 +85,8 @@ const PasswordRecovery: FC = () => {
           />
         </Form.Item>
 
-        <span
-          className={cn(
-            { [s.successfully]: successMessage },
-            { [s.error]: errorMessage }
-          )}
-        >
-          {errorMessage || successMessage}
+        <span className={cn({ [s.successfully]: data }, { [s.error]: error })}>
+          {message}
         </span>
 
         <Form.Item className={s.passwordRecovery__deIndenting}>

@@ -7,6 +7,7 @@ export interface IUser {
   email: string;
   password: string;
   role: string;
+  isActive: boolean;
   imageName: string;
   imageUrl: string;
 }

@@ -56,7 +56,7 @@ export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
 );
 
 const initialState: IAuthState = {
-  token: "",
+  isToken: "",
   isLoading: false,
   error: "",
 };
@@ -77,7 +77,7 @@ const authSlice = createSlice({
     });
 
     builder.addCase(userRegistration.fulfilled, (state: any, action) => {
-      state.token = action.payload;
+      state.isToken = action.payload;
       state.isLoading = false;
       state.error = "";
     });
@@ -94,7 +94,7 @@ const authSlice = createSlice({
     });
 
     builder.addCase(userAuthorization.fulfilled, (state: any, action: any) => {
-      state.token = action.payload;
+      state.isToken = action.payload;
       state.isLoading = false;
       state.error = "";
     });
