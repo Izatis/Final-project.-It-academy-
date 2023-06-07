@@ -45,12 +45,21 @@
     transition: all 0.4s ease-in-out;
 
     .select__list {
-      li {
+      .isPurchaseActive {
         text-decoration: underline;
         font-weight: 400;
         @include adaptive-value("font-size", 18, 5);
         line-height: 130%;
         color: #5624d0;
+        margin: 20px 0;
+      }
+
+      .isPurchaseDisabled {
+        cursor: no-drop;
+        font-weight: 400;
+        @include adaptive-value("font-size", 18, 5);
+        line-height: 130%;
+        color: #a7b0c2;
         margin: 20px 0;
       }
     }

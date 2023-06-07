@@ -15,7 +15,7 @@ export const cart = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Carts", id })),
+              ...result.map(({ id }: { id: number}) => ({ type: "Carts", id })),
               { type: "Carts", id: "LIST" },
             ]
           : [{ type: "Carts", id: "LIST" }],

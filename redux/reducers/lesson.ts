@@ -16,7 +16,7 @@ export const lesson = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Lesson", id })),
+              ...result.map(({ id }: { id: number}) => ({ type: "Lesson", id })),
               { type: "Lesson", id: "LIST" },
             ]
           : [{ type: "Lesson", id: "LIST" }],

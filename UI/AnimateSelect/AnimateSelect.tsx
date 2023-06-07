@@ -2,33 +2,33 @@ import { useState, FC } from "react";
 import s from "./AnimateSelect.module.scss";
 
 import cn from "classnames";
-import { useAppDispatch } from "@/hooks/redux";
 
 import MyModalVideo from "@/components/Modals/MyModalVideo/MyModalVideo";
 import { useToGetLessonsQuery } from "@/redux/reducers/lesson";
+import { Tooltip } from "antd";
 
 interface IAnimateSelectProps {
   section: any;
+  isPurchase: boolean | null;
 }
 
-const AnimateSelect: FC<IAnimateSelectProps> = ({ section }) => {
+const AnimateSelect: FC<IAnimateSelectProps> = ({ section, isPurchase }) => {
   const [selectedLessonId, setSelectedLessonId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [reveal, setReveal] = useState<boolean>(false);
-
-  const dispatch = useAppDispatch();
-  // const { lessons } = useAppSelector((state) => state.lessons);
-
   const sectionId = section.id;
   const token = JSON.parse(localStorage.getItem("token") as string);
-  const { data: lessons = [] } = useToGetLessonsQuery({
-    token,
-    sectionId,
-  });
   const handleClick = (id: number) => {
     setSelectedLessonId(id);
     setIsModalOpen(true);
   };
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
+  const { data: lessons = [] } = useToGetLessonsQuery({
+    token,
+    sectionId,
+  });
   return (
     <div
       className={cn(s.select, { [s.reveal]: reveal })}
@@ -44,7 +44,29 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({ section }) => {
           {lessons.map((lesson: any) => {
             return (
               <>
-                <li onClick={() => handleClick(lesson.id)}>{lesson.title}</li>
+                {isPurchase ? (
+                  <li
+                    className={s.isPurchaseActive}
+                    onClick={() => handleClick(lesson.id)}
+                  >
+                    <Tooltip
+                      title="Нажмите чтобы посмотреть курс"
+                      placement="rightTop"
+                    >
+                      {lesson.title}
+                    </Tooltip>
+                  </li>
+                ) : (
+                  <li className={s.isPurchaseDisabled}>
+                    <Tooltip
+                      title="Купите чтобы посмотреть курс"
+                      placement="rightTop"
+                    >
+                      {lesson.title}
+                    </Tooltip>
+                  </li>
+                )}
+
                 <MyModalVideo
                   lesson={lesson}
                   isModalOpen={lesson.id === selectedLessonId && isModalOpen}

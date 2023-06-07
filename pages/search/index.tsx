@@ -55,7 +55,6 @@ const Search: FC = () => {
   const { resultByCategory, courseResults, isLoading } = useAppSelector(
     (state) => state.search
   );
-  console.log(resultByCategory);
 
   const handleSearch = (value: string) => {
     setState(true);

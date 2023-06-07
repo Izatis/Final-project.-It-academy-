@@ -10,6 +10,7 @@ export interface ICourse {
   imageName: string;
   imageUrl: string;
   duration: number;
+  isPurchase: null | boolean
   grade: number
 }
 
