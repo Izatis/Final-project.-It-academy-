@@ -58,8 +58,10 @@ export default function () {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET
-  const { data: isPurchase = false, isLoading: isLoadingIsPurchase } =
-    useGetPurchaseVerificationQuery({ token, courseId });
+  const { data: isPurchase = false } = useGetPurchaseVerificationQuery({
+    token,
+    courseId,
+  });
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET
   const { data: grade = 0, isLoading: isLoadingGrade } =
@@ -71,7 +73,7 @@ export default function () {
   });
 
   useEffect(() => {
-    setCourse({ ...courseBackend,isPurchase: isPurchase, grade: grade });
+    setCourse({ ...courseBackend, isPurchase: isPurchase, grade: grade });
   }, [isLoading, isPurchase, isLoadingGrade]);
 
   const { sections } = useAppSelector((state) => state.section);
@@ -189,7 +191,11 @@ export default function () {
                 <b>Материалы курса:</b>
                 {Array.isArray(sections) &&
                   sections.map((section) => (
-                    <AnimateSelect key={section.id} section={section} isPurchase={isPurchase}/>
+                    <AnimateSelect
+                      key={section.id}
+                      section={section}
+                      isPurchase={isPurchase}
+                    />
                   ))}
               </div>
               <b className={s.course__creator}>Преподаватель:</b>
