@@ -15,12 +15,6 @@ import ParticlesComponent from "@/components/Particles/Particles";
 
 const Payment: FC = () => {
   const [token, setToken] = useState("");
-  const [payment, setPayment] = useState<IStripePay>({
-    cardNumber: "4000002500001001",
-    expMonth: 12,
-    expYear: 2024,
-    cvc: "444",
-  });
   const { push, query }: { push: any; query: any } = useRouter();
   const dispatch = useAppDispatch();
   const courseId = query.id;
@@ -41,21 +35,13 @@ const Payment: FC = () => {
   // POST
   const [form] = Form.useForm();
   useEffect(() => {
-    form.setFieldsValue({ ...payment });
+    form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
   const onFinish = (values: IStripePay) => {
     const token = JSON.parse(localStorage.getItem("token") as string);
     dispatch(courseFee({ token, values, courseId }));
-    setPayment({
-      cardNumber: "",
-      expMonth: 0,
-      expYear: 0,
-      cvc: "",
-    });
   };
-  const { massage, isLoading } = useAppSelector(
-    (state) => state.payment
-  );
+  const { massage, isLoading } = useAppSelector((state) => state.payment);
   useEffect(() => {
     if (!!massage) {
       push("/payment/paymentSuccessfully");

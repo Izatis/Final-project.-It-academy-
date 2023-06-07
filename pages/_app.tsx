@@ -2,8 +2,8 @@ import type { AppProps } from "next/app";
 import "@/styles/globals.css";
 import "@/styles/СourseSlides.css";
 import "@/styles/СardSlides.css";
-import "@/styles/mySelect.css";
 import "@/styles/CourseMore.css";
+import "@/styles/MySelect.css";
 import "@/styles/404.css";
 
 import { Provider } from "react-redux";
