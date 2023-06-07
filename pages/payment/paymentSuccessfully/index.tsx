@@ -31,16 +31,16 @@ const Successfully = () => {
               На главную
             </MyButton>
           </Link>
-          <Link href="/userCourses">
+          <Link href="/setting/purchasedUserCourses">
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"
               type="primary"
             >
-              Мои курсы
+              Мои купленные курсы
             </MyButton>
           </Link>
-          <Link href="/setting">
+          <Link href="/setting/userSettings">
             <MyButton
               background="#7329c2"
               hoverBackground="#03d665"

@@ -2,41 +2,37 @@ import React, { useEffect, useState } from "react";
 import s from "./purchasedUserCourses.module.scss";
 
 import Link from "next/link";
+import { useReceivingPurchasedCoursesQuery } from "@/redux/reducers/subscription";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import Loading from "@/components/Loading/Loading";
 import CoursesList from "@/components/CoursesList/CoursesList";
-import { useGetCurrentUserQuery } from "@/redux/reducers/user";
-import { useGetUserCoursesQuery } from "@/redux/reducers/course/course";
 
 const MyPurchasedCourses = () => {
   const [token, setToken] = useState("");
-  const { data: userCurrent = {}, isLoading: isLoadingUserCurrent } =
-    useGetCurrentUserQuery({ token });
-  const userId = userCurrent.id;
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") || "");
     setToken(parsedToken);
   }, []);
 
-  const { data: userCourses = [], isLoading: isLoadingUserCourses } =
-    useGetUserCoursesQuery({ token, userId });
+  const { data: userCourses = [], isLoading } = useReceivingPurchasedCoursesQuery({
+    token,
+  });
 
   return (
     <section className={s.userCourses}>
-      {isLoadingUserCurrent || isLoadingUserCourses ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <>
-          {userCourses.length === 0 ? (
+          {userCourses.length !== 0 ? (
             <div>
               <b>Мои купленные курсы</b>
               <CoursesList courses={userCourses} />
             </div>
           ) : (
             <div className={s.addingCourse}>
-              <p>У вас нету курсов</p>
+              <b>У вас нет купленных курсов</b>
               {/* <Link href="/courseMore">
                 <MyButton
                   background="#7329c2"

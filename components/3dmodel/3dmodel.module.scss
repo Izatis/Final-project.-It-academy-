@@ -1,6 +1,7 @@
 @import "../../styles/varibales.module.scss";
 
 .model {
+  @include centering();
   position: relative;
   height: 60vh;
 

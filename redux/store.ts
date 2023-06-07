@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import registerReducer from "./reducers/auth.slice";
 import courseReducer from "./reducers/course/course.slice";
 import sectionReducer from "./reducers/section.slice";
-import paymentReducer from './reducers/payment.slice'
+import paymentReducer from "./reducers/payment.slice";
 import lessonReducer from "./reducers/lesson.slice";
 import { review } from "./reducers/review";
 import { courses } from "@/redux/reducers/course/course";
@@ -14,6 +14,7 @@ import { s3 } from "@/redux/reducers/s3";
 import { password } from "@/redux/reducers/password";
 import { lesson } from "@/redux/reducers/lesson";
 import search from "@/redux/reducers/search.slice";
+import { subscription } from "@/redux/reducers/subscription";
 
 const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ const store = configureStore({
     [s3.reducerPath]: s3.reducer,
     [password.reducerPath]: password.reducer,
     [lesson.reducerPath]: lesson.reducer,
+    [subscription.reducerPath]: subscription.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -43,7 +45,8 @@ const store = configureStore({
       .concat(cart.middleware)
       .concat(s3.middleware)
       .concat(password.middleware)
-      .concat(lesson.middleware),
+      .concat(lesson.middleware)
+      .concat(subscription.middleware),
 });
 
 export default store;

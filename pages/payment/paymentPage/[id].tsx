@@ -1,38 +1,51 @@
 import React, { FC, useEffect, useState } from "react";
 import s from "./paymentPage.module.scss";
 
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { Form, Input, Checkbox, InputNumber } from "antd";
 import { CreditCardOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { courseFee, reset } from "@/redux/reducers/payment.slice";
+import { useGettingACourseQuery } from "@/redux/reducers/course/course";
 import { IStripePay } from "@/redux/types/payment";
 
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import ParticlesComponent from "@/components/Particles/Particles";
-import { useRouter } from "next/router";
-import { courseFee, reset } from "@/redux/reducers/payment.slice";
 
 const Payment: FC = () => {
-  // Состояния - для данных покупки курсов
+  const [token, setToken] = useState("");
   const [payment, setPayment] = useState<IStripePay>({
     cardNumber: "4000002500001001",
     expMonth: 12,
     expYear: 2024,
     cvc: "444",
   });
-
   const { push, query }: { push: any; query: any } = useRouter();
-  const { massage, isLoading } = useAppSelector((state) => state.payment);
-
+  const dispatch = useAppDispatch();
   const courseId = query.id;
 
-  const dispatch = useAppDispatch();
-  const onFinish = (stripePay: IStripePay) => {
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
+  const { data: course = {} } = useGettingACourseQuery({
+    token,
+    courseId,
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // POST
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue({ ...payment });
+  }, []);
+  const onFinish = (values: IStripePay) => {
     const token = JSON.parse(localStorage.getItem("token") as string);
-
-    console.log(token, courseId, stripePay);
-    dispatch(courseFee({ token, stripePay, courseId }));
-
+    dispatch(courseFee({ token, values, courseId }));
     setPayment({
       cardNumber: "",
       expMonth: 0,
@@ -40,20 +53,15 @@ const Payment: FC = () => {
       cvc: "",
     });
   };
-
+  const { massage, isLoading } = useAppSelector(
+    (state) => state.payment
+  );
   useEffect(() => {
     if (!!massage) {
       push("/payment/paymentSuccessfully");
     }
     dispatch(reset());
   }, [massage]);
-
-  // Для сохранения значений инпутов
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.setFieldsValue({ ...payment });
-  }, []);
 
   return (
     <section className={s.payment}>
@@ -181,7 +189,7 @@ const Payment: FC = () => {
         <ul className={s.payment__list}>
           <li className={s.payment__title}>Краткое описание</li>
           <li className={s.payment__total}>
-            <p>Итого:</p> <span>149,97 $</span>
+            <p>Итого:</p> <span>{course.price} $</span>
           </li>
           <li className={s.payment__item}>
             <ul>
