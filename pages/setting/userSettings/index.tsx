@@ -17,7 +17,7 @@ const Setting: FC = () => {
 
     useEffect(() => {
     const fullUrl = window.location.href;
-    const token = fullUrl.split("http://localhost:3000/setting?token=")[1];
+    const token = fullUrl.split("http://localhost:3000/setting/userSettings?token=")[1];
     if (token) {
       localStorage.setItem("token", JSON.stringify(token));
     }

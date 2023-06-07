@@ -61,7 +61,6 @@ const Editing: FC = () => {
   const handleSubmit = async (values: any) => {
     await editingUser({ token, values }).unwrap();
     openNotification(5);
-    push("/setting");
   };
 
   return (
