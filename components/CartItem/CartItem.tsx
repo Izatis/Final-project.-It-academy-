@@ -46,9 +46,7 @@ const CartItem: FC<ICartProps> = ({ cartBackend }) => {
     useGetReviwsAvgGradeQuery({ token, courseId });
 
   useEffect(() => {
-    if (grade) {
       setCart({ ...cartBackend, grade: grade });
-    }
   }, [cartBackend, isLoadingGrade]);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
