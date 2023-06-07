@@ -26,7 +26,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurre
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
         <Link
           className={s.sidePanel__header}
-          href="/settings/userSettings"
+          href="/setting/userSettings"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
           <Avatar

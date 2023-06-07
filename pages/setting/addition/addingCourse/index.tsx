@@ -65,7 +65,7 @@ const AddingCourse: FC = () => {
 
     dispatch(courseCreation({ categoryId, value, parsedToken }));
 
-    push("/settings/addition/addingSection");
+    push("/setting/addition/addingSection");
 
     // Сбрасываем поля объекта
     setFile({

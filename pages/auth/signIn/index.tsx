@@ -68,7 +68,7 @@ const SignIn: FC = () => {
     dispatch(userAuthorization(value));
 
     if (token) {
-      push("/settings/userSettings");
+      push("/setting/userSettings");
     }
   };
 
