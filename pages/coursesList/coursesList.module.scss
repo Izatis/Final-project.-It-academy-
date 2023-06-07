@@ -41,4 +41,12 @@
       color: #322f55;
     }
   }
+
+  .courses__footer {
+    display: flex;
+
+    .pagination {
+      margin: 5% auto;
+    }
+  }
 }

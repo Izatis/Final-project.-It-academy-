@@ -1,0 +1,109 @@
+@import "../../styles/varibales.module.scss";
+
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid #a7b0c2;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 4%;
+
+  .user__introduction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .user__info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      img {
+        @include adaptive-value("width", 150, 70);
+        @include adaptive-value("height", 150, 70);
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .user__list {
+        .user__fullName {
+          font-weight: 700;
+          @include adaptive-value("font-size", 25, 15);
+          line-height: 130%;
+          color: #191970;
+        }
+
+        .user__email {
+          font-weight: 400;
+          @include adaptive-value("font-size", 15, 8);
+          line-height: 130%;
+          color: #a7b0c2;
+        }
+
+        .user__rating {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          pre {
+            font-weight: 500;
+            @include adaptive-value("font-size", 18, 8);
+            line-height: 130%;
+            color: #ffd700;
+          }
+
+          ul {
+            display: flex;
+            li {
+              @include adaptive-value("font-size", 18, 8);
+            }
+          }
+        }
+
+        .user__item {
+          font-weight: 700;
+          @include adaptive-value("font-size", 15, 8);
+          line-height: 130%;
+          color: #191970;
+        }
+      }
+    }
+
+    .successfully {
+      font-weight: 500;
+      @include adaptive-value("font-size", 15, 12);
+      line-height: 130%;
+      color: #03d665;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .error {
+      font-weight: 500;
+      @include adaptive-value("font-size", 15, 12);
+      line-height: 130%;
+      color: #ff4d4f;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  }
+
+  .user__title {
+    font-weight: 400;
+    @include adaptive-value("font-size", 18, 8);
+    line-height: 130%;
+    color: #191970;
+  }
+
+  .user__description {
+    font-weight: 400;
+    @include adaptive-value("font-size", 15, 8);
+    line-height: 130%;
+    color: #a7b0c2;
+  }
+}
+
+.userDisabled {
+  background-color: gray;
+}

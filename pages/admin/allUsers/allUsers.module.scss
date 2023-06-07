@@ -1,0 +1,7 @@
+@import "../../../styles/varibales.module.scss";
+
+.allUsers {
+  @include centering();
+  padding: 20% 5%;
+  box-sizing: border-box;
+}

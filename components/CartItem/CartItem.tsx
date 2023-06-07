@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, {  FC, useEffect, useState } from "react";
 import s from "./CartItem.module.scss";
 
 import Link from "next/link";
@@ -6,24 +6,56 @@ import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useRemoveFromCartMutation } from "@/redux/reducers/cart";
+import { ICart } from "@/redux/types/cart";
 
 import Rating from "../Rating/Rating";
-import { ICart } from "@/redux/types/cart";
-import { useRemoveFromCartMutation } from "@/redux/reducers/cart";
+import { useGetReviwsAvgGradeQuery } from "@/redux/reducers/review";
 
 interface ICartProps {
-  cart: ICart;
+  cartBackend: ICart;
 }
 
-const CartItem: FC<ICartProps> = ({ cart }) => {
-  const [removeFromCart] = useRemoveFromCartMutation();
+const CartItem: FC<ICartProps> = ({ cartBackend }) => {
+  const [token, setToken] = useState("");
 
-  const handleClick = async (event: ChangeEvent<HTMLInputElement>, courseId: number) => {
-    console.log(event);
-    console.log(courseId);
-    
+  const [cart, setCart] = useState<ICart>({
+    id: 0,
+    name: "",
+    description: "",
+    created: "",
+    price: 0,
+    language: "",
+    author: "",
+    authorId: 0,
+    imageName: "",
+    imageUrl: "",
+    duration: 0,
+    grade: 0,
+  });
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
+  const courseId = cartBackend.id;
+  const { data: grade = 0, isLoading: isLoadingGrade } =
+    useGetReviwsAvgGradeQuery({ token, courseId });
+
+  useEffect(() => {
+      setCart({ ...cartBackend, grade: grade });
+  }, [cartBackend, isLoadingGrade]);
+
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // DELETE
+  const [removeFromCart] = useRemoveFromCartMutation();
+  const handleClick = async (event: any, courseId: number) => {
     event.preventDefault();
-    await removeFromCart(courseId).unwrap();
+    await removeFromCart({ token, courseId }).unwrap();
   };
   return (
     <Link className={s.cart__link} href={`/courseMore/${cart.id}`}>
@@ -47,8 +79,8 @@ const CartItem: FC<ICartProps> = ({ cart }) => {
           <li className={s.cart__title}>{cart.name}</li>
           <li className={s.cart__creator}>Автор: {cart.author}</li>
           <li className={s.cart__rating} onClick={(e) => e.preventDefault()}>
-            <pre>{cart.price}</pre>
-            <Rating value={2.5} />
+            <pre>{cart.grade}</pre>
+            <Rating value={cart.grade} />
           </li>
           <li className={s.cart__duration}>{cart.created}</li>
           <li className={s.cart__duration}>{cart.language}</li>
@@ -66,7 +98,7 @@ const CartItem: FC<ICartProps> = ({ cart }) => {
           <FontAwesomeIcon
             className={s.cart__trash}
             icon={faTrash}
-            onClick={(e) => handleClick}
+            onClick={(e) => handleClick(e, cart.id)}
           />
         </div>
       </div>

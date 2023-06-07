@@ -10,7 +10,7 @@ export interface IUserAuthorization {
 }
 
 export interface IAuthState {
-  token: string;
+  isToken: string;
   isLoading: boolean;
   error: string;
 }

@@ -1,0 +1,32 @@
+@import "../../../styles/varibales.module.scss";
+
+.userCourses {
+  @include centering();
+  padding: 20% 5%;
+  box-sizing: border-box;
+ b{
+  font-weight: 700;
+  @include adaptive-value("font-size", 25, 10);
+  line-height: 130%;
+  color: #322f55;
+ }
+
+  .addingCourse {
+    max-width: 700px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 100px auto;
+    padding: 5% 2%;
+    box-sizing: border-box;
+
+    p {
+      font-weight: 700;
+      @include adaptive-value("font-size", 18, 5);
+      line-height: 130%;
+      color: #322f55;
+    }
+  }
+}

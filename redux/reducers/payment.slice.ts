@@ -4,29 +4,25 @@ import { IPaymentState, IStripePay } from "../types/payment";
 
 // Покупка курса
 interface IEditingUserParams {
-  id: number;
-  stripePay: IStripePay;
-  parsedToken: string;
-  thunkApi?: any;
+  courseId: number;
+  values: IStripePay;
+  token: string;
 }
 
 export const courseFee = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IEditingUserParams,
   { rejectValue: string }
->("course/fee", async ({ id, stripePay, parsedToken, thunkApi }) => {
-
+>("course/fee", async ({ courseId, values, token }, thunkApi) => {
   try {
-    console.log(id);
     const { data } = await axios.post(
       process.env.NEXT_PUBLIC_BASE_URL +
-        `/stripe/pay?courseId=${id}&cardNumber=${stripePay.cardNumber}&expMonth=${stripePay.expMonth}&expYear=${stripePay.expYear}&cvc=${stripePay.cvc}`,
-      stripePay,
+        `/stripe/pay?courseId=${courseId}&cardNumber=${values.cardNumber}&expMonth=${values.expMonth}&expYear=${values.expYear}&cvc=${values.cvc}`,
+        values,
       {
-        headers: { Authorization: `Bearer ${parsedToken}` },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(data);
 
     return data;
   } catch ({ response }: any) {
@@ -35,6 +31,7 @@ export const courseFee = createAsyncThunk<
 });
 
 const initialState: IPaymentState = {
+  massage: "",
   isLoading: false,
   error: "",
 };
@@ -42,14 +39,19 @@ const initialState: IPaymentState = {
 export const paymentSlice = createSlice({
   name: "payment",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.massage = "";
+    },
+  },
   extraReducers: (builder) => {
     // COURSE FEE
     builder.addCase(courseFee.pending, (state: any) => {
       state.isLoading = true;
     });
 
-    builder.addCase(courseFee.fulfilled, (state: any) => {
+    builder.addCase(courseFee.fulfilled, (state: any, action: any) => {
+      state.massage = action.payload;
       state.isLoading = false;
       state.error = "";
     });
@@ -61,4 +63,5 @@ export const paymentSlice = createSlice({
   },
 });
 
+export const { reset } = paymentSlice.actions;
 export default paymentSlice.reducer;

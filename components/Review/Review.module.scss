@@ -1,7 +1,20 @@
 @import "../../styles/varibales.module.scss";
 
 .reviewCards {
-  h2 {
+  .reviewCards__leaveFeedback {
+    max-width: 1000px;
+    margin: 5% 0;
+    box-sizing: border-box;
+
+    b {
+      font-weight: 700;
+      @include adaptive-value("font-size", 25, 10);
+      line-height: 130%;
+      color: #322f55;
+    }
+  }
+
+  .reviewCards__grade {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -48,6 +61,13 @@
             @include adaptive-value("font-size", 18, 12);
             line-height: 130%;
             color: #191970;
+          }
+
+          .reviewCard__email {
+            font-weight: 400;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #a7b0c2;
           }
 
           .reviewCard__rating {

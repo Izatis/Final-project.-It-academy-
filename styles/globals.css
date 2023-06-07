@@ -12,6 +12,8 @@ html {
 
 body {
   background-color: #ffffff;
+  overflow-x: hidden;
+  
 }
 
 @font-face {
@@ -45,6 +47,12 @@ pre {
   list-style: none;
   font-family: "Nunito", sans-serif;
   font-style: normal;
+}
+
+/* MyModal */
+.ant-modal-footer{
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 425px) {

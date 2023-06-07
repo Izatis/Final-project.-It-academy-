@@ -1,0 +1,72 @@
+@import "../../../styles/varibales.module.scss";
+
+.setting {
+  .setting__static {
+    position: relative;
+
+    .coverFirst {
+      width: 100%;
+      height: 200px;
+    }
+
+    .coverSecond {
+      display: none;
+      width: 100%;
+      height: 200px;
+      background: #f3f3f3;
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .setting__avatar {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      right: 15%;
+      bottom: -1%;
+      cursor: pointer;
+    }
+
+    .setting__list {
+      position: fixed;
+      top: 200px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100vh;
+      width: 80px;
+      display: flex;
+      gap: 20px;
+      padding: 10px;
+      flex-direction: column;
+      align-items: center;
+
+      li {
+        a {
+          font-weight: 700;
+          @include adaptive-value("font-size", 18, 5);
+          line-height: 130%;
+          color: #322f55;
+        }
+
+        &:hover a {
+          color: #03d665;
+          transition: all 0.5s;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .setting {
+    .setting__static {
+      .coverFirst {
+        display: none;
+      }
+
+      .coverSecond {
+        display: block;
+      }
+    }
+  }
+}

@@ -6,9 +6,9 @@ export const user = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
     // ---------------------------------------------------------------------------------------------------------------------------------
-    getTeacher: build.query({
-      query: ({ teacherId, token }) => ({
-        url: `/user/${teacherId}`,
+    getAllUsers: build.query({
+      query: ({ token }) => ({
+        url: `/user`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }),
@@ -21,25 +21,80 @@ export const user = createApi({
           : [{ type: "Users", id: "LIST" }],
     }),
 
-    // // ---------------------------------------------------------------------------------------------------------------------------------
-    // addProduct: build.mutation({
-    //   query: (body) => ({
-    //     url: "goods",
-    //     method: "POST",
-    //     body,
-    //   }),
-    //   invalidatesTags: [{ type: "Users", id: "LIST" }],
-    // }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    getUser: build.query({
+      query: ({ creatorId, token }) => ({
+        url: `/user/${creatorId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { id: result.id, type: "Users" },
+              { type: "Users", id: "LIST" },
+            ]
+          : [{ type: "Users", id: "LIST" }],
+    }),
 
-    // // ---------------------------------------------------------------------------------------------------------------------------------
-    // deleteProduct: build.mutation({
-    //   query: (id) => ({
-    //     url: `goods/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [{ type: "Users", id: "LIST" }],
-    // }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    getCurrentUser: build.query({
+      query: ({ token }) => ({
+        url: `/user/current`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { id: result.id, type: "Users" },
+              { type: "Users", id: "LIST" },
+            ]
+          : [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // Запроc - для редактирование пользователя
+
+    editingUser: build.mutation<any, any>({
+      query: ({ token, values }) => ({
+        url: `/user`,
+        method: "PUT",
+        headers: { Authorization: `Bearer ${token}` },
+        body: values,
+      }),
+      invalidatesTags: [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // POST UNLOCKING
+    userUnlock: build.mutation<any, any>({
+      query: ({ userId, token }) => ({
+        url: `user/unlock/${userId}`,
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // POST BLOCKING
+    blockingAUser: build.mutation<any, any>({
+      query: ({ userId, token }) => ({
+        url: `user/block/${userId}`,
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      invalidatesTags: [{ type: "Users", id: "LIST" }],
+    }),
   }),
 });
 
-export const { useGetTeacherQuery } = user;
+export const {
+  useGetAllUsersQuery,
+  useGetUserQuery,
+  useGetCurrentUserQuery,
+  useEditingUserMutation,
+  useUserUnlockMutation,
+  useBlockingAUserMutation,
+} = user;

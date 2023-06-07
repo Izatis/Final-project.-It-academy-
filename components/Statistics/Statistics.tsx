@@ -11,20 +11,22 @@ import {
   useGettingStatisticsUserTodayCountQuery,
   useGettingStatisticsReviewCountQuery,
 } from "@/redux/reducers/statistics";
+import { motion } from "framer-motion";
 
 const Statistics: FC = () => {
   const [token, setToken] = useState("");
-  
+
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
-  
-  const { data: courseCount } = useGettingStatisticsCourseCountQuery({token});
-  const { data: userCount } = useGettingStatisticsUserCountQuery({token});
-  const { data: userTodayCount } =
-    useGettingStatisticsUserTodayCountQuery({token});
-  const { data: reviewCount } = useGettingStatisticsReviewCountQuery({token});
+
+  const { data: courseCount } = useGettingStatisticsCourseCountQuery({ token });
+  const { data: userCount } = useGettingStatisticsUserCountQuery({ token });
+  const { data: userTodayCount } = useGettingStatisticsUserTodayCountQuery({
+    token,
+  });
+  const { data: reviewCount } = useGettingStatisticsReviewCountQuery({ token });
 
   const ref = useRef<HTMLTableSectionElement>(null);
   const [inView, setInView] = useState<boolean>(false);
@@ -113,31 +115,68 @@ const Statistics: FC = () => {
           className={s.statisticsSlider}
         >
           <SwiperSlide>
-            <div className={s.statistics__item}>
+            <motion.div
+              className={s.statistics__item}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: 100 },
+              }}
+            >
               <span className={s.__num} data-target={courseCount}></span>
               <p>Практических курсов</p>
-            </div>
+            </motion.div>
           </SwiperSlide>
 
           <SwiperSlide>
-            <div className={s.statistics__item}>
+            <motion.div
+              className={s.statistics__item}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: 100 },
+              }}
+            >
               <span className={s.__num} data-target={userCount}></span>
               <p>Пользователей</p>
-            </div>
+            </motion.div>
           </SwiperSlide>
 
           <SwiperSlide>
-            <div className={s.statistics__item}>
+            <motion.div
+              className={s.statistics__item}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: 100 },
+              }}
+            >
               <span className={s.__num} data-target={userTodayCount}></span>
               <p>Зарегистрированных сегодня</p>
-            </div>
+            </motion.div>
           </SwiperSlide>
 
           <SwiperSlide>
-            <div className={s.statistics__item} id="categories">
+            <motion.div
+              className={s.statistics__item}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ duration: 1 }}
+              variants={{
+                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: 100 },
+              }}
+              id="categories"
+            >
               <span className={s.__num} data-target={reviewCount}></span>
               <p>Отзывов</p>
-            </div>
+            </motion.div>
           </SwiperSlide>
         </Swiper>
       )}

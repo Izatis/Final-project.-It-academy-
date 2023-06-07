@@ -1,25 +1,20 @@
 import React, { FC } from "react";
 import s from "./SideBar.module.scss";
 
-import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import cn from "classnames";
-import { useAppSelector } from "@/hooks/redux";
-
-import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
 import { Avatar } from "antd";
+import { IUser } from "@/redux/types/user";
 
 interface ISideBarProps {
   sideBarActive: boolean;
   setSideBarActive: (active: boolean) => void;
+  userCurrent: IUser
 }
 
-const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
-  // Чтобы получить информацию о текущем маршруте
+const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurrent }) => {
   const { pathname } = useRouter();
-
-  const { user } = useAppSelector((state) => state.users);
 
   return (
     <div
@@ -31,30 +26,29 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
         <Link
           className={s.sidePanel__header}
-          href="/setting/setting"
+          href="/setting/userSettings"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
-           <Avatar
-              className={s.menu__avatar}
-              src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
-            />
+          <Avatar
+            className={s.menu__avatar}
+            src={userCurrent.imageUrl}
+          />
           <div className={s.sidePanel__info}>
-            <h4>{user.fullName}</h4>
-            <p>{user.email}</p>
-            <TranslateButton className={s.menu__translateButton} />
+            <h4>{userCurrent.fullName}</h4>
+            <p>{userCurrent.email}</p>
           </div>
         </Link>
 
         {pathname === "/" ? (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/cartList/cartList">Моя корзина</Link>
+              <Link href="/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/setting/setting">Профиль</Link>
+              <Link href="/setting">Профиль</Link>
             </li>
             <li>
               <a href="#" onClick={() => setSideBarActive(!sideBarActive)}>
@@ -89,13 +83,13 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
         ) : (
           <ul className={s.menu__list}>
             <li>
-              <Link href="/cartList/cartList">Моя корзина</Link>
+              <Link href="/cartList">Моя корзина</Link>
             </li>
             <li>
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/setting/setting">Профиль</Link>
+              <Link href="/setting">Профиль</Link>
             </li>
             <li>
               <Link href="/" onClick={() => setSideBarActive(!sideBarActive)}>

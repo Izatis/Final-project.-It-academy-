@@ -16,8 +16,8 @@ const MyButton: FC<IMyButtonProps> = ({
   hoverBackground,
   type,
   icon,
-  loading,
   onClick,
+  loading,
 }) => {
   // С помощью useRef получаем элемента
   const spanElement = useRef<HTMLSpanElement>(null);
@@ -50,10 +50,10 @@ const MyButton: FC<IMyButtonProps> = ({
       type={type}
       htmlType="submit"
       icon={icon}
-      loading={loading}
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      loading={loading}
     >
       {children}
       <span

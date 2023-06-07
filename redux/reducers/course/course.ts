@@ -20,6 +20,31 @@ export const courses = createApi({
             ]
           : [{ type: "Courses", id: "LIST" }],
     }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    receiveCoursesAmountPageByCategory: build.mutation({
+      query: ({ token, categoryId, pageNumber }) => ({
+        url: `/course/category?categoryId=${categoryId}&pageNumber=${pageNumber}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    // Запроc - для получение всех курсов пользователя
+    getUserCourses: build.query({
+      query: ({ token, userId }) => ({
+        url: `/course/author/${userId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
+              { type: "Courses", id: "LIST" },
+            ]
+          : [{ type: "Courses", id: "LIST" }],
+    }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     gettingACourse: build.query({
@@ -38,23 +63,7 @@ export const courses = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    receiveCoursesByCategory: build.query({
-      query: ({ token, categoryId }) => ({
-        url: `/course/category/${categoryId}`,
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
-              { type: "Courses", id: "LIST" },
-            ]
-          : [{ type: "Courses", id: "LIST" }],
-    }),
-
-    // ---------------------------------------------------------------------------------------------------------------------------------
-    // addProduct: build.mutation({
+    // addProduct: build.mutation<any, any>({
     //   query: (body) => ({
     //     url: "goods",
     //     method: "POST",
@@ -63,19 +72,23 @@ export const courses = createApi({
     //   invalidatesTags: [{ type: "Courses", id: "LIST" }],
     // }),
 
-    // // ---------------------------------------------------------------------------------------------------------------------------------
-    // deleteProduct: build.mutation({
-    //   query: (id) => ({
-    //     url: `goods/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [{ type: "Courses", id: "LIST" }],
-    // }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    deletingACourse: build.mutation<any, any>({
+      query: ({ token, courseId }) => (        {
+          url: `/course/${courseId}`,
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      ),
+      invalidatesTags: [{ type: "Courses", id: "LIST" }],
+    }),
   }),
 });
 
 export const {
   useGetingAllCoursesQuery,
+  useReceiveCoursesAmountPageByCategoryMutation,
+  useGetUserCoursesQuery,
   useGettingACourseQuery,
-  useReceiveCoursesByCategoryQuery,
+  useDeletingACourseMutation,
 } = courses;

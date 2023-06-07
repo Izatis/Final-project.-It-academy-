@@ -8,7 +8,7 @@ const MainLoad = () => {
   useEffect(() => {
     setTimeout(function () {
       setLoad(false);
-    }, 5000);
+    }, 1200);
   }, [load]);
 
   const [show, setShow] = useState(false);
@@ -36,7 +36,7 @@ const MainLoad = () => {
   useEffect(() => {
     setTimeout(function () {
       setStyle({ opacity: 0 });
-    }, 3500);
+    }, 1200);
   }, [style]);
 
   return (

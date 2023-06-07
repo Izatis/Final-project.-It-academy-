@@ -11,11 +11,11 @@ export interface ISearchState {
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Params
 export interface ISearchByCoursesParams {
+  token: string;
   value: string;
-  parsedToken: string;
 }
 
 export interface ISearchByCategoryParams {
+  token: string;
   value: string;
-  parsedToken: string;
 }

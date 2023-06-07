@@ -4,23 +4,32 @@ import s from "./Header.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import cn from "classnames";
+import { Avatar } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
   faGraduationCap,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+import en from "../../locales/EN/translation.json";
+import ru from "../../locales/RU/translation.json";
+import de from "../../locales/DE/translation.json";
+import ch from "../../locales/CH/translation.json";
+import fr from "../../locales/FR/translation.json";
+import uk from "../../locales/UK/translation.json";
 import { useAppDispatch } from "@/hooks/redux";
 import { reset } from "@/redux/reducers/auth.slice";
+import { useGetCurrentUserQuery } from "@/redux/reducers/user";
+import { IUser } from "@/redux/types/user";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
 import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
-import { Avatar } from "antd";
 
 interface IHeaderProps {
   sideBarActive: boolean;
   setSideBarActive: (active: boolean) => void;
+  userCurrent: IUser;
 }
 
 interface ILine {
@@ -28,22 +37,24 @@ interface ILine {
   left: number;
 }
 
-const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
-  // Состояние - для header (для позиции)
+const Header: FC<IHeaderProps> = ({
+  sideBarActive,
+  setSideBarActive,
+  userCurrent,
+}) => {
+  const [token, setToken] = useState("");
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
-  // Состояние - для navbar (для линии)
   const [navBarPosition, setNavBarPosition] = useState<ILine>({
     width: 0,
     left: 0,
   });
-  // Состояние - для изменение цвета навигации
   const [navColor, setNavColor] = useState<number>(0);
-
-  // Состояние - для токен пользователя
-  const [isToken, setIsToken] = useState<boolean>(false);
-
-  // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, [pathname]);
 
   // С помощью useRef получаем размер и позицию элемента
   const blockRefFirst = useRef<HTMLLIElement>(null);
@@ -105,23 +116,36 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
     };
   }, [sideBarActive, pathname]);
 
-  useEffect(() => {
-    // Достаем токен пользователя
-    const token = localStorage.getItem("token") ?? "";
-    const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-    !!parsedToken ? setIsToken(true) : setIsToken(false);
-  }, [pathname]);
-
   const dispatch = useAppDispatch();
-  const resetAuth = () => {
-    dispatch(reset());
-  };
 
   const handleClick = () => {
     setIsHeaderActive(!isHeaderActive);
     setSideBarActive(!sideBarActive);
   };
+  const { locale } = useRouter();
 
+  // Функции - для смены текста
+  let t: any;
+  switch (locale) {
+    case "en":
+      t = en;
+      break;
+    case "de":
+      t = de;
+      break;
+    case "ch":
+      t = ch;
+      break;
+    case "fr":
+      t = fr;
+      break;
+    case "uk":
+      t = uk;
+      break;
+    default:
+      t = ru;
+      break;
+  }
   return (
     <header className={cn(s.header, { [s.active]: isHeaderActive })}>
       <nav className={s.header__nav}>
@@ -142,7 +166,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 1 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Главная
+                  {t.header[0]}
                 </a>
               </li>
               <li ref={blockRefSecond}>
@@ -152,7 +176,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 2 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Категории
+                  {t.header[1]}
                 </a>
               </li>
               <li ref={blockRefThree}>
@@ -162,7 +186,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 3 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Курсы
+                  {t.header[2]}
                 </a>
               </li>
               <li ref={blockRefFour}>
@@ -172,7 +196,7 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
                     navColor === 4 ? { color: "#03d665" } : { color: "#322f55" }
                   }
                 >
-                  Контакты
+                  {t.header[3]}
                 </a>
               </li>
               <span
@@ -195,61 +219,56 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
 
             <ul className={s.header__list}>
               <li ref={blockRefFirst}>
-                <Link href="/">Главная</Link>
+                <Link href="/"> {t.header[0]}</Link>
               </li>
               <li ref={blockRefSecond}>
-                <Link href="/#categories">Категории</Link>
+                <Link href="/#categories"> {t.header[1]}</Link>
               </li>
               <li ref={blockRefThree}>
-                <Link href="/#courses">Курсы</Link>
+                <Link href="/#courses"> {t.header[2]}</Link>
               </li>
               <li ref={blockRefFour}>
-                <Link href="/#contacts">Контакты</Link>
+                <Link href="/#contacts"> {t.header[3]}</Link>
               </li>
             </ul>
           </>
         )}
 
         <div className={s.header__buttons}>
-          <Link href="/search/search">
+          <Link href="/search">
             <FontAwesomeIcon
               className={s.header__search}
               icon={faMagnifyingGlass}
             />
           </Link>
-          <Link href="/cartList/cartList">
-            <FontAwesomeIcon
-              className={s.header__cart}
-              icon={faCartShopping}
-            />
+          <Link href="/cartList">
+            <FontAwesomeIcon className={s.header__cart} icon={faCartShopping} />
           </Link>
 
-          {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
-
-          {isToken ? (
+          {token ? (
             <Avatar
               className={s.header__avatar}
-              src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+              src={userCurrent.imageUrl}
               onClick={handleClick}
             />
-          ) : pathname === "/signUp/signUp" ? (
-            <Link href="/signIn/signIn">
+          ) : pathname === "/auth/signUp" ? (
+            <Link href="/auth/signIn">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
-                onClick={resetAuth}
+                onClick={() => dispatch(reset())}
               >
                 Войти
               </MyButton>
             </Link>
           ) : (
-            <Link href="/signUp/signUp">
+            <Link href="/auth/signUp">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
                 type="primary"
-                onClick={resetAuth}
+                onClick={() => dispatch(reset())}
               >
                 Регистрация
               </MyButton>

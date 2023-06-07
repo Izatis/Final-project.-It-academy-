@@ -9,7 +9,7 @@ import {
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
   "user/registration",
-  async ({ fullName, email, password }, thunkApi) => {    
+  async ({ fullName, email, password }, thunkApi) => {
     try {
       const { data } = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/auth/register",
@@ -47,7 +47,7 @@ export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
 
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(data.token));
-
+      
       return data.token;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
@@ -56,7 +56,7 @@ export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
 );
 
 const initialState: IAuthState = {
-  token: "",
+  isToken: "",
   isLoading: false,
   error: "",
 };
@@ -77,7 +77,7 @@ const authSlice = createSlice({
     });
 
     builder.addCase(userRegistration.fulfilled, (state: any, action) => {
-      state.token = action.payload;
+      state.isToken = action.payload;
       state.isLoading = false;
       state.error = "";
     });
@@ -94,7 +94,7 @@ const authSlice = createSlice({
     });
 
     builder.addCase(userAuthorization.fulfilled, (state: any, action: any) => {
-      state.token = action.payload;
+      state.isToken = action.payload;
       state.isLoading = false;
       state.error = "";
     });

@@ -1,6 +1,7 @@
 @import "../../styles/varibales.module.scss";
 
 .hero {
+  @include centering();
   height: 100vh;
   position: relative;
   display: flex;
@@ -20,7 +21,7 @@
         @include adaptive-value("font-size", 55, 22);
         line-height: 130%;
         color: #03d665;
-        letter-spacing: 2px;
+        @include adaptive-value("letter-spacing", 1, 0.5);
         text-align: center;
       }
     }
@@ -33,7 +34,7 @@
         @include adaptive-value("font-size", 20, 10);
         line-height: 130%;
         color: #a7b0c2;
-        letter-spacing: 2px;
+        @include adaptive-value("letter-spacing", 0.7, 0.1);
         text-align: center;
       }
     }
@@ -121,10 +122,10 @@
     /* KEYFRAMES */
     @keyframes sunAnimated {
       0% {
-        transform: X(150%);
+        transform: translateX(150%);
       }
       100% {
-        transform: X(0);
+        transform: translateX(0);
       }
     }
 
