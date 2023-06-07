@@ -16,10 +16,14 @@ import Loading from "@/components/Loading/Loading";
 
 export default function () {
   const [token, setToken] = useState("");
+  const [state, setState] = useState("");
+  const [language, setLanguage] = useState("");
+  const [price, setPrice] = useState("");
   const [mainIsLoading, setMainIsLoading] = useState(false);
   const [mainCourses, setMainCourses] = useState<any>([]);
   const [mainAmountPage, setMainAmountPage] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  console.log(mainAmountPage);
 
   const { query }: { query: any } = useRouter();
   const categoryId = query.id;
@@ -31,32 +35,46 @@ export default function () {
   }, []);
 
   const onChange: PaginationProps["onChange"] = async (pageNumber) => {
-    setPageNumber(pageNumber);    
-    await receiveCoursesAmountPageByCategory({
-      token,
-      categoryId,
-      pageNumber,
-    }).unwrap();
+    setPageNumber(pageNumber);
+    if (state === "price") {
+      dispatch(
+        priceFiltering({ token, categoryId, pageNumber, option: price })
+      );
+    }
+    if (state === "language") {
+      dispatch(
+        languageFiltering({ token, categoryId, pageNumber, option: language })
+      );
+    } else {
+      await receiveCoursesAmountPageByCategory({
+        token,
+        categoryId,
+        pageNumber,
+      }).unwrap();
+    }
   };
   // ---------------------------------------------------------------------------------------------------------------------------------
   // DEFAULT DATA
   const [receiveCoursesAmountPageByCategory, { data, isLoading }] =
     useReceiveCoursesAmountPageByCategoryMutation();
-    
-    useEffect(() => {
-        receiveCoursesAmountPageByCategory({ token, categoryId, pageNumber });
-    }, [query]);
-    useEffect(() => {  
-      setMainIsLoading(isLoading);
-      setMainCourses(data?.courses);
-      if(data?.amountPage){
-      setMainAmountPage(data.amountPage.length * 10);}
-    }, [isLoading]);
+
+  useEffect(() => {
+    receiveCoursesAmountPageByCategory({ token, categoryId, pageNumber });
+  }, [query]);
+  useEffect(() => {
+    setMainIsLoading(isLoading);
+    setMainCourses(data?.courses);
+    if (data?.amountPage) {
+      setMainAmountPage(data.amountPage.length * 10);
+    }
+  }, [isLoading]);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // FILTERING DATA
   const dispatch = useAppDispatch();
   const handleChangePrice = (option: string) => {
+    setState("price");
+    setPrice(option);
     dispatch(priceFiltering({ token, categoryId, pageNumber, option }));
   };
   const {
@@ -66,10 +84,14 @@ export default function () {
   useEffect(() => {
     setMainIsLoading(priceFilteringIsLoding);
     setMainCourses(priceFilteringData.courses);
-    setMainAmountPage(priceFilteringData.amountPage)
+    if (priceFilteringData?.amountPage) {
+      setMainAmountPage(priceFilteringData.amountPage.length * 10);
+    }
   }, [priceFilteringIsLoding]);
 
   const handleChangeLanguage = (option: string) => {
+    setState("language");
+    setLanguage(option);
     dispatch(languageFiltering({ token, categoryId, pageNumber, option }));
   };
 
@@ -80,12 +102,13 @@ export default function () {
   useEffect(() => {
     setMainIsLoading(languageFilteringIsLoding);
     setMainCourses(languageFilteringData.courses);
-    setMainAmountPage(priceFilteringData.amountPage)
+    if (languageFilteringData?.amountPage) {
+      setMainAmountPage(languageFilteringData.amountPage.length * 10);
+    }
   }, [languageFilteringIsLoding]);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // MAIN REQUEST
-
 
   return (
     <section className={s.courses}>
@@ -101,7 +124,7 @@ export default function () {
         <div className={s.filtered}>
           <Select
             className={s.filtered__select}
-            defaultValue="Филтрация по цене"
+            defaultValue="Фильтрация по цене"
             options={[
               { value: "ascending", label: "По убыванию" },
               { value: "descending", label: "По возрастанию" },
@@ -111,7 +134,7 @@ export default function () {
 
           <Select
             className={s.filtered__select}
-            defaultValue="Филтрация по языку"
+            defaultValue="Фильтрация по языку"
             options={[
               { value: "ru", label: "Русский" },
               { value: "en", label: "English" },
@@ -120,14 +143,14 @@ export default function () {
           />
         </div>
 
-        <span className={s.result}>{mainCourses?.length} результата</span>
+        <span className={s.result}>{mainCourses?.length} результатов</span>
       </header>
 
       {mainIsLoading ? <Loading /> : <CourseList courses={mainCourses} />}
 
       <footer className={s.courses__footer}>
         <Pagination
-        className={s.pagination}
+          className={s.pagination}
           showQuickJumper
           defaultCurrent={1}
           total={mainAmountPage}

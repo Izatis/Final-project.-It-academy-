@@ -1,6 +1,7 @@
 @import "../../styles/varibales.module.scss";
 
 .hero {
+  @include centering();
   height: 100vh;
   position: relative;
   display: flex;

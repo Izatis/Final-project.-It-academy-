@@ -5,7 +5,7 @@ import { IPaymentState, IStripePay } from "../types/payment";
 // Покупка курса
 interface IEditingUserParams {
   courseId: number;
-  stripePay: IStripePay;
+  values: IStripePay;
   token: string;
 }
 
@@ -13,12 +13,12 @@ export const courseFee = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IEditingUserParams,
   { rejectValue: string }
->("course/fee", async ({ courseId, stripePay, token }, thunkApi) => {
+>("course/fee", async ({ courseId, values, token }, thunkApi) => {
   try {
     const { data } = await axios.post(
       process.env.NEXT_PUBLIC_BASE_URL +
-        `/stripe/pay?courseId=${courseId}&cardNumber=${stripePay.cardNumber}&expMonth=${stripePay.expMonth}&expYear=${stripePay.expYear}&cvc=${stripePay.cvc}`,
-      stripePay,
+        `/stripe/pay?courseId=${courseId}&cardNumber=${values.cardNumber}&expMonth=${values.expMonth}&expYear=${values.expYear}&cvc=${values.cvc}`,
+        values,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

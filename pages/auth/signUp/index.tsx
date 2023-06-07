@@ -28,15 +28,15 @@ const SignUp: FC = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
   const { push, locale } = useRouter();
-  const { isLoading, error } = useAppSelector((state) => state.auth);
+  const {isToken, isLoading, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     if (parsedToken) {
-      push("/setting");
+      push("/setting/userSettings");
     }
-  }, [isLoading]);
+  }, [isToken]);
 
   let t: any;
   switch (locale) {

@@ -16,7 +16,7 @@ export interface ICourse {
 
 export interface ICoursesAmoutnPage {
     courses: ICourse[]
-    amountPage: number
+    amountPage: number[]
 }
 
 

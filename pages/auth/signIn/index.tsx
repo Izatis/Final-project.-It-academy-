@@ -32,6 +32,10 @@ const SignIn: FC = () => {
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
+
+    if (parsedToken) {
+      push("/setting/userSettings");
+    }
   }, [isToken]);
 
   let t: any;
@@ -66,10 +70,6 @@ const SignIn: FC = () => {
   const handleSubmit = (value: IUserLogin) => {
     setIsButtonClicked(true);
     dispatch(userAuthorization(value));
-
-    if (token) {
-      push("/setting/userSettings");
-    }
   };
 
   return (

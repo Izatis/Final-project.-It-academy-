@@ -49,7 +49,7 @@ export const priceFiltering = createAsyncThunk<
       if (option === "descending") {
         const { data } = await axios.get(
           process.env.NEXT_PUBLIC_BASE_URL +
-            `/course/filter/price/${categoryId}?pageNumber=${pageNumber}`,
+            `/course/filter/price?categoryId=${categoryId}&pageNumber=${pageNumber}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -60,7 +60,7 @@ export const priceFiltering = createAsyncThunk<
       else {
         const { data } = await axios.get(
           process.env.NEXT_PUBLIC_BASE_URL +
-            `/course/filter/price/${categoryId}?filter=desc`,
+          `/course/filter/price?categoryId=${categoryId}&pageNumber=${pageNumber}&filter=desc`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -82,7 +82,7 @@ export const languageFiltering = createAsyncThunk<
   { rejectValue: string }
 >(
   "course/languageFiltering",
-  async ({ token, categoryId,pageNumber, option }, thunkApi) => {
+  async ({ token, categoryId, pageNumber, option }, thunkApi) => {
     try {
       const { data } = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL +
@@ -100,8 +100,8 @@ export const languageFiltering = createAsyncThunk<
 
 const initialState: ICourseState = {
   coursesAmountPage: {
-    courses:[],
-    amountPage:0,
+    courses: [],
+    amountPage: [],
   },
   courseIdBackend: null,
   isLoading: false,
