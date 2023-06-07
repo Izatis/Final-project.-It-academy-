@@ -44,7 +44,7 @@ const addingVideo: FC = () => {
       formData.append("lessonId", lessonIdBackend);
       formData.append("file", file);
       await addAVideo({ formData }).unwrap();
-      push("/settings/addition/addMore");
+      push("/setting/addition/addMore");
     }
   };
 

@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from "react";
-import s from "./AddingLesson.module.scss";
+import React, { FC, useEffect, useState } from "react";
+import s from "./addingSection.module.scss";
 
 import { useRouter } from "next/router";
-import { Form, Input, InputNumber } from "antd";
+import { Form, Input } from "antd";
 import en from "../../../../locales/EN/translation.json";
 import ru from "../../../../locales/RU/translation.json";
 import de from "../../../../locales/DE/translation.json";
@@ -10,13 +10,19 @@ import ch from "../../../../locales/CH/translation.json";
 import fr from "../../../../locales/FR/translation.json";
 import uk from "../../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
-import { addingALesson } from "@/redux/reducers/lesson.slice";
-import { IAddingALesson } from "@/redux/types/lesson";
+import { createPartition } from "@/redux/reducers/section.slice";
+import { ICreatePartition } from "@/redux/types/section";
 
-const AddingLesson: FC = () => {
+import MyButton from "@/UI/Buttons/MyButton/MyButton";
+
+const AddingSection: FC = () => {
+  // Состояния - для данных
+  const [file, setFile] = useState<ICreatePartition>({
+    name: "",
+  });
+
   // Для - маршутизации
-  const { push, locale } = useRouter();
+  const { locale } = useRouter();
 
   // Функции - для смены текста
   let t: any;
@@ -40,26 +46,35 @@ const AddingLesson: FC = () => {
       t = ru;
       break;
   }
+  const { push } = useRouter();
   const dispatch = useAppDispatch();
-  const { sectionIdBackend, error } = useAppSelector((state) => state.section);
-
+  const { courseIdBackend, error } = useAppSelector((state) => state.course);
   // Отправляем post запрос
-  const handleSubmit = async (value: IAddingALesson) => {
+  const handleSubmit = async (value: ICreatePartition) => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    const sectionId = sectionIdBackend;
-    dispatch(addingALesson({ sectionId, value, parsedToken }));
-    push("/settings/addition/addingVideo");
+
+    const courseId = courseIdBackend;
+
+    dispatch(createPartition({ courseId, value, parsedToken }));
+    push("/setting/addition/addingLesson");
+
+    // Сбрасываем поля объекта
+    setFile({
+      name: "",
+    });
   };
+
   // Для сохранения значений инпутов
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue({ ...form.getFieldsValue() });
+    form.setFieldsValue({ ...file });
   }, []);
+
   return (
     <section className={s.signIn}>
-      <h2>Добавление урока</h2>
+      <h2>Добавление раздела</h2>
       <Form
         layout="vertical"
         form={form}
@@ -67,8 +82,8 @@ const AddingLesson: FC = () => {
         onFinish={handleSubmit}
       >
         <Form.Item
-          name="title"
-          label={"Название урока"}
+          name="name"
+          label={"Название раздела"}
           rules={[
             {
               required: true,
@@ -76,34 +91,11 @@ const AddingLesson: FC = () => {
             },
           ]}
         >
-          <Input.TextArea placeholder={"Название урока"} />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label={t.addingCourse[2]}
-          rules={[
-            {
-              required: true,
-              message: t.addingCourse[6],
-            },
-          ]}
-        >
-          <Input.TextArea placeholder={t.addingCourse[2]} />
-        </Form.Item>
-        <Form.Item
-          name="duration"
-          label={"Длительность урока"}
-          rules={[
-            {
-              required: true,
-              message: t.addingCourse[6],
-            },
-          ]}
-        >
-          <InputNumber min={1} max={12} />
+          <Input.TextArea placeholder={"Введите название раздела"} />
         </Form.Item>
 
         <span className={s.error}>{error}</span>
+
         <Form.Item>
           <MyButton
             background="#03d665"
@@ -119,4 +111,4 @@ const AddingLesson: FC = () => {
   );
 };
 
-export default AddingLesson;
+export default AddingSection;

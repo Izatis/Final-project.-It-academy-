@@ -76,7 +76,10 @@ const NewPassword: FC = () => {
   };
 
   useEffect(() => {
-    if (error) setMessage(error.data.message);
+    if (error)
+      setMessage(
+        "Срок действия истек, отправьте запрос на восстановление еще раз!"
+      );
   }, [isLoading, error]);
 
   return (

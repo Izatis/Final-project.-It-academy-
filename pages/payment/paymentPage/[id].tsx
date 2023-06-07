@@ -22,7 +22,6 @@ const Payment: FC = () => {
   });
 
   const { push, query }: { push: any; query: any } = useRouter();
-  const { courses } = useAppSelector((state) => state.course);
   const { massage, isLoading } = useAppSelector((state) => state.payment);
 
   const courseId = query.id;

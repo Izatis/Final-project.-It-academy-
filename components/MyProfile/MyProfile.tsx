@@ -11,7 +11,6 @@ import de from "../../locales/DE/translation.json";
 import ch from "../../locales/CH/translation.json";
 import fr from "../../locales/FR/translation.json";
 import uk from "../../locales/UK/translation.json";
-import { useDeletingAUserMutation } from "@/redux/reducers/user";
 import { IUser } from "@/redux/types/user";
 
 import Loading from "../Loading/Loading";
@@ -23,16 +22,8 @@ interface IMyProfileProps {
 }
 
 const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
-  const [token, setToken] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoadingSignOut, setIsLoadingSignOut] = useState(false);
   const { push, locale } = useRouter();
-  const userId = user.id;
-
-  useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    setToken(parsedToken);
-  }, []);
 
   let t: any;
   switch (locale) {
@@ -63,58 +54,14 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
     setIsLoadingSignOut(!isLoadingSignOut);
   };
 
-  // ---------------------------------------------------------------------------------------------------------------------------------
-  // DELETE
-  const [deletingAUser, { isLoading: deletingAUserLoading }] =
-    useDeletingAUserMutation();
-
-  const [api, contextHolder] = notification.useNotification();
-  const openNotification = (placement: any) => {
-    api.info({
-      message: `Ваш аккаунт удалено!`,
-      placement,
-    });
-  };
-
-  const handleDeletingAUser = async () => {
-    push("/auth/signUp");
-    await deletingAUser({ userId, token }).unwrap();
-    localStorage.removeItem("token");
-    openNotification(5);
-  };
-
   return (
     <div className={s.myProfile}>
-      {contextHolder}
       {isLoading ? (
         <div className={s.loading}>
           <Loading />
         </div>
       ) : (
         <div className={s.myProfile__content}>
-          <Modal
-            title="Изменить аватар"
-            open={isModalOpen}
-            onCancel={() => setIsModalOpen(false)}
-            footer={[
-              <MyButton
-                className={s.myProfile__buttonFirst}
-                onClick={handleDeletingAUser}
-                loading={deletingAUserLoading}
-              >
-                Удалить
-              </MyButton>,
-              <MyButton
-                className={s.myProfile__buttonSecond}
-                onClick={() => setIsModalOpen(false)}
-              >
-                Нет
-              </MyButton>,
-            ]}
-          >
-            Вы уверены?
-          </Modal>
-
           <div className={s.container}>
             <ul className={s.myProfile__list}>
               <li className={s.myProfile__fullName}>{user.fullName}</li>
@@ -135,7 +82,7 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
                 </Link>
               )}
 
-              <Link href={"/settings/editing"}>
+              <Link href={"/setting/editing"}>
                 <MyButton
                   className={s.myProfile__buttonSecond}
                   type="primary"
@@ -163,14 +110,6 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
               loading={isLoadingSignOut}
             >
               Выйти
-            </MyButton>
-
-            <MyButton
-              className={s.myProfile__buttonSecond}
-              icon={<LogoutOutlined />}
-              onClick={() => setIsModalOpen(true)}
-            >
-              Удалить аккаунт
             </MyButton>
           </div>
         </div>
