@@ -41,32 +41,37 @@ export const priceFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   IPriceFilteringParams,
   { rejectValue: string }
->("course/priceFiltering", async ({ option, parsedToken }, thunkApi) => {
-  try {
-    // Запрос - для фильтрации по убыванию
-    if (option === "descending") {
-      const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + `/course/filter/price`,
-        {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        }
-      );
-      return data;
+>(
+  "course/priceFiltering",
+  async ({ token, categoryId, pageNumber, option }, thunkApi) => {
+    try {
+      // Запрос - для фильтрации по убыванию
+      if (option === "descending") {
+        const { data } = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL +
+            `/course/filter/price/${categoryId}?pageNumber=${pageNumber}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        return data;
+      }
+      // Запрос - для фильтрации по возрастанию
+      else {
+        const { data } = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL +
+            `/course/filter/price/${categoryId}?filter=desc`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        return data;
+      }
+    } catch ({ response }: any) {
+      return thunkApi.rejectWithValue(response.data.message);
     }
-    // Запрос - для фильтрации по возрастанию
-    else {
-      const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/course/filter/price?filter=desc",
-        {
-          headers: { Authorization: `Bearer ${parsedToken}` },
-        }
-      );
-      return data;
-    }
-  } catch ({ response }: any) {
-    return thunkApi.rejectWithValue(response.data.message);
   }
-});
+);
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Запрос - для филтрации по языку
@@ -75,24 +80,29 @@ export const languageFiltering = createAsyncThunk<
   any, // Измените этот тип на нужный тип возвращаемого значения
   ILanguageFilteringParams,
   { rejectValue: string }
->("course/languageFiltering", async ({ language, parsedToken }, thunkApi) => {
-  try {
-    const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + `/course/language/${language}`,
-      {
-        headers: { Authorization: `Bearer ${parsedToken}` },
-      }
-    );
-    return data;
-  } catch ({ response }: any) {
-    return thunkApi.rejectWithValue(response.data.message);
+>(
+  "course/languageFiltering",
+  async ({ token, categoryId,pageNumber, option }, thunkApi) => {
+    try {
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `/course/language?language=${option}&categoryId=${categoryId}&pageNumber=${pageNumber}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return data;
+    } catch ({ response }: any) {
+      return thunkApi.rejectWithValue(response.data.message);
+    }
   }
-});
+);
 
 const initialState: ICourseState = {
-  courses: [],
-  course: {},
-  myCourse: [],
+  coursesAmountPage: {
+    courses:[],
+    amountPage:0,
+  },
   courseIdBackend: null,
   isLoading: false,
   error: "",
@@ -125,7 +135,7 @@ const courseSlice = createSlice({
     });
 
     builder.addCase(priceFiltering.fulfilled, (state: any, action) => {
-      state.courses = action.payload;
+      state.coursesAmountPage = action.payload;
       state.isLoading = false;
       state.error = "";
     });
@@ -141,7 +151,7 @@ const courseSlice = createSlice({
     });
 
     builder.addCase(languageFiltering.fulfilled, (state: any, action) => {
-      state.courses = action.payload;
+      state.coursesAmountPage = action.payload;
       state.isLoading = false;
       state.error = "";
     });

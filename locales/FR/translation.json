@@ -1,0 +1,107 @@
+{
+  "header": ["Accueil", "Catégories", "Cours", "Contacts"],
+  "main": [
+    "Plateforme éducative en ligne",
+    "Cours et conférences vidéo sur le design, le copywriting, le SMM, le ciblage et bien d'autres domaines",
+    "Cours",
+    "Catégories",
+    "Apprenez, développez. Travaillez pendant votre temps libre",
+    "Cours"
+  ],
+  "footer": {
+    "title": "Plateforme éducative en ligne pour le développement et la formation des compétences dans le domaine des technologies de l'information",
+    "ulFirst": ["Formations", "Cours", "Webinaires", "Simulateurs", "Ateliers"],
+    "ulSecond": [
+      "À propos de nous",
+      "À propos de la plateforme",
+      "Enseignants",
+      "Tarifs",
+      "Avis"
+    ],
+    "ulThird": [
+      "Contacts",
+      "Connecte-toi avec nous",
+      "Consultation",
+      "Conditions requises",
+      "Soutien"
+    ],
+    "ulFour": ["Des questions?", "Envoyez-nous un e-mail", "test@gmail.com"]
+  },
+  "signUp": [
+    "Inscription",
+    "Nom",
+    "E-mail",
+    "Mot de passe",
+    "Confirmer le mot de passe",
+    "S'il vous plaît entrez votre nom",
+    "S'il vous plaît, mettez une adresse email valide",
+    "Veuillez saisir votre adresse e-mail",
+    "S'il vous plait entrez votre mot de passe",
+    "Le mot de passe doit être au moins de 6 caractères",
+    "Veuillez confirmer votre mot de passe",
+    "Non concordance des mots de passe",
+    "Enregistrer",
+    "Se connecter avec Google",
+    "Se connecter avec GitHub"
+  ],
+
+  "signIn": [
+    "Autorisation",
+    "E-mail",
+    "Mot de passe",
+    "S'il vous plaît, mettez une adresse email valide",
+    "Veuillez saisir votre adresse e-mail",
+    "S'il vous plait entrez votre mot de passe",
+    "Entrer",
+    "Se connecter avec Google",
+    "Connexion avec GitHub",
+    "Récupération de mot de passe"
+  ],
+  "editing": [
+    "Édition",
+    "Nom",
+    "Entrez votre nom",
+    "S'il vous plaît entrez votre nom",
+    "E-mail",
+    "Entrer l'adresse e-mail",
+    "Veuillez saisir votre adresse e-mail",
+    "S'il vous plaît, mettez une adresse email valide",
+    "Mot de passe",
+    "Tapez votre mot de passe",
+    "S'il vous plait entrez votre mot de passe",
+    "Le mot de passe doit être au moins de 6 caractères",
+    "Confirmer le mot de passe",
+    "Entrez le mot de passe pour confirmer",
+    "Veuillez confirmer votre mot de passe",
+    "Non concordance des mots de passe",
+    "Avatar",
+    "Avatar",
+    "Date de naissance",
+    "Entrez votre date de naissance",
+    "Veuillez entrer votre date de naissance",
+    "Sauvegarder",
+    "Annuler"
+  ],
+
+  "passwordRecovery": [
+    "Récupération de mot de passe",
+    "E-mail",
+    "S'il vous plaît, mettez une adresse email valide",
+    "Veuillez saisir votre adresse e-mail",
+    "Restaurer le mot de passe"
+  ],
+
+  "search": ["Rechercher", "Rechercher", "Veuillez saisir un champ"],
+
+  "addingCourse": [
+    "Ajouter un cours",
+    "Nom du cours",
+    "Description",
+    "Déposer",
+    "Téléverser un fichier",
+    "Langue",
+    "Choisissez la langue",
+    "Veuillez saisir un champ",
+    "Ajouter"
+  ]
+}

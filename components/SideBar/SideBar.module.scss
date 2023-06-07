@@ -28,13 +28,12 @@
 
     .sidePanel__header {
       width: 100%;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 20px;
       border-bottom: 1px solid #7329c2;
-      padding: 10px;
+      padding: 8% 10px 4%;
       box-sizing: border-box;
 
       .menu__avatar {
@@ -45,7 +44,7 @@
       .sidePanel__info {
         h4 {
           font-weight: 700;
-          @include adaptive-value("font-size", 30, 15);
+          @include adaptive-value("font-size", 25, 15);
           line-height: 130%;
           color: #7329c2;
         }
@@ -56,12 +55,6 @@
           line-height: 130%;
           color: #a7b0c2;
         }
-      }
-
-      .menu__translateButton {
-        position: absolute;
-        top: 30%;
-        right: 2%;
       }
     }
 

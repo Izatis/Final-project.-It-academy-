@@ -10,25 +10,28 @@ interface IMyModalLanguageProps {
   setIsModalOpen: (active: boolean) => void;
 }
 
-const MyModalLanguage: FC<IMyModalLanguageProps> = ({ isModalOpen, setIsModalOpen }) => {
+const MyModalLanguage: FC<IMyModalLanguageProps> = ({
+  isModalOpen,
+  setIsModalOpen,
+}) => {
   // Функции - для смены текста
   const { push, pathname } = useRouter();
 
   // Функции - для смены url
   const handleClick = (locale: string) => {
     setIsModalOpen(!isModalOpen);
-    if (pathname === "/signUp/signUp") {
-      push("/signUp/signUp", "/signUp/signUp", { locale });
-    } else if (pathname === "/signIn/signIn") {
-      push("/signIn/signIn", "/signIn/signIn", { locale });
-    } else if (pathname === "/passwordRecovery/passwordRecovery") {
+    if (pathname === "/auth/signUp") {
+      push("/auth/signUp", "/auth/signUp", { locale });
+    } else if (pathname === "/auth/signIn") {
+      push("/auth/signIn", "/auth/signIn", { locale });
+    } else if (pathname === "/passwordRecovery") {
       push(
-        "/passwordRecovery/passwordRecovery",
-        "/passwordRecovery/passwordRecovery",
+        "/passwordRecovery",
+        "/passwordRecovery",
         { locale }
       );
-    } else if (pathname === "/profile/profile") {
-      push("/profile/profile", "/profile/profile", { locale });
+    } else if (pathname === "/setting") {
+      push("/setting", "/setting", { locale });
     } else {
       push("/", "/", { locale });
     }

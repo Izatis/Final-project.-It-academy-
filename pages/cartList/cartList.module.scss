@@ -57,6 +57,17 @@
         }
       }
     }
+
+    .cart__rightBlock {
+      width: 100%;
+      .cart__isEmpty {
+        font-weight: 700;
+        @include adaptive-value("font-size", 35, 20);
+        line-height: 130%;
+        color: #322f55;
+        padding: 2% 5%;
+      }
+    }
   }
 }
 

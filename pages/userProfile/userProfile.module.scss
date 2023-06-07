@@ -1,0 +1,128 @@
+@import "../../styles/varibales.module.scss";
+
+.userProfile {
+  @include centering();
+  margin: 10% auto;
+
+  .userProfile__info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .userProfile__introduction {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .userProfile__flex{
+         display: flex;
+         align-items: center;
+         gap: 20px;
+
+        .userProfile__avatar {
+          @include adaptive-value("width", 150, 70);
+          @include adaptive-value("height", 150, 70);
+          border-radius: 50%;
+          object-fit: cover;
+        }
+  
+        .userProfile__list {
+          .userProfile__static {
+            font-weight: 700;
+            @include adaptive-value("font-size", 15, 8);
+            line-height: 130%;
+            color: #a7b0c2;
+          }
+  
+          .userProfile__fullName {
+            font-weight: 700;
+            @include adaptive-value("font-size", 30, 15);
+            line-height: 130%;
+            color: #03d665;
+          }
+  
+          .userProfile__profession {
+            font-weight: 700;
+            @include adaptive-value("font-size", 15, 12);
+            line-height: 130%;
+            color: #191970;
+          }
+
+          .userProfile__dateOfBirth{
+            font-weight: 700;
+            @include adaptive-value("font-size", 18, 12);
+            line-height: 160%;
+            color: #7329c2;
+          }
+  
+          dl {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2% 0 0;
+  
+            span {
+              text-align: center;
+              dt {
+                font-weight: 700;
+                @include adaptive-value("font-size", 15, 8);
+                line-height: 130%;
+                color: #191970;
+              }
+  
+              dd {
+                font-weight: 700;
+                @include adaptive-value("font-size", 15, 8);
+                line-height: 130%;
+                color: #a7b0c2;
+              }
+            }
+          }
+        }
+      }
+
+      .userProfile__socialMedia {
+        display: flex;
+        @include adaptive-value("gap", 40, 20);
+
+        li {
+          a {
+            .userProfile__social {
+              @include adaptive-value("width", 20, 12);
+              @include adaptive-value("font-size", 20, 12);
+              color: #7329c2;
+            }
+          }
+        }
+      }
+    }
+
+    .userProfile__title {
+      font-weight: 700;
+      @include adaptive-value("font-size", 20, 12);
+      line-height: 130%;
+      color: #191970;
+    }
+
+    .userProfile__description {
+      font-weight: 400;
+      @include adaptive-value("font-size", 15, 8);
+      line-height: 130%;
+      color: #a7b0c2;
+    }
+  }
+
+  h2 {
+    font-weight: 700;
+    @include adaptive-value("font-size", 35, 15);
+    line-height: 130%;
+    color: #191970;
+    padding: 10% 0 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .userProfile {
+    margin: 25% auto;
+  }
+}

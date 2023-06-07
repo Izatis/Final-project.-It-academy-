@@ -1,7 +1,32 @@
 {
-  "title": "Educational online-platform",
-  "subTitle": "Courses and video lectures on design, copywriting, SMM, targeting and many other areas",
-  "buttonText": "Read more",
+  "header": ["Home", "Categories", "Courses", "Contacts"],
+  "main": [
+    "Educational online platform",
+    "Courses and video lectures on design, copywriting, SMM, targeting and many other areas",
+    "Courses",
+    "Categories",
+    "Learn, develop. Work in your free time",
+    "Courses"
+  ],
+  "footer": {
+    "title": "Educational online platform for the development and training of skills in the field of information technology",
+    "ulFirst": ["Training", "Courses", "Webinars", "Simulators", "Workshops"],
+    "ulSecond": [
+      "About us",
+      "About the platform",
+      "Teachers",
+      "Tariffs",
+      "Reviews"
+    ],
+    "ulThird": [
+      "Contacts",
+      "Connect with us",
+      "Consultation",
+      "Requisites",
+      "Support"
+    ],
+    "ulFour": ["Any questions?", "Email us", "test@gmail.com"]
+  },
   "signUp": [
     "Registration",
     "Name",

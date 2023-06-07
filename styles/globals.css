@@ -47,6 +47,12 @@ pre {
   font-style: normal;
 }
 
+/* MyModal */
+.ant-modal-footer{
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media screen and (max-width: 425px) {
   input {
     font-size: 12px !important;

@@ -1,0 +1,30 @@
+@import "../../../styles/varibales.module.scss";
+
+.successfully {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .successfully__content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .successfully__title {
+      font-weight: 700;
+      @include adaptive-value("font-size", 40, 20);
+      line-height: 130%;
+      color: #03d665;
+      @include adaptive-value("letter-spacing", 1, 0.5);
+      text-align: center;
+    }
+
+    .successfully__buttons {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}

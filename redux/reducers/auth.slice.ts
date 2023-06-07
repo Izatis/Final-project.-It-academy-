@@ -9,7 +9,7 @@ import {
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
   "user/registration",
-  async ({ fullName, email, password }, thunkApi) => {    
+  async ({ fullName, email, password }, thunkApi) => {
     try {
       const { data } = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/auth/register",
@@ -47,7 +47,7 @@ export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
 
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(data.token));
-
+      
       return data.token;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
