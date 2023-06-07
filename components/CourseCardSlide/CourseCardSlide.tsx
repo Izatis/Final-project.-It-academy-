@@ -22,6 +22,7 @@ import Rating from "../Rating/Rating";
 
 const CourseCardSlide = () => {
   const [token, setToken] = useState("");
+  const [mainCourses, setMainCourses] = useState([]);
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
