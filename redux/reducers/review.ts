@@ -26,7 +26,10 @@ export const review = createApi({
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     getReviwsAvgGrade: build.query({
-      query: ({ token, courseId }) => ({
+      query: ({ token, courseId }) => (
+        console.log(token, courseId),
+        
+        {
         url: `/review/course/avg-grade/${courseId}`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
