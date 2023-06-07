@@ -15,9 +15,10 @@ const MyPurchasedCourses = () => {
     setToken(parsedToken);
   }, []);
 
-  const { data: userCourses = [], isLoading } = useReceivingPurchasedCoursesQuery({
-    token,
-  });
+  const { data: purchasedUserCourses = [], isLoading } =
+    useReceivingPurchasedCoursesQuery({
+      token,
+    });
 
   return (
     <section className={s.userCourses}>
@@ -25,23 +26,14 @@ const MyPurchasedCourses = () => {
         <Loading />
       ) : (
         <>
-          {userCourses.length !== 0 ? (
+          {purchasedUserCourses.length !== 0 ? (
             <div>
               <b>Мои купленные курсы</b>
-              <CoursesList courses={userCourses} />
+              <CoursesList courses={purchasedUserCourses} />
             </div>
           ) : (
             <div className={s.addingCourse}>
               <b>У вас нет купленных курсов</b>
-              {/* <Link href="/courseMore">
-                <MyButton
-                  background="#7329c2"
-                  hoverBackground="#03d665"
-                  type="primary"
-                >
-                  Нажмите, чтобы купить курс
-                </MyButton>
-              </Link> */}
             </div>
           )}
         </>

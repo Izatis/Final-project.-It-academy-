@@ -8,18 +8,15 @@ export const subscription = createApi({
     // ---------------------------------------------------------------------------------------------------------------------------------
     // GET
     receivingPurchasedCourses: build.query({
-      query: ({ token }) => (
-        console.log(token),
-        {
-          url: `/course/current`,
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      ),
+      query: ({ token }) => ({
+        url: `/course/current`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({
+              ...result.map(({ id }: { id: number }) => ({
                 type: "Subscription",
                 id,
               })),

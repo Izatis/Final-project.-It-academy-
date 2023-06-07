@@ -15,7 +15,7 @@ export const courses = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
+              ...result.map(({ id }: { id: number}) => ({ type: "Courses", id })),
               { type: "Courses", id: "LIST" },
             ]
           : [{ type: "Courses", id: "LIST" }],
@@ -40,7 +40,7 @@ export const courses = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
+              ...result.map(({ id }: { id: number}) => ({ type: "Courses", id })),
               { type: "Courses", id: "LIST" },
             ]
           : [{ type: "Courses", id: "LIST" }],

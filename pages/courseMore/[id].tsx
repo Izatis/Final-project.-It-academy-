@@ -11,7 +11,10 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useGettingACourseQuery } from "@/redux/reducers/course/course";
 import { useAddingToCartMutation } from "@/redux/reducers/cart";
 import { gettingPartitions } from "@/redux/reducers/section.slice";
-import { useGetUserQuery } from "@/redux/reducers/user";
+import {
+  useGetPurchaseVerificationQuery,
+  useGetUserQuery,
+} from "@/redux/reducers/user";
 
 import Loading from "@/components/Loading/Loading";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
@@ -36,6 +39,7 @@ export default function () {
     imageName: "",
     imageUrl: "",
     duration: 0,
+    isPurchase: null,
     grade: 0,
   });
   const { query }: { query: any } = useRouter();
@@ -54,6 +58,10 @@ export default function () {
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET
+  const { data: isPurchase = false, isLoading: isLoadingIsPurchase } =
+    useGetPurchaseVerificationQuery({ token, courseId });
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
   const { data: grade = 0, isLoading: isLoadingGrade } =
     useGetReviwsAvgGradeQuery({ token, courseId });
 
@@ -63,13 +71,13 @@ export default function () {
   });
 
   useEffect(() => {
-    setCourse({ ...courseBackend, grade: grade });
-  }, [isLoading, isLoadingGrade]);
+    setCourse({ ...courseBackend,isPurchase: isPurchase, grade: grade });
+  }, [isLoading, isPurchase, isLoadingGrade]);
 
   const { sections } = useAppSelector((state) => state.section);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
-  // GET CREATOR 
+  // GET CREATOR
   const creatorId = course.authorId;
 
   const { data: creator = {} } = useGetUserQuery({ token, creatorId });
@@ -181,7 +189,7 @@ export default function () {
                 <b>Материалы курса:</b>
                 {Array.isArray(sections) &&
                   sections.map((section) => (
-                    <AnimateSelect section={section} key={section.id} />
+                    <AnimateSelect key={section.id} section={section} isPurchase={isPurchase}/>
                   ))}
               </div>
               <b className={s.course__creator}>Преподаватель:</b>

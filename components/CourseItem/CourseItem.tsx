@@ -31,6 +31,7 @@ const CourseItem: FC<ICourseItemProps> = ({ courseBeckend }) => {
     imageName: "",
     imageUrl: "",
     duration: 0,
+    isPurchase: null,
     grade: 0,
   });
 

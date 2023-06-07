@@ -23,7 +23,6 @@ export default function () {
   const [mainCourses, setMainCourses] = useState<any>([]);
   const [mainAmountPage, setMainAmountPage] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  console.log(mainAmountPage);
 
   const { query }: { query: any } = useRouter();
   const categoryId = query.id;
