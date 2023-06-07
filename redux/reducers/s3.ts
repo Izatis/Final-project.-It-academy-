@@ -18,7 +18,17 @@ export const s3 = createApi({
     // }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    changeAvatar: build.mutation({
+    addAVideo: build.mutation({
+      query: ({ formData }) => ({
+        url: "/s3/upload/video",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: [{ type: "Download", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    changeAvatar: build.mutation<any, any>({
       query: ({ formData }) => ({
         url: "/s3/upload/user/image",
         method: "POST",
@@ -28,7 +38,7 @@ export const s3 = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    //     deleteProduct: build.mutation({
+    //     deleteProduct: build.mutation<any, any>({
     //       query: (id) => ({
     //         url: `goods/${id}`,
     //         method: "DELETE",
@@ -38,4 +48,4 @@ export const s3 = createApi({
   }),
 });
 
-export const { useChangeAvatarMutation } = s3;
+export const {useAddAVideoMutation, useChangeAvatarMutation } = s3;

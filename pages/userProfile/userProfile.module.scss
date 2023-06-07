@@ -47,6 +47,13 @@
             line-height: 130%;
             color: #191970;
           }
+
+          .userProfile__dateOfBirth{
+            font-weight: 700;
+            @include adaptive-value("font-size", 18, 12);
+            line-height: 160%;
+            color: #7329c2;
+          }
   
           dl {
             display: flex;

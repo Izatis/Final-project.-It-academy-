@@ -25,7 +25,7 @@ export const category = createApi({
     }),
     // ---------------------------------------------------------------------------------------------------------------------------------
 
-    // addProduct: build.mutation({
+    // addProduct: build.mutation<any, any>({
     //   query: (body) => ({
     //     url: "goods",
     //     method: "POST",
@@ -35,7 +35,7 @@ export const category = createApi({
     // }),
     // // ---------------------------------------------------------------------------------------------------------------------------------
 
-    // deleteProduct: build.mutation({
+    // deleteProduct: build.mutation<any, any>({
     //   query: (id) => ({
     //     url: `goods/${id}`,
     //     method: "DELETE",

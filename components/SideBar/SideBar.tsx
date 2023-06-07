@@ -1,30 +1,20 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import s from "./SideBar.module.scss";
 
 import { useRouter } from "next/router";
 import Link from "next/link";
 import cn from "classnames";
 import { Avatar } from "antd";
-import { useAppSelector } from "@/hooks/redux";
-import { useGetUserQuery } from "@/redux/reducers/user";
-
-import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
+import { IUser } from "@/redux/types/user";
 
 interface ISideBarProps {
   sideBarActive: boolean;
   setSideBarActive: (active: boolean) => void;
+  userCurrent: IUser
 }
 
-const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
+const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurrent }) => {
   const { pathname } = useRouter();
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    setToken(parsedToken);
-  }, []);
-
-  const { data: user = [] } = useGetUserQuery({ token });
 
   return (
     <div
@@ -36,16 +26,16 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive }) => {
       <div className={s.menu__content} onClick={(e) => e.stopPropagation()}>
         <Link
           className={s.sidePanel__header}
-          href="/setting"
+          href="/settings/userSettings"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
           <Avatar
             className={s.menu__avatar}
-            src={user.imageUrl}
+            src={userCurrent.imageUrl}
           />
           <div className={s.sidePanel__info}>
-            <h4>{user.fullName}</h4>
-            <p>{user.email}</p>
+            <h4>{userCurrent.fullName}</h4>
+            <p>{userCurrent.email}</p>
           </div>
         </Link>
 

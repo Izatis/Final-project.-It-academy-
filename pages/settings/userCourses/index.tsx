@@ -6,32 +6,37 @@ import Link from "next/link";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import Loading from "@/components/Loading/Loading";
 import CoursesList from "@/components/CoursesList/CoursesList";
-import { useGetUserQuery } from "@/redux/reducers/user";
+import { useGetCurrentUserQuery } from "@/redux/reducers/user";
 import { useGetUserCoursesQuery } from "@/redux/reducers/course/course";
 
 const UserCourse = () => {
   const [token, setToken] = useState("");
-  const { data: user = {}, isLoading } = useGetUserQuery({ token });
-  const userId = user.id;
+  const { data: userCurrent = {}, isLoading: isLoadingUserCurrent } =
+    useGetCurrentUserQuery({ token });
+  const userId = userCurrent.id;
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") || "");
     setToken(parsedToken);
   }, []);
 
-  const { data: userCourses = [] } = useGetUserCoursesQuery({ token, userId });
+  const { data: userCourses = [], isLoading: isLoadingUserCourses } =
+    useGetUserCoursesQuery({ token, userId });
 
   return (
-    <>
-      {isLoading ? (
+    <section className={s.userCourses}>
+      {isLoadingUserCurrent || isLoadingUserCourses ? (
         <Loading />
       ) : (
-        <section className={s.userCourses}>
+        <>
           {userCourses.length !== 0 ? (
-            <CoursesList courses={userCourses} />
+            <div>
+              <b>Мои курсы</b>
+              <CoursesList courses={userCourses} />
+            </div>
           ) : (
             <div className={s.addingCourse}>
-              <p>У вас нет курсов</p>
+              <p>У вас нету курсов</p>
               <Link href="/addition/addingCourse">
                 <MyButton
                   background="#7329c2"
@@ -43,9 +48,9 @@ const UserCourse = () => {
               </Link>
             </div>
           )}
-        </section>
+        </>
       )}
-    </>
+    </section>
   );
 };
 

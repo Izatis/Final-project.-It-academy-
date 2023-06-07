@@ -4,6 +4,7 @@ import s from "./Header.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import cn from "classnames";
+import { Avatar } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -18,15 +19,17 @@ import fr from "../../locales/FR/translation.json";
 import uk from "../../locales/UK/translation.json";
 import { useAppDispatch } from "@/hooks/redux";
 import { reset } from "@/redux/reducers/auth.slice";
+import { useGetCurrentUserQuery } from "@/redux/reducers/user";
+import { IUser } from "@/redux/types/user";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
 import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
-import { Avatar } from "antd";
 
 interface IHeaderProps {
   sideBarActive: boolean;
   setSideBarActive: (active: boolean) => void;
+  userCurrent: IUser;
 }
 
 interface ILine {
@@ -34,22 +37,24 @@ interface ILine {
   left: number;
 }
 
-const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
-  // Состояние - для header (для позиции)
+const Header: FC<IHeaderProps> = ({
+  sideBarActive,
+  setSideBarActive,
+  userCurrent,
+}) => {
+  const [token, setToken] = useState("");
   const [isHeaderActive, setIsHeaderActive] = useState<boolean>(false);
-  // Состояние - для navbar (для линии)
   const [navBarPosition, setNavBarPosition] = useState<ILine>({
     width: 0,
     left: 0,
   });
-  // Состояние - для изменение цвета навигации
   const [navColor, setNavColor] = useState<number>(0);
-
-  // Состояние - для токен пользователя
-  const [isToken, setIsToken] = useState<boolean>(false);
-
-  // Чтобы получить информацию о текущем маршруте
   const { pathname } = useRouter();
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, [pathname]);
 
   // С помощью useRef получаем размер и позицию элемента
   const blockRefFirst = useRef<HTMLLIElement>(null);
@@ -110,13 +115,6 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [sideBarActive, pathname]);
-
-  useEffect(() => {
-    // Достаем токен пользователя
-    const token = localStorage.getItem("token") ?? "";
-    const parsedToken = token !== "" ? (JSON.parse(token) as string) : "";
-    !!parsedToken ? setIsToken(true) : setIsToken(false);
-  }, [pathname]);
 
   const dispatch = useAppDispatch();
 
@@ -247,12 +245,10 @@ const Header: FC<IHeaderProps> = ({ sideBarActive, setSideBarActive }) => {
             <FontAwesomeIcon className={s.header__cart} icon={faCartShopping} />
           </Link>
 
-          {/* В зависимости от токена изменяем кнопку на имю и на логотип */}
-
-          {isToken ? (
+          {token ? (
             <Avatar
               className={s.header__avatar}
-              src={"https://xsgames.co/randomusers/avatar.php?g=pixel&key=1"}
+              src={userCurrent.imageUrl}
               onClick={handleClick}
             />
           ) : pathname === "/auth/signUp" ? (

@@ -38,7 +38,7 @@ export const cart = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    addingToCart: build.mutation({
+    addingToCart: build.mutation<any, any>({
       query: ({ token, courseId }) => ({
         url: `/cart/add/${courseId}`,
         method: "PUT",
@@ -48,7 +48,7 @@ export const cart = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    removeFromCart: build.mutation({
+    removeFromCart: build.mutation<any, any>({
       query: ({ token, courseId }) => ({
         url: `/cart/delete/${courseId}`,
         method: "DELETE",

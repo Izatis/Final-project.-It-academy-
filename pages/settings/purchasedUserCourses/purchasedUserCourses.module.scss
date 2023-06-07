@@ -1,9 +1,15 @@
-@import "../../styles/varibales.module.scss";
+@import "../../../styles/varibales.module.scss";
 
 .userCourses {
   @include centering();
   padding: 20% 5%;
   box-sizing: border-box;
+ b{
+  font-weight: 700;
+  @include adaptive-value("font-size", 25, 10);
+  line-height: 130%;
+  color: #322f55;
+ }
 
   .addingCourse {
     max-width: 700px;

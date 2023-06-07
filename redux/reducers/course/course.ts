@@ -20,28 +20,20 @@ export const courses = createApi({
             ]
           : [{ type: "Courses", id: "LIST" }],
     }),
-
     // ---------------------------------------------------------------------------------------------------------------------------------
-    // Запроc - для получение всех курсов пользователя
-
-    getUserCourses: build.query({
-      query: ({ token, userId }) => ({
-        url: `/course/author/${userId}`,
+    receiveCoursesAmountPageByCategory: build.mutation({
+      query: ({ token, categoryId, pageNumber }) => ({
+        url: `/course/category?categoryId=${categoryId}&pageNumber=${pageNumber}`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }),
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(({ id }: { id: any }) => ({ type: "Courses", id })),
-              { type: "Courses", id: "LIST" },
-            ]
-          : [{ type: "Courses", id: "LIST" }],
     }),
+
     // ---------------------------------------------------------------------------------------------------------------------------------
-    receiveCoursesByCategory: build.query({
-      query: ({ token, categoryId }) => ({
-        url: `/course/category/${categoryId}`,
+    // Запроc - для получение всех курсов пользователя
+    getUserCourses: build.query({
+      query: ({ token, userId }) => ({
+        url: `/course/author/${userId}`,
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }),
@@ -71,7 +63,7 @@ export const courses = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    // addProduct: build.mutation({
+    // addProduct: build.mutation<any, any>({
     //   query: (body) => ({
     //     url: "goods",
     //     method: "POST",
@@ -81,11 +73,8 @@ export const courses = createApi({
     // }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    deletingACourse: build.mutation({
-      query: ({ token,courseId }) => (
-        console.log(courseId),
-        console.log(token),
-        {
+    deletingACourse: build.mutation<any, any>({
+      query: ({ token, courseId }) => (        {
           url: `/course/${courseId}`,
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -98,8 +87,8 @@ export const courses = createApi({
 
 export const {
   useGetingAllCoursesQuery,
+  useReceiveCoursesAmountPageByCategoryMutation,
   useGetUserCoursesQuery,
-  useReceiveCoursesByCategoryQuery,
   useGettingACourseQuery,
   useDeletingACourseMutation,
 } = courses;

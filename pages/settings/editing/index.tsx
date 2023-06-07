@@ -5,15 +5,15 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Form, Input, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import en from "../../locales/EN/translation.json";
-import ru from "../../locales/RU/translation.json";
-import de from "../../locales/DE/translation.json";
-import ch from "../../locales/CH/translation.json";
-import fr from "../../locales/FR/translation.json";
-import uk from "../../locales/UK/translation.json";
+import en from "../../../locales/EN/translation.json";
+import ru from "../../../locales/RU/translation.json";
+import de from "../../../locales/DE/translation.json";
+import ch from "../../../locales/CH/translation.json";
+import fr from "../../../locales/FR/translation.json";
+import uk from "../../../locales/UK/translation.json";
 import { useEditingUserMutation } from "@/redux/reducers/user";
 
-import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../../UI/Buttons/MyButton/MyButton";
 const Editing: FC = () => {
   const [token, setToken] = useState("");
   const { push, locale } = useRouter();

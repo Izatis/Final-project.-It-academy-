@@ -6,91 +6,136 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTelegram } from "@fortawesome/free-brands-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector } from "@/hooks/redux";
+import {
+  useGetUserCoursesQuery,
+  useGettingACourseQuery,
+} from "@/redux/reducers/course/course";
 
-import CourseItem from "@/components/CoursesList/CoursesList";
+import CourseList from "@/components/CoursesList/CoursesList";
+import { useGetUserQuery } from "@/redux/reducers/user";
+import Loading from "@/components/Loading/Loading";
+import { ICourse } from "@/redux/types/course";
 
 export default function () {
-  const { courses, isLoading } = useAppSelector((state) => state.course);
-
+  const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
+  const courseId = query.id;
 
-  // Получает объект из массива categories
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
+  }, []);
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET USER COURSE
+  const { data: course = {} } = useGettingACourseQuery({
+    token,
+    courseId,
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET CREATOR
+  const creatorId = course.authorId;
+
+  const { data: creator = {}, isLoading: isLoadingCreator } = useGetUserQuery({
+    token,
+    creatorId,
+  });
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET USER COURSES
+
+  const userId = creator.id;
+  const { data: userCourses = [], isLoading: isLoadingUserCourses } =
+    useGetUserCoursesQuery({ token, userId });
 
   return (
     <section className={s.userProfile}>
-      <div className={s.userProfile__info}>
-        <div className={s.userProfile__introduction}>
-          <div className={s.userProfile__flex}>
-            <Image
-              className={s.userProfile__avatar}
-              src={
-                "https://images.squarespace-cdn.com/content/v1/5cd4eaf58d974051df3fe898/1680603773142-CXT03T3ZFXC6QPPNVQ1D/Home+Page+Photo.jpeg?format=2500w"
-              }
-              alt="avatar"
-              width={300}
-              height={200}
-            />
+      {isLoadingUserCourses || isLoadingCreator ? (
+        <Loading />
+      ) : (
+        <>
+          <div className={s.userProfile__info}>
+            <div className={s.userProfile__introduction}>
+              <div className={s.userProfile__flex}>
+                <Image
+                  className={s.userProfile__avatar}
+                  src={
+                    creator.imageUrl
+                  }
+                  alt="avatar"
+                  width={300}
+                  height={200}
+                />
 
-            <ul className={s.userProfile__list}>
-              <li className={s.userProfile__static}>Преподаватель:</li>
-              <li className={s.userProfile__fullName}>Andrew Chudlya</li>
-              <li className={s.userProfile__profession}>Front-End Developer</li>
-              <li>
-                <dl>
-                  <span>
-                    <dt>5</dt>
-                    <dd>Отзывов</dd>
-                  </span>
+                <ul className={s.userProfile__list}>
+                  <li className={s.userProfile__static}>Преподаватель:</li>
+                  <li className={s.userProfile__fullName}>
+                    {creator.fullName}
+                  </li>
+                  <li className={s.userProfile__profession}>
+                    Front-End Developer
+                  </li>
+                  <li className={s.userProfile__dateOfBirth}>
+                    {creator.dateOfBirth}
+                  </li>
+                  <li>
+                    <dl>
+                      <span>
+                        <dt>5</dt>
+                        <dd>Отзывов</dd>
+                      </span>
 
-                  <span>
-                    <dt>900</dt>
-                    <dd>Курсов</dd>
-                  </span>
-                </dl>
-              </li>
-            </ul>
+                      <span>
+                        <dt>900</dt>
+                        <dd>Курсов</dd>
+                      </span>
+                    </dl>
+                  </li>
+                </ul>
+              </div>
+
+              <ul className={s.userProfile__socialMedia}>
+                <li>
+                  <a href="http://" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      className={s.userProfile__social}
+                      icon={faInstagram}
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a href="http://" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      className={s.userProfile__social}
+                      icon={faPhone}
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a href="http://" target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon
+                      className={s.userProfile__social}
+                      icon={faTelegram}
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <b className={s.userProfile__title}>Немного о себе:</b>
+            <p className={s.userProfile__description}>
+              Добрый день! Меня зовут Петриченко Иван. Уже более 7 лет занимаюсь
+              Front-End разработкой. Я создаю сайты и веб-приложения под ключ,
+              обучаю этому взрослых и детей, организовываю и провожу
+              мероприятия, занимаюсь консалтингом и аудитом.
+            </p>
           </div>
 
-          <ul className={s.userProfile__socialMedia}>
-            <li>
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon
-                  className={s.userProfile__social}
-                  icon={faInstagram}
-                />
-              </a>
-            </li>
-            <li>
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon className={s.userProfile__social} icon={faPhone} />
-              </a>
-            </li>
-            <li>
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                <FontAwesomeIcon
-                  className={s.userProfile__social}
-                  icon={faTelegram}
-                />
-              </a>
-            </li>
-          </ul>
-        </div>
+          <h2>Курсы</h2>
 
-        <b className={s.userProfile__title}>Немного о себе:</b>
-        <p className={s.userProfile__description}>
-          Добрый день! Меня зовут Петриченко Иван. Уже более 7 лет занимаюсь
-          Front-End разработкой. Я создаю сайты и веб-приложения под ключ,
-          обучаю этому взрослых и детей, организовываю и провожу мероприятия,
-          занимаюсь консалтингом и аудитом.
-        </p>
-      </div>
-
-      <h2>Мои курсы</h2>
-
-      {/* {courses.map((course) => {
-        return <CourseItem course={course} key={course.id} />;
-      })} */}
+          <CourseList courses={userCourses} />
+        </>
+      )}
     </section>
   );
 }

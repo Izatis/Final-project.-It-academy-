@@ -1,13 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./setting.module.scss";
+import s from "./userSettings.module.scss";
 
 import Image from "next/image";
 import { Avatar, Modal, Tooltip } from "antd";
-import {
-  useGetUserQuery,
-} from "@/redux/reducers/user";
+import { useGetCurrentUserQuery } from "@/redux/reducers/user";
 import { useChangeAvatarMutation } from "@/redux/reducers/s3";
-import cover from "../../public/cover.png";
+import cover from "../../../public/cover.png";
 
 import Aside from "@/components/Aside/Aside";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
@@ -17,32 +15,33 @@ const Setting: FC = () => {
   const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
-    setToken(parsedToken);
-  }, []);
-
-  useEffect(() => {
+    useEffect(() => {
     const fullUrl = window.location.href;
-    const token = fullUrl.split(
-      "http://localhost:3000/setting/setting?token="
-    )[1];
+    const token = fullUrl.split("http://localhost:3000/setting?token=")[1];
     if (token) {
       localStorage.setItem("token", JSON.stringify(token));
     }
+  }, []);
+
+
+  useEffect(() => {
+    const parsedToken = JSON.parse(localStorage.getItem("token") as string);
+    setToken(parsedToken);
   }, []);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
   const [avatar, setAvatar] = useState(null);
   const [changeAvatar] = useChangeAvatarMutation();
-  const { data: user = {}, isLoading } = useGetUserQuery({ token });
-  const userId = user.id;
+  const { data: currentUser = {}, isLoading } = useGetCurrentUserQuery({
+    token,
+  });
+  const userId = currentUser.id;
 
   const handleClick = async () => {
     setIsModalOpen(false);
     window.location.reload();
-    if (avatar) {
+    if (avatar) { 
       const formData = new FormData();
       formData.append("userId", userId);
       formData.append("file", avatar);
@@ -80,18 +79,15 @@ const Setting: FC = () => {
         <Tooltip title="Изменить фото профиля">
           <Avatar
             className={s.setting__avatar}
-            src={user.imageUrl}
-            alt={user.imageName}
+            src={currentUser.imageUrl}
+            alt={currentUser.imageName}
             onClick={() => setIsModalOpen(true)}
           />
         </Tooltip>
 
         <Aside />
       </div>
-      <MyProfile
-        user={user}
-        isLoading={isLoading}
-      />
+      <MyProfile user={currentUser} isLoading={isLoading} />
     </section>
   );
 };

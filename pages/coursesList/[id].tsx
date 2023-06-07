@@ -2,23 +2,26 @@ import React, { useEffect, useState } from "react";
 import s from "./coursesList.module.scss";
 
 import { useRouter } from "next/router";
-import { Select } from "antd";
+import { Pagination, PaginationProps, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   languageFiltering,
   priceFiltering,
 } from "@/redux/reducers/course/course.slice";
 import { useGettingACategoryQuery } from "@/redux/reducers/category";
-import { useReceiveCoursesByCategoryQuery } from "@/redux/reducers/course/course";
-import { ICourse } from "@/redux/types/course";
+import { useReceiveCoursesAmountPageByCategoryMutation } from "@/redux/reducers/course/course";
 
-import CourseItem from "@/components/CoursesList/CoursesList";
+import CourseList from "@/components/CoursesList/CoursesList";
 import Loading from "@/components/Loading/Loading";
 
 export default function () {
   const [token, setToken] = useState("");
-  const [mainCourses, setMainCourses] = useState<ICourse[]>([]);
-  const [mainIsLoading, setMainIsLoading] = useState<boolean>(false);
+  const [mainIsLoading, setMainIsLoading] = useState(false);
+  const [mainCourses, setMainCourses] = useState<any>([]);
+  const [mainAmountPage, setMainAmountPage] = useState(0);
+  console.log(mainAmountPage);
+
+  const [pageNumber, setPageNumber] = useState(1);
   const { query }: { query: any } = useRouter();
   const categoryId = query.id;
   const { data: categories = [] } = useGettingACategoryQuery({ token });
@@ -27,50 +30,69 @@ export default function () {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
-
+  const onChange: PaginationProps["onChange"] = async (pageNumber) => {
+    setPageNumber(pageNumber);    
+    await receiveCoursesAmountPageByCategory({
+      token,
+      categoryId,
+      pageNumber,
+    }).unwrap();
+  };
   // ---------------------------------------------------------------------------------------------------------------------------------
   // DEFAULT DATA
-  const { data: courses = [], isLoading } = useReceiveCoursesByCategoryQuery({
-    token,
-    categoryId,
-  });
+  const [receiveCoursesAmountPageByCategory, { data, isLoading }] =
+    useReceiveCoursesAmountPageByCategoryMutation();
 
-  useEffect(() => {
-    setMainIsLoading(isLoading);
-    setMainCourses(courses);
-  }, [courses]);
+
+    
+    useEffect(() => {
+        receiveCoursesAmountPageByCategory({ token, categoryId, pageNumber });
+    }, [query]);
+    useEffect(() => {  
+      setMainIsLoading(isLoading);
+      setMainCourses(data?.courses);
+      if(data?.amountPage){
+      setMainAmountPage(data.amountPage.length * 10);}
+    }, [isLoading]);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // FILTERING DATA
   const dispatch = useAppDispatch();
   const handleChangePrice = (option: string) => {
-    dispatch(priceFiltering({ token,categoryId, option }));
+    dispatch(priceFiltering({ token, categoryId, pageNumber, option }));
   };
-  const { courses: priceFilteringData, isLoading: priceFilteringIsLoding } =
-    useAppSelector((state) => state.course);
+  const {
+    coursesAmountPage: priceFilteringData,
+    isLoading: priceFilteringIsLoding,
+  } = useAppSelector((state) => state.course);
+
   useEffect(() => {
     setMainIsLoading(priceFilteringIsLoding);
-    setMainCourses(priceFilteringData);
+    setMainCourses(priceFilteringData.courses);
   }, [priceFilteringIsLoding]);
 
   const handleChangeLanguage = (option: string) => {
-    dispatch(languageFiltering({ token,categoryId, option }));
+    dispatch(languageFiltering({ token, categoryId, pageNumber, option }));
   };
 
   const {
-    courses: languageFilteringData,
+    coursesAmountPage: languageFilteringData,
     isLoading: languageFilteringIsLoding,
   } = useAppSelector((state) => state.course);
   useEffect(() => {
     setMainIsLoading(languageFilteringIsLoding);
-    setMainCourses(languageFilteringData);
+    setMainCourses(languageFilteringData.courses);
   }, [languageFilteringIsLoding]);
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // MAIN REQUEST
+
 
   return (
     <section className={s.courses}>
       <h2 className={s.pageTitle}>
         Все курсы по теме "
-        {!!query.id
+        {query.id
           ? categories.find((category: any) => category.id === +query.id)?.title
           : null}
         "
@@ -99,10 +121,20 @@ export default function () {
           />
         </div>
 
-        <span className={s.result}>{mainCourses.length} результата</span>
+        <span className={s.result}>{mainCourses?.length} результата</span>
       </header>
 
-      {mainIsLoading ? <Loading /> : <CourseItem courses={mainCourses} />}
+      {mainIsLoading ? <Loading /> : <CourseList courses={mainCourses} />}
+
+      <footer className={s.courses__footer}>
+        <Pagination
+        className={s.pagination}
+          showQuickJumper
+          defaultCurrent={1}
+          total={mainAmountPage}
+          onChange={onChange}
+        />
+      </footer>
     </section>
   );
 }

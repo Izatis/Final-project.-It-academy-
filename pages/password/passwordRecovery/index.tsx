@@ -16,6 +16,9 @@ import { usePasswordRecoveryMutation } from "@/redux/reducers/password";
 import MyButton from "../../../UI/Buttons/MyButton/MyButton";
 
 const PasswordRecovery: FC = () => {
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const { locale } = useRouter();
   let t: any;
   switch (locale) {
@@ -43,22 +46,19 @@ const PasswordRecovery: FC = () => {
   // POST
   const [passwordRecovery, { isLoading, data, error }] =
     usePasswordRecoveryMutation();
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
   const onFinish = async (value: any) => {
+    setIsButtonClicked(true);
     const email = value.email;
     await passwordRecovery({ email });
   };
 
   useEffect(() => {
     if (data) setSuccessMessage(data.message);
-    if (error) {
-      setErrorMessage(error.message);
-    }
+    if (error) setErrorMessage(error.data.message);
   }, [data, error]);
 
   return (
@@ -66,15 +66,15 @@ const PasswordRecovery: FC = () => {
       <h2>{t.passwordRecovery[0]}</h2>
       <Form form={form} name="password-recovery-form" onFinish={onFinish}>
         <Form.Item
-        className={s.deIndenting}
+          className={s.passwordRecovery__deIndenting}
           name="email"
           rules={[
             {
-              type: "email",
+              required: true,
               message: t.passwordRecovery[2],
             },
             {
-              required: true,
+              type: isButtonClicked ? "email" : undefined,
               message: t.passwordRecovery[3],
             },
           ]}
@@ -86,11 +86,16 @@ const PasswordRecovery: FC = () => {
           />
         </Form.Item>
 
-        <span className={cn(!!successMessage ? s.successfully : s.error)}>
+        <span
+          className={cn(
+            { [s.successfully]: successMessage },
+            { [s.error]: errorMessage }
+          )}
+        >
           {errorMessage || successMessage}
         </span>
 
-        <Form.Item>
+        <Form.Item className={s.passwordRecovery__deIndenting}>
           <MyButton
             className={s.passwordRecovery__button}
             type="primary"

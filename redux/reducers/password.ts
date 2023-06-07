@@ -6,7 +6,7 @@ export const password = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
     // ---------------------------------------------------------------------------------------------------------------------------------
-    passwordRecovery: build.mutation({
+    passwordRecovery: build.mutation<any, any>({
       query: ({ email }) => ({
         url: "/password/reset?email=" + email,
         method: "POST",
@@ -16,9 +16,9 @@ export const password = createApi({
 
     // ---------------------------------------------------------------------------------------------------------------------------------
 
-    newPassword: build.mutation({
-      query: ({ token, password }) => ({
-        url: `/password/reset/${token}?newPassword=${password}`,
+    newPasswordRequest: build.mutation<any, any>({
+      query: ({ token, newPassword }) => ({
+        url: `/password/reset/${token}?newPassword=${newPassword}`,
         method: "POST",
       }),
       invalidatesTags: [{ type: "Password", id: "LIST" }],
@@ -26,4 +26,5 @@ export const password = createApi({
   }),
 });
 
-export const { usePasswordRecoveryMutation, useNewPasswordMutation } = password;
+export const { usePasswordRecoveryMutation, useNewPasswordRequestMutation } =
+  password;

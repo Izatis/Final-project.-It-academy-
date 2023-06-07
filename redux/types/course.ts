@@ -6,25 +6,29 @@ export interface ICourse {
   price: number;
   language: string;
   author: string;
+  authorId: number
   imageName: string;
   imageUrl: string;
   duration: number;
+  grade: number
 }
 
+
+export interface ICoursesAmoutnPage {
+    courses: ICourse[]
+    amountPage: number
+}
+
+
 export interface ICourseState {
-  courses: ICourse[];
-  myCourse: ICourse[];
-  courseIdBackend: any;
+  coursesAmountPage: ICoursesAmoutnPage;
+  courseIdBackend: any
   isLoading: boolean;
   error: string;
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // Params
-
-export interface IGettingAllCoursesParams {
-  parsedToken: string;
-}
 
 export interface ICourseCreation {
   name: string;
@@ -41,12 +45,14 @@ export interface ICourseCreationParams {
 
 export interface IPriceFilteringParams {
   token: string;
-  categoryId: number
+  categoryId: number;
+  pageNumber: number;
   option: string;
 }
 
 export interface ILanguageFilteringParams {
   token: string;
   categoryId: number
+  pageNumber: number
   option: string;
 }

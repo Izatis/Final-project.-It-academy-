@@ -21,11 +21,12 @@ interface IUserRegister {
   fullName: string;
   email: string;
   password: string;
-  passwordSecond: string;
+  passwordСonfirmation: string;
 }
 
 const SignUp: FC = () => {
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
   const { push, locale } = useRouter();
   const { isLoading, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -67,9 +68,10 @@ const SignUp: FC = () => {
   }, []);
 
   const handleSubmit = (value: IUserRegister) => {
-    const { password, passwordSecond } = value;
-    if (password !== passwordSecond) {
-      setErrorMessage(t.signUp[11]);
+    setIsButtonClicked(true);
+    const { password, passwordСonfirmation } = value;
+    if (password !== passwordСonfirmation) {
+      setPasswordMismatchMessage(t.signUp[11]);
     } else {
       dispatch(userRegistration(value));
     }
@@ -98,11 +100,11 @@ const SignUp: FC = () => {
           name="email"
           rules={[
             {
-              type: "email",
+              required: true,
               message: t.signUp[6],
             },
             {
-              required: true,
+              type: isButtonClicked ? "email" : undefined,
               message: t.signUp[7],
             },
           ]}
@@ -121,7 +123,7 @@ const SignUp: FC = () => {
               message: t.signUp[8],
             },
             {
-              min: 6,
+              min: isButtonClicked ? 6 : undefined,
               message: t.signUp[9],
             },
           ]}
@@ -129,19 +131,18 @@ const SignUp: FC = () => {
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
 
-        <span className={s.error}>{errorMessage}</span>
+        <span className={s.error}>{passwordMismatchMessage}</span>
 
         <Form.Item
           className={s.signUp__deIndenting}
-          name="passwordSecond"
+          name="passwordСonfirmation"
           rules={[
             {
               required: true,
               message: t.signUp[10],
             },
-
             {
-              message: errorMessage,
+              message: passwordMismatchMessage,
             },
           ]}
         >

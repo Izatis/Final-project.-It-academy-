@@ -25,6 +25,7 @@ interface IMyProfileProps {
 const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
   const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoadingSignOut, setIsLoadingSignOut] = useState(false);
   const { push, locale } = useRouter();
   const userId = user.id;
 
@@ -56,8 +57,10 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
   }
   // Выйти из аккаунта
   const signOut = () => {
+    setIsLoadingSignOut(!isLoadingSignOut);
     push("/");
     localStorage.removeItem("token");
+    setIsLoadingSignOut(!isLoadingSignOut);
   };
 
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -132,7 +135,7 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
                 </Link>
               )}
 
-              <Link href={"/editing"}>
+              <Link href={"/settings/editing"}>
                 <MyButton
                   className={s.myProfile__buttonSecond}
                   type="primary"
@@ -157,6 +160,7 @@ const MyProfile: FC<IMyProfileProps> = ({ user, isLoading }) => {
               className={s.myProfile__buttonFirst}
               icon={<LogoutOutlined />}
               onClick={signOut}
+              loading={isLoadingSignOut}
             >
               Выйти
             </MyButton>

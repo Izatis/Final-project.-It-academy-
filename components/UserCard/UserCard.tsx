@@ -7,7 +7,10 @@ import { notification } from "antd";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IUser } from "@/redux/types/user";
-import { useDeletingAUserMutation } from "@/redux/reducers/user";
+import {
+  useDeletingAUserMutation,
+  useGetCurrentUserQuery,
+} from "@/redux/reducers/user";
 
 import Rating from "../Rating/Rating";
 import Loading from "../Loading/Loading";
@@ -19,13 +22,13 @@ interface IUserCardProps {
 const UserCard: FC<IUserCardProps> = ({ user }) => {
   const [token, setToken] = useState("");
   const userId = user.id;
+  const { data: currentUser = {} } = useGetCurrentUserQuery({ token });
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
 
-  
   // ---------------------------------------------------------------------------------------------------------------------------------
   // DELETE
   const [deletingAUser, { isLoading }] = useDeletingAUserMutation();
@@ -69,11 +72,14 @@ const UserCard: FC<IUserCardProps> = ({ user }) => {
           <li className={s.user__item}>{user.numberOfCourses} курса</li> */}
               </ul>
             </div>
-            {/* {user.role === "ROLE_ADMIN" && ( */}
-            <div className={s.user__trash} onClick={(e) => e.preventDefault()}>
-              <FontAwesomeIcon icon={faTrash} onClick={handleDeletingAUser} />
-            </div>
-            {/* )} */}
+            {currentUser.role === "ROLE_ADMIN" && (
+              <div
+                className={s.user__trash}
+                onClick={(e) => e.preventDefault()}
+              >
+                <FontAwesomeIcon icon={faTrash} onClick={handleDeletingAUser} />
+              </div>
+            )}
           </div>
           <b className={s.user__title}>Немного о себе:</b>
         </>

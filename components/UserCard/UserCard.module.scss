@@ -34,6 +34,13 @@
           color: #191970;
         }
 
+        .user__email {
+          font-weight: 400;
+          @include adaptive-value("font-size", 15, 8);
+          line-height: 130%;
+          color: #a7b0c2;
+        }
+
         .user__rating {
           display: flex;
           align-items: center;
@@ -82,18 +89,11 @@
     }
   }
 
-  .user__fullName {
-    font-weight: 700;
-    @include adaptive-value("font-size", 15, 12);
+  .user__title {
+    font-weight: 400;
+    @include adaptive-value("font-size", 18, 8);
     line-height: 130%;
     color: #191970;
-  }
-
-  .user__email {
-    font-weight: 400;
-    @include adaptive-value("font-size", 15, 8);
-    line-height: 130%;
-    color: #a7b0c2;
   }
 
   .user__description {

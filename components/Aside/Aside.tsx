@@ -12,13 +12,13 @@ import {
 
 const items: MenuProps["items"] = [
   {
-    label: <Link href="/userCourses">Мои Курсы</Link>,
+    label: <Link href="/settings/userCourses">Мои Курсы</Link>,
     icon: <DesktopOutlined />,
     key: "1",
   },
 
   {
-    label: <Link href="/editing">Редактировние</Link>,
+    label: <Link href="/settings/editing">Редактировние</Link>,
     icon: <SettingOutlined />,
     key: "2",
   },
@@ -30,9 +30,15 @@ const items: MenuProps["items"] = [
   },
 
   {
-    label: <Link href="/addition/addingCourse">Добавить курс</Link>,
+    label: <Link href="/settings/addition/addingCourse">Добавить курс</Link>,
     icon: <AppstoreOutlined />,
     key: "4",
+  },
+
+  {
+    label: <Link href="/settings/purchasedUserCourses">Мои купленные курсы</Link>,
+    icon: <DesktopOutlined />,
+    key: "5",
   },
 ];
 

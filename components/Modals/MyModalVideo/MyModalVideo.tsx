@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from "./MyModalVideo.module.scss";
 
-import { Modal } from "antd";
+import { Form, Input, Modal } from "antd";
 import { ILesson } from "@/redux/types/lesson";
 import MyInput from "@/UI/MyInput/MyInput";
 
@@ -37,9 +37,35 @@ const MyModalVideo: FC<IMyModalVideoProps> = ({
         <source type="video/mp4" src={lesson.videoUrl} />
       </video>
 
-      <p className={s.video__description}>{lesson.description}</p>
+      {/* <b>Оставьте комментарию</b>
+      <Form form={form} name="comment-form" onFinish={handleSubmit}>
+        <Form.Item
+          className={s.signIn__deIndenting}
+          name="title"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите поле",
+            },
+          ]}
+        >
+          <Input placeholder="title" />
+        </Form.Item>
+        <Form.Item
+          className={s.signIn__deIndenting}
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите поле",
+            },
+          ]}
+        >
+          <Input placeholder="description" />
+        </Form.Item>
+      </Form> */}
 
-   
+      <p className={s.video__description}>{lesson.description}</p>
     </Modal>
   );
 };

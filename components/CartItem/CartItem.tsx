@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, {  FC, useEffect, useState } from "react";
 import s from "./CartItem.module.scss";
 
 import Link from "next/link";
@@ -10,18 +10,45 @@ import { useRemoveFromCartMutation } from "@/redux/reducers/cart";
 import { ICart } from "@/redux/types/cart";
 
 import Rating from "../Rating/Rating";
+import { useGetReviwsAvgGradeQuery } from "@/redux/reducers/review";
 
 interface ICartProps {
-  cart: ICart;
+  cartBackend: ICart;
 }
 
-const CartItem: FC<ICartProps> = ({ cart }) => {
+const CartItem: FC<ICartProps> = ({ cartBackend }) => {
   const [token, setToken] = useState("");
+
+  const [cart, setCart] = useState<ICart>({
+    id: 0,
+    name: "",
+    description: "",
+    created: "",
+    price: 0,
+    language: "",
+    author: "",
+    authorId: 0,
+    imageName: "",
+    imageUrl: "",
+    duration: 0,
+    grade: 0,
+  });
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     setToken(parsedToken);
   }, []);
+  
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
+  const courseId = cartBackend.id;
+  const { data: grade = 0, isLoading: isLoadingGrade } =
+    useGetReviwsAvgGradeQuery({ token, courseId });
+
+  useEffect(() => {
+      setCart({ ...cartBackend, grade: grade });
+  }, [cartBackend, isLoadingGrade]);
+
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // DELETE
@@ -52,8 +79,8 @@ const CartItem: FC<ICartProps> = ({ cart }) => {
           <li className={s.cart__title}>{cart.name}</li>
           <li className={s.cart__creator}>Автор: {cart.author}</li>
           <li className={s.cart__rating} onClick={(e) => e.preventDefault()}>
-            <pre>{cart.price}</pre>
-            <Rating value={2.5} />
+            <pre>{cart.grade}</pre>
+            <Rating value={cart.grade} />
           </li>
           <li className={s.cart__duration}>{cart.created}</li>
           <li className={s.cart__duration}>{cart.language}</li>

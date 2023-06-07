@@ -41,10 +41,10 @@ const CartList = () => {
             </aside>
 
             <div className={s.cart__rightBlock}>
-              {Array.isArray(carts) ? (
+              {carts.length ? (
                 carts.map((cart: ICart) => {
                   return (
-                    <CartItem cart={cart} key={cart.id}/>
+                    <CartItem cartBackend={cart} key={cart.id}/>
                   );
                 })
               ) : (

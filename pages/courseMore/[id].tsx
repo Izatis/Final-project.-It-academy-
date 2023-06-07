@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useGettingACourseQuery } from "@/redux/reducers/course/course";
 import { useAddingToCartMutation } from "@/redux/reducers/cart";
 import { gettingPartitions } from "@/redux/reducers/section.slice";
-import { useGetCreatorQuery } from "@/redux/reducers/user";
+import { useGetUserQuery } from "@/redux/reducers/user";
 
 import Loading from "@/components/Loading/Loading";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
@@ -19,12 +19,28 @@ import Rating from "@/components/Rating/Rating";
 import AnimateSelect from "@/UI/AnimateSelect/AnimateSelect";
 import Review from "@/components/Review/Review";
 import UserCard from "@/components/UserCard/UserCard";
+import { useGetReviwsAvgGradeQuery } from "@/redux/reducers/review";
+import { ICourse } from "@/redux/types/course";
 
 export default function () {
   const [token, setToken] = useState("");
+  const [course, setCourse] = useState<ICourse>({
+    id: 0,
+    name: "",
+    description: "",
+    created: "",
+    price: 0,
+    language: "",
+    author: "",
+    authorId: 0,
+    imageName: "",
+    imageUrl: "",
+    duration: 0,
+    grade: 0,
+  });
   const { query }: { query: any } = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const courseId = query.id;
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,25 +49,30 @@ export default function () {
   }, []);
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token") as string);
-    if (query.id) {
-      dispatch(gettingPartitions({ token, courseId }));
-    }
+    dispatch(gettingPartitions({ token, courseId }));
   }, []);
 
-  const { data: course = [], isLoading } = useGettingACourseQuery({
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // GET
+  const { data: grade = 0, isLoading: isLoadingGrade } =
+    useGetReviwsAvgGradeQuery({ token, courseId });
+
+  const { data: courseBackend = {}, isLoading } = useGettingACourseQuery({
     token,
     courseId,
   });
 
+  useEffect(() => {
+    setCourse({ ...courseBackend, grade: grade });
+  }, [isLoading, isLoadingGrade]);
+
   const { sections } = useAppSelector((state) => state.section);
-  console.log(sections);
 
   // ---------------------------------------------------------------------------------------------------------------------------------
-  // CREATOR
-  const authorId = course.authorId;
+  // GET CREATOR 
+  const creatorId = course.authorId;
 
-  const { data: creator = {} } = useGetCreatorQuery({ token, authorId });
+  const { data: creator = {} } = useGetUserQuery({ token, creatorId });
 
   // ---------------------------------------------------------------------------------------------------------------------------------
   // PUT
@@ -59,18 +80,22 @@ export default function () {
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: any) => {
     api.info({
-      message: `Успешно добавлено в корзину!`,
+      message: `Курс успешно добавлено в корзину!`,
       placement,
     });
   };
 
-  const [addingToCart, { isLoading: isLoadingAddingToCart }] =
+  const [addingToCart, { isLoading: isLoadingAddingToCart, isSuccess }] =
     useAddingToCartMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      openNotification(5);
+      setChangeBtn("Добавлено в корзину");
+    }
+  }, [isSuccess]);
 
   const handleClick = () => {
     addingToCart({ token, courseId });
-    openNotification(5);
-    setChangeBtn("Добавлено");
   };
 
   return (
@@ -136,7 +161,7 @@ export default function () {
                 <li className={s.course__title}>{course.name}</li>
                 <li className={s.course__creator}>Авторы: Иван Петриченко</li>
                 <li className={s.course__rating}>
-                  <pre>400</pre> <Rating value={3.5} />
+                  <pre>{course.grade}</pre> <Rating value={course.grade} />
                 </li>
                 <li className={s.course__duration}>
                   Дата создания: {course.created}
@@ -163,7 +188,7 @@ export default function () {
               <UserCard user={creator} />
             </div>
           </div>
-          <Review />
+          <Review grade={grade} />
         </div>
       )}
     </>

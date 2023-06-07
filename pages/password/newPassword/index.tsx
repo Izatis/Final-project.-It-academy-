@@ -10,28 +10,29 @@ import de from "../../../locales/DE/translation.json";
 import ch from "../../../locales/CH/translation.json";
 import fr from "../../../locales/FR/translation.json";
 import uk from "../../../locales/UK/translation.json";
-import { useNewPasswordMutation } from "@/redux/reducers/password";
+import { useNewPasswordRequestMutation } from "@/redux/reducers/password";
 
 import MyButton from "../../../UI/Buttons/MyButton/MyButton";
 
 interface INewPassword {
-  newPassword: number;
-  newPasswordСonfirmation: number;
+  newPassword: any;
+  passwordСonfirmation: string;
 }
 
 const NewPassword: FC = () => {
-  const [token, setToken] = useState("");
-  const [passwordСonfirmation, setPasswordСonfirmation] = useState("");
+  const [recoveryToken, setRecoveryToken] = useState("");
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
   const { push, locale } = useRouter();
 
   useEffect(() => {
     const fullUrl = window.location.href;
     const token = fullUrl.split(
-      "http://localhost:3000/password/newPassword/newPassword?token="
+      "http://localhost:3000/password/newPassword?token="
     )[1];
     if (token) {
       localStorage.setItem("token", JSON.stringify(token));
-      setToken(token);
+      setRecoveryToken(token);
     }
   }, []);
 
@@ -58,19 +59,20 @@ const NewPassword: FC = () => {
   }
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
-  const [newPassword, { isLoading }] = useNewPasswordMutation();
+  const [newPasswordRequest, { isLoading }] = useNewPasswordRequestMutation();
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
   const onFinish = async (value: INewPassword) => {
-    const { newPassword, newPasswordСonfirmation } = value;
-    // if (newPassword !== passwordСonfirmation) {
-    // setPasswordСonfirmation("Пароли не совпадают");
-    // } else {
-    push("/password/newPassword");
-    await newPassword({ token, newPassword }).unwrap();
-    // }
+    setIsButtonClicked(true);
+    const { newPassword, passwordСonfirmation } = value;
+    if (newPassword !== passwordСonfirmation) {
+      setPasswordMismatchMessage("Пароли не совпадают!");
+    } else {
+      push("/auth/signIn");
+      await newPasswordRequest({ recoveryToken, newPassword }).unwrap();
+    }
   };
 
   return (
@@ -86,7 +88,7 @@ const NewPassword: FC = () => {
               message: t.signUp[8],
             },
             {
-              min: 6,
+              min: isButtonClicked ? 6 : undefined,
               message: t.signUp[9],
             },
           ]}
@@ -94,19 +96,18 @@ const NewPassword: FC = () => {
           <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
         </Form.Item>
 
-        <span className={s.error}>{passwordСonfirmation}</span>
+        <span className={s.error}>{passwordMismatchMessage}</span>
 
         <Form.Item
           className={s.signUp__margin}
-          name="newPasswordСonfirmation"
+          name="passwordСonfirmation"
           rules={[
             {
               required: true,
               message: t.signUp[10],
             },
-
             {
-              message: passwordСonfirmation,
+              message: passwordMismatchMessage,
             },
           ]}
         >

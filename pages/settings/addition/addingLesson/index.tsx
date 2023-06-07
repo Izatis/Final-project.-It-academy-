@@ -3,12 +3,12 @@ import s from "./AddingLesson.module.scss";
 
 import { useRouter } from "next/router";
 import { Form, Input, InputNumber } from "antd";
-import en from "../../../locales/EN/translation.json";
-import ru from "../../../locales/RU/translation.json";
-import de from "../../../locales/DE/translation.json";
-import ch from "../../../locales/CH/translation.json";
-import fr from "../../../locales/FR/translation.json";
-import uk from "../../../locales/UK/translation.json";
+import en from "../../../../locales/EN/translation.json";
+import ru from "../../../../locales/RU/translation.json";
+import de from "../../../../locales/DE/translation.json";
+import ch from "../../../../locales/CH/translation.json";
+import fr from "../../../../locales/FR/translation.json";
+import uk from "../../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import MyButton from "@/UI/Buttons/MyButton/MyButton";
 import { addingALesson } from "@/redux/reducers/lesson.slice";
@@ -49,7 +49,7 @@ const AddingLesson: FC = () => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
     const sectionId = sectionIdBackend;
     dispatch(addingALesson({ sectionId, value, parsedToken }));
-    push("/addition/addingVideo");
+    push("/settings/addition/addingVideo");
   };
   // Для сохранения значений инпутов
   const [form] = Form.useForm();

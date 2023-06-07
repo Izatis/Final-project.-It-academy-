@@ -19,7 +19,7 @@ import { IReview } from "@/redux/types/review";
 import Rating from "../Rating/Rating";
 import MyButton from "../../UI/Buttons/MyButton/MyButton";
 
-const Review: FC = () => {
+const Review: FC<{grade: number}> = ({grade}) => {
   const [token, setToken] = useState("");
   const { query }: { query: any } = useRouter();
   const courseId = query.id;
@@ -41,12 +41,8 @@ const Review: FC = () => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
   const handleSubmit = async (values: any) => {
-    if (values) {
-      await addReview({ courseId, token, values }).unwrap();
-    }
+    await addReview({ courseId, token, values }).unwrap();
   };
-
-  console.log(data);
   
   return (
     <article className={s.reviewCards}>
@@ -92,7 +88,7 @@ const Review: FC = () => {
 
       <b className={s.reviewCards__grade}>
         <FontAwesomeIcon className={s.reviewCard__icon} icon={faStar} /> Оценок
-        курса: 4,5 2K оценки
+        курса: {grade} 2K оценки
       </b>
 
       <div className={s.reviewCard__wrap}>

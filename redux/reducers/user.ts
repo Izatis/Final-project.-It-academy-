@@ -23,6 +23,22 @@ export const user = createApi({
 
     // ---------------------------------------------------------------------------------------------------------------------------------
     getUser: build.query({
+      query: ({ creatorId, token }) => ({
+        url: `/user/${creatorId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              { id: result.id, type: "Users" },
+              { type: "Users", id: "LIST" },
+            ]
+          : [{ type: "Users", id: "LIST" }],
+    }),
+
+    // ---------------------------------------------------------------------------------------------------------------------------------
+    getCurrentUser: build.query({
       query: ({ token }) => ({
         url: `/user/current`,
         method: "GET",
@@ -38,28 +54,10 @@ export const user = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    getCreator: build.query({
-      query: ({ authorId, token }) => ({
-        url: `/user/${authorId}`,
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-      providesTags: (result) =>
-        result
-          ? [
-              { id: result.id, type: "Users" },
-              { type: "Users", id: "LIST" },
-            ]
-          : [{ type: "Users", id: "LIST" }],
-    }),
-
-    // ---------------------------------------------------------------------------------------------------------------------------------
     // Запроc - для редактирование пользователя
 
-    editingUser: build.mutation({
-      query: ({ token, values }) => (
-        console.log(values),
-        {
+    editingUser: build.mutation<any, any>({
+      query: ({ token, values }) => ({
           url: `/user`,
           method: "PUT",
           headers: { Authorization: `Bearer ${token}` },
@@ -70,7 +68,7 @@ export const user = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    deletingAUser: build.mutation({
+    deletingAUser: build.mutation<any, any>({
       query: ({ userId, token }) => ({
         url: `user/${userId}`,
         method: "DELETE",
@@ -84,7 +82,7 @@ export const user = createApi({
 export const {
   useGetAllUsersQuery,
   useGetUserQuery,
-  useGetCreatorQuery,
+  useGetCurrentUserQuery,
   useEditingUserMutation,
   useDeletingAUserMutation,
 } = user;

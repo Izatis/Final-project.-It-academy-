@@ -5,8 +5,8 @@ export const review = createApi({
   tagTypes: ["Reviews"],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
   endpoints: (build) => ({
+    // ---------------------------------------------------------------------------------------------------------------------------------
     getReviws: build.query({
-      // ---------------------------------------------------------------------------------------------------------------------------------
       query: ({ token, courseId }) => ({
         url: `/review/course/${courseId}`,
         method: "GET",
@@ -25,8 +25,23 @@ export const review = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
+    getReviwsAvgGrade: build.query({
+      query: ({ token, courseId }) => ({
+        url: `/review/course/avg-grade/${courseId}`,
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      providesTags: (result) =>
+      result
+        ? [
+            { id: result.id, type: "Reviews" },
+            { type: "Reviews", id: "LIST" },
+          ]
+        : [{ type: "Reviews", id: "LIST" }],
+  }),
+    // ---------------------------------------------------------------------------------------------------------------------------------
 
-    addReview: build.mutation({
+    addReview: build.mutation<any, any>({
       query: ({ token, courseId, values }) => ({
         url: `/review/${courseId}`,
         method: "POST",
@@ -37,7 +52,7 @@ export const review = createApi({
     }),
 
     // ---------------------------------------------------------------------------------------------------------------------------------
-    // deleteProduct: build.mutation({
+    // deleteProduct: build.mutation<any, any>({
     //   query: (id) => ({
     //     url: `goods/${id}`,
     //     method: "DELETE",
@@ -47,4 +62,4 @@ export const review = createApi({
   }),
 });
 
-export const { useGetReviwsQuery, useAddReviewMutation } = review;
+export const { useGetReviwsQuery, useGetReviwsAvgGradeQuery, useAddReviewMutation } = review;

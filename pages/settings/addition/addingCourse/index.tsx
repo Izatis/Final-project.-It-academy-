@@ -2,13 +2,13 @@ import React, { FC, useEffect, useState } from "react";
 import s from "./AddingCourse.module.scss";
 
 import { useRouter } from "next/router";
-import { Form, Input, InputNumber, Select, UploadFile } from "antd";
-import en from "../../../locales/EN/translation.json";
-import ru from "../../../locales/RU/translation.json";
-import de from "../../../locales/DE/translation.json";
-import ch from "../../../locales/CH/translation.json";
-import fr from "../../../locales/FR/translation.json";
-import uk from "../../../locales/UK/translation.json";
+import { Form, Input, InputNumber, Select } from "antd";
+import en from "../../../../locales/EN/translation.json";
+import ru from "../../../../locales/RU/translation.json";
+import de from "../../../../locales/DE/translation.json";
+import ch from "../../../../locales/CH/translation.json";
+import fr from "../../../../locales/FR/translation.json";
+import uk from "../../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {  courseCreation } from "@/redux/reducers/course/course.slice";
 
@@ -58,8 +58,6 @@ const AddingCourse: FC = () => {
 
   // Отправляем post запрос
   const handleSubmit = async (value: ICourseCreation) => {
-    const newFile = { ...file, name: value.name };
-
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
@@ -67,7 +65,7 @@ const AddingCourse: FC = () => {
 
     dispatch(courseCreation({ categoryId, value, parsedToken }));
 
-    push("/addition/addingSection");
+    push("/settings/addition/addingSection");
 
     // Сбрасываем поля объекта
     setFile({
@@ -84,8 +82,6 @@ const AddingCourse: FC = () => {
   useEffect(() => {
     form.setFieldsValue({ ...file });
   }, []);
-
-  const fileList: UploadFile[] = [];
 
   return (
     <section className={s.signIn}>

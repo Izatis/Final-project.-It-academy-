@@ -4,7 +4,7 @@ import s from "./signIn.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Form, Input } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import en from "../../../locales/EN/translation.json";
 import ru from "../../../locales/RU/translation.json";
 import de from "../../../locales/DE/translation.json";
@@ -23,9 +23,10 @@ interface IUserLogin {
 }
 
 const SignIn: FC = () => {
-  const { token, isLoading, error } = useAppSelector((state) => state.auth);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { push, locale } = useRouter();
   const dispatch = useAppDispatch();
+  const { token, isLoading, error } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
@@ -64,6 +65,7 @@ const SignIn: FC = () => {
   }, []);
 
   const handleSubmit = (value: IUserLogin) => {
+    setIsButtonClicked(true);
     dispatch(userAuthorization(value));
   };
 
@@ -77,16 +79,16 @@ const SignIn: FC = () => {
           name="username"
           rules={[
             {
-              type: "email",
+              required: true,
               message: t.signIn[3],
             },
             {
-              required: true,
+              type: isButtonClicked ? "email" : undefined,
               message: t.signIn[4],
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder={t.signIn[1]} />
+          <Input prefix={<MailOutlined />} placeholder={t.signIn[1]} />
         </Form.Item>
         <span className={s.error}>{error}</span>
 
@@ -134,10 +136,7 @@ const SignIn: FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link
-            className={s.signIn__link}
-            href="/password/passwordRecovery"
-          >
+          <Link className={s.signIn__link} href="/password/passwordRecovery">
             {t.signIn[9]}
           </Link>
         </Form.Item>

@@ -3,12 +3,12 @@ import s from "./addingSection.module.scss";
 
 import { useRouter } from "next/router";
 import { Form, Input } from "antd";
-import en from "../../../locales/EN/translation.json";
-import ru from "../../../locales/RU/translation.json";
-import de from "../../../locales/DE/translation.json";
-import ch from "../../../locales/CH/translation.json";
-import fr from "../../../locales/FR/translation.json";
-import uk from "../../../locales/UK/translation.json";
+import en from "../../../../locales/EN/translation.json";
+import ru from "../../../../locales/RU/translation.json";
+import de from "../../../../locales/DE/translation.json";
+import ch from "../../../../locales/CH/translation.json";
+import fr from "../../../../locales/FR/translation.json";
+import uk from "../../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { createPartition } from "@/redux/reducers/section.slice";
 import { ICreatePartition } from "@/redux/types/section";
@@ -57,7 +57,7 @@ const AddingSection: FC = () => {
     const courseId = courseIdBackend;
 
     dispatch(createPartition({ courseId, value, parsedToken }));
-    push("/addition/addingLesson");
+    push("/settings/addition/addingLesson");
 
     // Сбрасываем поля объекта
     setFile({
