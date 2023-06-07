@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import s from "./AddingLesson.module.scss";
+import s from "./addingLesson.module.scss";
 
 import { useRouter } from "next/router";
 import { Form, Input, InputNumber } from "antd";

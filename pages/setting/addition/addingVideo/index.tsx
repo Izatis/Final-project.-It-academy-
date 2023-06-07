@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import s from "./addingVideo.module.scss";
 
 import { useRouter } from "next/router";
@@ -11,29 +11,6 @@ const addingVideo: FC = () => {
   const { lessonIdBackend } = useAppSelector((state) => state.lessons);
   const [file, setSelectedFile] = useState(null);
   const { push } = useRouter();
-
-  // const handleClick = async () => {
-  //   const lessonId = lessonIdBackend;
-  //   if (file) {
-  //     const formData = new FormData();
-  //     formData.append("lessonId", lessonId);
-  //     formData.append("file", file);
-  //     fetch(
-  //       "https://spring-boot-online-platform.herokuapp.com/s3/upload/video",
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //       }
-  //     )
-  //       .then(() => {
-  //         push("/addition/addMore");
-  //       })
-  //       .catch((error) => {
-  //         // Обработка ошибки
-  //       });
-  //   }
-  // };
-
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
   const [addAVideo, { isLoading }] = useAddAVideoMutation();

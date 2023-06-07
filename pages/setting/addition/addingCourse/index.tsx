@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./AddingCourse.module.scss";
+import s from "./addingCourse.module.scss";
 
 import { useRouter } from "next/router";
 import { Form, Input, InputNumber, Select } from "antd";
