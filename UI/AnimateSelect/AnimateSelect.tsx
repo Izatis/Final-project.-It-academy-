@@ -23,6 +23,8 @@ const AnimateSelect: FC<IAnimateSelectProps> = ({ section, isPurchase }) => {
     setIsModalOpen(true);
   };
 
+  console.log(isPurchase);
+  
   // ---------------------------------------------------------------------------------------------------------------------------------
   // GET
   const { data: lessons = [] } = useToGetLessonsQuery({
