@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { userRegistration } from "@/redux/reducers/auth.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
-import MyButton from "../../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";
 
 interface IUserRegister {
   fullName: string;

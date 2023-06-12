@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { createPartition } from "@/redux/reducers/section.slice";
 import { ICreatePartition } from "@/redux/types/section";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 
 const AddingSection: FC = () => {
   // Состояния - для данных
@@ -48,7 +48,9 @@ const AddingSection: FC = () => {
   }
   const { push } = useRouter();
   const dispatch = useAppDispatch();
-  const { courseIdBackend, error } = useAppSelector((state) => state.course);
+  const { courseIdBackend, isLoading, error } = useAppSelector(
+    (state) => state.course
+  );
   // Отправляем post запрос
   const handleSubmit = async (value: ICreatePartition) => {
     // Достаем токен пользователя
@@ -87,7 +89,7 @@ const AddingSection: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -101,7 +103,7 @@ const AddingSection: FC = () => {
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
-            // loading={isLoading}
+            loading={isLoading}
           >
             {t.addingCourse[8]}
           </MyButton>

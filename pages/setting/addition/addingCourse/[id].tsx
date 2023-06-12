@@ -10,13 +10,12 @@ import ch from "../../../../locales/CH/translation.json";
 import fr from "../../../../locales/FR/translation.json";
 import uk from "../../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {  courseCreation } from "@/redux/reducers/course/course.slice";
+import { courseCreation } from "@/redux/reducers/course/course.slice";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import { ICourseCreation } from "@/redux/types/course";
 
-
-const AddingCourse: FC = () => {
+export default function () {
   // Состояния - для данных
   const [file, setFile] = useState<ICourseCreation>({
     name: "JavaScript",
@@ -54,14 +53,14 @@ const AddingCourse: FC = () => {
   const dispatch = useAppDispatch();
   const { isLoading, error } = useAppSelector((state) => state.course);
 
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   // Отправляем post запрос
   const handleSubmit = async (value: ICourseCreation) => {
     // Достаем токен пользователя
     const parsedToken = JSON.parse(localStorage.getItem("token") as string);
 
-    const categoryId = 1;
+    const categoryId = query.id;
 
     dispatch(courseCreation({ categoryId, value, parsedToken }));
 
@@ -98,7 +97,7 @@ const AddingCourse: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -111,7 +110,7 @@ const AddingCourse: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -124,7 +123,7 @@ const AddingCourse: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -148,7 +147,7 @@ const AddingCourse: FC = () => {
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
-            // loading={isLoading}
+            loading={isLoading}
           >
             {t.addingCourse[8]}
           </MyButton>
@@ -156,6 +155,4 @@ const AddingCourse: FC = () => {
       </Form>
     </section>
   );
-};
-
-export default AddingCourse;
+}

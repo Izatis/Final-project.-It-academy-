@@ -30,7 +30,7 @@ const items: MenuProps["items"] = [
   },
 
   {
-    label: <Link href="/setting/addition/addingCourse">Добавить курс</Link>,
+    label: <Link href="/setting/addition/addingCategory">Добавить курс</Link>,
     icon: <AppstoreOutlined />,
     key: "4",
   },

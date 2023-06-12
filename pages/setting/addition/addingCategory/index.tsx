@@ -1,22 +1,19 @@
-import React, { FC } from "react";
-import s from "./Categories.module.scss";
+import React from "react";
+import s from "./addingCategory.module.scss";
 
 import Link from "next/link";
 import Image from "next/image";
 import { ICategory } from "@/redux/types/category";
+import { categories } from "@/constants/categories";
 
-interface ICategoriesProps {
-  categories: ICategory[];
-}
-
-const Categories: FC<ICategoriesProps> = ({ categories }) => {
+const AddingCategory = () => {
   return (
     <div className={s.categories__wrap}>
       {categories.map((category: ICategory) => {
         return (
           <Link
             className={s.categories__card}
-            href={`/coursesList/${category.id}`}
+            href={`/setting/addition/addingCourse/${category.id}`}
             key={category.id}
           >
             <Image
@@ -33,4 +30,4 @@ const Categories: FC<ICategoriesProps> = ({ categories }) => {
   );
 };
 
-export default Categories;
+export default AddingCategory;

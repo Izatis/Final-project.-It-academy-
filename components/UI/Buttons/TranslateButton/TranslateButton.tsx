@@ -5,7 +5,7 @@ import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
-import MyModal from "../../../components/Modals/MyModalLanguage/MyModalLanguage";
+import MyModal from "../../../Modals/MyModalLanguage/MyModalLanguage";
 import MyButton from "../MyButton/MyButton";
 
 interface ITranslateButton {

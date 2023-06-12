@@ -17,9 +17,9 @@ import {
 } from "@/redux/reducers/user";
 
 import Loading from "@/components/Loading/Loading";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import Rating from "@/components/Rating/Rating";
-import AnimateSelect from "@/UI/AnimateSelect/AnimateSelect";
+import AnimateSelect from "@/components/UI/AnimateSelect/AnimateSelect";
 import Review from "@/components/Review/Review";
 import UserCard from "@/components/UserCard/UserCard";
 import { useGetReviwsAvgGradeQuery } from "@/redux/reducers/review";

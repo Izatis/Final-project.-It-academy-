@@ -18,7 +18,7 @@ import ch from "../../locales/CH/translation.json";
 import fr from "../../locales/FR/translation.json";
 import uk from "../../locales/UK/translation.json";
 
-import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../UI/Buttons/MyButton/MyButton";
 import slideFirst from "../../public/slideFirst.jpg";
 import { courses } from "@/constants/courses";
 
