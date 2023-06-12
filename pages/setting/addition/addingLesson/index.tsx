@@ -10,7 +10,7 @@ import ch from "../../../../locales/CH/translation.json";
 import fr from "../../../../locales/FR/translation.json";
 import uk from "../../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import { addingALesson } from "@/redux/reducers/lesson.slice";
 import { IAddingALesson } from "@/redux/types/lesson";
 
@@ -41,7 +41,9 @@ const AddingLesson: FC = () => {
       break;
   }
   const dispatch = useAppDispatch();
-  const { sectionIdBackend, error } = useAppSelector((state) => state.section);
+  const { sectionIdBackend, isLoading, error } = useAppSelector(
+    (state) => state.section
+  );
 
   // Отправляем post запрос
   const handleSubmit = async (value: IAddingALesson) => {
@@ -72,7 +74,7 @@ const AddingLesson: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -84,7 +86,7 @@ const AddingLesson: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -96,7 +98,7 @@ const AddingLesson: FC = () => {
           rules={[
             {
               required: true,
-              message: t.addingCourse[6],
+              message: t.addingCourse[7],
             },
           ]}
         >
@@ -109,7 +111,7 @@ const AddingLesson: FC = () => {
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
-            // loading={isLoading}
+            loading={isLoading}
           >
             {t.addingCourse[8]}
           </MyButton>

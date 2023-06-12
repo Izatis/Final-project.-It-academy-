@@ -106,9 +106,6 @@ const Statistics: FC = () => {
               slidesPerView: 2,
             },
             1024: {
-              slidesPerView: 3,
-            },
-            1440: {
               slidesPerView: 4,
             },
           }}

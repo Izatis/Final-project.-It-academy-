@@ -11,8 +11,7 @@ import de from "../../locales/DE/translation.json";
 import ch from "../../locales/CH/translation.json";
 import fr from "../../locales/FR/translation.json";
 import uk from "../../locales/UK/translation.json";
-
-import { Model } from "../../model/Model";
+import { HouseModel } from "../../models/HouseModel";
 
 const ModelComponent = () => {
   const { locale } = useRouter();
@@ -36,7 +35,8 @@ const ModelComponent = () => {
     default:
       t = ru;
       break;
-  }  return (
+  }
+  return (
     <motion.div
       className={s.model}
       initial="hidden"
@@ -59,10 +59,8 @@ const ModelComponent = () => {
           castShadow
         />
         <Suspense fallback={null}>
-          <Model />
+          <HouseModel />
         </Suspense>
-      
-
       </Canvas>
 
       <motion.h2

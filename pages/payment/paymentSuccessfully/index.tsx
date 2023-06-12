@@ -4,7 +4,7 @@ import s from "./paymentSuccessfully.module.scss";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 
 const Successfully = () => {
   return (

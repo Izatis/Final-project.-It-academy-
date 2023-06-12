@@ -2,7 +2,7 @@ import React, { FC } from "react";
 // import s from "./errorPage.module.scss";
 
 import Link from "next/link";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 
 const ErrorPage: FC = () => {
   return (

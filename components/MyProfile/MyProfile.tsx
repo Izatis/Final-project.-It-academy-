@@ -14,7 +14,7 @@ import uk from "../../locales/UK/translation.json";
 import { IUser } from "@/redux/types/user";
 
 import Loading from "../Loading/Loading";
-import MyButton from "../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../UI/Buttons/MyButton/MyButton";
 
 interface IMyProfileProps {
   user: IUser;

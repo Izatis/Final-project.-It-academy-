@@ -13,7 +13,7 @@ import fr from "../../../locales/FR/translation.json";
 import uk from "../../../locales/UK/translation.json";
 import { useEditingUserMutation } from "@/redux/reducers/user";
 
-import MyButton from "../../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";
 const Editing: FC = () => {
   const [token, setToken] = useState("");
   const { push, locale } = useRouter();

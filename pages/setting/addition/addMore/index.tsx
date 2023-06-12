@@ -3,7 +3,7 @@ import s from "./addMore.module.scss";
 
 import Link from "next/link";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 
 const AddMore = () => {
   return (

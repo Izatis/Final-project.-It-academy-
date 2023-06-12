@@ -144,7 +144,7 @@ export default function () {
 
         <span className={s.result}>{mainCourses?.length} результатов</span>
       </header>
-
+      
       {mainIsLoading ? <Loading /> : <CourseList courses={mainCourses} />}
 
       <footer className={s.courses__footer}>

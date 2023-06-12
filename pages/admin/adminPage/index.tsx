@@ -3,7 +3,7 @@ import s from "./adminPage.module.scss";
 
 import Link from "next/link";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 
 const adminPage = () => {
   return (

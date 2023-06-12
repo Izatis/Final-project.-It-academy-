@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../../styles/varibales.module.scss";
 
 .myButton {
   @include adaptive-value("height", 32, 20);

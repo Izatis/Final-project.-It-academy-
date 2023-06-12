@@ -12,7 +12,7 @@ import { useCourseFeeCartMutation } from "@/redux/reducers/payment";
 import { useBasketAmountQuery } from "@/redux/reducers/cart";
 import { IStripePay } from "@/redux/types/payment";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import ParticlesComponent from "@/components/Particles/Particles";
 
 const Payment: FC = () => {

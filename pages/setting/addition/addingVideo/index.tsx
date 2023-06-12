@@ -4,7 +4,7 @@ import s from "./addingVideo.module.scss";
 import { useRouter } from "next/router";
 import { useAppSelector } from "@/hooks/redux";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import { useAddAVideoMutation } from "@/redux/reducers/s3";
 
 const addingVideo: FC = () => {
