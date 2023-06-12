@@ -13,7 +13,7 @@ import uk from "../../../locales/UK/translation.json";
 import { MailOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { usePasswordRecoveryMutation } from "@/redux/reducers/password";
 
-import MyButton from "../../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";
 
 const PasswordRecovery: FC = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);

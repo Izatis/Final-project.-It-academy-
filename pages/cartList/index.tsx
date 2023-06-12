@@ -8,7 +8,7 @@ import {
 } from "@/redux/reducers/cart";
 import { ICart } from "@/redux/types/cart";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import CartItem from "@/components/CartItem/CartItem";
 import Loading from "@/components/Loading/Loading";
 

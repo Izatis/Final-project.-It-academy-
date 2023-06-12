@@ -10,10 +10,14 @@ import { IUser } from "@/redux/types/user";
 interface ISideBarProps {
   sideBarActive: boolean;
   setSideBarActive: (active: boolean) => void;
-  userCurrent: IUser
+  userCurrent: IUser;
 }
 
-const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurrent }) => {
+const SideBar: FC<ISideBarProps> = ({
+  sideBarActive,
+  setSideBarActive,
+  userCurrent,
+}) => {
   const { pathname } = useRouter();
 
   return (
@@ -29,10 +33,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurre
           href="/setting/userSettings"
           onClick={() => setSideBarActive(!sideBarActive)}
         >
-          <Avatar
-            className={s.menu__avatar}
-            src={userCurrent.imageUrl}
-          />
+          <Avatar className={s.menu__avatar} src={userCurrent.imageUrl} />
           <div className={s.sidePanel__info}>
             <h4>{userCurrent.fullName}</h4>
             <p>{userCurrent.email}</p>
@@ -48,7 +49,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurre
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/setting">Профиль</Link>
+              <Link href="/setting/userSettings">Профиль</Link>
             </li>
             <li>
               <a href="#" onClick={() => setSideBarActive(!sideBarActive)}>
@@ -89,7 +90,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurre
               <Link href="/">Список желаний</Link>
             </li>
             <li>
-              <Link href="/setting">Профиль</Link>
+              <Link href="/setting/userSettings">Профиль</Link>
             </li>
             <li>
               <Link href="/" onClick={() => setSideBarActive(!sideBarActive)}>
@@ -101,7 +102,7 @@ const SideBar: FC<ISideBarProps> = ({ sideBarActive, setSideBarActive, userCurre
                 href="/#categories"
                 onClick={() => setSideBarActive(!sideBarActive)}
               >
-                Категории{" "}
+                Категории
               </Link>
             </li>
             <li>

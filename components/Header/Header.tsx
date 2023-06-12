@@ -23,8 +23,8 @@ import { useGetCurrentUserQuery } from "@/redux/reducers/user";
 import { IUser } from "@/redux/types/user";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import MyButton from "../../UI/Buttons/MyButton/MyButton";
-import TranslateButton from "../../UI/Buttons/TranslateButton/TranslateButton";
+import MyButton from "../UI/Buttons/MyButton/MyButton";
+import TranslateButton from "../UI/Buttons/TranslateButton/TranslateButton";
 
 interface IHeaderProps {
   sideBarActive: boolean;

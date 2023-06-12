@@ -3,7 +3,7 @@ import s from "./MyModalVideo.module.scss";
 
 import { Form, Input, Modal } from "antd";
 import { ILesson } from "@/redux/types/lesson";
-import MyInput from "@/UI/MyInput/MyInput";
+import MyInput from "@/components/UI/MyInput/MyInput";
 
 interface IMyModalVideoProps {
   lesson: ILesson;

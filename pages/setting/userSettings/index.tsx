@@ -8,7 +8,7 @@ import { useChangeAvatarMutation } from "@/redux/reducers/s3";
 import cover from "../../../public/cover.png";
 
 import Aside from "@/components/Aside/Aside";
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import MyProfile from "@/components/MyProfile/MyProfile";
 
 const Setting: FC = () => {

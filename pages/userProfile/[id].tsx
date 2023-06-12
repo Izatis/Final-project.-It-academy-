@@ -14,7 +14,6 @@ import {
 import CourseList from "@/components/CoursesList/CoursesList";
 import { useGetUserQuery } from "@/redux/reducers/user";
 import Loading from "@/components/Loading/Loading";
-import { ICourse } from "@/redux/types/course";
 
 export default function () {
   const [token, setToken] = useState("");
@@ -59,9 +58,7 @@ export default function () {
               <div className={s.userProfile__flex}>
                 <Image
                   className={s.userProfile__avatar}
-                  src={
-                    creator.imageUrl
-                  }
+                  src={creator.imageUrl}
                   alt="avatar"
                   width={300}
                   height={200}
@@ -86,7 +83,7 @@ export default function () {
                       </span>
 
                       <span>
-                        <dt>900</dt>
+                        <dt>10</dt>
                         <dd>Курсов</dd>
                       </span>
                     </dl>

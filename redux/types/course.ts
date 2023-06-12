@@ -39,7 +39,7 @@ export interface ICourseCreation {
 }
 
 export interface ICourseCreationParams {
-  categoryId: number;
+  categoryId: any;
   value: ICourseCreation;
   parsedToken: string;
 }

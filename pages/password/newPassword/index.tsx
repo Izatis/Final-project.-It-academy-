@@ -12,7 +12,7 @@ import fr from "../../../locales/FR/translation.json";
 import uk from "../../../locales/UK/translation.json";
 import { useNewPasswordRequestMutation } from "@/redux/reducers/password";
 
-import MyButton from "../../../UI/Buttons/MyButton/MyButton";
+import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";
 
 interface INewPassword {
   newPassword: any;
@@ -23,7 +23,8 @@ const NewPassword: FC = () => {
   const [recoveryToken, setRecoveryToken] = useState("");
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [message, setMessage] = useState("");
-  const { push, locale } = useRouter();
+  const [messageSuccess, setMessageSuccess] = useState("");
+  const { locale } = useRouter();
 
   useEffect(() => {
     const fullUrl = window.location.href;
@@ -56,7 +57,7 @@ const NewPassword: FC = () => {
   }
   // ---------------------------------------------------------------------------------------------------------------------------------
   // POST
-  const [newPasswordRequest, { error, isLoading }] =
+  const [newPasswordRequest, { data, error, isLoading }] =
     useNewPasswordRequestMutation();
   const [form] = Form.useForm();
 
@@ -70,16 +71,24 @@ const NewPassword: FC = () => {
       setMessage("Пароли не совпадают!");
     } else {
       setMessage("");
-      push("/auth/signIn");
       await newPasswordRequest({ recoveryToken, newPassword }).unwrap();
     }
   };
 
   useEffect(() => {
-    if (error)
+    if (data) {
+      setMessage("");
+      setMessageSuccess(data.message);
+    }
+  }, [isLoading, data]);
+
+  useEffect(() => {
+    if (error) {
+      setMessageSuccess("");
       setMessage(
         "Срок действия истек, отправьте запрос на восстановление еще раз!"
       );
+    }
   }, [isLoading, error]);
 
   return (
@@ -104,6 +113,7 @@ const NewPassword: FC = () => {
         </Form.Item>
 
         <span className={s.error}>{message}</span>
+        <span className={s.success}>{messageSuccess}</span>
 
         <Form.Item
           className={s.passwordRecovery__deIndenting}

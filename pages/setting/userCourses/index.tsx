@@ -3,7 +3,7 @@ import s from "./userCourses.module.scss";
 
 import Link from "next/link";
 
-import MyButton from "@/UI/Buttons/MyButton/MyButton";
+import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
 import Loading from "@/components/Loading/Loading";
 import CoursesList from "@/components/CoursesList/CoursesList";
 import { useGetCurrentUserQuery } from "@/redux/reducers/user";
@@ -37,7 +37,7 @@ const UserCourse = () => {
           ) : (
             <div className={s.addingCourse}>
               <p>У вас нету курсов</p>
-              <Link href="/setting/addition/addingCourse">
+              <Link href="/setting/addition/addingCategory">
                 <MyButton
                   background="#7329c2"
                   hoverBackground="#03d665"
