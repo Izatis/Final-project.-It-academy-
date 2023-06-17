@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import s from "./3dmodel.module.scss";
+import s from "./3dModel.module.scss";
 
 import { useRouter } from "next/router";
 import { Canvas } from "@react-three/fiber";

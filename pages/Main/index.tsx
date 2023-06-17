@@ -17,7 +17,7 @@ import Statistics from "@/components/Statistics/Statistics";
 import CourseCardSlide from "@/components/CourseCardSlide/CourseCardSlide";
 import Categories from "@/components/Categories/Categories";
 import SlideCourses from "@/components/SlideCourses/SlideCourses";
-import ModelComponent from "@/components/3dmodel/3dmodel";
+import ModelComponent from "@/components/3dModel/3dModel";
 
 const Main = () => {
   const [token, setToken] = useState("");
