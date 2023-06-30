@@ -4,7 +4,7 @@ import {
   IUserRegistration,
   IUserAuthorization,
   IAuthState,
-} from "../types/auth";
+} from "../types/sign";
 
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
@@ -59,8 +59,8 @@ const initialState: IAuthState = {
   error: "",
 };
 
-const authSlice = createSlice({
-  name: "auth",
+const signSlice = createSlice({
+  name: "sign",
   initialState,
   reducers: {
     reset: (state) => {
@@ -104,5 +104,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
-export default authSlice.reducer;
+export const { reset } = signSlice.actions;
+export default signSlice.reducer;

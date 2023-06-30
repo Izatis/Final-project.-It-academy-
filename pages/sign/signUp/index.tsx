@@ -12,7 +12,7 @@ import ch from "../../../locales/CH/translation.json";
 import fr from "../../../locales/FR/translation.json";
 import uk from "../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { userRegistration } from "@/redux/reducers/auth.slice";
+import { userRegistration } from "@/redux/reducers/sign.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
 import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";

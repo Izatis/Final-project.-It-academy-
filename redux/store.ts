@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import registerReducer from "./reducers/auth.slice";
+import registerReducer from "./reducers/sign.slice";
 import courseReducer from "./reducers/course/course.slice";
 import sectionReducer from "./reducers/section.slice";
 import paymentReducer from "./reducers/payment.slice";
