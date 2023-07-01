@@ -60,7 +60,7 @@ const AddingLesson: FC = () => {
     form.setFieldsValue({ ...form.getFieldsValue() });
   }, []);
   return (
-    <section className={s.signIn}>
+    <section className={s.authorization}>
       <h2>Добавление урока</h2>
       <Form
         layout="vertical"

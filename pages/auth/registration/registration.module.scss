@@ -1,6 +1,6 @@
 @import "../../../styles/varibales.module.scss";
 
-.signIn {
+.registration {
   max-width: 450px;
   background-color: #ffffff;
   border-radius: 8px;
@@ -13,12 +13,12 @@
     font-weight: 700;
     @include adaptive-value("font-size", 40, 20);
     line-height: 130%;
-    color: #03d665;
+    color: #7329c2;
     text-align: center;
   }
 
   form {
-    .signIn__deIndenting {
+    .registration__deIndenting {
       margin: 8% 0 0;
     }
 
@@ -28,7 +28,7 @@
       line-height: 130%;
       color: #ff4d4f;
     }
-  
+
     a {
       font-weight: 500;
       @include adaptive-value("font-size", 14, 10);

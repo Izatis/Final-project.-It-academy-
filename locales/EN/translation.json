@@ -27,7 +27,7 @@
     ],
     "ulFour": ["Any questions?", "Email us", "test@gmail.com"]
   },
-  "signUp": [
+  "registration": [
     "Registration",
     "Name",
     "Email",
@@ -45,7 +45,7 @@
     "Login with GitHub"
   ],
 
-  "signIn": [
+  "authorization": [
     "Login",
     "Email",
     "Password",

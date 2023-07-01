@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./signUp.module.scss";
+import s from "./registration.module.scss";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import ch from "../../../locales/CH/translation.json";
 import fr from "../../../locales/FR/translation.json";
 import uk from "../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { userRegistration } from "@/redux/reducers/sign.slice";
+import { userRegistration } from "@/redux/reducers/auth.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
 import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";
@@ -24,7 +24,7 @@ interface IUserRegister {
   passwordСonfirmation: string;
 }
 
-const SignUp: FC = () => {
+const Registration: FC = () => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [passwordMismatchMessage, setPasswordMismatchMessage] = useState("");
   const { push, locale } = useRouter();
@@ -71,105 +71,105 @@ const SignUp: FC = () => {
     setIsButtonClicked(true);
     const { password, passwordСonfirmation } = value;
     if (password !== passwordСonfirmation) {
-      setPasswordMismatchMessage(t.signUp[11]);
+      setPasswordMismatchMessage(t.registration[11]);
     } else {
       dispatch(userRegistration(value));
     }
   };
 
   return (
-    <section className={s.signUp}>
+    <section className={s.registration}>
       <ParticlesComponent />
-      <h2>{t.signUp[0]}</h2>
+      <h2>{t.registration[0]}</h2>
       <Form form={form} name="sign-up-form" onFinish={handleSubmit}>
         <Form.Item
-          className={s.signUp__deIndenting}
+          className={s.registration__deIndenting}
           name="fullName"
           rules={[
             {
               required: true,
-              message: t.signUp[5],
+              message: t.registration[5],
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder={t.signUp[1]} />
+          <Input prefix={<UserOutlined />} placeholder={t.registration[1]} />
         </Form.Item>
 
         <Form.Item
-          className={s.signUp__deIndenting}
+          className={s.registration__deIndenting}
           name="email"
           rules={[
             {
               required: true,
-              message: t.signUp[6],
+              message: t.registration[6],
             },
             {
               type: isButtonClicked ? "email" : undefined,
-              message: t.signUp[7],
+              message: t.registration[7],
             },
           ]}
         >
-          <Input prefix={<MailOutlined />} placeholder={t.signUp[2]} />
+          <Input prefix={<MailOutlined />} placeholder={t.registration[2]} />
         </Form.Item>
 
         <span className={s.error}>{error}</span>
 
         <Form.Item
-          className={s.signUp__deIndenting}
+          className={s.registration__deIndenting}
           name="password"
           rules={[
             {
               required: true,
-              message: t.signUp[8],
+              message: t.registration[8],
             },
             {
               min: isButtonClicked ? 6 : undefined,
-              message: t.signUp[9],
+              message: t.registration[9],
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.registration[3]} />
         </Form.Item>
 
         <span className={s.error}>{passwordMismatchMessage}</span>
 
         <Form.Item
-          className={s.signUp__deIndenting}
+          className={s.registration__deIndenting}
           name="passwordСonfirmation"
           rules={[
             {
               required: true,
-              message: t.signUp[10],
+              message: t.registration[10],
             },
             {
               message: passwordMismatchMessage,
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.registration[4]} />
         </Form.Item>
 
         <Form.Item>
           <MyButton
-            className={s.signUp__deIndenting}
+            className={s.registration__deIndenting}
             background="#7329c2"
             hoverBackground="#03d665"
             type="primary"
             loading={isLoading}
           >
-            {t.signUp[12]}
+            {t.registration[12]}
           </MyButton>
         </Form.Item>
 
         <Form.Item>
           <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google">
-            {t.signUp[13]}
+            {t.registration[13]}
           </Link>
         </Form.Item>
 
         <Form.Item>
           <Link href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github">
-            {t.signUp[14]}
+            {t.registration[14]}
           </Link>
         </Form.Item>
       </Form>
@@ -177,4 +177,4 @@ const SignUp: FC = () => {
   );
 };
 
-export default SignUp;
+export default Registration;

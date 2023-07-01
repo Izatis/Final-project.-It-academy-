@@ -18,7 +18,7 @@ import ch from "../../locales/CH/translation.json";
 import fr from "../../locales/FR/translation.json";
 import uk from "../../locales/UK/translation.json";
 import { useAppDispatch } from "@/hooks/redux";
-import { reset } from "@/redux/reducers/sign.slice";
+import { reset } from "@/redux/reducers/auth.slice";
 import { IUser } from "@/redux/types/user";
 
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -250,8 +250,8 @@ const Header: FC<IHeaderProps> = ({
               src={userCurrent.imageUrl}
               onClick={handleClick}
             />
-          ) : pathname === "/sign/signUp" ? (
-            <Link href="/sign/signIn">
+          ) : pathname === "/auth/registration" ? (
+            <Link href="/auth/authorization">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"
@@ -262,7 +262,7 @@ const Header: FC<IHeaderProps> = ({
               </MyButton>
             </Link>
           ) : (
-            <Link href="/sign/signUp">
+            <Link href="/auth/registration">
               <MyButton
                 background="#7329c2"
                 hoverBackground="#03d665"

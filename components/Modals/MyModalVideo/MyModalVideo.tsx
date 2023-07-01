@@ -40,7 +40,7 @@ const MyModalVideo: FC<IMyModalVideoProps> = ({
       {/* <b>Оставьте комментарию</b>
       <Form form={form} name="comment-form" onFinish={handleSubmit}>
         <Form.Item
-          className={s.signIn__deIndenting}
+          className={s.authorization__deIndenting}
           name="title"
           rules={[
             {
@@ -52,7 +52,7 @@ const MyModalVideo: FC<IMyModalVideoProps> = ({
           <Input placeholder="title" />
         </Form.Item>
         <Form.Item
-          className={s.signIn__deIndenting}
+          className={s.authorization__deIndenting}
           name="description"
           rules={[
             {

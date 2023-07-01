@@ -22,7 +22,7 @@
   ],
   "ulFour": ["有问题吗？", "给我们发邮件", "test@gmail.com"]
   },
-  "signUp": [
+  "registration": [
   "注册",
   "姓名",
   "电子邮件",
@@ -39,7 +39,7 @@
   "使用Google登录",
   "使用GitHub登录"
   ],
-  "signIn": [
+  "authorization": [
   "登录",
   "电子邮件",
   "密码",

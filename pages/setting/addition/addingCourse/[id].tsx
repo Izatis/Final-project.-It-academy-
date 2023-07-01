@@ -83,7 +83,7 @@ export default function () {
   }, []);
 
   return (
-    <section className={s.signIn}>
+    <section className={s.authorization}>
       <h2>{t.addingCourse[0]}</h2>
       <Form
         layout="vertical"

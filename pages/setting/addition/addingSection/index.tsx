@@ -75,7 +75,7 @@ const AddingSection: FC = () => {
   }, []);
 
   return (
-    <section className={s.signIn}>
+    <section className={s.authorization}>
       <h2>Добавление раздела</h2>
       <Form
         layout="vertical"

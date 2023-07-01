@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import s from "./signIn.module.scss";
+import s from "./authorization.module.scss";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import ch from "../../../locales/CH/translation.json";
 import fr from "../../../locales/FR/translation.json";
 import uk from "../../../locales/UK/translation.json";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { userAuthorization } from "@/redux/reducers/sign.slice";
+import { userAuthorization } from "@/redux/reducers/auth.slice";
 
 import ParticlesComponent from "@/components/Particles/Particles";
 import MyButton from "@/components/UI/Buttons/MyButton/MyButton";
@@ -22,7 +22,7 @@ interface IUserLogin {
   password: string;
 }
 
-const SignIn: FC = () => {
+const Authorization: FC = () => {
   const [token, setToken] = useState("");
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const { push, locale } = useRouter();
@@ -73,74 +73,74 @@ const SignIn: FC = () => {
   };
 
   return (
-    <section className={s.signIn}>
+    <section className={s.authorization}>
       <ParticlesComponent />
-      <h2>{t.signIn[0]}</h2>
+      <h2>{t.authorization[0]}</h2>
       <Form form={form} name="sign-in-form" onFinish={handleSubmit}>
         <Form.Item
-          className={s.signIn__deIndenting}
+          className={s.authorization__deIndenting}
           name="username"
           rules={[
             {
               required: true,
-              message: t.signIn[3],
+              message: t.authorization[3],
             },
             {
               type: isButtonClicked ? "email" : undefined,
-              message: t.signIn[4],
+              message: t.authorization[4],
             },
           ]}
         >
-          <Input prefix={<MailOutlined />} placeholder={t.signIn[1]} />
+          <Input prefix={<MailOutlined />} placeholder={t.authorization[1]} />
         </Form.Item>
         <span className={s.error}>{error}</span>
 
         <Form.Item
-          className={s.signIn__deIndenting}
+          className={s.authorization__deIndenting}
           name="password"
           rules={[
             {
               required: true,
-              message: t.signIn[5],
+              message: t.authorization[5],
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder={t.signIn[2]} />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.authorization[2]} />
         </Form.Item>
 
         <Form.Item>
           <MyButton
-            className={s.signIn__deIndenting}
+            className={s.authorization__deIndenting}
             background="#03d665"
             hoverBackground="#7329c2"
             type="primary"
             loading={isLoading}
           >
-            {t.signIn[6]}
+            {t.authorization[6]}
           </MyButton>
         </Form.Item>
 
         <Form.Item>
           <Link
-            className={s.signIn__link}
+            className={s.authorization__link}
             href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/google"
           >
-            {t.signIn[7]}
+            {t.authorization[7]}
           </Link>
         </Form.Item>
 
         <Form.Item>
           <Link
-            className={s.signIn__link}
+            className={s.authorization__link}
             href="https://spring-boot-online-platform.herokuapp.com/oauth2/authorization/github"
           >
-            {t.signIn[8]}
+            {t.authorization[8]}
           </Link>
         </Form.Item>
 
         <Form.Item>
-          <Link className={s.signIn__link} href="/password/passwordRecovery">
-            {t.signIn[9]}
+          <Link className={s.authorization__link} href="/password/passwordRecovery">
+            {t.authorization[9]}
           </Link>
         </Form.Item>
       </Form>
@@ -148,4 +148,4 @@ const SignIn: FC = () => {
   );
 };
 
-export default SignIn;
+export default Authorization;

@@ -4,7 +4,7 @@ import {
   IUserRegistration,
   IUserAuthorization,
   IAuthState,
-} from "../types/sign";
+} from "../types/auth";
 
 // Отправляем post запрос для регистрации
 export const userRegistration = createAsyncThunk<void, IUserRegistration>(
@@ -45,7 +45,7 @@ export const userAuthorization = createAsyncThunk<void, IUserAuthorization>(
 
       // Сохраняем токен пользователя
       localStorage.setItem("token", JSON.stringify(data.token));
-      
+
       return data.token;
     } catch ({ response }: any) {
       return thunkApi.rejectWithValue(response.data.message);
@@ -59,7 +59,7 @@ const initialState: IAuthState = {
   error: "",
 };
 
-const signSlice = createSlice({
+const authSlice = createSlice({
   name: "sign",
   initialState,
   reducers: {
@@ -68,7 +68,7 @@ const signSlice = createSlice({
     },
   },
 
-  // SIGNUP USER
+  // REGISTRATION USER
   extraReducers: (builder) => {
     builder.addCase(userRegistration.pending, (state: any) => {
       state.isLoading = true;
@@ -85,7 +85,7 @@ const signSlice = createSlice({
       state.error = action.payload;
     });
 
-    // SIGNIN USER
+    // AUTHORIZATION USER
     builder.addCase(userAuthorization.pending, (state: any) => {
       state.isLoading = true;
       state.error = "";
@@ -104,5 +104,5 @@ const signSlice = createSlice({
   },
 });
 
-export const { reset } = signSlice.actions;
-export default signSlice.reducer;
+export const { reset } = authSlice.actions;
+export default authSlice.reducer;

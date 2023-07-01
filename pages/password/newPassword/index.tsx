@@ -101,15 +101,15 @@ const NewPassword: FC = () => {
           rules={[
             {
               required: true,
-              message: t.signUp[8],
+              message: t.registration[8],
             },
             {
               min: isButtonClicked ? 6 : undefined,
-              message: t.signUp[9],
+              message: t.registration[9],
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[3]} />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.registration[3]} />
         </Form.Item>
 
         <span className={s.error}>{message}</span>
@@ -121,14 +121,14 @@ const NewPassword: FC = () => {
           rules={[
             {
               required: true,
-              message: t.signUp[10],
+              message: t.registration[10],
             },
             {
               message: message,
             },
           ]}
         >
-          <Input.Password prefix={<LockOutlined />} placeholder={t.signUp[4]} />
+          <Input.Password prefix={<LockOutlined />} placeholder={t.registration[4]} />
         </Form.Item>
 
         <Form.Item className={s.passwordRecovery__deIndenting}>
