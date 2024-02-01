@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .video{
     width: 100%;
@@ -7,8 +7,7 @@
 .video__description{
     font-weight: 400;
     @include adaptive-value("font-size",22, 12);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
     padding: 2% 0;
     box-sizing: border-box;
 }

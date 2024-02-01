@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .search {
   min-height: 100vh;
@@ -8,8 +8,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 30, 20);
-    line-height: 130%;
-    color: #03d665;
+        color: #03d665;
     margin: 2% 0
   }
 
@@ -24,8 +23,7 @@
   .search__text {
     font-weight: 400;
     @include adaptive-value("font-size", 20, 8);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
     padding: 5% 0;
     box-sizing: border-box;
   }

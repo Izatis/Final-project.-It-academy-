@@ -16,7 +16,7 @@ import { useEditingUserMutation } from "@/redux/reducers/user";
 import MyButton from "../../../components/UI/Buttons/MyButton/MyButton";
 const Editing: FC = () => {
   const [token, setToken] = useState("");
-  const { push, locale } = useRouter();
+  const {locale } = useRouter();
   let t: any;
   switch (locale) {
     case "en":
@@ -48,7 +48,7 @@ const Editing: FC = () => {
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: any) => {
     api.info({
-      message: `Профиль успешно обновлён!`,
+      message: "Профиль успешно обновлён!",
       placement,
     });
   };
@@ -65,7 +65,6 @@ const Editing: FC = () => {
 
   return (
     <div className={s.editing}>
-      {contextHolder}
       <h2>{t.editing[0]}</h2>
       <Form
         layout="vertical"
@@ -122,6 +121,7 @@ const Editing: FC = () => {
           </div>
         </Form.Item>
       </Form>
+      {contextHolder}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .user {
   display: flex;
@@ -30,15 +30,13 @@
         .user__fullName {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 15);
-          line-height: 130%;
-          color: #191970;
+                    color: #191970;
         }
 
         .user__email {
           font-weight: 400;
           @include adaptive-value("font-size", 15, 8);
-          line-height: 130%;
-          color: #a7b0c2;
+                    color: #a7b0c2;
         }
 
         .user__rating {
@@ -49,8 +47,7 @@
           pre {
             font-weight: 500;
             @include adaptive-value("font-size", 18, 8);
-            line-height: 130%;
-            color: #ffd700;
+                        color: #ffd700;
           }
 
           ul {
@@ -64,8 +61,7 @@
         .user__item {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
-          line-height: 130%;
-          color: #191970;
+                    color: #191970;
         }
       }
     }
@@ -73,8 +69,7 @@
     .successfully {
       font-weight: 500;
       @include adaptive-value("font-size", 15, 12);
-      line-height: 130%;
-      color: #03d665;
+            color: #03d665;
       padding: 10px;
       box-sizing: border-box;
     }
@@ -82,8 +77,7 @@
     .error {
       font-weight: 500;
       @include adaptive-value("font-size", 15, 12);
-      line-height: 130%;
-      color: #ff4d4f;
+            color: #ff4d4f;
       padding: 10px;
       box-sizing: border-box;
     }
@@ -92,15 +86,13 @@
   .user__title {
     font-weight: 400;
     @include adaptive-value("font-size", 18, 8);
-    line-height: 130%;
-    color: #191970;
+        color: #191970;
   }
 
   .user__description {
     font-weight: 400;
     @include adaptive-value("font-size", 15, 8);
-    line-height: 130%;
-    color: #a7b0c2;
+        color: #a7b0c2;
   }
 }
 

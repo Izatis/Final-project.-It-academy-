@@ -16,16 +16,14 @@
 .errorPage__content h2 {
   font-weight: 700;
   font-size: 40px;
-  line-height: 130%;
-  color: #322f55;
+    color: #322f55;
   text-align: center;
 }
 
 .errorPage__content p {
   font-weight: 700;
   font-size: 20px;
-  line-height: 130%;
-  color: #322f55;
+    color: #322f55;
   text-align: center;
 }
 

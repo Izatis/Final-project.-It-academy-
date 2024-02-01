@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .userCourses {
   @include centering();
@@ -7,8 +7,7 @@
   b {
     font-weight: 700;
     @include adaptive-value("font-size", 25, 10);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
   }
 
   .addingCourse {
@@ -25,8 +24,7 @@
     b {
       font-weight: 700;
       @include adaptive-value("font-size", 20, 5);
-      line-height: 130%;
-      color: #322f55;
+            color: #322f55;
       text-align: center;
     }
   }

@@ -78,7 +78,6 @@ const UserCard: FC<IUserCardProps> = ({ user }) => {
       href={`/userProfile/${user.id}`}
       key={user.id}
     >
-      {contextHolder}
       {isLoading ? (
         <Loading />
       ) : (
@@ -116,6 +115,7 @@ const UserCard: FC<IUserCardProps> = ({ user }) => {
           <b className={s.user__title}>Немного о себе:</b>
         </>
       )}
+    {contextHolder}
     </Link>
   );
 };

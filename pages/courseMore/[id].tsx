@@ -90,7 +90,7 @@ export default function () {
   const [api, contextHolder] = notification.useNotification();
   const openNotification = (placement: any) => {
     api.info({
-      message: `Курс успешно добавлено в корзину!`,
+      message: "Курс успешно добавлено в корзину!",
       placement,
     });
   };
@@ -114,7 +114,6 @@ export default function () {
         <Loading />
       ) : (
         <div className={s.course}>
-          {contextHolder}
           <div className={s.course__content}>
             <aside>
               <div
@@ -203,6 +202,7 @@ export default function () {
             </div>
           </div>
           <Review grade={grade} />
+          {contextHolder}
         </div>
       )}
     </>

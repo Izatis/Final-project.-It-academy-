@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .header {
   width: 100%;
@@ -39,8 +39,7 @@
         a {
           font-weight: 700;
           @include adaptive-value("font-size", 18, 5);
-          line-height: 130%;
-          color: #322f55;
+                    color: #322f55;
         }
 
         &:hover a {

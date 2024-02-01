@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .menu {
   width: 100vw;
@@ -45,15 +45,13 @@
         h4 {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 15);
-          line-height: 130%;
-          color: #7329c2;
+                    color: #7329c2;
         }
 
         p {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
-          line-height: 130%;
-          color: #a7b0c2;
+                    color: #a7b0c2;
         }
       }
     }
@@ -65,8 +63,7 @@
     .menu__list li a {
       font-weight: 700;
       @include adaptive-value("font-size", 18, 10);
-      line-height: 130%;
-      color: #03d665;
+            color: #03d665;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "../../../../styles/varibales.module.scss";
+@import "../../../../styles/variables.module.scss";
 
 .addMore__list {
   @include centering();
@@ -7,8 +7,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 30, 20);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
     margin: 5% 0 1%;
   }
 

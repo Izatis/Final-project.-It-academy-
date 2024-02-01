@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .editing {
   max-width: 500px;
@@ -12,8 +12,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 40, 20);
-    line-height: 130%;
-    color: #7329c2;
+        color: #7329c2;
     text-align: center;
     margin: 0 0 30px;
   }

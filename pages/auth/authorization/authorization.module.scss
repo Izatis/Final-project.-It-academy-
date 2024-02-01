@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .authorization {
   max-width: 450px;
@@ -12,8 +12,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 40, 20);
-    line-height: 130%;
-    color: #03d665;
+        color: #03d665;
     text-align: center;
   }
 
@@ -25,14 +24,12 @@
     .error {
       font-weight: 500;
       @include adaptive-value("font-size", 14, 12);
-      line-height: 130%;
-      color: #ff4d4f;
+            color: #ff4d4f;
     }
   
     a {
       font-weight: 500;
       @include adaptive-value("font-size", 14, 10);
-      line-height: 130%;
-    }
+          }
   }
 }

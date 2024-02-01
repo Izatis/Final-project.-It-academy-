@@ -1,4 +1,4 @@
-@import "../../../../styles/varibales.module.scss";
+@import "../../../../styles/variables.module.scss";
 
 .myButton {
   @include adaptive-value("height", 32, 20);
@@ -14,7 +14,6 @@
   span {
     font-weight: 700;
     @include adaptive-value("font-size", 15, 8);
-    line-height: 130%;
   }
 }
 

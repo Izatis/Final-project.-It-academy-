@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .adminPage {
   height: 100vh;
@@ -16,16 +16,14 @@
     h2 {
       font-weight: 700;
       @include adaptive-value("font-size", 40, 20);
-      line-height: 130%;
-      color: #322f55;
+            color: #322f55;
       text-align: center;
     }
 
     p {
       font-weight: 700;
       @include adaptive-value("font-size", 20, 20);
-      line-height: 130%;
-      color: #322f55;
+            color: #322f55;
       text-align: center;
     }
 

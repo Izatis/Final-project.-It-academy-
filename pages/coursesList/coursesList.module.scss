@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .courses {
   @include centering();
@@ -7,8 +7,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 35, 15);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
   }
 
   .courses__header {
@@ -28,8 +27,7 @@
         span {
           font-weight: 700;
           @include adaptive-value("font-size", 18, 8);
-          line-height: 130%;
-          color: #7329c2;
+                    color: #7329c2;
         }
       }
     }
@@ -37,8 +35,7 @@
     .result {
       font-weight: 700;
       @include adaptive-value("font-size", 22, 10);
-      line-height: 130%;
-      color: #322f55;
+            color: #322f55;
     }
   }
 

@@ -5,7 +5,7 @@ import cn from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
-import MyModal from "../../../Modals/MyModalLanguage/MyModalLanguage";
+import MyModalLanguage from "../../../Modals/MyModalLanguage/MyModalLanguage";
 import MyButton from "../MyButton/MyButton";
 
 interface ITranslateButton {
@@ -18,7 +18,10 @@ const TranslateButton: FC<ITranslateButton> = ({ className }) => {
 
   return (
     <div className={cn(s.translate, className)}>
-      <MyModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <MyModalLanguage
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
 
       <MyButton
         background="#7329c2"

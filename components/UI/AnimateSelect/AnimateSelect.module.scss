@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .select {
   position: relative;
@@ -9,8 +9,7 @@
   P {
     font-weight: 700;
     @include adaptive-value("font-size", 18, 8);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
   }
 
   &::after {
@@ -21,8 +20,7 @@
     transform: rotate(-90deg);
     font-weight: 600;
     @include adaptive-value("font-size", 40, 15);
-    line-height: 130%;
-    color: #03d665;
+        color: #03d665;
     transition: all 0.4s;
   }
 
@@ -49,8 +47,7 @@
         text-decoration: underline;
         font-weight: 400;
         @include adaptive-value("font-size", 18, 5);
-        line-height: 130%;
-        color: #5624d0;
+                color: #5624d0;
         margin: 20px 0;
       }
 
@@ -58,8 +55,7 @@
         cursor: no-drop;
         font-weight: 400;
         @include adaptive-value("font-size", 18, 5);
-        line-height: 130%;
-        color: #a7b0c2;
+                color: #a7b0c2;
         margin: 20px 0;
       }
     }

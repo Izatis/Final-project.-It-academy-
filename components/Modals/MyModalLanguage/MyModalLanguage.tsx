@@ -25,11 +25,7 @@ const MyModalLanguage: FC<IMyModalLanguageProps> = ({
     } else if (pathname === "/auth/authorization") {
       push("/auth/authorization", "/auth/authorization", { locale });
     } else if (pathname === "/passwordRecovery") {
-      push(
-        "/passwordRecovery",
-        "/passwordRecovery",
-        { locale }
-      );
+      push("/passwordRecovery", "/passwordRecovery", { locale });
     } else if (pathname === "/setting") {
       push("/setting", "/setting", { locale });
     } else {
@@ -39,38 +35,38 @@ const MyModalLanguage: FC<IMyModalLanguageProps> = ({
 
   return (
     <Modal
-      title="Выбрать язык"
+      title="Выберите язык"
       open={isModalOpen}
       footer={null}
       onCancel={() => setIsModalOpen(!isModalOpen)}
     >
       <Row justify="center" gutter={[20, 30]} style={{ padding: 10 }}>
-        <Col xs={24} sm={12} md={8}>
+        <Col md={8} sm={12} xs={24}>
           <MyButton onClick={() => handleClick("en")} icon={"🇺🇸"} block>
             English
           </MyButton>
         </Col>
-        <Col xs={24} sm={12} md={8}>
+        <Col md={8} sm={12} xs={24}>
           <MyButton onClick={() => handleClick("de")} icon={"🇩🇪"} block>
-            Deutsch
+            Español
           </MyButton>
         </Col>
-        <Col xs={24} sm={12} md={8}>
+        <Col md={8} sm={12} xs={24}>
           <MyButton onClick={() => handleClick("ru")} icon={"🇷🇺"} block>
             Russia
           </MyButton>
         </Col>
-        <Col xs={24} sm={12} md={8}>
+        <Col md={8} sm={12} xs={24}>
           <MyButton onClick={() => handleClick("ch")} icon={"🇨🇳"} block>
             China
           </MyButton>
         </Col>
-        <Col xs={24} sm={12} md={8}>
+        <Col md={8} sm={12} xs={24}>
           <MyButton onClick={() => handleClick("fr")} icon={"🇫🇷"} block>
             France
           </MyButton>
         </Col>
-        <Col xs={24} sm={12} md={8}>
+        <Col md={8} sm={12} xs={24}>
           <MyButton onClick={() => handleClick("uk")} icon={"🇺🇦"} block>
             Ukraine
           </MyButton>

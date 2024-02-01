@@ -62,7 +62,6 @@ const ModelComponent = () => {
           <HouseModel />
         </Suspense>
       </Canvas>
-
       <motion.h2
         initial="hidden"
         whileInView="visible"

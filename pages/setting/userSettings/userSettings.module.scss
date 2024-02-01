@@ -1,4 +1,4 @@
-@import "../../../styles/varibales.module.scss";
+@import "../../../styles/variables.module.scss";
 
 .setting {
   .setting__static {
@@ -44,8 +44,7 @@
         a {
           font-weight: 700;
           @include adaptive-value("font-size", 18, 5);
-          line-height: 130%;
-          color: #322f55;
+                    color: #322f55;
         }
 
         &:hover a {

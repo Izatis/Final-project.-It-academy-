@@ -1,4 +1,4 @@
-@import "../../../../styles/varibales.module.scss";
+@import "../../../../styles/variables.module.scss";
 
 .addingVideo {
   max-width: 1000px;
@@ -11,8 +11,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 40, 20);
-    line-height: 130%;
-    color: #03d665;
+        color: #03d665;
     text-align: center;
     margin: 0 0 30px;
   }

@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .course {
   @include centering();
@@ -32,8 +32,7 @@
         span {
           font-weight: 500;
           @include adaptive-value("font-size", 15, 10);
-          line-height: 130%;
-          color: #ffffff;
+                    color: #ffffff;
           margin: 0 0 2%;
         }
 
@@ -66,8 +65,7 @@
         .aside_price {
           font-weight: 700;
           @include adaptive-value("font-size", 22, 12);
-          line-height: 130%;
-          color: #322f55;
+                    color: #322f55;
         }
 
         .aside__button {
@@ -103,8 +101,7 @@
         b {
           font-weight: 700;
           @include adaptive-value("font-size", 20, 15);
-          line-height: 130%;
-          color: #03d665;
+                    color: #03d665;
         }
 
         .aside__list {
@@ -115,8 +112,7 @@
             list-style: initial;
             font-weight: 500;
             @include adaptive-value("font-size", 15, 10);
-            line-height: 130%;
-            color: #322f55;
+                        color: #322f55;
             padding: 0 0 0 1%;
             box-sizing: border-box;
           }
@@ -130,22 +126,19 @@
         .course__title {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 10);
-          line-height: 130%;
-          color: #322f55;
+                    color: #322f55;
         }
 
         .course__creator {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
-          line-height: 130%;
-          color: #a7b0c2;
+                    color: #a7b0c2;
         }
 
         .course__duration {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
-          line-height: 130%;
-          color: #a7b0c2;
+                    color: #a7b0c2;
         }
 
         .course__rating {
@@ -156,8 +149,7 @@
           pre {
             font-weight: 500;
             @include adaptive-value("font-size", 18, 8);
-            line-height: 130%;
-            color: #ffd700;
+                        color: #ffd700;
           }
 
           ul {
@@ -171,8 +163,7 @@
         .course__language {
           font-weight: 700;
           @include adaptive-value("font-size", 15, 8);
-          line-height: 130%;
-          color: #322f55;
+                    color: #322f55;
         }
       }
 
@@ -186,8 +177,7 @@
         b {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 15);
-          line-height: 130%;
-          color: #03d665;
+                    color: #03d665;
         }
 
         .info__list {
@@ -198,8 +188,7 @@
             list-style: initial;
             font-weight: 700;
             @include adaptive-value("font-size", 15, 8);
-            line-height: 130%;
-            padding: 0 0 0 1%;
+                        padding: 0 0 0 1%;
             box-sizing: border-box;
 
             &::marker {
@@ -213,8 +202,7 @@
         b {
           font-weight: 700;
           @include adaptive-value("font-size", 25, 15);
-          line-height: 130%;
-          color: #03d665;
+                    color: #03d665;
           margin: 0 0 1%;
         }
       }
@@ -222,8 +210,7 @@
       .course__creator {
         font-weight: 700;
         @include adaptive-value("font-size", 25, 15);
-        line-height: 130%;
-        color: #03d665;
+                color: #03d665;
         margin: 0 0 1%;
       }
     }

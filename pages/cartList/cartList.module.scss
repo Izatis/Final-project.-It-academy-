@@ -1,4 +1,4 @@
-@import "./styles/varibales.module.scss";
+@import "./styles/variables.module.scss";
 
 .cart {
   @include centering();
@@ -7,8 +7,7 @@
   h2 {
     font-weight: 700;
     @include adaptive-value("font-size", 35, 20);
-    line-height: 130%;
-    color: #322f55;
+        color: #322f55;
     padding: 2% 0;
   }
 
@@ -31,16 +30,14 @@
       .aside__total {
         font-weight: 700;
         @include adaptive-value("font-size", 15, 8);
-        line-height: 130%;
-        color: #a7b0c2;
+                color: #a7b0c2;
       }
 
       .aside__price {
         white-space: nowrap;
         font-weight: 700;
         @include adaptive-value("font-size", 22, 10);
-        line-height: 130%;
-        color: #322f55;
+                color: #322f55;
       }
 
       .aside__Button {
@@ -63,8 +60,7 @@
       .cart__isEmpty {
         font-weight: 700;
         @include adaptive-value("font-size", 35, 20);
-        line-height: 130%;
-        color: #322f55;
+                color: #322f55;
         padding: 2% 5%;
       }
     }

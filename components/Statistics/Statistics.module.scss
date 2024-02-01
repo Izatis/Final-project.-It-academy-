@@ -1,4 +1,4 @@
-@import "../../styles/varibales.module.scss";
+@import "../../styles/variables.module.scss";
 
 .statistics {
   @include centering();
@@ -15,8 +15,7 @@
       .__num {
         font-weight: 700;
         @include adaptive-value("font-size", 58, 30);
-        line-height: 130%;
-        color: #03d665;
+                color: #03d665;
 
         &::after {
           content: "+";
@@ -26,8 +25,7 @@
       p {
         font-weight: 700;
         @include adaptive-value("font-size", 15, 10);
-        line-height: 130%;
-        color: #a7b0c2;
+                color: #a7b0c2;
         letter-spacing: 1px;
       }
     }
