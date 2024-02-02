@@ -24,6 +24,7 @@ export const subscription = createApi({
             ]
           : [{ type: "Subscription", id: "LIST" }],
     }),
+
     // // ---------------------------------------------------------------------------------------------------------------------------------
     // POST
     // buyСourse: build.mutation({
